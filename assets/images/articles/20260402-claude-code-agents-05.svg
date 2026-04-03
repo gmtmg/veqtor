@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" fill="none">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#0e0e1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="280" rx="12" fill="url(#bg5)"/>
+  <text x="400" y="35" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Best Practices</text>
+  <!-- Practice 1 -->
+  <g transform="translate(40, 55)">
+    <rect x="0" y="0" width="160" height="190" rx="10" fill="#00d4ff" fill-opacity="0.03" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.25"/>
+    <circle cx="80" cy="45" r="24" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.6"/>
+    <text x="80" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#00d4ff" opacity="0.8">1</text>
+    <text x="80" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Single Purpose</text>
+    <text x="80" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">1 agent = 1 role</text>
+    <text x="80" y="136" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">focused and</text>
+    <text x="80" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">specialized</text>
+    <text x="80" y="178" text-anchor="middle" font-family="monospace" font-size="9" fill="#10b981">&#x2713; code-reviewer</text>
+  </g>
+  <!-- Practice 2 -->
+  <g transform="translate(220, 55)">
+    <rect x="0" y="0" width="160" height="190" rx="10" fill="#7c3aed" fill-opacity="0.03" stroke="#7c3aed" stroke-width="1" stroke-opacity="0.25"/>
+    <circle cx="80" cy="45" r="24" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.6"/>
+    <text x="80" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#7c3aed" opacity="0.8">2</text>
+    <text x="80" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Clear Description</text>
+    <text x="80" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">Claude uses this</text>
+    <text x="80" y="136" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">to decide when</text>
+    <text x="80" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">to delegate</text>
+    <text x="80" y="178" text-anchor="middle" font-family="monospace" font-size="9" fill="#10b981">&#x2713; trigger words</text>
+  </g>
+  <!-- Practice 3 -->
+  <g transform="translate(400, 55)">
+    <rect x="0" y="0" width="160" height="190" rx="10" fill="#ff3cac" fill-opacity="0.03" stroke="#ff3cac" stroke-width="1" stroke-opacity="0.25"/>
+    <circle cx="80" cy="45" r="24" fill="none" stroke="#ff3cac" stroke-width="1.5" opacity="0.6"/>
+    <text x="80" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#ff3cac" opacity="0.8">3</text>
+    <text x="80" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Limit Tools</text>
+    <text x="80" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">minimum necessary</text>
+    <text x="80" y="136" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">tools only</text>
+    <text x="80" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">= safer agents</text>
+    <text x="80" y="178" text-anchor="middle" font-family="monospace" font-size="9" fill="#10b981">&#x2713; least privilege</text>
+  </g>
+  <!-- Practice 4 -->
+  <g transform="translate(580, 55)">
+    <rect x="0" y="0" width="160" height="190" rx="10" fill="#f59e0b" fill-opacity="0.03" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.25"/>
+    <circle cx="80" cy="45" r="24" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.6"/>
+    <text x="80" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#f59e0b" opacity="0.8">4</text>
+    <text x="80" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Version Control</text>
+    <text x="80" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">commit agents</text>
+    <text x="80" y="136" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">to git for</text>
+    <text x="80" y="152" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">team sharing</text>
+    <text x="80" y="178" text-anchor="middle" font-family="monospace" font-size="9" fill="#10b981">&#x2713; .claude/agents/</text>
+  </g>
+</svg>

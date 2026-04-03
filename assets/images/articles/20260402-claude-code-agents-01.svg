@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" fill="none">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#0e0e1c"/>
+    </linearGradient>
+    <linearGradient id="a1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="320" rx="12" fill="url(#bg1)"/>
+  <!-- What is an Agent? - Concept illustration -->
+  <!-- User -->
+  <rect x="60" y="110" width="140" height="100" rx="10" fill="none" stroke="#6b6b80" stroke-width="1.5"/>
+  <circle cx="130" cy="142" r="16" fill="none" stroke="#e0e0e0" stroke-width="1.5"/>
+  <circle cx="130" cy="136" r="6" fill="#e0e0e0" opacity="0.8"/>
+  <path d="M118 152 C118 146 142 146 142 152" stroke="#e0e0e0" stroke-width="1.5" fill="none"/>
+  <text x="130" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#e0e0e0">User</text>
+  <!-- Arrow 1 -->
+  <line x1="200" y1="160" x2="290" y2="160" stroke="url(#a1)" stroke-width="2" opacity="0.6"/>
+  <polygon points="290,155 300,160 290,165" fill="#00d4ff" opacity="0.6"/>
+  <text x="245" y="148" text-anchor="middle" font-family="monospace" font-size="10" fill="#00d4ff" opacity="0.7">prompt</text>
+  <!-- Claude Code (center) -->
+  <rect x="300" y="90" width="200" height="140" rx="12" fill="none" stroke="url(#a1)" stroke-width="2"/>
+  <rect x="300" y="90" width="200" height="140" rx="12" fill="#00d4ff" opacity="0.03"/>
+  <text x="400" y="130" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="#00d4ff">Claude Code</text>
+  <line x1="320" y1="145" x2="480" y2="145" stroke="#2a2a3e" stroke-width="1"/>
+  <text x="400" y="168" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#c8c8d0">analyzes task</text>
+  <text x="400" y="186" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#c8c8d0">delegates to agents</text>
+  <text x="400" y="204" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#c8c8d0">returns results</text>
+  <!-- Arrow 2 -->
+  <line x1="500" y1="130" x2="590" y2="100" stroke="#7c3aed" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="588,95 598,98 590,105" fill="#7c3aed" opacity="0.6"/>
+  <line x1="500" y1="160" x2="590" y2="160" stroke="#00d4ff" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="588,155 598,160 588,165" fill="#00d4ff" opacity="0.6"/>
+  <line x1="500" y1="190" x2="590" y2="220" stroke="#ff3cac" stroke-width="1.5" opacity="0.5"/>
+  <polygon points="588,215 598,222 586,224" fill="#ff3cac" opacity="0.6"/>
+  <!-- Sub-agents -->
+  <rect x="600" y="72" width="140" height="48" rx="8" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
+  <text x="670" y="100" text-anchor="middle" font-family="monospace" font-size="11" fill="#7c3aed">code-reviewer</text>
+  <rect x="600" y="136" width="140" height="48" rx="8" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+  <text x="670" y="164" text-anchor="middle" font-family="monospace" font-size="11" fill="#00d4ff">debugger</text>
+  <rect x="600" y="200" width="140" height="48" rx="8" fill="none" stroke="#ff3cac" stroke-width="1.5" opacity="0.7"/>
+  <text x="670" y="228" text-anchor="middle" font-family="monospace" font-size="11" fill="#ff3cac">seo-optimizer</text>
+  <!-- Caption -->
+  <text x="400" y="290" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#6b6b80">Claude Codeがタスクを分析し、専門エージェントに委任する流れ</text>
+</svg>

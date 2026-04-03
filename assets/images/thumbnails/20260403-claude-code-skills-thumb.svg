@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06060b"/>
+      <stop offset="100%" stop-color="#12121a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ff3cac"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.06">
+    <line x1="0" y1="75" x2="800" y2="75" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="800" y2="150" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="225" x2="800" y2="225" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="375" x2="800" y2="375" stroke="#fff" stroke-width="0.5"/>
+    <line x1="133" y1="0" x2="133" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="266" y1="0" x2="266" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="533" y1="0" x2="533" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="666" y1="0" x2="666" y2="450" stroke="#fff" stroke-width="0.5"/>
+  </g>
+  <!-- Orbs -->
+  <circle cx="180" cy="100" r="140" fill="url(#glow1)" opacity="0.6"/>
+  <circle cx="650" cy="350" r="110" fill="#7c3aed" opacity="0.07"/>
+  <!-- Slash command prompt -->
+  <rect x="220" y="110" width="360" height="44" rx="8" fill="#0e0e18" stroke="#1e1e30" stroke-width="1.5"/>
+  <text x="236" y="138" font-family="JetBrains Mono, monospace" font-size="16" fill="#6b6b80">/</text>
+  <text x="250" y="138" font-family="JetBrains Mono, monospace" font-size="16" fill="#00d4ff">skill-name</text>
+  <rect x="370" y="122" width="6" height="20" fill="#00d4ff" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Skill cards -->
+  <g transform="translate(160, 180)">
+    <rect width="145" height="90" rx="8" fill="#0e0e18" stroke="#00d4ff" stroke-width="1" opacity="0.8"/>
+    <text x="72" y="35" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" fill="#00d4ff">/fix</text>
+    <text x="72" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#6b6b80">Issue修正</text>
+  </g>
+  <g transform="translate(328, 180)">
+    <rect width="145" height="90" rx="8" fill="#0e0e18" stroke="#7c3aed" stroke-width="1" opacity="0.8"/>
+    <text x="72" y="35" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" fill="#7c3aed">/batch</text>
+    <text x="72" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#6b6b80">一括変更</text>
+  </g>
+  <g transform="translate(496, 180)">
+    <rect width="145" height="90" rx="8" fill="#0e0e18" stroke="#ff3cac" stroke-width="1" opacity="0.8"/>
+    <text x="72" y="35" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="22" fill="#ff3cac">/deploy</text>
+    <text x="72" y="60" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#6b6b80">デプロイ</text>
+  </g>
+  <!-- Connection dots -->
+  <circle cx="400" cy="170" r="3" fill="#00d4ff" opacity="0.5"/>
+  <line x1="305" y1="155" x2="400" y2="170" stroke="#00d4ff" stroke-width="0.8" opacity="0.3"/>
+  <line x1="400" y1="170" x2="495" y2="155" stroke="#7c3aed" stroke-width="0.8" opacity="0.3"/>
+  <!-- Title -->
+  <text x="400" y="340" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="800" fill="#ffffff">Claude Code Skills</text>
+  <text x="400" y="370" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#6b6b80">Slash commands for AI automation</text>
+</svg>

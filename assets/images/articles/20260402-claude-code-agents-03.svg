@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" fill="none">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#0e0e1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="380" rx="12" fill="url(#bg3)"/>
+  <!-- Code editor mockup -->
+  <!-- Editor window -->
+  <rect x="60" y="30" width="680" height="310" rx="10" fill="#0e0e18" stroke="#1e1e30" stroke-width="1.5"/>
+  <!-- Title bar -->
+  <rect x="60" y="30" width="680" height="36" rx="10" fill="#161625"/>
+  <rect x="60" y="56" width="680" height="10" fill="#161625"/>
+  <circle cx="84" cy="48" r="6" fill="#ef4444" opacity="0.8"/>
+  <circle cx="104" cy="48" r="6" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="124" cy="48" r="6" fill="#10b981" opacity="0.8"/>
+  <text x="400" y="52" text-anchor="middle" font-family="monospace" font-size="11" fill="#6b6b80">code-reviewer.md</text>
+  <!-- Code content -->
+  <g font-family="monospace" font-size="12.5">
+    <!-- YAML frontmatter -->
+    <text x="85" y="90" fill="#6b6b80">1</text>
+    <text x="115" y="90" fill="#f59e0b">---</text>
+    <text x="85" y="112" fill="#6b6b80">2</text>
+    <text x="115" y="112" fill="#ff3cac">name</text><text x="152" y="112" fill="#6b6b80">:</text><text x="165" y="112" fill="#10b981"> code-reviewer</text>
+    <text x="85" y="134" fill="#6b6b80">3</text>
+    <text x="115" y="134" fill="#ff3cac">description</text><text x="200" y="134" fill="#6b6b80">:</text><text x="213" y="134" fill="#10b981"> Code review specialist...</text>
+    <text x="85" y="156" fill="#6b6b80">4</text>
+    <text x="115" y="156" fill="#ff3cac">tools</text><text x="157" y="156" fill="#6b6b80">:</text><text x="170" y="156" fill="#10b981"> Read, Grep, Glob, Bash</text>
+    <text x="85" y="178" fill="#6b6b80">5</text>
+    <text x="115" y="178" fill="#ff3cac">model</text><text x="157" y="178" fill="#6b6b80">:</text><text x="170" y="178" fill="#10b981"> sonnet</text>
+    <text x="85" y="200" fill="#6b6b80">6</text>
+    <text x="115" y="200" fill="#f59e0b">---</text>
+    <!-- Markdown body -->
+    <text x="85" y="228" fill="#6b6b80">7</text>
+    <text x="85" y="250" fill="#6b6b80">8</text>
+    <text x="115" y="250" fill="#c8c8d0">You are a senior code reviewer.</text>
+    <text x="85" y="272" fill="#6b6b80">9</text>
+    <text x="115" y="272" fill="#c8c8d0">When invoked:</text>
+    <text x="85" y="294" fill="#6b6b80">10</text>
+    <text x="115" y="294" fill="#c8c8d0">1. Run </text><text x="172" y="294" fill="#00d4ff">git diff</text><text x="232" y="294" fill="#c8c8d0"> to see changes</text>
+    <text x="85" y="316" fill="#6b6b80">11</text>
+    <text x="115" y="316" fill="#c8c8d0">2. Review for quality and security</text>
+  </g>
+  <!-- Annotations -->
+  <g transform="translate(540, 85)">
+    <rect x="0" y="0" width="180" height="24" rx="4" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="90" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#f59e0b">YAML frontmatter</text>
+  </g>
+  <g transform="translate(540, 115)">
+    <rect x="0" y="0" width="180" height="78" rx="4" fill="#ff3cac" fill-opacity="0.06" stroke="#ff3cac" stroke-width="1" stroke-opacity="0.2"/>
+    <text x="90" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#ff3cac">required fields</text>
+    <text x="90" y="40" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b6b80">name / description</text>
+    <text x="90" y="56" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#00d4ff">optional fields</text>
+    <text x="90" y="72" text-anchor="middle" font-family="monospace" font-size="9" fill="#6b6b80">tools / model / ...</text>
+  </g>
+  <g transform="translate(540, 240)">
+    <rect x="0" y="0" width="180" height="24" rx="4" fill="#c8c8d0" fill-opacity="0.08" stroke="#c8c8d0" stroke-width="1" stroke-opacity="0.2"/>
+    <text x="90" y="16" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#c8c8d0">System prompt (body)</text>
+  </g>
+</svg>

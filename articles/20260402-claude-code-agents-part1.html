@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Codeエージェント機能 完全入門ガイド【前編】| Veqtor</title>
+    <meta name="description" content="Claude Codeのエージェント機能をゼロから解説。ターミナルの開き方からエージェントファイルの作成、実行まで、完全初心者でも手を動かしながら学べます。">
+    <meta property="og:title" content="Claude Codeエージェント機能 完全入門ガイド【前編】">
+    <meta property="og:description" content="ターミナルの開き方から最初のエージェント作成・実行まで、完全初心者でも手を動かしながら学べます。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260402-claude-code-agents-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-02">2026年4月2日</time>
+                <span class="article-category">AI</span>
+            </div>
+            <h1>Claude Codeエージェント機能 完全入門ガイド【前編】</h1>
+
+            <p>「エージェント」と聞くと難しそうに感じるかもしれませんが、実はとてもシンプルです。この前編では<strong>「ターミナルって何？」というレベルから</strong>、実際に手を動かしてエージェントを作って動かすところまで、一歩ずつ進めていきます。</p>
+
+            <p class="article-series-nav"><strong>この記事は前後編です</strong>: 前編（この記事） ｜ <a href="20260402-claude-code-agents-part2.html">後編 — 応用テクニックとベストプラクティス</a></p>
+
+            <!-- ===================== -->
+            <!-- 前提知識 -->
+            <!-- ===================== -->
+
+            <h2>まず知っておきたいこと</h2>
+
+            <p>いきなり本題に入る前に、2つの言葉を整理させてください。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/20260402-claude-code-agents-07.svg"
+                     alt="Claude CodeとAgentの違いを並べた図。Claude Codeはターミナルで動くAIアシスタント、Agentはその中の専門家"
+                     loading="lazy">
+            </figure>
+
+            <h3>Claude Codeとは？</h3>
+
+            <p><strong>Claude Code（クロード・コード）</strong>は、Anthropic社が提供するAIコーディングアシスタントです。ブラウザで使うChatGPTやClaudeとは違い、<strong>ターミナル（コマンドライン）</strong>の中で動きます。</p>
+
+            <p>「ターミナル」は、パソコンに文字で命令を出すための画面です。以下の方法で開けます。</p>
+
+            <ul>
+                <li><strong>Mac</strong>: 「アプリケーション」→「ユーティリティ」→「ターミナル」、または Spotlight（Cmd + スペース）で「ターミナル」と検索</li>
+                <li><strong>Windows</strong>: スタートメニューで「コマンドプロンプト」または「PowerShell」と検索、もしくは「Windows Terminal」を使用</li>
+                <li><strong>Linux</strong>: Ctrl + Alt + T で開くことが多いです</li>
+            </ul>
+
+            <p>ターミナルを開くと、黒い画面（または白い画面）に文字を入力できる状態になります。ここにコマンドを打ち込んでパソコンを操作します。</p>
+
+            <h3>エージェントとは？</h3>
+
+            <p>Claude Codeの<strong>エージェント</strong>とは、ひとことで言えば<strong>「専門家のメモ書き」</strong>です。</p>
+
+            <p>日常で例えるとこうです。会社に新人が入ってきたとき、「この仕事はこのやり方でやってね」というマニュアルを渡しますよね。エージェントはまさにそれと同じです。AIに「あなたはコードレビューの専門家です。こういう手順でレビューしてください」という<strong>指示書をテキストファイルで渡す</strong>仕組みです。</p>
+
+            <p>つまり、エージェントの正体は<strong>ただのテキストファイル</strong>です。プログラミングの知識は必要ありません。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/20260402-claude-code-agents-01.svg"
+                     alt="Claude Codeがユーザーのプロンプトを分析し、code-reviewer・debugger・seo-optimizerなどの専門エージェントに委任する流れを示す図"
+                     loading="lazy">
+            </figure>
+
+            <h3>なぜエージェントを使うの？</h3>
+
+            <p>普通にClaude Codeに話しかけても仕事はしてくれます。でも、毎回「あなたはコードレビューの専門家で、こういう観点でチェックして、こういう形式でレポートして...」と説明するのは大変です。</p>
+
+            <p>エージェントを作っておけば、<strong>一度指示書を書くだけで、あとは何度でも同じ品質の仕事をしてくれます</strong>。</p>
+
+            <ul>
+                <li>毎回の説明が不要になる（時間の節約）</li>
+                <li>いつも同じ品質で作業してくれる（品質の安定）</li>
+                <li>チームで共有できる（全員が同じ基準で作業）</li>
+                <li>危険な操作を制限できる（安全性の向上）</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- 前提条件の確認 -->
+            <!-- ===================== -->
+
+            <h2>始める前の準備</h2>
+
+            <p>エージェントを作る前に、以下の2つが必要です。</p>
+
+            <h3>1. Claude Codeがインストールされていること</h3>
+
+            <p>ターミナルを開いて、以下のコマンドを入力してEnterキーを押してください。</p>
+
+            <pre><code>claude --version</code></pre>
+
+            <p>バージョン番号（例: <code>1.0.12</code>）が表示されれば、すでにインストール済みです。</p>
+
+            <p>「command not found」と出た場合は、まだインストールされていません。以下のコマンドでインストールできます。</p>
+
+            <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+
+            <blockquote>
+                <p><code>npm</code>が使えない場合は、先にNode.js（ノード・ジェイエス）のインストールが必要です。<code>node --version</code>で確認してみてください。</p>
+            </blockquote>
+
+            <h3>2. 作業するプロジェクトフォルダがあること</h3>
+
+            <p>エージェントはプロジェクト（作業するフォルダ）の中に作ります。まだフォルダがない方は、以下のコマンドで作成してみましょう。</p>
+
+            <pre><code># 新しいフォルダを作る（名前は自由に変えてOK）
+mkdir my-project
+
+# そのフォルダに移動する
+cd my-project</code></pre>
+
+            <p><code>mkdir</code> は「make directory（ディレクトリを作る）」の略です。<code>cd</code> は「change directory（ディレクトリを変える）」の略で、フォルダの中に入るコマンドです。</p>
+
+            <!-- ===================== -->
+            <!-- ハンズオン開始 -->
+            <!-- ===================== -->
+
+            <h2>ハンズオン：最初のエージェントを作ろう</h2>
+
+            <p>ここからは実際に手を動かしていきます。<strong>コマンドは1行ずつコピーして、ターミナルに貼り付けて実行してください。</strong></p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/20260402-claude-code-agents-06.svg"
+                     alt="ターミナルでのステップを示す図。cd、mkdir、ファイル作成、Claude Code起動の4ステップ"
+                     loading="lazy">
+            </figure>
+
+            <h3>ステップ1：プロジェクトフォルダに移動する</h3>
+
+            <p>まず、エージェントを作りたいプロジェクトのフォルダに移動します。</p>
+
+            <pre><code>cd ~/my-project</code></pre>
+
+            <p><code>~</code>（チルダ）は「ホームフォルダ」を意味します。Macなら <code>/Users/あなたのユーザー名/</code>、Windowsなら <code>C:\Users\あなたのユーザー名\</code> のことです。</p>
+
+            <p>自分がどのフォルダにいるかわからなくなったら、以下のコマンドで確認できます。</p>
+
+            <pre><code># 今いるフォルダのパスを表示
+pwd</code></pre>
+
+            <h3>ステップ2：エージェント用のフォルダを作る</h3>
+
+            <p>次に、エージェントファイルを置くためのフォルダを作ります。</p>
+
+            <pre><code>mkdir -p .claude/agents</code></pre>
+
+            <p>このコマンドを分解すると:</p>
+            <ul>
+                <li><code>mkdir</code>: フォルダを作るコマンド</li>
+                <li><code>-p</code>: 途中のフォルダも一緒に作る（<code>.claude</code> フォルダがなくてもエラーにならない）</li>
+                <li><code>.claude/agents</code>: 作りたいフォルダのパス</li>
+            </ul>
+
+            <p>フォルダ名が <code>.claude</code>（ドットで始まる）になっているのは、「隠しフォルダ」にするためです。通常のファイル一覧には表示されませんが、ちゃんと存在しています。</p>
+
+            <p>ちゃんと作れたか確認してみましょう。</p>
+
+            <pre><code># Mac / Linux の場合（隠しフォルダも表示）
+ls -la .claude/
+
+# Windows（PowerShell）の場合
+dir .claude\</code></pre>
+
+            <p><code>agents</code> というフォルダが表示されれば成功です。</p>
+
+            <h3>ステップ3：エージェントファイルを作成する</h3>
+
+            <p>いよいよエージェントの指示書を書きます。ここでは「コードレビュー専門家」を作ります。</p>
+
+            <p>まず、空のファイルを作ります。</p>
+
+            <pre><code># Mac / Linux の場合
+touch .claude/agents/code-reviewer.md
+
+# Windows（PowerShell）の場合
+New-Item .claude/agents/code-reviewer.md</code></pre>
+
+            <p>次に、このファイルをテキストエディタで開きます。</p>
+
+            <pre><code># Mac の場合（標準テキストエディタで開く）
+open .claude/agents/code-reviewer.md
+
+# VS Code がインストールされている場合（おすすめ）
+code .claude/agents/code-reviewer.md
+
+# Windows の場合
+notepad .claude\agents\code-reviewer.md</code></pre>
+
+            <p>エディタが開いたら、<strong>以下の内容をまるごとコピーして貼り付けてください</strong>。</p>
+
+            <pre><code>---
+name: code-reviewer
+description: コードレビューの専門家。コードの品質や
+  セキュリティをチェックするときに使う。
+tools: Read, Grep, Glob, Bash
+model: sonnet
+---
+
+あなたはシニアエンジニアのコードレビュアーです。
+丁寧で建設的なレビューを行ってください。
+
+## レビュー手順
+1. まず `git diff` で変更内容を確認する
+2. 変更されたファイルを読み込む
+3. 以下の観点でチェックする
+
+## チェック観点
+- コードは読みやすいか
+- 変数名・関数名はわかりやすいか
+- 同じ処理がコピペされていないか
+- エラーが起きたときの処理があるか
+- セキュリティ的に危険な箇所がないか
+
+## レポートの書き方
+問題の深刻度で3段階に分けて報告してください：
+- Critical（すぐ直すべき）: バグやセキュリティ問題
+- Warning（直したほうがよい）: 読みやすさやパフォーマンス
+- Suggestion（できれば）: より良い書き方の提案</code></pre>
+
+            <p>貼り付けたら、ファイルを<strong>保存</strong>して閉じてください（Ctrl+S または Cmd+S）。</p>
+
+            <h3>ファイルの中身を解説</h3>
+
+            <p>今書いた内容は、大きく2つの部分に分かれています。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/20260402-claude-code-agents-03.svg"
+                     alt="code-reviewer.mdのコード例。YAML frontmatterにname・description・tools・modelフィールド、本文にシステムプロンプトを記述している"
+                     loading="lazy">
+            </figure>
+
+            <p><strong>前半：設定セクション（<code>---</code> で囲まれた部分）</strong></p>
+
+            <p>ここにエージェントの基本情報を書きます。</p>
+
+            <ul>
+                <li><strong><code>name: code-reviewer</code></strong> → エージェントの名前。英語の小文字とハイフンだけを使います</li>
+                <li><strong><code>description: ...</code></strong> → このエージェントが何をするかの説明。<strong>最も重要</strong>です。Claude Codeはこの説明を読んで「この仕事はこのエージェントに任せよう」と判断します</li>
+                <li><strong><code>tools: Read, Grep, Glob, Bash</code></strong> → エージェントが使える道具の一覧。「読み取り」と「検索」しか許可していないので、ファイルを勝手に変更される心配がありません</li>
+                <li><strong><code>model: sonnet</code></strong> → 使うAIモデル。<code>sonnet</code>はバランスのよいモデルです</li>
+            </ul>
+
+            <p><strong>後半：指示書（<code>---</code> の下の部分）</strong></p>
+
+            <p>ここには「どう振る舞ってほしいか」を自由に書きます。普通の日本語で書けます。箇条書きや番号付きリストを使うと、AIが手順を正確に理解しやすくなります。</p>
+
+            <h3>ステップ4：エージェントを使ってみる</h3>
+
+            <p>ファイルができたら、さっそく使ってみましょう。ターミナルに戻って、Claude Codeを起動します。</p>
+
+            <pre><code>claude</code></pre>
+
+            <p>Claude Codeが起動すると、入力を待つ画面が表示されます。ここに話しかけるだけです。</p>
+
+            <pre><code>コードをレビューして</code></pre>
+
+            <p>Claude Codeは先ほど作った <code>code-reviewer</code> エージェントの <code>description</code> を読んで、「レビューに関する依頼だから、このエージェントに任せよう」と自動的に判断してくれます。</p>
+
+            <p>おめでとうございます。これであなたの最初のエージェントが動きました。</p>
+
+            <!-- ===================== -->
+            <!-- 前編まとめ -->
+            <!-- ===================== -->
+
+            <h2>前編のまとめ</h2>
+
+            <p>ここまでの内容を整理します。</p>
+
+            <ol>
+                <li><strong>Claude Code</strong>はターミナルで動くAIコーディングアシスタント</li>
+                <li><strong>エージェント = テキストファイル</strong>。プログラミングの知識は不要</li>
+                <li>ファイルは<strong>2パート構成</strong>：上半分に設定（name, description, tools, model）、下半分に指示書（自由記述）</li>
+                <li>エージェントは <code>.claude/agents/</code> フォルダに置くだけで使える</li>
+                <li>呼び出しは<strong>普通に話しかけるだけ</strong>。Claude Codeが自動で適切なエージェントを選んでくれる</li>
+            </ol>
+
+            <p>前編では最初のエージェント（コードレビュアー）を作って動かすところまでを学びました。後編では、呼び出し方のバリエーション、2つ目のエージェント作成、設定の詳細、そしてうまく使いこなすコツを紹介します。</p>
+
+            <p class="article-series-nav"><a href="20260402-claude-code-agents-part2.html">後編 — 応用テクニックとベストプラクティスへ進む →</a></p>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

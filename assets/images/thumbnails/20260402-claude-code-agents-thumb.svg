@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06060b"/>
+      <stop offset="100%" stop-color="#12121a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ff3cac"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.06">
+    <line x1="0" y1="75" x2="800" y2="75" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="800" y2="150" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="225" x2="800" y2="225" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="375" x2="800" y2="375" stroke="#fff" stroke-width="0.5"/>
+    <line x1="133" y1="0" x2="133" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="266" y1="0" x2="266" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="533" y1="0" x2="533" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="666" y1="0" x2="666" y2="450" stroke="#fff" stroke-width="0.5"/>
+  </g>
+  <!-- Orbs -->
+  <circle cx="200" cy="120" r="150" fill="url(#glow1)" opacity="0.5"/>
+  <circle cx="620" cy="330" r="120" fill="#7c3aed" opacity="0.08"/>
+  <!-- Central icon: Agent nodes -->
+  <circle cx="400" cy="200" r="48" fill="none" stroke="url(#accent)" stroke-width="2.5"/>
+  <circle cx="400" cy="200" r="18" fill="#00d4ff" opacity="0.9"/>
+  <text x="400" y="207" text-anchor="middle" font-family="monospace" font-size="16" font-weight="bold" fill="#06060b">AI</text>
+  <!-- Sub-agent nodes -->
+  <circle cx="260" cy="130" r="28" fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.7"/>
+  <text x="260" y="135" text-anchor="middle" font-family="monospace" font-size="11" fill="#00d4ff" opacity="0.8">01</text>
+  <circle cx="540" cy="130" r="28" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
+  <text x="540" y="135" text-anchor="middle" font-family="monospace" font-size="11" fill="#7c3aed" opacity="0.8">02</text>
+  <circle cx="260" cy="280" r="28" fill="none" stroke="#ff3cac" stroke-width="1.5" opacity="0.7"/>
+  <text x="260" y="285" text-anchor="middle" font-family="monospace" font-size="11" fill="#ff3cac" opacity="0.8">03</text>
+  <circle cx="540" cy="280" r="28" fill="none" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
+  <text x="540" y="285" text-anchor="middle" font-family="monospace" font-size="11" fill="#10b981" opacity="0.8">04</text>
+  <!-- Connection lines -->
+  <line x1="350" y1="182" x2="288" y2="148" stroke="#00d4ff" stroke-width="1" opacity="0.4"/>
+  <line x1="450" y1="182" x2="512" y2="148" stroke="#7c3aed" stroke-width="1" opacity="0.4"/>
+  <line x1="350" y1="220" x2="288" y2="262" stroke="#ff3cac" stroke-width="1" opacity="0.4"/>
+  <line x1="450" y1="220" x2="512" y2="262" stroke="#10b981" stroke-width="1" opacity="0.4"/>
+  <!-- Title -->
+  <text x="400" y="385" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="800" fill="#ffffff">Claude Code Agents</text>
+  <text x="400" y="418" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#6b6b80">AI-powered sub-agent orchestration</text>
+</svg>

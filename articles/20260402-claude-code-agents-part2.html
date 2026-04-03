@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Codeエージェント機能 完全入門ガイド【後編】| Veqtor</title>
+    <meta name="description" content="エージェントの呼び出し方、設定フィールド一覧、ベストプラクティスなど、Claude Codeエージェントを使いこなすための応用テクニックを解説します。">
+    <meta property="og:title" content="Claude Codeエージェント機能 完全入門ガイド【後編】">
+    <meta property="og:description" content="エージェントの呼び出し方バリエーション、設定の詳細、うまく使いこなすコツを紹介します。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260402-claude-code-agents-part2-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-02">2026年4月2日</time>
+                <span class="article-category">AI</span>
+            </div>
+            <h1>Claude Codeエージェント機能 完全入門ガイド【後編】</h1>
+
+            <p><a href="20260402-claude-code-agents-part1.html">前編</a>では、エージェントの基本概念と最初のエージェント（コードレビュアー）の作成・実行まで学びました。この後編では、<strong>呼び出し方のバリエーション、2つ目のエージェント作成、設定の詳細、そしてうまく使いこなすコツ</strong>を紹介します。</p>
+
+            <p class="article-series-nav"><strong>この記事は前後編です</strong>: <a href="20260402-claude-code-agents-part1.html">前編 — はじめてのエージェント作成</a> ｜ 後編（この記事）</p>
+
+            <!-- ===================== -->
+            <!-- 呼び出し方法 -->
+            <!-- ===================== -->
+
+            <h2>エージェントの呼び出し方いろいろ</h2>
+
+            <p>前編では自然に話しかけるだけで動きましたが、他にもいくつかの呼び出し方があります。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/20260402-claude-code-agents-04.svg"
+                     alt="5つの呼び出し方法を示す図。Natural Language、@Mention、CLI Flag、/agents Command、Resumeの5種類"
+                     loading="lazy">
+            </figure>
+
+            <h3>方法1：自然に話しかける（いちばん簡単）</h3>
+
+            <pre><code>このコードをレビューして</code></pre>
+            <p>Claude Codeが自動的に適切なエージェントを選んでくれます。</p>
+
+            <h3>方法2：@メンションで名指しする（確実に呼び出せる）</h3>
+
+            <pre><code>@"code-reviewer" src/login.js を確認して</code></pre>
+            <p>「このエージェントを絶対に使って」と明示的に指定できます。</p>
+
+            <h3>方法3：起動時にエージェントを指定する</h3>
+
+            <pre><code>claude --agent code-reviewer</code></pre>
+            <p>このセッション（会話）全体を、ずっとcode-reviewerとしてやり取りするモードです。</p>
+
+            <h3>方法4：一覧から選ぶ</h3>
+
+            <p>Claude Code起動中に以下を入力します。</p>
+
+            <pre><code>/agents</code></pre>
+            <p>使えるエージェントの一覧が出てきて、選択できます。新しいエージェントを作ることもできます。</p>
+
+            <p>最初は<strong>方法1（自然に話しかける）</strong>だけ覚えておけば十分です。慣れてきたら他の方法も試してみてください。</p>
+
+            <!-- ===================== -->
+            <!-- 2つ目のエージェント -->
+            <!-- ===================== -->
+
+            <h2>もう1つ作ってみよう：バグ修正エージェント</h2>
+
+            <p>コツをつかんだところで、もう1つ作ってみましょう。今度はバグを見つけて直してくれるエージェントです。</p>
+
+            <h3>ステップ1：ファイルを作る</h3>
+
+            <pre><code># Mac / Linux
+touch .claude/agents/debugger.md
+
+# Windows（PowerShell）
+New-Item .claude\agents\debugger.md</code></pre>
+
+            <h3>ステップ2：内容を書く</h3>
+
+            <p>エディタで開いて、以下を貼り付けて保存してください。</p>
+
+            <pre><code>---
+name: debugger
+description: バグ修正の専門家。エラーが出たときや、
+  プログラムが期待通りに動かないときに使う。
+tools: Read, Edit, Write, Bash, Grep, Glob
+model: sonnet
+---
+
+あなたはデバッグ（バグ修正）の専門家です。
+
+## 作業手順
+1. エラーメッセージを確認する
+2. 問題が起きているファイルを探す
+3. 原因を特定する
+4. 最小限の修正を行う
+5. 修正後に動作を確認する
+
+## 報告の仕方
+修正するたびに以下を教えてください：
+- 何が原因だったか（わかりやすく）
+- 何をどう直したか
+- 同じ問題が再発しないためのアドバイス</code></pre>
+
+            <h3>最初のエージェントとの違いに注目</h3>
+
+            <p>コードレビュアーとデバッガーの<code>tools</code>を比べてみてください。</p>
+
+            <pre><code># コードレビュアー（読むだけ）
+tools: Read, Grep, Glob, Bash
+
+# デバッガー（読む＋直す）
+tools: Read, Edit, Write, Bash, Grep, Glob</code></pre>
+
+            <p>デバッガーには <code>Edit</code>（既存ファイルの修正）と <code>Write</code>（新しいファイルの作成）が追加されています。バグを直すためにはファイルの書き換えが必要だからです。</p>
+
+            <p>一方、コードレビュアーにはこれらの権限を与えていません。レビューの目的は「読んで指摘する」ことなので、ファイルを変更する必要がないからです。<strong>必要な権限だけを与える</strong>ことで、意図しない変更を防げます。</p>
+
+            <!-- ===================== -->
+            <!-- ファイル配置 -->
+            <!-- ===================== -->
+
+            <h2>エージェントファイルの置き場所</h2>
+
+            <p>エージェントファイルは2つの場所に置けます。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/20260402-claude-code-agents-02.svg"
+                     alt="エージェントファイルの配置場所とスコープの関係を示す図。プロジェクト、ユーザー、組織の3つのスコープがある"
+                     loading="lazy">
+            </figure>
+
+            <h3>場所A：プロジェクトの中（おすすめ）</h3>
+
+            <pre><code>my-project/.claude/agents/code-reviewer.md</code></pre>
+
+            <p>そのプロジェクト内でだけ使えるエージェントです。チームメンバーと共有したいエージェントはここに置きます。Git（バージョン管理）にも含めることができます。</p>
+
+            <h3>場所B：ホームフォルダ（個人用）</h3>
+
+            <pre><code>~/.claude/agents/code-reviewer.md</code></pre>
+
+            <p>すべてのプロジェクトで使えるエージェントです。自分だけが使う便利ツール的なエージェントはここに置くとよいでしょう。</p>
+
+            <pre><code># 個人用のフォルダを作成
+mkdir -p ~/.claude/agents</code></pre>
+
+            <p>迷ったら<strong>場所A（プロジェクトの中）</strong>を選んでおけば大丈夫です。</p>
+
+            <!-- ===================== -->
+            <!-- 設定フィールド -->
+            <!-- ===================== -->
+
+            <h2>設定フィールド一覧</h2>
+
+            <p>エージェントファイルの設定セクション（<code>---</code>で囲まれた部分）で使えるフィールドを整理します。</p>
+
+            <h3>まず覚える2つ（必須）</h3>
+
+            <p><strong><code>name</code></strong>: エージェントの名前です。</p>
+            <ul>
+                <li>英語の小文字とハイフンだけ使えます</li>
+                <li>例: <code>code-reviewer</code>、<code>debugger</code>、<code>doc-writer</code></li>
+            </ul>
+
+            <p><strong><code>description</code></strong>: エージェントの説明です。</p>
+            <ul>
+                <li>Claude Codeがこの文章を読んで「どのエージェントに任せるか」を決めます</li>
+                <li><strong>「いつ使うか」を必ず含めてください</strong>（例: 「コードを書いた後に使う」「エラーが出たときに使う」）</li>
+            </ul>
+
+            <h3>次に覚える2つ（よく使う）</h3>
+
+            <p><strong><code>tools</code></strong>: 使える道具のリストです。</p>
+
+            <pre><code># よく使う組み合わせ例
+
+# 読むだけ（安全）
+tools: Read, Grep, Glob
+
+# 読む＋コマンド実行
+tools: Read, Grep, Glob, Bash
+
+# 読む＋書く（フル権限）
+tools: Read, Write, Edit, Bash, Grep, Glob</code></pre>
+
+            <p><strong><code>model</code></strong>: どのAIモデルを使うかです。</p>
+
+            <pre><code>model: haiku    # 軽い作業向き（速い・安い）
+model: sonnet   # 普通の作業（バランス良し）★おすすめ
+model: opus     # 難しい作業（高性能・高コスト）</code></pre>
+
+            <h3>慣れたら試す（オプション）</h3>
+
+            <ul>
+                <li><code>maxTurns: 10</code> → 最大10回まで作業する（暴走防止に便利）</li>
+                <li><code>memory: project</code> → 前回の会話を覚えておく（使うほど賢くなる）</li>
+                <li><code>background: true</code> → 裏側で作業する（待たなくていい）</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- ベストプラクティス -->
+            <!-- ===================== -->
+
+            <h2>うまくいく4つのコツ</h2>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/20260402-claude-code-agents-05.svg"
+                     alt="4つのベストプラクティス。Single Purpose、Clear Description、Limit Tools、Version Controlを示すカード型の図"
+                     loading="lazy">
+            </figure>
+
+            <h3>コツ1：1つのエージェントには1つの役割だけ</h3>
+
+            <p>「レビューもデバッグもテストもやる」エージェントは作らないでください。器用貧乏になります。「コードレビュー専門」「デバッグ専門」のように分けたほうが、それぞれの品質が上がります。</p>
+
+            <h3>コツ2：descriptionに「いつ使うか」を書く</h3>
+
+            <pre><code># NG: 何をする人なのかわからない
+description: コードを見るエージェント
+
+# OK: いつ使うかが明確
+description: コードレビューの専門家。コードを書いた後
+  や変更した後に使う。品質とセキュリティをチェックする。</code></pre>
+
+            <h3>コツ3：道具（tools）は必要最小限にする</h3>
+
+            <p>「念のため全部入れておこう」ではなく、本当に必要なものだけにしましょう。レビューするだけなら読み取り権限だけで十分です。</p>
+
+            <h3>コツ4：手順を番号付きで書く</h3>
+
+            <p>指示書の本文には、「1. まずこれをやる」「2. 次にこれをやる」と番号で手順を書きましょう。AIは曖昧な指示より、明確な手順のほうが正確に動いてくれます。</p>
+
+            <!-- ===================== -->
+            <!-- フォルダ構成の確認 -->
+            <!-- ===================== -->
+
+            <h2>最終確認：ここまでの作業を振り返る</h2>
+
+            <p>前編と後編を通して、プロジェクトのフォルダは以下のようになっているはずです。</p>
+
+            <pre><code>my-project/
+└── .claude/
+    └── agents/
+        ├── code-reviewer.md   ← レビュー専門家
+        └── debugger.md        ← バグ修正専門家</code></pre>
+
+            <p>確認コマンド:</p>
+
+            <pre><code># Mac / Linux
+ls -la .claude/agents/
+
+# Windows（PowerShell）
+dir .claude\agents\</code></pre>
+
+            <p>2つのファイルが表示されれば成功です。Claude Codeを起動すれば、これらのエージェントを使えます。</p>
+
+            <pre><code># Claude Codeを起動
+claude
+
+# あとは話しかけるだけ
+このコードをレビューして
+# → code-reviewer が自動的に対応
+
+エラーの原因を調べて直して
+# → debugger が自動的に対応</code></pre>
+
+            <!-- ===================== -->
+            <!-- 後編まとめ -->
+            <!-- ===================== -->
+
+            <h2>後編のまとめ</h2>
+
+            <p>後編で学んだ内容を整理します。</p>
+
+            <ol>
+                <li><strong>呼び出し方は4種類</strong>。自然に話しかける、@メンション、CLIフラグ、/agentsコマンド。まずは「話しかけるだけ」でOK</li>
+                <li><strong>toolsで権限を制御する</strong>。レビュー用は読み取り権限のみ、修正用は書き込み権限も付与するなど、用途に応じて使い分ける</li>
+                <li><strong>必須は2つだけ</strong>。<code>name</code>（名前）と <code>description</code>（説明）さえあれば動く</li>
+                <li><strong>1エージェント1役割</strong>が原則。専門性を高めるほうが品質が上がる</li>
+                <li><strong>まずは1つ作ってみる</strong>のが一番の近道。失敗してもファイルを消すだけでやり直せる</li>
+            </ol>
+
+            <p>前後編を通して紹介したコマンドを上から順に実行すれば、10分もかからずにエージェントを動かせるはずです。まずはコードレビュアーを作るところから、ぜひ試してみてください。</p>
+
+            <p class="article-series-nav"><a href="20260402-claude-code-agents-part1.html">← 前編 — はじめてのエージェント作成に戻る</a></p>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

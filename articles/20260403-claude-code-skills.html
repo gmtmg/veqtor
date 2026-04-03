@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化 | Veqtor</title>
+    <meta name="description" content="Claude Code Skillsの作り方・使い方をゼロから解説。スラッシュコマンドで繰り返し作業を自動化する方法を、実際の体験談とともに紹介します。">
+    <meta property="og:title" content="Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化">
+    <meta property="og:description" content="Skillsの仕組みと作り方を初心者向けに解説。エージェントとの違い、実際に使ってみた所感も紹介。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260403-claude-code-skills-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-03">2026年4月3日</time>
+                <span class="article-category">AI</span>
+            </div>
+            <h1>Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化</h1>
+
+            <p>Claude Codeを使っていて「この作業、毎回同じ手順を説明しているな」と感じたことはありませんか。<strong>Skills（スキル）</strong>を使えば、その手順を一度書くだけで、<code>/スキル名</code> とスラッシュコマンドを打つだけで何度でも再現できます。</p>
+
+            <p>この記事では、Skillsを<strong>まったく知らない状態</strong>から、自分で作って動かすところまでを一歩ずつ解説します。筆者が実際にSkillsを使ってみた所感もお伝えします。</p>
+
+            <p class="article-series-nav"><strong>関連記事</strong>: <a href="20260402-claude-code-agents-part1.html">Claude Codeエージェント機能 完全入門ガイド【前編】</a> ｜ <a href="20260402-claude-code-agents-part2.html">【後編】</a></p>
+
+            <!-- ===================== -->
+            <!-- Skillsとは -->
+            <!-- ===================== -->
+
+            <h2>Skillsとは何か</h2>
+
+            <p>ひとことで言えば、<strong>「Claudeに渡すレシピ（手順書）」</strong>です。</p>
+
+            <p>料理のレシピと同じです。「カレーの作り方」を一度メモしておけば、誰でも何度でも同じ味を再現できますよね。Skillsもまったく同じ考え方で、AIに対して「このタスクはこの手順でやってね」という指示書をファイルで渡します。</p>
+
+            <p>Skillsの正体は <code>SKILL.md</code> というテキストファイルです。このファイルを所定のフォルダに置くだけで、Claude Codeが自動的に認識してくれます。</p>
+
+            <h3>できることの例</h3>
+
+            <ul>
+                <li><code>/fix-issue 123</code> → GitHub Issue #123を読んで、コードを修正してコミット</li>
+                <li><code>/deploy staging</code> → ステージング環境へのデプロイ手順を自動実行</li>
+                <li><code>/review</code> → プロジェクト固有のルールに沿ったコードレビュー</li>
+                <li><code>/batch "全ファイルのログ形式を統一"</code> → 大規模な一括変更を並列処理</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- エージェントとの違い -->
+            <!-- ===================== -->
+
+            <h2>エージェントとSkillsの違い</h2>
+
+            <p><a href="20260402-claude-code-agents-part1.html">以前の記事</a>で紹介したエージェント（サブエージェント）と何が違うのか、疑問に思う方も多いでしょう。</p>
+
+            <p>ひとことで区別するなら、こうです。</p>
+
+            <ul>
+                <li><strong>Skills = レシピ</strong>: メインの会話の中でClaudeが参照する手順書</li>
+                <li><strong>エージェント = 専門家</strong>: 独立した作業空間を持つ別のAI担当者</li>
+            </ul>
+
+            <p>レストランに例えると、Skillsは「レシピブック」で、エージェントは「専門のシェフ」です。シェフは自分のキッチン（独立したコンテキスト）で作業しますが、レシピブックはどのシェフでも参照できます。</p>
+
+            <h3>使い分けの目安</h3>
+
+            <pre><code># Skillsが向いているケース
+- プロジェクト固有のコーディング規約を守らせたい
+- 毎回同じ手順のタスクをスラッシュコマンドで呼びたい
+- チーム全員で同じ作業品質を保ちたい
+
+# エージェントが向いているケース
+- 大量のファイルを調査する重い作業を委任したい
+- メインの会話を汚さず裏側で作業させたい
+- 独立したツール権限で安全に実行したい</code></pre>
+
+            <p>迷ったら、まずSkillsを試してみてください。Skillsのほうが軽量で手軽に始められます。</p>
+
+            <!-- ===================== -->
+            <!-- 仕組み -->
+            <!-- ===================== -->
+
+            <h2>Skillsの仕組み — なぜ軽量なのか</h2>
+
+            <p>Skillsには<strong>段階的読み込み（Progressive Disclosure）</strong>という賢い仕組みがあります。</p>
+
+            <ol>
+                <li><strong>起動時</strong>: スキル名と説明文だけを読み込む（1スキルあたり約100トークン）</li>
+                <li><strong>呼び出し時</strong>: <code>SKILL.md</code> の本文を読み込む</li>
+                <li><strong>必要時</strong>: 補助ファイル（テンプレートや参考資料）を読み込む</li>
+            </ol>
+
+            <p>つまり、スキルを100個登録していても、起動時のコンテキスト消費はわずかです。実際に使うスキルだけが詳細に読み込まれます。エージェントのように毎回独立プロセスを起動するわけではないので、応答も速いです。</p>
+
+            <!-- ===================== -->
+            <!-- ハンズオン -->
+            <!-- ===================== -->
+
+            <h2>ハンズオン: 最初のSkillを作ろう</h2>
+
+            <p>ここからは手を動かしていきます。「コミットメッセージの規約チェッカー」を作ってみましょう。</p>
+
+            <h3>ステップ1: フォルダを作る</h3>
+
+            <p>Skillsは <code>.claude/skills/スキル名/</code> というフォルダ構成で管理します。</p>
+
+            <pre><code># プロジェクトのルートで実行
+mkdir -p .claude/skills/commit-check</code></pre>
+
+            <p>エージェントの <code>.claude/agents/エージェント名.md</code> とは異なり、Skillsは<strong>フォルダの中に <code>SKILL.md</code> を置く</strong>形式です。フォルダにすることで、テンプレートや補助ファイルも一緒に管理できます。</p>
+
+            <h3>ステップ2: SKILL.mdを書く</h3>
+
+            <p>フォルダの中に <code>SKILL.md</code> ファイルを作ります。</p>
+
+            <pre><code># ファイルを作成して開く（VS Codeの場合）
+code .claude/skills/commit-check/SKILL.md</code></pre>
+
+            <p>以下の内容を貼り付けて保存してください。</p>
+
+            <pre><code>---
+name: commit-check
+description: コミットメッセージの規約チェック。コミット前や
+  コミットメッセージを書くときに使う。
+---
+
+コミットメッセージが以下の規約に沿っているかチェックしてください。
+
+## 規約
+
+形式: `type(scope): 説明文`
+
+### typeの種類
+- feat: 新機能
+- fix: バグ修正
+- docs: ドキュメントのみの変更
+- style: コードの意味に影響しない変更（空白、フォーマットなど）
+- refactor: バグ修正でも新機能でもないコード変更
+- test: テストの追加・修正
+- chore: ビルドプロセスや補助ツールの変更
+
+### ルール
+1. typeは小文字の英語
+2. scopeは省略可だがあると望ましい
+3. 説明文は日本語OK、50文字以内
+4. 本文が必要なら空行を挟んで追記
+
+### 良い例
+- feat(auth): ログイン画面にOAuth対応を追加
+- fix(api): ユーザー検索のページネーションを修正
+- docs: READMEにセットアップ手順を追記
+
+### 悪い例
+- Update files（typeなし、説明が曖昧）
+- FIX: bug（大文字、説明不足）</code></pre>
+
+            <h3>ステップ3: 使ってみる</h3>
+
+            <p>Claude Codeを起動して、スラッシュコマンドで呼び出します。</p>
+
+            <pre><code># Claude Codeを起動
+claude
+
+# スラッシュコマンドで呼び出す
+/commit-check "Fixed the bug in login"</code></pre>
+
+            <p>Claudeがコミットメッセージの規約を読み込み、「<code>Fixed the bug in login</code> は規約に沿っていません。<code>fix(auth): ログインのバグを修正</code> のように書き直しましょう」と教えてくれます。</p>
+
+            <p>また、スラッシュコマンドを使わなくても、「このコミットメッセージをチェックして」と自然に話しかけるだけでClaudeが自動的にこのスキルを見つけて適用してくれます。これが<strong>自動発見（Auto-discovery）</strong>の仕組みです。</p>
+
+            <!-- ===================== -->
+            <!-- SKILL.mdの構造 -->
+            <!-- ===================== -->
+
+            <h2>SKILL.mdの構造を理解する</h2>
+
+            <p>先ほど書いた内容を分解して見てみましょう。</p>
+
+            <h3>前半: フロントマター（設定）</h3>
+
+            <p><code>---</code> で囲まれた部分がYAML形式の設定です。</p>
+
+            <pre><code>---
+name: commit-check
+description: コミットメッセージの規約チェック。コミット前や
+  コミットメッセージを書くときに使う。
+---</code></pre>
+
+            <p>最低限必要なのはこの2つだけです。</p>
+
+            <ul>
+                <li><strong><code>name</code></strong>: スキル名。小文字・数字・ハイフンのみ。<code>/名前</code> でスラッシュコマンドになる</li>
+                <li><strong><code>description</code></strong>: スキルの説明。<strong>「いつ使うか」を含める</strong>のが重要。Claudeはこの説明を見て自動発見する</li>
+            </ul>
+
+            <h3>後半: 本文（指示書）</h3>
+
+            <p><code>---</code> の下に書く部分です。Markdownで自由に書けます。ここにClaudeへの具体的な指示を記述します。</p>
+
+            <h3>よく使うオプション設定</h3>
+
+            <p>フロントマターには他にも便利な設定があります。慣れてきたら使ってみてください。</p>
+
+            <pre><code>---
+name: deploy
+description: ステージング環境にデプロイする。
+  「デプロイして」と言われたときに使う。
+# ↓ ここからオプション
+argument-hint: &lt;environment&gt;
+disable-model-invocation: true
+allowed-tools: Bash(git *) Bash(npm *)
+---</code></pre>
+
+            <ul>
+                <li><strong><code>argument-hint</code></strong>: <code>/deploy</code> と打ったときに表示されるヒント。「何を渡せばいいか」がわかる</li>
+                <li><strong><code>disable-model-invocation: true</code></strong>: 自動発見を無効化し、<code>/名前</code> でしか呼べなくする。デプロイのような危険な操作に便利</li>
+                <li><strong><code>allowed-tools</code></strong>: このスキル実行中に許可するツール。権限を最小限にできる</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- エージェントとの構造比較 -->
+            <!-- ===================== -->
+
+            <h2>エージェントとの書き方の違い</h2>
+
+            <p>すでに<a href="20260402-claude-code-agents-part1.html">エージェント機能</a>を使っている方は、違いが気になるでしょう。並べて比較します。</p>
+
+            <pre><code># エージェント（.claude/agents/code-reviewer.md）
+---
+name: code-reviewer
+description: コードレビューの専門家。
+tools: Read, Grep, Glob, Bash     ← エージェント固有
+model: sonnet                     ← エージェント固有
+---
+指示書の本文...
+
+
+# Skill（.claude/skills/code-review/SKILL.md）
+---
+name: code-review
+description: コードレビューの手順書。
+allowed-tools: Read Grep Glob     ← Skill固有（スペース区切り）
+---
+指示書の本文...</code></pre>
+
+            <p>主な違いは3つです。</p>
+
+            <ol>
+                <li><strong>ファイル配置</strong>: エージェントは1ファイル、Skillsはフォルダ+<code>SKILL.md</code></li>
+                <li><strong>ツール指定</strong>: エージェントは <code>tools</code>（カンマ区切り）、Skillsは <code>allowed-tools</code>（スペース区切り）</li>
+                <li><strong>実行方式</strong>: エージェントは独立コンテキスト、Skillsはメイン会話内で実行</li>
+            </ol>
+
+            <!-- ===================== -->
+            <!-- ファイル配置 -->
+            <!-- ===================== -->
+
+            <h2>Skillsの配置場所</h2>
+
+            <p>Skillsは3つの場所に置けます。優先順位が高い方が上書きします。</p>
+
+            <pre><code># 1. 個人用（すべてのプロジェクトで使える）
+~/.claude/skills/スキル名/SKILL.md
+
+# 2. プロジェクト用（チームで共有できる）← おすすめ
+プロジェクト/.claude/skills/スキル名/SKILL.md
+
+# 3. 組織用（Enterprise管理）
+管理設定から配布</code></pre>
+
+            <p>迷ったら<strong>プロジェクト用</strong>に置きましょう。Gitで共有すれば、チーム全員が同じスキルを使えます。</p>
+
+            <h3>補助ファイルを追加する</h3>
+
+            <p>Skillsがフォルダ形式な理由は、補助ファイルを置けるからです。</p>
+
+            <pre><code>commit-check/
+├── SKILL.md           ← 本体（必須）
+├── template.md        ← テンプレート（任意）
+├── examples/          ← 具体例（任意）
+│   ├── good.md
+│   └── bad.md
+└── scripts/           ← 補助スクリプト（任意）
+    └── validate.sh</code></pre>
+
+            <p><code>SKILL.md</code> の本文から <code>template.md を参照して</code> と書けば、Claudeが必要なタイミングで読み込んでくれます。</p>
+
+            <!-- ===================== -->
+            <!-- 組み込みスキル -->
+            <!-- ===================== -->
+
+            <h2>すぐに使える組み込みスキル</h2>
+
+            <p>Claude Codeには最初から使えるスキルが搭載されています。自分で作らなくても、すぐに試せます。</p>
+
+            <h3>/batch — 大規模な一括変更</h3>
+
+            <pre><code>/batch src/以下の全コンポーネントにエラーバウンダリを追加</code></pre>
+
+            <p>指示を受けると、Claudeが対象ファイルを調査し、5〜30の作業単位に分解します。各単位ごとに並列でエージェントを起動し、それぞれが実装・テスト・コミットまで行います。大量のファイルを変更する作業に威力を発揮します。</p>
+
+            <h3>/simplify — コード品質レビュー</h3>
+
+            <pre><code>/simplify src/auth/</code></pre>
+
+            <p>最近変更したファイルを対象に、3つの並列エージェントがコードの再利用性・品質・効率性を同時にレビューします。リファクタリングの指針を得たいときに便利です。</p>
+
+            <h3>/debug — デバッグログの分析</h3>
+
+            <pre><code>/debug APIレスポンスが空になる</code></pre>
+
+            <p>デバッグログを有効にして、セッション中の問題を調査します。エラーの原因を特定するのに役立ちます。</p>
+
+            <!-- ===================== -->
+            <!-- 動的コンテキスト -->
+            <!-- ===================== -->
+
+            <h2>応用テクニック: 動的コンテキスト注入</h2>
+
+            <p>Skillsの強力な機能の一つが<strong>動的コンテキスト注入</strong>です。<code>SKILL.md</code>の中でシェルコマンドを実行し、その結果をClaudeに渡せます。</p>
+
+            <pre><code>---
+name: pr-review
+description: プルリクエストのレビュー。PRレビューを
+  依頼されたときに使う。
+---
+
+以下のPR情報をもとにレビューしてください。
+
+## PR情報
+- 差分: !`gh pr diff`
+- コメント: !`gh pr view --comments`
+- 変更ファイル: !`gh pr diff --name-only`
+
+## レビュー観点
+1. コーディング規約に沿っているか
+2. テストが追加されているか
+3. セキュリティ上の問題がないか</code></pre>
+
+            <p><code>!`コマンド`</code> と書くと、スキルが呼び出された瞬間にそのコマンドが実行され、結果がClaudeに渡されます。毎回手動でGitHub CLIの出力を貼り付ける手間がなくなります。</p>
+
+            <p>引数も使えます。<code>$ARGUMENTS</code> でスラッシュコマンドの引数を受け取れます。</p>
+
+            <pre><code>---
+name: fix-issue
+description: GitHub Issueを修正する。
+argument-hint: &lt;issue-number&gt;
+disable-model-invocation: true
+---
+
+GitHub Issue #$ARGUMENTS を修正してください。
+
+## Issue情報
+!`gh issue view $ARGUMENTS`</code></pre>
+
+            <p><code>/fix-issue 42</code> と打つと、Issue #42の内容が自動で取得されてClaudeに渡されます。</p>
+
+            <!-- ===================== -->
+            <!-- 使ってみた所感 -->
+            <!-- ===================== -->
+
+            <h2>実際に使ってみた所感</h2>
+
+            <p>ここからは、筆者がSkillsを実際に使ってみて感じたことをお伝えします。</p>
+
+            <h3>作成は驚くほど簡単だった</h3>
+
+            <p>最初にSkillsの存在を知ったとき、「エージェントとどう違うのか」「設定が複雑なのでは」と身構えました。しかし、実際に手を動かしてみると、<code>mkdir</code> でフォルダを作り、<code>SKILL.md</code> にMarkdownを書くだけ。<strong>最初のスキルは5分もかからず</strong>動きました。</p>
+
+            <p>特に嬉しかったのは、<code>name</code> と <code>description</code> の2つさえ書けば最低限動くことです。エージェントと同じ感覚で始められます。</p>
+
+            <h3>自動発見の精度に驚いた</h3>
+
+            <p>コミットメッセージ規約のスキルを作って、「このメッセージを確認して」と頼んだところ、<code>/commit-check</code> と明示しなくても自動的にスキルが適用されました。<code>description</code> に「コミット前やコミットメッセージを書くときに使う」と書いたおかげです。</p>
+
+            <p>逆に、デプロイ用スキルは <code>disable-model-invocation: true</code> にして自動発見を切りました。間違って実行されると困る操作には、このオプションが心強いです。</p>
+
+            <h3>エージェントとの使い分けが見えてきた</h3>
+
+            <p>しばらく使ってみて、自分なりの使い分け基準ができました。</p>
+
+            <ul>
+                <li><strong>「手順を教える」ならSkills</strong>: コーディング規約、コミットルール、レビュー観点など、「こうやってね」と伝えるだけのもの</li>
+                <li><strong>「仕事を任せる」ならエージェント</strong>: 50ファイルのリファクタリング、複雑な調査など、独立した作業空間が必要なもの</li>
+            </ul>
+
+            <p>最初はすべてエージェントで作っていましたが、今は半分以上をSkillsに移行しています。メインの会話内で実行されるため、結果をそのまま会話の流れで確認できるのが便利です。</p>
+
+            <h3>補助ファイルが地味に便利</h3>
+
+            <p>フォルダ形式のおかげで、テンプレートファイルや具体例を一緒に管理できます。たとえば、PR作成スキルに <code>template.md</code> を同梱しておくと、毎回同じフォーマットのPR説明文を生成してくれます。</p>
+
+            <p>エージェントの場合は1ファイルにすべて詰め込む必要がありましたが、Skillsなら <code>SKILL.md</code> は簡潔に保ちつつ、詳細は別ファイルに分けられます。</p>
+
+            <h3>注意点: descriptionの書き方で精度が変わる</h3>
+
+            <p>一つ失敗談もあります。最初に <code>description</code> を「コードを整理するスキル」とだけ書いたところ、意図しないタイミングで発動してしまいました。「<strong>いつ使うか</strong>」を明確に書くことが本当に大事です。「リファクタリングを依頼されたときに使う」のように具体的なトリガーを含めると、誤発動がなくなりました。</p>
+
+            <!-- ===================== -->
+            <!-- ベストプラクティス -->
+            <!-- ===================== -->
+
+            <h2>うまくいく5つのコツ</h2>
+
+            <h3>コツ1: descriptionに「いつ使うか」を書く</h3>
+
+            <pre><code># NG: 曖昧
+description: コードに関するスキル
+
+# OK: トリガーが明確
+description: コミットメッセージの規約チェック。
+  コミット前やコミットメッセージを書くときに使う。</code></pre>
+
+            <h3>コツ2: 危険な操作は自動発見をオフに</h3>
+
+            <p>デプロイ、データ削除、本番環境への変更など、間違って実行されたら困るスキルには <code>disable-model-invocation: true</code> を設定しましょう。</p>
+
+            <h3>コツ3: SKILL.mdは500行以内に</h3>
+
+            <p>長すぎるとClaudeの処理効率が下がります。詳しい情報は別ファイルに分離して、<code>SKILL.md</code> では概要と手順だけを書きましょう。</p>
+
+            <h3>コツ4: 既存の知識は書かなくていい</h3>
+
+            <p>Claudeはすでに多くのプログラミング知識を持っています。「JavaScriptの変数の使い方」のような一般知識は書く必要がありません。<strong>プロジェクト固有のルール</strong>だけを書くのがポイントです。</p>
+
+            <h3>コツ5: まず1つ作って試す</h3>
+
+            <p>完璧なスキルを最初から作ろうとしないでください。最小限の内容で動かしてみて、使いながら改善していくのが一番です。失敗してもファイルを消すだけでやり直せます。</p>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2>まとめ</h2>
+
+            <p>この記事のポイントを整理します。</p>
+
+            <ol>
+                <li><strong>Skills = レシピ</strong>。<code>.claude/skills/名前/SKILL.md</code> を置くだけで使える</li>
+                <li><strong>必須は2つだけ</strong>。<code>name</code> と <code>description</code> さえあれば動く</li>
+                <li><strong>スラッシュコマンド</strong>で呼べる。<code>/スキル名</code> と打つだけ</li>
+                <li><strong>自動発見</strong>もできる。descriptionに「いつ使うか」を書けば、自然な会話から自動適用</li>
+                <li><strong>エージェントとは別物</strong>。Skillsは軽量な手順書、エージェントは独立した専門家</li>
+                <li><strong>組み込みスキル</strong>もある。<code>/batch</code>、<code>/simplify</code>、<code>/debug</code> は今すぐ使える</li>
+            </ol>
+
+            <p>まずは <code>mkdir -p .claude/skills/my-first-skill</code> でフォルダを作るところから始めてみてください。5分後には最初のスキルが動いているはずです。</p>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

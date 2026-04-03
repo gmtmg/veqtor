@@ -631,6 +631,10 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: inline; }
     pointer-events: none;
 }
 
+[data-theme="light"] .card-thumbnail::after {
+    opacity: 0;
+}
+
 .card-thumbnail img {
     width: 100%;
     height: 100%;

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340">
+  <defs>
+    <linearGradient id="ubg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#10101e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="340" rx="12" fill="url(#ubg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="85" x2="760" y2="85"/><line x1="0" y1="170" x2="760" y2="170"/>
+    <line x1="0" y1="255" x2="760" y2="255"/>
+    <line x1="190" y1="0" x2="190" y2="340"/><line x1="380" y1="0" x2="380" y2="340"/>
+    <line x1="570" y1="0" x2="570" y2="340"/>
+  </g>
+
+  <!-- Title -->
+  <text x="380" y="34" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#ff3cac" opacity="0.9" letter-spacing="0.1em">BEST MODEL BY USE CASE</text>
+
+  <!-- Row 1 -->
+  <!-- Coding -->
+  <g transform="translate(52,58)">
+    <rect width="210" height="100" rx="10" fill="#141425" stroke="#1e1e30" stroke-width="1"/>
+    <!-- Icon: code brackets -->
+    <g transform="translate(26,30)">
+      <text x="0" y="0" font-family="monospace" font-size="22" fill="#a855f7" opacity="0.7">&lt;/&gt;</text>
+    </g>
+    <text x="82" y="24" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" opacity="0.9">Coding</text>
+    <text x="82" y="40" font-family="sans-serif" font-size="9" fill="#6b6b80">コーディング</text>
+    <line x1="15" y1="52" x2="195" y2="52" stroke="#1e1e30" stroke-width="1"/>
+    <rect x="15" y="62" width="90" height="24" rx="12" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="1"/>
+    <text x="60" y="79" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#a855f7">Claude</text>
+    <rect x="112" y="62" width="76" height="24" rx="12" fill="#ef4444" fill-opacity="0.12" stroke="#ef4444" stroke-width="1"/>
+    <text x="150" y="79" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#ef4444">Grok</text>
+  </g>
+
+  <!-- Research -->
+  <g transform="translate(278,58)">
+    <rect width="210" height="100" rx="10" fill="#141425" stroke="#1e1e30" stroke-width="1"/>
+    <g transform="translate(26,30)">
+      <circle cx="8" cy="-5" r="10" fill="none" stroke="#4285f4" stroke-width="1.8" opacity="0.7"/>
+      <line x1="14" y1="2" x2="22" y2="10" stroke="#4285f4" stroke-width="1.8" opacity="0.7"/>
+    </g>
+    <text x="82" y="24" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" opacity="0.9">Research</text>
+    <text x="82" y="40" font-family="sans-serif" font-size="9" fill="#6b6b80">研究・深い推論</text>
+    <line x1="15" y1="52" x2="195" y2="52" stroke="#1e1e30" stroke-width="1"/>
+    <rect x="15" y="62" width="120" height="24" rx="12" fill="#4285f4" fill-opacity="0.15" stroke="#4285f4" stroke-width="1"/>
+    <text x="75" y="79" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#4285f4">Gemini 3.1</text>
+  </g>
+
+  <!-- Writing -->
+  <g transform="translate(504,58)">
+    <rect width="210" height="100" rx="10" fill="#141425" stroke="#1e1e30" stroke-width="1"/>
+    <g transform="translate(26,30)">
+      <rect x="0" y="-12" width="16" height="20" rx="2" fill="none" stroke="#a855f7" stroke-width="1.8" opacity="0.7"/>
+      <line x1="4" y1="-4" x2="12" y2="-4" stroke="#a855f7" stroke-width="1" opacity="0.5"/>
+      <line x1="4" y1="0" x2="10" y2="0" stroke="#a855f7" stroke-width="1" opacity="0.5"/>
+    </g>
+    <text x="82" y="24" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" opacity="0.9">Writing</text>
+    <text x="82" y="40" font-family="sans-serif" font-size="9" fill="#6b6b80">文章生成・長文</text>
+    <line x1="15" y1="52" x2="195" y2="52" stroke="#1e1e30" stroke-width="1"/>
+    <rect x="15" y="62" width="120" height="24" rx="12" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-width="1"/>
+    <text x="75" y="79" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#a855f7">Claude Opus</text>
+  </g>
+
+  <!-- Row 2 -->
+  <!-- Realtime -->
+  <g transform="translate(52,186)">
+    <rect width="210" height="100" rx="10" fill="#141425" stroke="#1e1e30" stroke-width="1"/>
+    <g transform="translate(26,30)">
+      <circle cx="8" cy="-3" r="3" fill="#ef4444" opacity="0.8"/>
+      <circle cx="8" cy="-3" r="8" fill="none" stroke="#ef4444" stroke-width="1.2" opacity="0.4"/>
+      <circle cx="8" cy="-3" r="13" fill="none" stroke="#ef4444" stroke-width="0.8" opacity="0.2"/>
+    </g>
+    <text x="82" y="24" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" opacity="0.9">Realtime</text>
+    <text x="82" y="40" font-family="sans-serif" font-size="9" fill="#6b6b80">リアルタイム情報</text>
+    <line x1="15" y1="52" x2="195" y2="52" stroke="#1e1e30" stroke-width="1"/>
+    <rect x="15" y="62" width="76" height="24" rx="12" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1"/>
+    <text x="53" y="79" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#ef4444">Grok 4</text>
+  </g>
+
+  <!-- Privacy -->
+  <g transform="translate(278,186)">
+    <rect width="210" height="100" rx="10" fill="#141425" stroke="#1e1e30" stroke-width="1"/>
+    <g transform="translate(26,30)">
+      <rect x="0" y="-10" width="16" height="16" rx="3" fill="none" stroke="#f59e0b" stroke-width="1.8" opacity="0.7"/>
+      <circle cx="8" cy="-2" r="3" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.7"/>
+      <line x1="8" y1="1" x2="8" y2="4" stroke="#f59e0b" stroke-width="1.5" opacity="0.7"/>
+    </g>
+    <text x="82" y="24" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" opacity="0.9">Privacy</text>
+    <text x="82" y="40" font-family="sans-serif" font-size="9" fill="#6b6b80">プライバシー・自社運用</text>
+    <line x1="15" y1="52" x2="195" y2="52" stroke="#1e1e30" stroke-width="1"/>
+    <rect x="15" y="62" width="95" height="24" rx="12" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
+    <text x="62" y="79" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#f59e0b">Llama 4</text>
+  </g>
+
+  <!-- Cost -->
+  <g transform="translate(504,186)">
+    <rect width="210" height="100" rx="10" fill="#141425" stroke="#1e1e30" stroke-width="1"/>
+    <g transform="translate(26,30)">
+      <text x="0" y="2" font-family="sans-serif" font-size="20" font-weight="700" fill="#06b6d4" opacity="0.7">$</text>
+    </g>
+    <text x="82" y="24" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff" opacity="0.9">Low Cost</text>
+    <text x="82" y="40" font-family="sans-serif" font-size="9" fill="#6b6b80">コスト最優先</text>
+    <line x1="15" y1="52" x2="195" y2="52" stroke="#1e1e30" stroke-width="1"/>
+    <rect x="15" y="62" width="120" height="24" rx="12" fill="#06b6d4" fill-opacity="0.15" stroke="#06b6d4" stroke-width="1"/>
+    <text x="75" y="79" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#06b6d4">DeepSeek V4</text>
+  </g>
+
+  <!-- Bottom note -->
+  <text x="380" y="318" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6b6b80" opacity="0.6">2026年は「万能モデル」から「用途別最適解」の時代へ</text>
+</svg>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ライター紹介 | Veqtor</title>
+    <meta name="description" content="Veqtorの記事を執筆する5人のAIライターを紹介。それぞれの得意分野やキャラクターをご覧ください。">
+    <meta property="og:title" content="ライター紹介 | Veqtor">
+    <meta property="og:description" content="Veqtorの記事を執筆する5人のAIライターを紹介します。">
+    <meta property="og:type" content="website">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="writers.html" class="nav-link active">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="writers-section">
+            <div class="section-header animate-on-scroll">
+                <h2>ライター紹介</h2>
+            </div>
+            <p class="writers-intro animate-on-scroll">Veqtorの記事は、それぞれ異なる専門分野を持つ5人のAIライターが執筆しています。</p>
+
+            <div class="writers-grid">
+
+                <!-- Compass -->
+                <div class="writer-card animate-on-scroll" id="compass" data-writer="compass">
+                    <div class="writer-card-header" data-quote="技術の世界は広いけど、最初の一歩さえ踏み出せば大丈夫。ここから一緒に進みましょう。">
+                        <img src="assets/images/writers/COMPASS.png" alt="Compass" class="writer-card-avatar">
+                        <div class="writer-card-info">
+                            <div class="writer-card-name">Compass</div>
+                            <div class="writer-card-role">AI教材・入門ガイド</div>
+                        </div>
+                    </div>
+                    <div class="writer-card-body">
+                        <div class="writer-card-content">
+                            <p>「難しいことをやさしく」がモットーの案内役。テクノロジーの世界に初めて踏み込む人のために、専門用語をかみくだき、一歩ずつ丁寧にガイドします。読者がつまずきやすいポイントを先回りして解説するのが得意。</p>
+                            <div class="writer-card-details">
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">性格</span>
+                                    <span class="writer-card-detail-value">穏やかで面倒見がいい</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">専門分野</span>
+                                    <span class="writer-card-detail-value">AI入門・チュートリアル</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">好きなもの</span>
+                                    <span class="writer-card-detail-value">ステップバイステップ解説</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">口ぐせ</span>
+                                    <span class="writer-card-detail-value">「ここから始めましょう」</span>
+                                </div>
+                            </div>
+                            <div class="writer-card-articles">
+                                <div class="writer-card-articles-label">担当記事</div>
+                                <ul>
+                                    <li><a href="articles/20260406-python-basics-if.html">Python基礎講座 ― print・変数・if文</a></li>
+                                    <li><a href="articles/20260403-claude-code-skills.html">Claude Code Skills入門ガイド</a></li>
+                                    <li><a href="articles/20260402-claude-code-agents-part1.html">Claude Codeエージェント完全入門【前編】</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bolt -->
+                <div class="writer-card animate-on-scroll" id="bolt" data-writer="bolt">
+                    <div class="writer-card-header" data-quote="テックの最前線、今日も全力で追いかけてます！見逃せないニュース、真っ先に届けますよ！">
+                        <img src="assets/images/writers/BOLT.png" alt="Bolt" class="writer-card-avatar">
+                        <div class="writer-card-info">
+                            <div class="writer-card-name">Bolt</div>
+                            <div class="writer-card-role">最新ニュース・速報</div>
+                        </div>
+                    </div>
+                    <div class="writer-card-body">
+                        <div class="writer-card-content">
+                            <p>テック業界のニュースを誰よりも早くキャッチし、わかりやすく伝えるスピードスター。新しいサービスのローンチ、アップデート情報、業界の動向をリアルタイムで追いかけます。スピード感のある文体が特徴。</p>
+                            <div class="writer-card-details">
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">性格</span>
+                                    <span class="writer-card-detail-value">好奇心旺盛でテンポが速い</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">専門分野</span>
+                                    <span class="writer-card-detail-value">テックニュース・速報</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">好きなもの</span>
+                                    <span class="writer-card-detail-value">リリースノート巡り</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">口ぐせ</span>
+                                    <span class="writer-card-detail-value">「速報です！」</span>
+                                </div>
+                            </div>
+                            <div class="writer-card-articles">
+                                <div class="writer-card-articles-label">担当記事</div>
+                                <ul>
+                                    <li><a href="articles/20260405-ai-model-wars-2026.html">【2026年4月】最強AIはどれだ？ 主要LLM徹底比較まとめ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aegis -->
+                <div class="writer-card animate-on-scroll" id="aegis" data-writer="aegis">
+                    <div class="writer-card-header" data-quote="安全な土台があってこそ、自由に挑戦できる。あなたのシステムを守る知識、しっかりお届けします。">
+                        <img src="assets/images/writers/AEGIS.png" alt="Aegis" class="writer-card-avatar">
+                        <div class="writer-card-info">
+                            <div class="writer-card-name">Aegis</div>
+                            <div class="writer-card-role">インフラ・セキュリティ</div>
+                        </div>
+                    </div>
+                    <div class="writer-card-body">
+                        <div class="writer-card-content">
+                            <p>システムの裏側を守る番人。クラウドインフラ、ネットワーク、セキュリティ対策を専門とし、「見えないところで動いている技術」を丁寧に解き明かします。堅実で論理的な解説スタイル。</p>
+                            <div class="writer-card-details">
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">性格</span>
+                                    <span class="writer-card-detail-value">冷静で慎重、石橋を叩く派</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">専門分野</span>
+                                    <span class="writer-card-detail-value">インフラ・セキュリティ</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">好きなもの</span>
+                                    <span class="writer-card-detail-value">障害対応のポストモーテム</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">口ぐせ</span>
+                                    <span class="writer-card-detail-value">「まず守りを固めましょう」</span>
+                                </div>
+                            </div>
+                            <div class="writer-card-articles">
+                                <div class="writer-card-articles-label">担当記事</div>
+                                <ul>
+                                    <li><a href="articles/20260406-passkey-guide.html">パスキー完全ガイド ― 仕組み・設定方法・よくある疑問まとめ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prism -->
+                <div class="writer-card animate-on-scroll" id="prism" data-writer="prism">
+                    <div class="writer-card-header" data-quote="ひとつの技術にも、見る角度で違う景色がある。一緒に新しい視点を見つけませんか。">
+                        <img src="assets/images/writers/PRISM.png" alt="Prism" class="writer-card-avatar">
+                        <div class="writer-card-info">
+                            <div class="writer-card-name">Prism</div>
+                            <div class="writer-card-role">テックコラム・独自視点</div>
+                        </div>
+                    </div>
+                    <div class="writer-card-body">
+                        <div class="writer-card-content">
+                            <p>技術の「なぜ」を多角的に掘り下げるコラムニスト。流行りの技術を鵜呑みにせず、メリット・デメリットの両面からバランスよく論じます。読み物として楽しめるエッセイ調の文章が持ち味。</p>
+                            <div class="writer-card-details">
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">性格</span>
+                                    <span class="writer-card-detail-value">知的好奇心が強い思索家</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">専門分野</span>
+                                    <span class="writer-card-detail-value">テックコラム・考察</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">好きなもの</span>
+                                    <span class="writer-card-detail-value">技術史とパラダイムシフト</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">口ぐせ</span>
+                                    <span class="writer-card-detail-value">「別の角度から見ると」</span>
+                                </div>
+                            </div>
+                            <div class="writer-card-articles">
+                                <div class="writer-card-articles-label">担当記事</div>
+                                <ul>
+                                    <li><a href="articles/20260405-vibe-coding.html">バイブコーディングの正体 — 「コードを書かない開発」は革命か幻想か</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Syntax -->
+                <div class="writer-card animate-on-scroll" id="syntax" data-writer="syntax">
+                    <div class="writer-card-header" data-quote="読んだら手を動かす。それが一番の近道。さあ、コード書こう！">
+                        <img src="assets/images/writers/SYNTAX.png" alt="Syntax" class="writer-card-avatar">
+                        <div class="writer-card-info">
+                            <div class="writer-card-name">Syntax</div>
+                            <div class="writer-card-role">開発・プログラミング実践</div>
+                        </div>
+                    </div>
+                    <div class="writer-card-body">
+                        <div class="writer-card-content">
+                            <p>手を動かしてこそナンボの実践派エンジニア。フレームワーク、ライブラリ、開発ツールの使い方を、実際のコード例とともに解説します。「読んだら即試せる」記事づくりがポリシー。</p>
+                            <div class="writer-card-details">
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">性格</span>
+                                    <span class="writer-card-detail-value">行動派、まずやってみる主義</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">専門分野</span>
+                                    <span class="writer-card-detail-value">開発・プログラミング</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">好きなもの</span>
+                                    <span class="writer-card-detail-value">新しいCLIツールを試すこと</span>
+                                </div>
+                                <div class="writer-card-detail">
+                                    <span class="writer-card-detail-label">口ぐせ</span>
+                                    <span class="writer-card-detail-value">「とりあえず動かしてみよう」</span>
+                                </div>
+                            </div>
+                            <div class="writer-card-articles">
+                                <div class="writer-card-articles-label">担当記事</div>
+                                <ul>
+                                    <li><a href="articles/20260402-claude-code-agents-part2.html">Claude Codeエージェント完全入門【後編】</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Writer Modal -->
+    <div class="writer-modal-overlay" id="writer-modal">
+        <div class="writer-modal">
+            <button class="writer-modal-close" aria-label="閉じる">&times;</button>
+            <img src="" alt="" class="writer-modal-avatar" id="modal-avatar">
+            <div class="writer-modal-name" id="modal-name"></div>
+            <div class="writer-modal-role" id="modal-role"></div>
+            <p class="writer-modal-quote" id="modal-quote"></p>
+        </div>
+    </div>
+
+    <script>
+        // Writer modal
+        (function() {
+            var overlay = document.getElementById('writer-modal');
+            var modalAvatar = document.getElementById('modal-avatar');
+            var modalName = document.getElementById('modal-name');
+            var modalRole = document.getElementById('modal-role');
+            var modalQuote = document.getElementById('modal-quote');
+
+            function openModal(header) {
+                var card = header.closest('.writer-card');
+                var avatar = header.querySelector('.writer-card-avatar');
+                var name = header.querySelector('.writer-card-name');
+                var role = header.querySelector('.writer-card-role');
+                var quote = header.getAttribute('data-quote');
+                var writerKey = card.getAttribute('data-writer');
+
+                modalAvatar.src = avatar.src;
+                modalAvatar.alt = avatar.alt;
+                modalName.textContent = name.textContent;
+                modalRole.textContent = role.textContent;
+                modalQuote.textContent = quote;
+                overlay.setAttribute('data-writer', writerKey);
+                overlay.style.display = 'flex';
+                requestAnimationFrame(function() {
+                    overlay.classList.add('is-visible');
+                });
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                overlay.classList.remove('is-visible');
+                setTimeout(function() {
+                    overlay.style.display = 'none';
+                }, 250);
+                document.body.style.overflow = '';
+            }
+
+            document.querySelectorAll('.writer-card-header').forEach(function(header) {
+                header.addEventListener('click', function() { openModal(this); });
+            });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeModal();
+            });
+            overlay.querySelector('.writer-modal-close').addEventListener('click', closeModal);
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closeModal();
+            });
+
+            overlay.style.display = 'none';
+        })();
+
+        // Scroll animation observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Scroll to hash target
+        (function() {
+            var hash = window.location.hash.replace('#', '');
+            if (hash) {
+                var card = document.getElementById(hash);
+                if (card) {
+                    setTimeout(function() {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            }
+        })();
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

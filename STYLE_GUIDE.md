@@ -153,6 +153,21 @@
 - 上辺にグラデーションライン（`transparent → accent → transparent`）
 - コピーライト + サイトリンク
 
+#### コードプレイグラウンド（`.code-playground`）
+- プログラミング講座記事で使用するインタラクティブ擬似エディタ
+- カードベース: `--bg-card` 背景、`border-radius: 12px`、2px border
+- 構成要素:
+  - `.playground-header`: ラベル + バッジ（演習番号）、`--bg-hover` 背景
+  - `.playground-task`: 課題文、左ボーダー（`--accent-secondary`）+ `--blockquote-bg` 背景
+  - `.playground-code`: `<textarea>`、`--bg-code` 背景、`--font-mono`
+  - `.playground-run`: `--accent-primary` 背景の実行ボタン
+  - `.playground-reset`: ゴースト（透明背景 + ボーダー）のリセットボタン
+  - `.playground-output`: 出力エリア、`--bg-code` 背景、monospace
+  - `.playground-result`: 正誤フィードバック（`.correct` 緑 / `.partial` 黄 / `.wrong` 赤）
+- 正解演出: `.is-correct` クラスで緑ボーダー + グローシャドウ + `correct-celebrate` アニメーション + パーティクル
+- モバイル対応: ボタン `width: 100%`、`font-size` 縮小
+- 答え表示: `.playground-answer`（`<details>` + `<summary>`）で折りたたみ式回答
+
 ---
 
 ## 3. ライティングルール

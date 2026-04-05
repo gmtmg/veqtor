@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420">
+  <defs>
+    <linearGradient id="obg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#10101e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="420" rx="12" fill="url(#obg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="70" x2="760" y2="70"/><line x1="0" y1="140" x2="760" y2="140"/>
+    <line x1="0" y1="210" x2="760" y2="210"/><line x1="0" y1="280" x2="760" y2="280"/>
+    <line x1="0" y1="350" x2="760" y2="350"/>
+    <line x1="127" y1="0" x2="127" y2="420"/><line x1="253" y1="0" x2="253" y2="420"/>
+    <line x1="380" y1="0" x2="380" y2="420"/><line x1="507" y1="0" x2="507" y2="420"/>
+    <line x1="633" y1="0" x2="633" y2="420"/>
+  </g>
+
+  <!-- Title -->
+  <text x="380" y="34" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#ff3cac" opacity="0.9" letter-spacing="0.1em">6 MAJOR AI MODELS AT A GLANCE</text>
+
+  <!-- Row 1 -->
+  <!-- GPT-5.4 -->
+  <g transform="translate(52,60)">
+    <rect width="210" height="150" rx="10" fill="#141425" stroke="#10b981" stroke-width="1.2"/>
+    <text x="105" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="800" fill="#10b981">GPT-5.4</text>
+    <text x="105" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6b6b80">OpenAI</text>
+    <line x1="20" y1="58" x2="190" y2="58" stroke="#1e1e30" stroke-width="1"/>
+    <text x="20" y="78" font-family="sans-serif" font-size="10" fill="#a0a0b0">Context</text>
+    <text x="190" y="78" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">1M tokens</text>
+    <text x="20" y="97" font-family="sans-serif" font-size="10" fill="#a0a0b0">Key Feature</text>
+    <text x="190" y="97" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#10b981">PC操作</text>
+    <text x="20" y="116" font-family="sans-serif" font-size="10" fill="#a0a0b0">Price (in)</text>
+    <text x="190" y="116" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">$2.50/MTok</text>
+    <text x="20" y="135" font-family="sans-serif" font-size="10" fill="#a0a0b0">Type</text>
+    <text x="190" y="135" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">Closed</text>
+  </g>
+
+  <!-- Claude 4.6 -->
+  <g transform="translate(278,60)">
+    <rect width="210" height="150" rx="10" fill="#141425" stroke="#a855f7" stroke-width="1.2"/>
+    <text x="105" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="800" fill="#a855f7">Claude 4.6</text>
+    <text x="105" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6b6b80">Anthropic</text>
+    <line x1="20" y1="58" x2="190" y2="58" stroke="#1e1e30" stroke-width="1"/>
+    <text x="20" y="78" font-family="sans-serif" font-size="10" fill="#a0a0b0">Context</text>
+    <text x="190" y="78" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">1M tokens</text>
+    <text x="20" y="97" font-family="sans-serif" font-size="10" fill="#a0a0b0">Key Feature</text>
+    <text x="190" y="97" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#a855f7">Agent Team</text>
+    <text x="20" y="116" font-family="sans-serif" font-size="10" fill="#a0a0b0">Max Output</text>
+    <text x="190" y="116" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">128K tokens</text>
+    <text x="20" y="135" font-family="sans-serif" font-size="10" fill="#a0a0b0">Type</text>
+    <text x="190" y="135" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">Closed</text>
+  </g>
+
+  <!-- Gemini 3.1 -->
+  <g transform="translate(504,60)">
+    <rect width="210" height="150" rx="10" fill="#141425" stroke="#4285f4" stroke-width="1.2"/>
+    <text x="105" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="800" fill="#4285f4">Gemini 3.1</text>
+    <text x="105" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6b6b80">Google</text>
+    <line x1="20" y1="58" x2="190" y2="58" stroke="#1e1e30" stroke-width="1"/>
+    <text x="20" y="78" font-family="sans-serif" font-size="10" fill="#a0a0b0">Lineup</text>
+    <text x="190" y="78" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">Pro / Flash</text>
+    <text x="20" y="97" font-family="sans-serif" font-size="10" fill="#a0a0b0">Key Feature</text>
+    <text x="190" y="97" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#4285f4">推論トップ</text>
+    <text x="20" y="116" font-family="sans-serif" font-size="10" fill="#a0a0b0">Price (in)</text>
+    <text x="190" y="116" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">$2.00/MTok</text>
+    <text x="20" y="135" font-family="sans-serif" font-size="10" fill="#a0a0b0">Type</text>
+    <text x="190" y="135" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">Closed</text>
+  </g>
+
+  <!-- Row 2 -->
+  <!-- Llama 4 -->
+  <g transform="translate(52,232)">
+    <rect width="210" height="150" rx="10" fill="#141425" stroke="#f59e0b" stroke-width="1.2"/>
+    <text x="105" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="800" fill="#f59e0b">Llama 4</text>
+    <text x="105" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6b6b80">Meta</text>
+    <line x1="20" y1="58" x2="190" y2="58" stroke="#1e1e30" stroke-width="1"/>
+    <text x="20" y="78" font-family="sans-serif" font-size="10" fill="#a0a0b0">Context</text>
+    <text x="190" y="78" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="700" fill="#f59e0b">10M tokens</text>
+    <text x="20" y="97" font-family="sans-serif" font-size="10" fill="#a0a0b0">Architecture</text>
+    <text x="190" y="97" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">MoE</text>
+    <text x="20" y="116" font-family="sans-serif" font-size="10" fill="#a0a0b0">Languages</text>
+    <text x="190" y="116" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">200+</text>
+    <text x="20" y="135" font-family="sans-serif" font-size="10" fill="#a0a0b0">Type</text>
+    <text x="190" y="135" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="700" fill="#f59e0b">Open Source</text>
+  </g>
+
+  <!-- Grok 4 -->
+  <g transform="translate(278,232)">
+    <rect width="210" height="150" rx="10" fill="#141425" stroke="#ef4444" stroke-width="1.2"/>
+    <text x="105" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="800" fill="#ef4444">Grok 4</text>
+    <text x="105" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6b6b80">xAI</text>
+    <line x1="20" y1="58" x2="190" y2="58" stroke="#1e1e30" stroke-width="1"/>
+    <text x="20" y="78" font-family="sans-serif" font-size="10" fill="#a0a0b0">Key Feature</text>
+    <text x="190" y="78" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ef4444">リアルタイム検索</text>
+    <text x="20" y="97" font-family="sans-serif" font-size="10" fill="#a0a0b0">Data Source</text>
+    <text x="190" y="97" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">X (Twitter)</text>
+    <text x="20" y="116" font-family="sans-serif" font-size="10" fill="#a0a0b0">GPU Cluster</text>
+    <text x="190" y="116" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">200K GPUs</text>
+    <text x="20" y="135" font-family="sans-serif" font-size="10" fill="#a0a0b0">Type</text>
+    <text x="190" y="135" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">Closed</text>
+  </g>
+
+  <!-- DeepSeek V4 -->
+  <g transform="translate(504,232)">
+    <rect width="210" height="150" rx="10" fill="#141425" stroke="#06b6d4" stroke-width="1.2"/>
+    <text x="105" y="30" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="800" fill="#06b6d4">DeepSeek V4</text>
+    <text x="105" y="48" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#6b6b80">DeepSeek</text>
+    <line x1="20" y1="58" x2="190" y2="58" stroke="#1e1e30" stroke-width="1"/>
+    <text x="20" y="78" font-family="sans-serif" font-size="10" fill="#a0a0b0">Parameters</text>
+    <text x="190" y="78" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">~1T (MoE)</text>
+    <text x="20" y="97" font-family="sans-serif" font-size="10" fill="#a0a0b0">SWE-bench</text>
+    <text x="190" y="97" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#06b6d4">81%</text>
+    <text x="20" y="116" font-family="sans-serif" font-size="10" fill="#a0a0b0">Price (in)</text>
+    <text x="190" y="116" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="700" fill="#06b6d4">$0.30/MTok</text>
+    <text x="20" y="135" font-family="sans-serif" font-size="10" fill="#a0a0b0">Chip</text>
+    <text x="190" y="135" text-anchor="end" font-family="sans-serif" font-size="10" font-weight="600" fill="#ffffff">Huawei</text>
+  </g>
+
+  <!-- Bottom note -->
+  <text x="380" y="406" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6b6b80" opacity="0.6">2026年前半の主要6ファミリー ― 各モデルの個性が際立つ時代へ</text>
+</svg>

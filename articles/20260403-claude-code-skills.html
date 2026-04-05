@@ -25,6 +25,7 @@
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
                 </ul>
                 <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
                     <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
@@ -38,8 +39,20 @@
             <div class="article-meta">
                 <time datetime="2026-04-03">2026年4月3日</time>
                 <span class="article-category">AI</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
             </div>
             <h1>Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化</h1>
+
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>こんにちは、Compassです。前回のエージェント機能に続いて、今回は「Skills」を紹介します。「エージェントとどう違うの？」という疑問を持っている方も多いと思うので、その違いからていねいに解説しますね。ここから一緒に進みましょう。</p>
+                </div>
+            </div>
 
             <p>Claude Codeを使っていて「この作業、毎回同じ手順を説明しているな」と感じたことはありませんか。<strong>Skills（スキル）</strong>を使えば、その手順を一度書くだけで、<code>/スキル名</code> とスラッシュコマンドを打つだけで何度でも再現できます。</p>
 
@@ -98,6 +111,14 @@
 - 独立したツール権限で安全に実行したい</code></pre>
 
             <p>迷ったら、まずSkillsを試してみてください。Skillsのほうが軽量で手軽に始められます。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>筆者も最初は「エージェントがあれば十分では？」と思っていました。でも使ってみると、Skillsの手軽さは別格です。この先のハンズオンで、その実感が得られるはず。</p>
+                </div>
+            </div>
 
             <!-- ===================== -->
             <!-- 仕組み -->
@@ -188,6 +209,14 @@ claude
 /commit-check "Fixed the bug in login"</code></pre>
 
             <p>Claudeがコミットメッセージの規約を読み込み、「<code>Fixed the bug in login</code> は規約に沿っていません。<code>fix(auth): ログインのバグを修正</code> のように書き直しましょう」と教えてくれます。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>ここまでできましたか？ おめでとうございます！ たった3ステップで最初のSkillが動きました。「思ったより簡単だった」と感じてもらえたら嬉しいです。</p>
+                </div>
+            </div>
 
             <p>また、スラッシュコマンドを使わなくても、「このコミットメッセージをチェックして」と自然に話しかけるだけでClaudeが自動的にこのスキルを見つけて適用してくれます。これが<strong>自動発見（Auto-discovery）</strong>の仕組みです。</p>
 
@@ -418,6 +447,14 @@ GitHub Issue #$ARGUMENTS を修正してください。
             <h3>注意点: descriptionの書き方で精度が変わる</h3>
 
             <p>一つ失敗談もあります。最初に <code>description</code> を「コードを整理するスキル」とだけ書いたところ、意図しないタイミングで発動してしまいました。「<strong>いつ使うか</strong>」を明確に書くことが本当に大事です。「リファクタリングを依頼されたときに使う」のように具体的なトリガーを含めると、誤発動がなくなりました。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>失敗から学ぶことって多いですよね。descriptionの書き方ひとつで挙動がガラリと変わるのは、最初ちょっと戸惑いました。でも、コツを掴めばすぐ慣れますよ。</p>
+                </div>
+            </div>
 
             <!-- ===================== -->
             <!-- ベストプラクティス -->

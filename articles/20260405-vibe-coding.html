@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>バイブコーディングの正体 — 「コードを書かない開発」は革命か幻想か | Veqtor</title>
+    <meta name="description" content="MIT Technology Review選出の2026年ブレークスルー技術「バイブコーディング」を多角的に検証。光と影、プロ開発者への影響、そして本当の価値を考察します。">
+    <meta property="og:title" content="バイブコーディングの正体 — 「コードを書かない開発」は革命か幻想か">
+    <meta property="og:description" content="2026年最大のバズワード「バイブコーディング」。革命なのか、幻想なのか。両面から徹底考察。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260405-vibe-coding-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-05">2026年4月5日</time>
+                <span class="article-category">AI</span>
+                <a href="../writers.html#prism" class="article-writer" data-writer="prism">
+                    <img src="../assets/images/writers/PRISM.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Prism</span>
+                </a>
+            </div>
+            <h1>バイブコーディングの正体 — 「コードを書かない開発」は革命か幻想か</h1>
+
+            <div class="writer-intro" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Prism</span>
+                    <p>ひとつの技術を、ひとつの角度だけで語るのはもったいない。「バイブコーディング」——この言葉を聞いて、あなたは何を思い浮かべますか？ 革命？ 幻想？ 今回は両方の景色を見に行きましょう。別の角度から見ると、きっと新しい発見があるはずです。</p>
+                </div>
+            </div>
+
+            <p>2025年2月、OpenAI共同創業者のAndrej Karpathyがひとつの投稿をした。</p>
+
+            <blockquote>
+                <p>There's a new kind of coding I call "vibe coding", where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.</p>
+            </blockquote>
+
+            <p>「コードの存在すら忘れる」。この一文がテック業界に衝撃を与えてから約1年。<strong>バイブコーディング</strong>という言葉はCollins English Dictionaryの「2025年 Word of the Year」に選ばれ、MIT Technology Reviewの「2026年10大ブレークスルー技術」にも名を連ねた。2026年3月には日本初の「バイブコーディング検定」まで誕生している。</p>
+
+            <p>だが、これは本当に「革命」なのか。それとも、やがて消える「幻想」なのか。別の角度から見てみたい。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>「革命か幻想か」という二項対立で語られがちですが、世の中の大半のものは、そのどちらでもない。まずはフラットに事実を見ていきましょう。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- バイブコーディングとは -->
+            <!-- ===================== -->
+
+            <h2>そもそもバイブコーディングとは何か</h2>
+
+            <p>ひとことで言えば、<strong>「AIに自然言語で指示して、コードを書いてもらう開発スタイル」</strong>だ。</p>
+
+            <p>従来のプログラミングでは、開発者がエディタに向かい、一行一行コードを書いていた。バイブコーディングでは、「ログイン画面を作って」「ボタンを押したらデータを保存して」と言葉で伝えるだけ。AIがコードを生成し、実行し、エラーが出れば自分で修正する。</p>
+
+            <p>Karpathyの言葉を借りれば、開発者は<strong>「vibeで導く」</strong>だけ。コードの中身を逐一確認せず、「なんとなく動いてそうならOK」という感覚でアプリを作り上げていく。</p>
+
+            <p>使われるツールはClaude Code、Cursor、Replit Agentなどが代表的だ。どれもAIが対話的にコードを書き、修正し、テストまで行ってくれる。</p>
+
+            <!-- ===================== -->
+            <!-- なぜ騒がれているのか -->
+            <!-- ===================== -->
+
+            <h2>なぜこんなに騒がれているのか</h2>
+
+            <p>答えはシンプルだ。<strong>「プログラミングができない人がアプリを作れるようになった」</strong>から。</p>
+
+            <p>これまでソフトウェアを作るには、プログラミング言語を学び、フレームワークを覚え、デバッグの技術を身につける必要があった。数年単位の学習投資が必要だった。</p>
+
+            <p>バイブコーディングはその壁を一気に取り払った。ビジネスのアイデアを持っている人が、直接「作りたいもの」を言葉で伝えるだけで、動くプロトタイプを手に入れられる。この「創造の民主化」が人々を熱狂させている。</p>
+
+            <p>SNSでは「プログラミング経験ゼロだけど週末でアプリを作った」という投稿がバズり、起業家たちは「エンジニアを雇わなくてもMVPが作れる」と歓喜している。</p>
+
+            <!-- ===================== -->
+            <!-- 光の部分 -->
+            <!-- ===================== -->
+
+            <h2>光 — バイブコーディングが切り拓いた世界</h2>
+
+            <h3>1. プロトタイピングの爆速化</h3>
+
+            <p>これは文句なしの革命だ。かつて数週間かかっていたプロトタイプ制作が、数時間で完了する。アイデアの検証サイクルが劇的に短くなった。「作る前に考える」から「作りながら考える」へ。この変化のインパクトは計り知れない。</p>
+
+            <h3>2. ドメインエキスパートの解放</h3>
+
+            <p>医師、弁護士、教師、研究者。専門知識は豊富だが、プログラミングは専門外という人たちが、自分の手で業務ツールを作れるようになった。「こういうツールが欲しいけど、エンジニアに頼むほどでもない」というニッチな課題が、次々と解決されている。</p>
+
+            <h3>3. 学習のハードルの消滅</h3>
+
+            <p>「Hello World」から始めて変数、関数、クラス……と積み上げていく従来の学習パスは、多くの人を途中で挫折させてきた。バイブコーディングは「まず動くものを作る」体験を最初に与える。プログラミングへの興味の入口として、これ以上のものはないだろう。</p>
+
+            <!-- ===================== -->
+            <!-- 影の部分 -->
+            <!-- ===================== -->
+
+            <h2>影 — 誰も語りたがらない不都合な真実</h2>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>光の部分は多くの人が語っています。ここからは、あまり語られない「影」の部分にレンズを向けます。物事の本質を見るには、両面を知ることが不可欠です。</p>
+                </div>
+            </div>
+
+            <p>ここからが本題だ。バイブコーディングの熱狂の裏には、見過ごせないリスクが潜んでいる。</p>
+
+            <h3>1. 「動く」と「正しい」は違う</h3>
+
+            <p>バイブコーディングで作ったアプリは、たいてい「動く」。画面は表示され、ボタンは反応し、データは保存される。しかし「動く」ことと「正しい」ことは別の話だ。</p>
+
+            <p>エッジケースの処理は？同時アクセスへの耐性は？入力値のバリデーションは？セキュリティは？これらは「なんとなく」では担保できない。そして、問題が表面化するのは本番環境にデプロイされた後だ。</p>
+
+            <h3>2. デバッグという名の悪夢</h3>
+
+            <p>自分が書いていないコードのバグを直すのは、他人が書いたコードを直すより難しい。少なくとも他人のコードには意図がある。AIが生成したコードの「意図」は、プロンプトという曖昧な言葉でしかない。</p>
+
+            <p>バグが出たとき、「AIに直して」と言えばいい？そう、AIは修正してくれる。でもその修正が新たなバグを生む。そしてまた「直して」。この無限ループに陥った経験がある人は少なくないはずだ。</p>
+
+            <h3>3. 技術的負債の時限爆弾</h3>
+
+            <p>バイブコーディングで素早く作られたアプリが成功し、ユーザーが増え、機能追加の要望が殺到する。ここで壁にぶつかる。「なんとなく」で作られたコードベースは、拡張に耐えられない設計になっていることが多い。</p>
+
+            <p>結局、プロのエンジニアがゼロから書き直す。皮肉なことに、最初からエンジニアが設計していた場合よりもコストがかかる。</p>
+
+            <h3>4. セキュリティという見えない穴</h3>
+
+            <p>最も深刻なリスクがこれだ。AIが生成するコードは、機能的には正しくても、セキュリティのベストプラクティスに従っていないことがある。SQLインジェクション、XSS、認証の不備——これらは「動作テスト」では発見できない。</p>
+
+            <p>非エンジニアがバイブコーディングで作ったWebサービスに、ユーザーの個人情報を預けている。この現実に、もっと危機感を持つべきだと思う。</p>
+
+            <!-- ===================== -->
+            <!-- プロ開発者にとって -->
+            <!-- ===================== -->
+
+            <h2>プロの開発者にとっての意味</h2>
+
+            <p>「プログラマーは要らなくなるのか」——この問いに対する筆者の答えは明確に<strong>No</strong>だ。</p>
+
+            <p>バイブコーディングが普及して起きることは、「プログラマーの消滅」ではなく、<strong>「プログラマーに求められるスキルの変化」</strong>だ。</p>
+
+            <p>コードを一行一行書く能力の価値は下がる。代わりに、以下のスキルの価値が上がる。</p>
+
+            <ul>
+                <li><strong>設計力</strong>: AIにどう作らせるか、全体のアーキテクチャをどう組むかを決める力</li>
+                <li><strong>レビュー力</strong>: AIが生成したコードの品質・セキュリティを見極める力</li>
+                <li><strong>デバッグ力</strong>: 問題が起きたときに根本原因を特定し、修正する力</li>
+                <li><strong>言語化力</strong>: 要件を正確かつ効果的にAIに伝える力</li>
+            </ul>
+
+            <p>皮肉なことに、これらはすべて<strong>「プログラミングの基礎をしっかり理解している人」が強い領域</strong>だ。バイブコーディングの時代は、基礎力のあるエンジニアにとってはむしろ追い風かもしれない。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>この逆説が面白いところです。「コードを書かない時代」に最も価値が上がるのが「コードを理解している人」。技術のパラドックスは、いつの時代も示唆に富んでいます。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 筆者の見解 -->
+            <!-- ===================== -->
+
+            <h2>結局、バイブコーディングは何なのか</h2>
+
+            <p>筆者の見解をはっきり述べる。</p>
+
+            <p>バイブコーディングは<strong>「革命」でも「幻想」でもなく、「新しい道具」</strong>だ。</p>
+
+            <p>電卓が登場したとき、「もう暗算は要らない」と言われた。表計算ソフトが登場したとき、「もう経理は要らない」と言われた。実際に起きたのは、これらの道具を使いこなせる人がより高度な仕事をするようになっただけだ。</p>
+
+            <p>バイブコーディングも同じだろう。コードを「書く」作業は道具に任せ、人間は「何を作るか」「なぜ作るか」「どう設計するか」に集中する。道具が変わっただけで、ものづくりの本質は変わらない。</p>
+
+            <p>ただし、ひとつだけ警鐘を鳴らしておきたい。</p>
+
+            <p><strong>道具の限界を知らずに使うのは危険だ。</strong></p>
+
+            <p>電動ノコギリは木を速く切れるが、使い方を知らなければ指を失う。バイブコーディングも同じだ。「何ができて、何ができないか」を理解した上で使うこと。プロトタイプと本番プロダクトの境界を見失わないこと。これがバイブコーディング時代を生きる上での最低限のリテラシーだと思う。</p>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2>まとめ</h2>
+
+            <ol>
+                <li><strong>バイブコーディングは本物のトレンド</strong>。Word of the Year、MIT選出、検定制度化——もはや一過性のブームではない</li>
+                <li><strong>プロトタイピングには革命的</strong>。アイデア検証のスピードが桁違いに上がった</li>
+                <li><strong>本番プロダクトにはリスクがある</strong>。セキュリティ、保守性、拡張性は「雰囲気」では担保できない</li>
+                <li><strong>プログラマーは消えない</strong>。むしろ設計力・レビュー力のあるエンジニアの市場価値は上がる</li>
+                <li><strong>道具の限界を知れ</strong>。使いこなすためには、逆説的だが「基礎」が重要になる</li>
+            </ol>
+
+            <p>バイブコーディングは、テクノロジーの歴史に新しい章を書いた。その章を読み解くには、熱狂からも冷笑からも距離を置き、多角的な視点で見ることが必要だ。</p>
+
+            <p>——別の角度から見ると、見える景色は変わるものだから。</p>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

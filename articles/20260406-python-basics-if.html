@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基礎講座 ― print・変数・if文をブラウザで体験しよう | Veqtor</title>
+    <meta name="description" content="ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座。print関数、変数、比較演算子、if文の基本をハンズオンで身につけます。">
+    <meta property="og:title" content="Python基礎講座 ― print・変数・if文をブラウザで体験しよう">
+    <meta property="og:description" content="ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260406-python-basics-if-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-06">2026年4月6日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+            </div>
+            <h1>Python基礎講座 ― print・変数・if文をブラウザで体験しよう</h1>
+
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>こんにちは、Compassです。今回は「プログラミングって何？」というところから、Pythonの基本文法までを一緒に体験していきます。この記事ではブラウザ上でコードを書いて実行できるので、何もインストールしなくてOK。ここから一緒に進みましょう。</p>
+                </div>
+            </div>
+
+            <p><strong>プログラミング</strong>とは、コンピュータに「こうしてほしい」という指示を書くことです。その指示を書くための言葉が<strong>プログラミング言語</strong>で、今回学ぶのは世界で最も人気のある言語のひとつ、<strong>Python（パイソン）</strong>です。</p>
+
+            <p>Pythonが初心者におすすめな理由はシンプルです。英語に近い読みやすい文法で、少ないコードで多くのことができます。AI、Web開発、データ分析など幅広い分野で使われています。</p>
+
+            <p>この記事では以下の内容を扱います。</p>
+
+            <ul>
+                <li><code>print()</code> で画面に文字を表示する</li>
+                <li><strong>変数</strong>でデータを保存する</li>
+                <li><strong>比較演算子</strong>で値を比べる</li>
+                <li><strong>if文</strong>で条件に応じた処理を書く</li>
+            </ul>
+
+            <p>すべてのコード例はその場で実行できます。どんどん書き換えて試してみてください。</p>
+
+            <!-- ===================== -->
+            <!-- 1. はじめてのプログラム -->
+            <!-- ===================== -->
+
+            <h2>1. はじめてのプログラム ― print()</h2>
+
+            <p>プログラミングで最初にやることは、画面に文字を表示することです。Pythonでは <code>print()</code> という関数を使います。</p>
+
+            <pre><code>print("Hello, World!")</code></pre>
+
+            <p><code>print()</code> の <code>()</code> の中に表示したい文字を書きます。文字は <code>"</code>（ダブルクォーテーション）か <code>'</code>（シングルクォーテーション）で囲みます。これを<strong>文字列（String）</strong>と呼びます。</p>
+
+            <p>実際に動かしてみましょう。下のエディタで自由にコードを書き換えられます。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="3">print("Hello, World!")
+print("Pythonへようこそ！")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「実行」ボタンを押すと、初回だけPythonエンジンの読み込みに数秒かかります。2回目以降はすぐに実行されますよ。文字を変えてみたり、<code>print()</code> を増やしてみたり、自由に遊んでみてくださいね。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 2. 変数とデータ型 -->
+            <!-- ===================== -->
+
+            <h2>2. 変数とデータ型</h2>
+
+            <p><strong>変数（へんすう）</strong>は、データを入れておく「名前付きの箱」です。</p>
+
+            <pre><code>name = "太郎"
+age = 20
+print(name)
+print(age)</code></pre>
+
+            <p><code>=</code> は「等しい」ではなく「右側の値を左側の名前に入れる」という意味です。数学の等号とは違うので注意しましょう。</p>
+
+            <h3>主なデータ型</h3>
+
+            <ul>
+                <li><strong>str（文字列）</strong>: <code>"こんにちは"</code> のように <code>"</code> で囲んだもの</li>
+                <li><strong>int（整数）</strong>: <code>42</code>, <code>-7</code> など小数点のない数</li>
+                <li><strong>float（小数）</strong>: <code>3.14</code>, <code>-0.5</code> など小数点のある数</li>
+                <li><strong>bool（真偽値）</strong>: <code>True</code> か <code>False</code> のどちらか</li>
+            </ul>
+
+            <h3>文字列の連結</h3>
+
+            <p>文字列の中に変数を埋め込みたいときは <strong>f文字列（f-string）</strong>が便利です。<code>f"..."</code> の中で <code>{変数名}</code> と書くと、その変数の値が埋め込まれます。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="5">name = "太郎"
+age = 20
+print(f"私の名前は{name}です。{age}歳です。")
+print(type(name))  # 型を確認
+print(type(age))</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <h3>変数名のルール</h3>
+
+            <ul>
+                <li>英字・数字・アンダースコア <code>_</code> が使える（数字で始めるのはNG）</li>
+                <li>大文字と小文字は区別される（<code>Name</code> と <code>name</code> は別の変数）</li>
+                <li>Pythonの予約語（<code>if</code>, <code>for</code>, <code>class</code> など）は使えない</li>
+            </ul>
+
+            <!-- 演習1 -->
+            <div class="code-playground" data-mode="exercise" data-expected="私の名前は太郎です。20歳です。">
+                <div class="playground-header">
+                    <span class="playground-label">演習問題</span>
+                    <span class="playground-badge">問題 1</span>
+                </div>
+                <div class="playground-task">
+                    <p>変数 <code>name</code> に <code>"太郎"</code>、<code>age</code> に <code>20</code> を代入し、<code>私の名前は太郎です。20歳です。</code> と出力してください。</p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="4">name = ""
+age = 0
+# f文字列を使って出力してみよう
+print(f"")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>name = "太郎"
+age = 20
+print(f"私の名前は{name}です。{age}歳です。")</code></pre>
+            </details>
+
+            <!-- ===================== -->
+            <!-- 3. 比較演算子 -->
+            <!-- ===================== -->
+
+            <h2>3. 比較演算子</h2>
+
+            <p>2つの値を比べるための記号を<strong>比較演算子</strong>と呼びます。比較の結果は <code>True</code>（正しい）か <code>False</code>（正しくない）のどちらかになります。</p>
+
+            <ul>
+                <li><code>==</code> : 等しい</li>
+                <li><code>!=</code> : 等しくない</li>
+                <li><code>&lt;</code> : より小さい</li>
+                <li><code>&gt;</code> : より大きい</li>
+                <li><code>&lt;=</code> : 以下</li>
+                <li><code>&gt;=</code> : 以上</li>
+            </ul>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="7">x = 10
+y = 5
+
+print(x == y)   # 等しい？
+print(x != y)   # 等しくない？
+print(x > y)    # xはyより大きい？
+print(x <= 10)  # xは10以下？</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「<code>=</code>」が1つだと代入、「<code>==</code>」が2つだと比較です。最初はよく混同するポイントなので、意識してみてくださいね。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 4. if文の基本 -->
+            <!-- ===================== -->
+
+            <h2>4. if文の基本</h2>
+
+            <p>プログラムで「もし〜なら、こうする」という条件分岐を書くのが <code>if</code> 文です。</p>
+
+            <pre><code>if 条件:
+    条件がTrueのとき実行される処理</code></pre>
+
+            <p>Pythonでは<strong>インデント（字下げ）</strong>がとても重要です。<code>if</code> の次の行は<strong>半角スペース4つ</strong>で字下げします。この字下げがないとエラーになります。</p>
+
+            <h3>if / elif / else</h3>
+
+            <p>条件を複数チェックしたいときは <code>elif</code>（else ifの略）を使います。どれにも当てはまらない場合は <code>else</code> で処理します。</p>
+
+            <pre><code>temperature = 35
+
+if temperature >= 35:
+    print("猛暑日です")
+elif temperature >= 25:
+    print("夏日です")
+else:
+    print("過ごしやすい気温です")</code></pre>
+
+            <p>ポイントは、上から順にチェックされ、<strong>最初にTrueになった条件だけ</strong>が実行されることです。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="9">temperature = 28
+
+if temperature >= 35:
+    print("猛暑日です")
+elif temperature >= 25:
+    print("夏日です")
+else:
+    print("過ごしやすい気温です")
+# temperature の値を変えて試してみよう！</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <!-- 演習2 -->
+            <div class="code-playground" data-mode="exercise"
+                 data-tests='[{"assign":"num = 7","expected":"正の数です","label":"num = 7 のとき"},{"assign":"num = -3","expected":"負の数です","label":"num = -3 のとき"},{"assign":"num = 0","expected":"ゼロです","label":"num = 0 のとき"}]'>
+                <div class="playground-header">
+                    <span class="playground-label">演習問題</span>
+                    <span class="playground-badge">問題 2</span>
+                </div>
+                <div class="playground-task">
+                    <p>変数 <code>num</code> が正の数なら <code>正の数です</code>、負の数なら <code>負の数です</code>、ゼロなら <code>ゼロです</code> と出力する if 文を書いてください。<code>num</code> の値を自動で差し替えて3パターンすべて判定します。</p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="7">num = 7
+
+# if文を書こう
+if num > 0:
+    print()
+elif num < 0:
+    print()
+</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>num = 7
+
+if num > 0:
+    print("正の数です")
+elif num < 0:
+    print("負の数です")
+else:
+    print("ゼロです")</code></pre>
+            </details>
+
+            <!-- ===================== -->
+            <!-- 5. 実践チャレンジ -->
+            <!-- ===================== -->
+
+            <h2>5. 実践チャレンジ ― 成績判定プログラム</h2>
+
+            <p>ここまで学んだことの総仕上げです。変数、比較演算子、if/elif/else を組み合わせて、テストの点数から成績を判定するプログラムを作ってみましょう。</p>
+
+            <p>判定ルールはこちらです。</p>
+
+            <ul>
+                <li>90点以上 → <code>A</code></li>
+                <li>80点以上 → <code>B</code></li>
+                <li>70点以上 → <code>C</code></li>
+                <li>60点以上 → <code>D</code></li>
+                <li>60点未満 → <code>F</code></li>
+            </ul>
+
+            <!-- 演習3 -->
+            <div class="code-playground" data-mode="exercise"
+                 data-tests='[{"assign":"score = 95","expected":"A","label":"score = 95 のとき"},{"assign":"score = 85","expected":"B","label":"score = 85 のとき"},{"assign":"score = 75","expected":"C","label":"score = 75 のとき"},{"assign":"score = 65","expected":"D","label":"score = 65 のとき"},{"assign":"score = 50","expected":"F","label":"score = 50 のとき"}]'>
+                <div class="playground-header">
+                    <span class="playground-label">最終チャレンジ</span>
+                    <span class="playground-badge">問題 3</span>
+                </div>
+                <div class="playground-task">
+                    <p>上のルールに従って、<code>score</code> の値から成績（<code>A</code>〜<code>F</code>）を出力してください。5パターンの点数で自動判定します。</p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="8">score = 85
+
+# 成績判定を書こう
+if score >= 90:
+    print("A")
+# elif / else を追加しよう
+</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>score = 85
+
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+elif score >= 70:
+    print("C")
+elif score >= 60:
+    print("D")
+else:
+    print("F")</code></pre>
+            </details>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>ヒント: <code>elif</code> を使って、点数の高い条件から順に書いていきましょう。最後の <code>else</code> は「どれにも当てはまらない場合」になります。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2>まとめ</h2>
+
+            <p>この記事では、Pythonの基礎として以下の内容を学びました。</p>
+
+            <ul>
+                <li><code>print()</code> で画面に文字を表示する方法</li>
+                <li><strong>変数</strong>にデータを保存し、<strong>f文字列</strong>で埋め込む方法</li>
+                <li><strong>比較演算子</strong>（<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code> など）で値を比べる方法</li>
+                <li><strong>if / elif / else</strong> で条件分岐を書く方法</li>
+            </ul>
+
+            <p>すべてブラウザ上で実際にコードを動かしながら確認できたはずです。「プログラムが自分の指示通りに動く」という感覚を掴めたのではないでしょうか。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>お疲れさまでした！ 演習問題はすべてクリアできましたか？ うまくいかなくても大丈夫、何度でもやり直せます。プログラミングは「試して、直して、また試す」の繰り返しです。次回はループ（繰り返し）とリストを学ぶ予定です。お楽しみに。</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // === Code Playground — Pyodide Integration ===
+    (function() {
+        var pyodideReady = null;
+        var pyodideInstance = null;
+
+        function loadPyodide() {
+            if (pyodideReady) return pyodideReady;
+            pyodideReady = new Promise(function(resolve, reject) {
+                var script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js';
+                script.onload = function() {
+                    window.loadPyodide().then(function(py) {
+                        pyodideInstance = py;
+                        resolve(py);
+                    }).catch(reject);
+                };
+                script.onerror = function() { reject(new Error('Pyodide failed to load')); };
+                document.head.appendChild(script);
+            });
+            return pyodideReady;
+        }
+
+        function escapeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function runSingleTest(py, code) {
+            py.runPython('import io, sys; sys.stdout = io.StringIO()');
+            var error = null;
+            try {
+                py.runPython(code);
+            } catch (e) {
+                error = e.message;
+            }
+            var stdout = '';
+            if (!error) {
+                stdout = py.runPython('sys.stdout.getvalue()');
+            }
+            py.runPython('sys.stdout = sys.__stdout__');
+            return { error: error, stdout: stdout };
+        }
+
+        function initPlaygrounds() {
+            var playgrounds = document.querySelectorAll('.code-playground');
+            playgrounds.forEach(function(pg) {
+                var textarea = pg.querySelector('.playground-code');
+                var runBtn = pg.querySelector('.playground-run');
+                var resetBtn = pg.querySelector('.playground-reset');
+                var output = pg.querySelector('.playground-output');
+                var result = pg.querySelector('.playground-result');
+                var mode = pg.getAttribute('data-mode');
+                var expected = pg.getAttribute('data-expected');
+                var testsAttr = pg.getAttribute('data-tests');
+                var tests = testsAttr ? JSON.parse(testsAttr) : null;
+
+                // Save initial code
+                textarea.setAttribute('data-initial', textarea.value);
+
+                // Tab key support
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        e.preventDefault();
+                        var start = this.selectionStart;
+                        var end = this.selectionEnd;
+                        this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                        this.selectionStart = this.selectionEnd = start + 4;
+                    }
+                });
+
+                // Run button
+                runBtn.addEventListener('click', function() {
+                    var code = textarea.value;
+                    var originalText = runBtn.textContent;
+                    runBtn.disabled = true;
+                    runBtn.textContent = 'Loading...';
+
+                    loadPyodide().then(function(py) {
+                        runBtn.textContent = originalText;
+                        runBtn.disabled = false;
+
+                        // Run user code as-is for output display
+                        var mainRun = runSingleTest(py, code);
+
+                        if (mainRun.error) {
+                            output.textContent = mainRun.error;
+                            output.classList.add('has-content', 'has-error');
+                        } else {
+                            var trimmed = mainRun.stdout.replace(/\n$/, '');
+                            output.textContent = trimmed || '(出力なし)';
+                            output.classList.add('has-content');
+                            output.classList.remove('has-error');
+                        }
+
+                        // Exercise mode: check answer
+                        if (mode === 'exercise' && result) {
+                            pg.classList.remove('is-correct');
+                            result.className = 'playground-result';
+                            result.innerHTML = '';
+                            pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+
+                            if (tests) {
+                                // Multi-test mode
+                                var passCount = 0;
+                                var lines = [];
+
+                                for (var t = 0; t < tests.length; t++) {
+                                    var test = tests[t];
+                                    var varName = test.assign.split('=')[0].trim();
+                                    var pattern = new RegExp('^' + varName + '\\s*=\\s*.*$', 'm');
+                                    var testCode = code.replace(pattern, test.assign);
+                                    var r = runSingleTest(py, testCode);
+
+                                    if (!r.error && r.stdout.replace(/\n$/, '') === test.expected) {
+                                        passCount++;
+                                        lines.push('<span class="test-pass">\u2713 ' + escapeHtml(test.label) + ' \u2192 ' + escapeHtml(test.expected) + '</span>');
+                                    } else if (r.error) {
+                                        lines.push('<span class="test-fail">\u2717 ' + escapeHtml(test.label) + ' \u2192 Error</span>');
+                                    } else {
+                                        var actual = escapeHtml(r.stdout.replace(/\n$/, '') || '(出力なし)');
+                                        lines.push('<span class="test-fail">\u2717 ' + escapeHtml(test.label) + ' \u2192 ' + actual + ' (期待: ' + escapeHtml(test.expected) + ')</span>');
+                                    }
+                                }
+
+                                if (passCount === tests.length) {
+                                    result.innerHTML = '<strong>\u2713 全問正解！ (' + passCount + '/' + tests.length + ')</strong>\n' + lines.join('\n');
+                                    result.classList.add('correct');
+                                    pg.classList.add('is-correct');
+                                    spawnParticles(pg);
+                                } else if (passCount > 0) {
+                                    result.innerHTML = '<strong>' + passCount + '/' + tests.length + ' 正解</strong>\n' + lines.join('\n');
+                                    result.classList.add('partial');
+                                } else {
+                                    result.innerHTML = '<strong>\u2717 0/' + tests.length + ' 正解</strong>\n' + lines.join('\n');
+                                    result.classList.add('wrong');
+                                }
+                            } else if (expected) {
+                                // Single-test mode
+                                if (mainRun.error) {
+                                    result.textContent = 'Error \u2014 コードを修正してもう一度実行してください。';
+                                    result.classList.add('wrong');
+                                } else {
+                                    var actual = mainRun.stdout.replace(/\n$/, '');
+                                    if (actual === expected) {
+                                        result.textContent = '\u2713 正解！';
+                                        result.classList.add('correct');
+                                        pg.classList.add('is-correct');
+                                        spawnParticles(pg);
+                                    } else {
+                                        result.textContent = '\u2717 不正解 \u2014 期待される出力: ' + expected;
+                                        result.classList.add('wrong');
+                                    }
+                                }
+                            }
+                        }
+                    }).catch(function(err) {
+                        runBtn.textContent = originalText;
+                        runBtn.disabled = false;
+                        output.textContent = 'Pyodide load error: ' + err.message;
+                        output.classList.add('has-content', 'has-error');
+                    });
+                });
+
+                // Reset button
+                resetBtn.addEventListener('click', function() {
+                    textarea.value = textarea.getAttribute('data-initial');
+                    output.textContent = '';
+                    output.classList.remove('has-content', 'has-error');
+                    pg.classList.remove('is-correct');
+                    if (result) {
+                        result.className = 'playground-result';
+                        result.innerHTML = '';
+                    }
+                    pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+                });
+            });
+        }
+
+        function spawnParticles(pg) {
+            var emojis = ['\u2728', '\u2B50', '\u2728', '\u2B50', '\u2728', '\u2B50'];
+            for (var i = 0; i < emojis.length; i++) {
+                var span = document.createElement('span');
+                span.className = 'playground-particle';
+                span.textContent = emojis[i];
+                span.style.left = (15 + Math.random() * 70) + '%';
+                span.style.top = (20 + Math.random() * 50) + '%';
+                span.style.animationDelay = (Math.random() * 0.3) + 's';
+                pg.appendChild(span);
+            }
+            // Cleanup after animation
+            setTimeout(function() {
+                pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+            }, 1600);
+        }
+
+        // Init
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPlaygrounds);
+        } else {
+            initPlaygrounds();
+        }
+    })();
+
+    // Theme toggle
+    (function() {
+        var toggle = document.querySelector('.theme-toggle');
+        if (!toggle) return;
+        toggle.addEventListener('click', function() {
+            var html = document.documentElement;
+            var current = html.getAttribute('data-theme') || 'dark';
+            var next = current === 'dark' ? 'light' : 'dark';
+            html.classList.add('theme-transitioning');
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                var html = document.documentElement;
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

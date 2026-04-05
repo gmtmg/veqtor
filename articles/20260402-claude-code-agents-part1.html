@@ -25,6 +25,7 @@
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
                 </ul>
                 <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
                     <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
@@ -38,8 +39,20 @@
             <div class="article-meta">
                 <time datetime="2026-04-02">2026年4月2日</time>
                 <span class="article-category">AI</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
             </div>
             <h1>Claude Codeエージェント機能 完全入門ガイド【前編】</h1>
+
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>こんにちは、Compassです。「エージェント」って聞くと難しそうですよね。でも大丈夫。この記事では、ターミナルの開き方から一歩ずつ進めていきます。技術の世界は広いけど、最初の一歩さえ踏み出せば道は開けます。一緒にやっていきましょう。</p>
+                </div>
+            </div>
 
             <p>「エージェント」と聞くと難しそうに感じるかもしれませんが、実はとてもシンプルです。この前編では<strong>「ターミナルって何？」というレベルから</strong>、実際に手を動かしてエージェントを作って動かすところまで、一歩ずつ進めていきます。</p>
 
@@ -80,6 +93,14 @@
             <p>日常で例えるとこうです。会社に新人が入ってきたとき、「この仕事はこのやり方でやってね」というマニュアルを渡しますよね。エージェントはまさにそれと同じです。AIに「あなたはコードレビューの専門家です。こういう手順でレビューしてください」という<strong>指示書をテキストファイルで渡す</strong>仕組みです。</p>
 
             <p>つまり、エージェントの正体は<strong>ただのテキストファイル</strong>です。プログラミングの知識は必要ありません。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「テキストファイルを置くだけ」って聞くと、拍子抜けしますよね。でも本当にそうなんです。構えなくて大丈夫ですよ。</p>
+                </div>
+            </div>
 
             <figure class="article-figure">
                 <img src="../assets/images/articles/20260402-claude-code-agents-01.svg"
@@ -244,6 +265,14 @@ model: sonnet
 
             <p>貼り付けたら、ファイルを<strong>保存</strong>して閉じてください（Ctrl+S または Cmd+S）。</p>
 
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>保存できましたか？ ここまで来れば、もう半分クリアです。次は中身を理解していきましょう。わからない部分があっても、まず動かしてみてから振り返れば大丈夫。</p>
+                </div>
+            </div>
+
             <h3>ファイルの中身を解説</h3>
 
             <p>今書いた内容は、大きく2つの部分に分かれています。</p>
@@ -282,6 +311,14 @@ model: sonnet
             <p>Claude Codeは先ほど作った <code>code-reviewer</code> エージェントの <code>description</code> を読んで、「レビューに関する依頼だから、このエージェントに任せよう」と自動的に判断してくれます。</p>
 
             <p>おめでとうございます。これであなたの最初のエージェントが動きました。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>最初のエージェントが動いた瞬間は、けっこう感動しますよね。ここからは自分好みにカスタマイズしていく楽しさが待っています。後編では応用テクニックを紹介するので、ぜひ続けて読んでみてください。</p>
+                </div>
+            </div>
 
             <!-- ===================== -->
             <!-- 前編まとめ -->

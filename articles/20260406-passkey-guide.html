@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パスワードはもう古い？ パスキー完全ガイド ― 仕組み・設定方法・よくある疑問まとめ | Veqtor</title>
+    <meta name="description" content="パスワードの限界からパスキーの仕組み、主要サービスでの設定手順、よくある疑問までを網羅的に解説。セキュリティ専門ライターAegisによるパスキー完全ガイド。">
+    <meta property="og:title" content="パスワードはもう古い？ パスキー完全ガイド ― 仕組み・設定方法・よくある疑問まとめ">
+    <meta property="og:description" content="パスワードの限界からパスキーの仕組み、設定方法、よくある疑問までを網羅。セキュリティの専門家視点で丁寧に解説します。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260406-passkey-guide-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-06">2026年4月6日</time>
+                <span class="article-category">Security</span>
+                <a href="../writers.html#aegis" class="article-writer" data-writer="aegis">
+                    <img src="../assets/images/writers/AEGIS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Aegis</span>
+                </a>
+            </div>
+            <h1>パスワードはもう古い？ パスキー完全ガイド ― 仕組み・設定方法・よくある疑問まとめ</h1>
+
+            <!-- writer-intro -->
+            <div class="writer-intro" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Aegis</span>
+                    <p>まず守りを固めましょう。「パスワードを使い回している」「覚えきれないからメモに書いている」——そんな心当たりはありませんか？ パスワードの問題は決して他人事ではありません。今回は、パスワードに代わる新しい認証方式「パスキー」について、仕組みから設定方法、よくある疑問まで丁寧に解説します。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション1: パスワードの限界 -->
+            <!-- ========================== -->
+
+            <h2>1. パスワードの限界</h2>
+
+            <p>私たちは何十年もパスワードに頼ってきました。しかし、パスワードという仕組みは、もはや現代のセキュリティ脅威に対応しきれなくなっています。</p>
+
+            <h3>フィッシング被害の深刻化</h3>
+
+            <p>フィッシング攻撃は年々巧妙化しています。本物そっくりのログインページに誘導し、ユーザーにパスワードを入力させる。2024年にはフィッシング被害件数が過去最高を更新し、2025年もその勢いは衰えていません。どんなに注意深い人でも、完璧に見抜くのは困難な時代になりました。</p>
+
+            <h3>パスワードの使い回し問題</h3>
+
+            <p>「複雑なパスワードを、サービスごとに変えて、定期的に更新する」——これが理想だと言われ続けてきました。しかし現実には、人は平均して100以上のオンラインアカウントを持っています。すべてに異なる複雑なパスワードを設定し、記憶しておくのは非現実的です。</p>
+
+            <p>結果、多くの人が同じパスワードを使い回します。ひとつのサービスで漏洩したパスワードが、他のサービスへの不正ログインに使われる<strong>「クレデンシャルスタッフィング」</strong>は、攻撃者にとって最もコスパの良い手法のひとつです。</p>
+
+            <h3>大規模情報漏洩の現実</h3>
+
+            <p>2024年から2025年にかけて、大規模なデータ漏洩事件が相次ぎました。数億件規模のパスワードがダークウェブに流出し、誰でもアクセスできる状態になっています。「自分は大丈夫」と思っていても、利用しているサービスの側から漏れてしまえばどうしようもありません。</p>
+
+            <h3>「複雑なパスワード」の限界</h3>
+
+            <p>「大文字・小文字・数字・記号を含む12文字以上」——こうしたパスワードポリシーは、たしかにブルートフォース攻撃には強くなります。しかし、フィッシングには無力です。どんなに複雑なパスワードでも、本人がフィッシングサイトに入力してしまえば一瞬で盗まれます。パスワードの「複雑さ」では解決できない問題がある。これが、新しい認証方式が必要とされる根本的な理由です。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/passkey-password-problems.svg" alt="パスワードが抱える4つの脅威: フィッシング、使い回し、情報漏洩、総当たり攻撃">
+                <figcaption>パスワードが抱える4つの根本的な脅威。どれも「パスワード」という仕組み自体の限界に起因している。</figcaption>
+            </figure>
+
+            <!-- ========================== -->
+            <!-- セクション2: パスキーとは何か -->
+            <!-- ========================== -->
+
+            <h2>2. パスキーとは何か</h2>
+
+            <p><strong>パスキー（Passkey）</strong>は、パスワードに代わる新しい認証方式です。FIDO AllianceとW3Cが策定した国際標準規格に基づいており、Apple・Google・Microsoftの3社が共同で推進しています。</p>
+
+            <h3>「鍵と錠前」で理解するパスキー</h3>
+
+            <p>パスキーの仕組みは<strong>「鍵と錠前」</strong>にたとえるとわかりやすいでしょう。</p>
+
+            <p>パスキーを設定すると、あなたのデバイス上に<strong>「秘密鍵」</strong>（=鍵）が、サービス側に<strong>「公開鍵」</strong>（=錠前）がそれぞれ作られます。ログインするとき、サービス側は錠前を差し出し、あなたのデバイスが鍵で開けて見せる。この「鍵」はデバイスの外に出ることがないため、盗まれる心配がありません。</p>
+
+            <h3>パスワード vs パスキー 比較表</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>パスワード</th>
+                        <th>パスキー</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>記憶が必要？</td>
+                        <td>はい（複雑な文字列を覚える）</td>
+                        <td>いいえ（生体認証やPINで解錠）</td>
+                    </tr>
+                    <tr>
+                        <td>フィッシング耐性</td>
+                        <td>なし（偽サイトに入力してしまう）</td>
+                        <td>あり（オリジンにバインドされる）</td>
+                    </tr>
+                    <tr>
+                        <td>サーバー漏洩時のリスク</td>
+                        <td>高い（パスワード自体が漏れる）</td>
+                        <td>低い（公開鍵のみ。悪用不可）</td>
+                    </tr>
+                    <tr>
+                        <td>使い回しの問題</td>
+                        <td>あり（同じPWを複数サイトで利用）</td>
+                        <td>なし（サイトごとに固有の鍵ペア）</td>
+                    </tr>
+                    <tr>
+                        <td>認証の手間</td>
+                        <td>入力が必要</td>
+                        <td>指紋 / 顔認証 / PINのみ</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>比較表を見ていただくと一目瞭然ですが、パスキーはパスワードの弱点をほぼすべてカバーしています。特に「フィッシング耐性」は画期的で、従来の認証方式では根本的に対処できなかった問題です。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション3: パスキーの仕組み -->
+            <!-- ========================== -->
+
+            <h2>3. パスキーの仕組み</h2>
+
+            <p>ここからは少し技術的な話になりますが、なるべく平易に説明します。仕組みを理解しておくと、「なぜパスキーが安全なのか」が腑に落ちるはずです。</p>
+
+            <h3>FIDO2 / WebAuthn とは</h3>
+
+            <p>パスキーは<strong>FIDO2</strong>と<strong>WebAuthn</strong>という2つの技術標準に基づいています。</p>
+
+            <ul>
+                <li><strong>FIDO2</strong>: FIDO Alliance（Google、Apple、Microsoftなどが参加する業界団体）が策定した認証規格。パスワードレス認証の基盤</li>
+                <li><strong>WebAuthn</strong>: W3C（Web標準を策定する団体）が定めたWeb認証API。ブラウザからFIDO2認証を利用するための仕組み</li>
+            </ul>
+
+            <p>この2つが組み合わさることで、Webブラウザ上でパスワードなしの安全な認証が実現しています。</p>
+
+            <h3>登録フロー: 鍵ペアの生成</h3>
+
+            <p>パスキーを初めて設定するとき、以下のことが起こります。</p>
+
+            <ol>
+                <li>サービス側が「パスキーを登録してください」とリクエストを送る</li>
+                <li>あなたのデバイスが<strong>公開鍵と秘密鍵のペア</strong>を生成する</li>
+                <li><strong>公開鍵</strong>だけがサービス側に送られ、保存される</li>
+                <li><strong>秘密鍵</strong>はデバイス内の安全な領域（セキュアエンクレーブ/TPM）に保管される</li>
+            </ol>
+
+            <p>ポイントは、<strong>秘密鍵がデバイスの外に出ない</strong>こと。サービス側に保存されるのは公開鍵のみです。公開鍵は文字通り「公開」しても問題ないデータであり、万が一サーバーから漏洩しても、それだけではログインできません。</p>
+
+            <h3>認証フロー: チャレンジ署名</h3>
+
+            <p>ログインするとき、以下のやりとりが行われます。</p>
+
+            <ol>
+                <li>サービス側がランダムな文字列（<strong>チャレンジ</strong>）を生成し、ブラウザに送る</li>
+                <li>ブラウザがあなたに本人確認を求める（指紋認証 / 顔認証 / PIN入力）</li>
+                <li>本人確認が通ると、デバイス内の<strong>秘密鍵</strong>でチャレンジに<strong>電子署名</strong>する</li>
+                <li>署名されたデータがサービスに送り返される</li>
+                <li>サービス側は保存してある<strong>公開鍵</strong>で署名を検証する</li>
+            </ol>
+
+            <p>この一連のやりとりで、ネットワーク上を流れるのは「チャレンジ」と「署名」だけ。秘密鍵そのものは一切送信されません。</p>
+
+            <h3>なぜフィッシングに強いのか: オリジンバインド</h3>
+
+            <p>パスキーの最大の強みが<strong>オリジンバインド</strong>です。</p>
+
+            <p>パスキーの秘密鍵は、登録時のWebサイトのドメイン（オリジン）と紐づけられています。たとえば <code>accounts.google.com</code> で作ったパスキーは、<code>accounts.google.com</code> でしか使えません。</p>
+
+            <p>攻撃者が <code>accounts-google.fake.com</code> という偽サイトを作っても、ブラウザはドメインが一致しないことを自動的に検知し、パスキーを使った認証を拒否します。ユーザーが騙されてアクセスしても、技術的にパスキーが漏洩することはありません。</p>
+
+            <p>これはパスワードでは絶対に実現できないことです。パスワードは「ユーザーが入力する文字列」に過ぎないため、偽サイトでもそのまま入力できてしまいます。パスキーは認証処理がブラウザとOSのレベルで制御されるため、人間のミスに左右されないのです。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/passkey-how-it-works.svg" alt="パスキー認証フロー: 登録時に鍵ペアを生成し、認証時にチャレンジ署名で検証する仕組み">
+                <figcaption>パスキーの認証フロー。登録時にデバイスが鍵ペアを生成し、公開鍵のみサーバーに送信。認証時はチャレンジ署名で本人確認を行う。</figcaption>
+            </figure>
+
+            <!-- ========================== -->
+            <!-- セクション4: 設定してみよう -->
+            <!-- ========================== -->
+
+            <h2>4. 設定してみよう</h2>
+
+            <p>理屈はわかった。では実際にパスキーを設定してみましょう。ここでは主要3サービスでの手順を紹介します。</p>
+
+            <h3>Google アカウント</h3>
+
+            <ol>
+                <li><a href="https://myaccount.google.com/signinoptions/passkeys" target="_blank" rel="noopener">Google アカウントのパスキー設定ページ</a>にアクセス</li>
+                <li>「パスキーを作成する」をクリック</li>
+                <li>ブラウザが本人確認を要求（指紋 / 顔認証 / PIN）</li>
+                <li>確認が完了すると、パスキーが登録される</li>
+            </ol>
+
+            <p>次回のログインからは、パスワードの代わりに生体認証だけでサインインできます。</p>
+
+            <h3>Apple ID</h3>
+
+            <ol>
+                <li>Safari で Apple ID のサインインページにアクセス</li>
+                <li>サインイン時に「パスキーで続ける」を選択</li>
+                <li>Face ID / Touch ID で本人確認</li>
+                <li>パスキーが iCloud キーチェーンに保存され、Apple デバイス間で自動同期</li>
+            </ol>
+
+            <p>Apple エコシステムでは、iCloud キーチェーンを通じてすべてのデバイスでパスキーが共有されます。iPhone で作ったパスキーを Mac でそのまま使えるのは大きなメリットです。</p>
+
+            <h3>Microsoft アカウント</h3>
+
+            <ol>
+                <li><a href="https://account.microsoft.com/security" target="_blank" rel="noopener">Microsoft アカウントのセキュリティ設定</a>にアクセス</li>
+                <li>「サインイン方法の追加」から「顔、指紋、PIN、またはセキュリティキー」を選択</li>
+                <li>画面の指示に従って Windows Hello またはセキュリティキーで登録</li>
+                <li>登録完了後、パスワードなしでサインイン可能に</li>
+            </ol>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>設定自体は驚くほど簡単です。ほとんどの場合、1〜2分で完了します。「セキュリティ対策は面倒」というイメージがあるかもしれませんが、パスキーに限って言えば、むしろパスワードを入力するより楽になります。まず一つのサービスから試してみてください。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション5: よくある疑問 -->
+            <!-- ========================== -->
+
+            <h2>5. よくある疑問 Q&amp;A</h2>
+
+            <h3>Q. スマホを紛失したらどうなる？</h3>
+
+            <p>パスキーはクラウド同期に対応しています。iCloud キーチェーン（Apple）、Google パスワードマネージャー（Android）、Windows Hello がそれぞれデバイス間の同期を担っています。スマホを紛失しても、同じアカウントでサインインした別のデバイスからパスキーを利用できます。</p>
+
+            <p>また、多くのサービスではパスキーと並行して従来の回復手段（回復用電話番号、回復コードなど）も維持されます。パスキーを設定したからといって、他のすべての手段が使えなくなるわけではありません。</p>
+
+            <h3>Q. 複数デバイスで同期できる？</h3>
+
+            <p>はい。Apple の iCloud キーチェーン、Google の Google パスワードマネージャーは、同じアカウントに紐づいたデバイス間でパスキーを自動同期します。iPhone で作ったパスキーが iPad や Mac でもすぐに使えます。</p>
+
+            <p>ただし、Apple と Android の間など、<strong>エコシステムをまたいだ同期</strong>には対応していません。その場合は、1Password や Dashlane などの<strong>クロスプラットフォーム対応パスワードマネージャー</strong>を使うことで、OS の壁を超えた同期が可能です。</p>
+
+            <h3>Q. パスワードマネージャーとの違いは？</h3>
+
+            <p>パスワードマネージャーは「複雑なパスワードを自動生成・保存してくれるツール」です。便利ですが、最終的にサービスに送られるのは依然として「パスワード」であり、フィッシングのリスクは残ります。</p>
+
+            <p>パスキーは認証の仕組みそのものが異なります。パスワードという概念自体を排除し、公開鍵暗号方式で認証するため、フィッシング耐性が根本的に違います。</p>
+
+            <p>なお、1Password や Dashlane などの主要パスワードマネージャーは、すでにパスキーの保存・管理にも対応しています。パスワードマネージャーとパスキーは対立するものではなく、補完関係にあります。</p>
+
+            <h3>Q. 企業で導入するには？</h3>
+
+            <p>企業のシステム管理者にとって、パスキー導入の主なポイントは以下の通りです。</p>
+
+            <ul>
+                <li><strong>IdP（認証基盤）の対応確認</strong>: Microsoft Entra ID、Okta、Google Workspace などの主要 IdP はすでにパスキーに対応済み</li>
+                <li><strong>段階的な導入</strong>: いきなりパスワードを廃止するのではなく、まずはパスキーを「追加の選択肢」として提供し、従業員の利用率を見ながら移行する</li>
+                <li><strong>デバイスポリシー</strong>: 会社支給端末 vs BYOD でパスキーの管理方針を決める</li>
+                <li><strong>回復フローの設計</strong>: デバイス紛失時の対応フローを事前に整備しておく</li>
+            </ul>
+
+            <h3>Q. パスワードは完全になくなる？</h3>
+
+            <p>短期的には、No です。パスキーに対応していないサービスはまだ多く、すべてのユーザーが対応デバイスを持っているわけでもありません。しばらくはパスワードとパスキーが共存する過渡期が続くでしょう。</p>
+
+            <p>しかし長期的には、パスワードの役割は確実に縮小していきます。Apple、Google、Microsoft が足並みを揃えてパスキーを推進している事実は、業界全体の方向性を示しています。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>「パスワードがすぐになくなる」とは言いません。しかし、パスキーという選択肢がある以上、対応しているサービスから順に移行していくのが賢明です。完璧を待つ必要はありません。できるところから守りを固めていきましょう。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション6: 現状と課題 -->
+            <!-- ========================== -->
+
+            <h2>6. 現状と課題</h2>
+
+            <h3>対応サービスは着実に増加中</h3>
+
+            <p>2026年4月現在、パスキーに対応している主要サービスは急速に増えています。</p>
+
+            <ul>
+                <li><strong>Google</strong>: 全アカウントでパスキー対応済み。デフォルトの認証方式として推奨</li>
+                <li><strong>Apple</strong>: iOS / macOS でネイティブ対応。iCloud キーチェーンで同期</li>
+                <li><strong>Microsoft</strong>: Windows Hello と連携。Entra ID で企業向けにも展開</li>
+                <li><strong>GitHub</strong>: パスキーでのサインインに対応</li>
+                <li><strong>Amazon</strong>: ショッピングアカウントでパスキー利用可能</li>
+                <li><strong>PayPal / Adobe / Nintendo / Sony</strong> なども続々対応</li>
+            </ul>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/passkey-supported-services.svg" alt="パスキー対応サービス一覧（2026年）: Google、Apple、Microsoft、GitHub、Amazonなど主要サービスが対応済み">
+                <figcaption>2026年4月現在のパスキー対応状況。主要テック企業はすべて対応済みで、対応サービスは日々拡大している。</figcaption>
+            </figure>
+
+            <h3>残る課題</h3>
+
+            <p>一方で、普及に向けた課題も存在します。</p>
+
+            <ul>
+                <li><strong>未対応サービス</strong>: 中小規模のWebサービスや、国内独自のサービスにはまだ対応していないものが多い</li>
+                <li><strong>古いデバイス</strong>: セキュアエンクレーブやTPMを搭載していない古いスマートフォン・PCでは利用できない</li>
+                <li><strong>クロスプラットフォームの壁</strong>: Apple / Google / Microsoft のエコシステム間の同期は、まだサードパーティツール頼み</li>
+                <li><strong>ユーザー教育</strong>: 「パスキーって何？」という層がまだ大多数。技術的に優れていても、知られていなければ普及しない</li>
+            </ul>
+
+            <!-- ========================== -->
+            <!-- セクション7: まとめ -->
+            <!-- ========================== -->
+
+            <h2>7. まとめ</h2>
+
+            <h3>今すぐやるべき3ステップ</h3>
+
+            <ol>
+                <li><strong>Google / Apple / Microsoft アカウントでパスキーを設定する</strong>。まずは最も使用頻度の高いアカウントから</li>
+                <li><strong>対応サービスを確認する</strong>。普段使っているサービスがパスキーに対応しているか調べてみる</li>
+                <li><strong>回復手段を整備する</strong>。回復用電話番号の確認、回復コードの保存など、万が一への備えも忘れずに</li>
+            </ol>
+
+            <h3>パスキーの将来展望</h3>
+
+            <p>パスキーは単なる「新しいログイン方法」ではありません。パスワードという、インターネット黎明期から続く根本的な弱点を解消するための技術です。</p>
+
+            <p>Apple、Google、Microsoft が共同で推進し、FIDO Alliance という国際標準団体が規格を策定している。これだけのプレイヤーが足並みを揃えて動いている技術は、歴史的に見ても確実に普及してきました。</p>
+
+            <p>今はまだ過渡期です。すべてのサービスがパスキーに対応するまでには時間がかかるでしょう。しかし、対応しているサービスから一つずつ移行していくことで、あなたのアカウントは確実に安全になります。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>セキュリティは、完璧を目指して何もしないより、できることから一つずつ対策するほうが遥かに効果的です。パスキーの設定は、その「一つ」として最適な選択だと私は思います。まず守りを固めましょう。あなたのアカウントを守れるのは、あなただけです。</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

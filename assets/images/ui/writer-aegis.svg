@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <circle cx="60" cy="60" r="58" fill="#0e0e18" stroke="#1e1e30" stroke-width="1"/>
+  <!-- Shield motif -->
+  <path d="M60 30 L82 42 L82 62 Q82 82 60 94 Q38 82 38 62 L38 42 Z"
+        fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.7"/>
+  <!-- Inner shield -->
+  <path d="M60 40 L74 48 L74 62 Q74 76 60 84 Q46 76 46 62 L46 48 Z"
+        fill="#7c3aed" opacity="0.12"/>
+  <!-- Checkmark inside shield -->
+  <polyline points="50,62 57,70 72,52" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+  <!-- Lock keyhole accent -->
+  <circle cx="60" cy="60" r="40" fill="none" stroke="#7c3aed" stroke-width="0.5" opacity="0.1" stroke-dasharray="2 8"/>
+  <!-- Corner accents -->
+  <line x1="28" y1="28" x2="34" y2="28" stroke="#7c3aed" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  <line x1="28" y1="28" x2="28" y2="34" stroke="#7c3aed" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  <line x1="92" y1="28" x2="86" y2="28" stroke="#7c3aed" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+  <line x1="92" y1="28" x2="92" y2="34" stroke="#7c3aed" stroke-width="1" stroke-linecap="round" opacity="0.3"/>
+</svg>

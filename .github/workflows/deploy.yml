@@ -21,7 +21,7 @@ jobs:
         USER_NAME: ${{ secrets.XSERVER_USER }}
         HOST_NAME: ${{ secrets.XSERVER_HOST }}
         # 【書き換えポイント】 取得したドメイン名に書き換えてください（例: egawa-game.com）
-        TARGET_DIR: /home/${{ secrets.XSERVER_USER }}/algoyosuga.com/public_html/
+        TARGET_DIR: /home/${{ secrets.XSERVER_USER }}/algoyosuga.com/public_html/veqtor/
       run: |
         # サーバーに入るための合鍵の準備
         mkdir -p ~/.ssh

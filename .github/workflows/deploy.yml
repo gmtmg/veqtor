@@ -1,0 +1,34 @@
+name: Deploy to Xserver
+
+on:
+  push:
+    branches:
+      - main # mainブランチにPushされた時にロボットが動き出します
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. 最新のコードを受け取る
+      uses: actions/checkout@v4
+
+    # ※ビルドが不要なので、Node.jsの準備や npm run build の工程は削除しました！
+
+    - name: 2. エックスサーバーへ配置する
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.XSERVER_SSH_KEY }}
+        USER_NAME: ${{ secrets.XSERVER_USER }}
+        HOST_NAME: ${{ secrets.XSERVER_HOST }}
+        # 【書き換えポイント】 取得したドメイン名に書き換えてください（例: egawa-game.com）
+        TARGET_DIR: /home/${{ secrets.XSERVER_USER }}/algoyosuga.com/public_html/
+      run: |
+        # サーバーに入るための合鍵の準備
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -p 10022 -H $HOST_NAME >> ~/.ssh/known_hosts
+
+        # HTMLやJSのファイルをそのままアップロードします
+        # 隠しフォルダ（.git や .github）は不要なので省く設定にしています
+        rsync -avz -e "ssh -p 10022" --delete --exclude='.git/' --exclude='.github/' ./ ${USER_NAME}@${HOST_NAME}:${TARGET_DIR}

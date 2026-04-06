@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#10101e"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="340" rx="12" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="85" x2="760" y2="85"/><line x1="0" y1="170" x2="760" y2="170"/>
+    <line x1="0" y1="255" x2="760" y2="255"/>
+    <line x1="190" y1="0" x2="190" y2="340"/><line x1="380" y1="0" x2="380" y2="340"/>
+    <line x1="570" y1="0" x2="570" y2="340"/>
+  </g>
+
+  <!-- Title -->
+  <text x="380" y="34" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#a0a0b0" opacity="0.8" letter-spacing="0.1em">RAG: 3-STEP FLOW</text>
+
+  <!-- Step number labels -->
+  <text x="155" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#00d4ff" opacity="0.7">STEP 1</text>
+  <text x="380" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#f59e0b" opacity="0.7">STEP 2</text>
+  <text x="605" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#10b981" opacity="0.7">STEP 3</text>
+
+  <!-- ===== Step 1: Retrieve ===== -->
+  <g transform="translate(155,150)">
+    <rect x="-75" y="-55" width="150" height="110" rx="10" fill="#141425" stroke="#00d4ff" stroke-width="1.5"/>
+    <!-- Magnifying glass icon -->
+    <g transform="translate(0,-18)">
+      <circle cx="0" cy="0" r="16" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+      <line x1="11" y1="11" x2="20" y2="20" stroke="#00d4ff" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <text x="0" y="22" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#00d4ff" opacity="0.9">Retrieve</text>
+    <text x="0" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a0a0b0" opacity="0.7">検索</text>
+  </g>
+
+  <!-- Description below Step 1 -->
+  <text x="155" y="235" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">質問に関連する文書を</text>
+  <text x="155" y="250" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">知識ベースから検索</text>
+
+  <!-- Arrow 1→2 -->
+  <g transform="translate(248,150)">
+    <line x1="0" y1="0" x2="50" y2="0" stroke="url(#flow)" stroke-width="2" stroke-dasharray="6,3" opacity="0.5"/>
+    <polygon points="50,-5 60,0 50,5" fill="#f59e0b" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Step 2: Augment ===== -->
+  <g transform="translate(380,150)">
+    <rect x="-75" y="-55" width="150" height="110" rx="10" fill="#141425" stroke="#f59e0b" stroke-width="1.5"/>
+    <!-- Plus/merge icon -->
+    <g transform="translate(0,-18)">
+      <circle cx="0" cy="0" r="16" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="#f59e0b" stroke-width="2"/>
+    </g>
+    <text x="0" y="22" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#f59e0b" opacity="0.9">Augment</text>
+    <text x="0" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a0a0b0" opacity="0.7">付加</text>
+  </g>
+
+  <!-- Description below Step 2 -->
+  <text x="380" y="235" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">検索結果を質問と合わせて</text>
+  <text x="380" y="250" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">プロンプトに組み込む</text>
+
+  <!-- Arrow 2→3 -->
+  <g transform="translate(473,150)">
+    <line x1="0" y1="0" x2="50" y2="0" stroke="url(#flow)" stroke-width="2" stroke-dasharray="6,3" opacity="0.5"/>
+    <polygon points="50,-5 60,0 50,5" fill="#10b981" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Step 3: Generate ===== -->
+  <g transform="translate(605,150)">
+    <rect x="-75" y="-55" width="150" height="110" rx="10" fill="#141425" stroke="#10b981" stroke-width="1.5"/>
+    <!-- Sparkle/generate icon -->
+    <g transform="translate(0,-18)">
+      <circle cx="0" cy="0" r="16" fill="none" stroke="#10b981" stroke-width="1.5"/>
+      <line x1="0" y1="-10" x2="0" y2="10" stroke="#10b981" stroke-width="1.5"/>
+      <line x1="-10" y1="0" x2="10" y2="0" stroke="#10b981" stroke-width="1.5"/>
+      <line x1="-7" y1="-7" x2="7" y2="7" stroke="#10b981" stroke-width="1"/>
+      <line x1="7" y1="-7" x2="-7" y2="7" stroke="#10b981" stroke-width="1"/>
+    </g>
+    <text x="0" y="22" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#10b981" opacity="0.9">Generate</text>
+    <text x="0" y="40" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#a0a0b0" opacity="0.7">生成</text>
+  </g>
+
+  <!-- Description below Step 3 -->
+  <text x="605" y="235" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">LLMが根拠に基づいた</text>
+  <text x="605" y="250" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">回答を生成</text>
+
+  <!-- Bottom summary bar -->
+  <g transform="translate(380,300)">
+    <rect x="-220" y="-14" width="440" height="28" rx="14" fill="#00d4ff" fill-opacity="0.06" stroke="#00d4ff" stroke-width="0.8" opacity="0.5"/>
+    <text x="0" y="4" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#ffffff" opacity="0.7">「検索して、付け足して、生成する」= RAG</text>
+  </g>
+</svg>

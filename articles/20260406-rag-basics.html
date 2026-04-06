@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド | Veqtor</title>
+    <meta name="description" content="RAG（Retrieval-Augmented Generation）の基本概念を、仕組み・構成要素・活用場面・限界まで1本で理解できる入門記事。Compass × Prismの合作解説。">
+    <meta property="og:title" content="RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド">
+    <meta property="og:description" content="RAGの3ステップ、ベクトルDBの仕組み、活用場面と限界まで。AIの検索拡張技術をゼロから理解する完全ガイド。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260406-rag-basics-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-06">2026年4月6日</time>
+                <span class="article-category">AI</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+                <a href="../writers.html#prism" class="article-writer" data-writer="prism">
+                    <img src="../assets/images/writers/PRISM.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Prism</span>
+                </a>
+            </div>
+            <h1>RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド</h1>
+
+            <!-- writer-intro: Compass -->
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>RAGを知ると、AIの使い方が変わります。今回はPrismと一緒に、検索拡張生成（RAG）の仕組みをゼロからわかりやすく解説します。「AIってすごいけど、なんか間違ったこと言うよね」——そんな疑問を持ったことがある人にこそ、読んでほしい記事です。</p>
+                </div>
+            </div>
+
+            <!-- 冒頭の二人の会話 -->
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>Prism、今回は「RAG」がテーマです。最近AIの記事を読んでると頻繁に出てくるワードですよね。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>そうだね。RAGはいま企業のAI導入で最もホットなキーワードのひとつ。でも「なんとなく聞いたことはあるけど、ちゃんと理解できてない」という人が多い印象です。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>まさにそこですね。今回は私が基本の流れをガイドしつつ、Prismに「なぜそうなるのか」「別の視点で見るとどうか」を深掘りしてもらいます。では、始めましょう。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション1: LLMの弱点 -->
+            <!-- ===================== -->
+
+            <h2>1. LLMの「弱点」を知ろう</h2>
+
+            <p>ChatGPTやClaudeのような大規模言語モデル（LLM）は、驚くほど自然な文章を生成します。質問すれば、まるで人間のように答えてくれる。でも、万能ではありません。</p>
+
+            <p>LLMには<strong>3つの構造的な弱点</strong>があります。</p>
+
+            <h3>弱点1: ハルシネーション（幻覚）</h3>
+
+            <p>LLMは「もっともらしいが事実ではない回答」を生成することがあります。これを<strong>ハルシネーション</strong>と呼びます。存在しない論文を引用したり、架空の事実をさも本当のように語ったり。LLMは「知らない」と言うのが苦手なのです。</p>
+
+            <h3>弱点2: 学習データの鮮度切れ</h3>
+
+            <p>LLMの知識は学習データに依存します。学習が完了した時点で知識は「凍結」されるため、<strong>最新のニュースや情報には対応できません</strong>。「今日の天気」や「先週発表された新製品」について聞いても、正確な回答は期待できないのです。</p>
+
+            <h3>弱点3: 社内情報を知らない</h3>
+
+            <p>当然ですが、LLMはあなたの会社の社内マニュアルや顧客データを知りません。<strong>組織固有の知識にはアクセスできない</strong>のです。いくら優秀なAIでも、知らない情報は答えられません。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>「AIは万能ではない」という前提を持つことが大事。弱点を知ることは、決してネガティブなことではなくて、むしろ正しく使うための第一歩です。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>そうなんです。LLMの限界を知ってこそ、「じゃあどう補えばいいの？」という次の話——RAGの価値が見えてきます。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション2: RAGとは何か -->
+            <!-- ===================== -->
+
+            <h2>2. RAGとは何か</h2>
+
+            <p><strong>RAG（Retrieval-Augmented Generation）</strong>は、日本語で「検索拡張生成」と訳されます。2020年にMeta AI（旧Facebook AI Research）の研究チームが提唱した手法で、LLMの弱点を補うために生まれました。</p>
+
+            <p>一言でいえば、<strong>「LLMが回答する前に、関連する情報を外部から検索して渡してあげる仕組み」</strong>です。</p>
+
+            <h3>「図書館の司書」に例えると</h3>
+
+            <p>RAGの仕組みは、図書館の司書に例えるとわかりやすいでしょう。</p>
+
+            <p>あなたが「量子コンピュータについて教えて」と質問したとします。</p>
+
+            <ul>
+                <li><strong>素のLLM</strong>: 自分の記憶だけを頼りに答える。記憶が曖昧なら、それっぽいことを言ってしまう</li>
+                <li><strong>RAG付きLLM</strong>: まず図書館（知識ベース）に行って関連する本や論文を探し、それを読んでから答える。根拠のある回答ができる</li>
+            </ul>
+
+            <p>つまりRAGは、LLMに<strong>「カンニングペーパーを渡す仕組み」</strong>とも言えます。ただし、これは悪いカンニングではなく、正確な情報に基づいて回答するための仕組みです。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/rag-vs-plain-llm.svg" alt="素のLLM vs RAGの比較図。素のLLMは学習済みデータのみで回答しハルシネーションのリスクがある。RAGは外部知識ベースから検索した情報を付加してLLMに渡すため、根拠付きで最新情報に対応した回答が可能。" loading="lazy">
+                <figcaption>素のLLMとRAGの違い。RAGでは回答前に外部知識ベースを参照するため、より正確な回答が可能になる</figcaption>
+            </figure>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「カンニングペーパー」の例え、伝わりましたか？ 要するにLLMが「自分の頭だけで答える」か、「資料を見てから答える」かの違いです。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>別の角度から補足すると、人間だって仕事で何かを答えるとき、まず社内Wikiやマニュアルを確認しますよね。RAGはAIにも同じことをさせている、と考えるとしっくりくるかもしれません。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション3: RAGの仕組み — 3ステップ -->
+            <!-- ===================== -->
+
+            <h2>3. RAGの仕組み — 3ステップ</h2>
+
+            <p>RAGの動作は、たった<strong>3つのステップ</strong>で説明できます。</p>
+
+            <h3>ステップ1: Retrieve（検索）</h3>
+
+            <p>ユーザーの質問を受け取ったら、まず<strong>知識ベース（ドキュメントやデータベース）から関連する情報を検索</strong>します。キーワード検索ではなく、「意味的に近い」情報を探す類似度検索が使われることが多いです（詳しくは次のセクションで解説します）。</p>
+
+            <h3>ステップ2: Augment（付加）</h3>
+
+            <p>検索で見つかった関連文書を、ユーザーの質問と一緒にまとめます。「この文書を参考にして、以下の質問に答えてください」という形で、<strong>LLMへのプロンプトを拡張（Augment）</strong>するのです。</p>
+
+            <h3>ステップ3: Generate（生成）</h3>
+
+            <p>拡張されたプロンプトをLLMに渡し、<strong>関連文書を根拠にした回答を生成</strong>してもらいます。LLMは自分の記憶だけでなく、渡された文書の内容を踏まえて回答するため、ハルシネーションのリスクが大幅に減ります。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「検索して、付け足して、生成する」——この3ステップ、これだけ覚えればRAGの基本はOKです。Retrieve, Augment, Generateの頭文字でRAG。シンプルですよね。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>シンプルだからこそ強力なんですよね。ただ、この「Augment」のステップが実は一番奥が深い。どのくらいの情報を、どういう形でLLMに渡すかで、回答の質が大きく変わります。</p>
+                </div>
+            </div>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/rag-overview-flow.svg" alt="RAGの3ステップフロー図。Step 1 Retrieve（検索）: 質問に関連する文書を知識ベースから検索。Step 2 Augment（付加）: 検索結果を質問と合わせてプロンプトに組み込む。Step 3 Generate（生成）: LLMが根拠に基づいた回答を生成。" loading="lazy">
+                <figcaption>RAGの3ステップ: Retrieve → Augment → Generate</figcaption>
+            </figure>
+
+            <!-- ===================== -->
+            <!-- セクション4: RAGを支える技術 -->
+            <!-- ===================== -->
+
+            <h2>4. RAGを支える技術</h2>
+
+            <p>RAGの3ステップはシンプルですが、その裏側にはいくつかの重要な技術が動いています。ひとつずつ見ていきましょう。</p>
+
+            <h3>ベクトルデータベース（Vector DB）</h3>
+
+            <p>RAGの知識ベースとして使われるのが<strong>ベクトルデータベース</strong>です。Pinecone、Chroma、Weaviate、Qdrantなどが代表的なサービスです。</p>
+
+            <p>通常のデータベースがキーワードで検索するのに対し、ベクトルDBは<strong>「意味の近さ」で検索</strong>します。たとえば「犬」と「ペット」は文字列としては別物ですが、意味的には近い。ベクトルDBならこの関連性を捉えられるのです。</p>
+
+            <h3>埋め込みモデル（Embedding Model）</h3>
+
+            <p>テキストをベクトル（数値の配列）に変換するのが<strong>埋め込みモデル</strong>です。「こんにちは」という文章を [0.12, -0.45, 0.78, ...] のような数百〜数千次元のベクトルに変換します。</p>
+
+            <p>意味が似ているテキスト同士は、ベクトル空間上で近い位置に配置されます。これが類似度検索の基盤です。OpenAIの text-embedding-3 やGoogleの Gecko などが有名です。</p>
+
+            <h3>チャンキング（Chunking）</h3>
+
+            <p>長い文書をそのままベクトル化しても、検索精度が下がってしまいます。そこで、文書を適切な大きさの<strong>「チャンク」（断片）に分割</strong>する処理が必要です。</p>
+
+            <p>段落単位、文単位、トークン数単位など、分割方法はさまざま。適切なチャンクサイズの設計はRAGの性能に直結する重要なポイントです。</p>
+
+            <h3>類似度検索（Similarity Search）</h3>
+
+            <p>ユーザーの質問もベクトルに変換し、知識ベース内のチャンクベクトルと<strong>コサイン類似度</strong>などの指標で比較します。最も類似度が高い上位k件のチャンクを取得する——これが「Retrieve」ステップの実態です。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>専門用語がたくさん出てきましたが、大丈夫ですか？ 要は「テキストを数値に変換して、意味の近さで検索する」というのが核心です。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>その通り。そしてこのベクトル検索こそがRAGの心臓部。「何を聞いているか」を正しく理解し、「本当に関連する情報」を引っ張ってこられるかどうか——RAGの性能はほぼここで決まります。</p>
+                </div>
+            </div>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/rag-architecture.svg" alt="RAGの構成要素アーキテクチャ図。データ準備フェーズではドキュメントをチャンキングしてEmbeddingでベクトル化しベクトルDBに格納。クエリフェーズではユーザーの質問をベクトル化して類似度検索を行う。生成フェーズでは質問と関連チャンクを拡張プロンプトとしてLLMに渡し回答を生成する。" loading="lazy">
+                <figcaption>RAGの構成要素: データ準備 → クエリ → 生成の3フェーズ</figcaption>
+            </figure>
+
+            <!-- ===================== -->
+            <!-- セクション5: RAGが活きる場面 -->
+            <!-- ===================== -->
+
+            <h2>5. RAGが活きる場面</h2>
+
+            <p>RAGが特に力を発揮するのは、<strong>「最新の情報」や「固有の情報」が必要な場面</strong>です。具体的に見てみましょう。</p>
+
+            <h3>社内FAQ・ナレッジベース</h3>
+
+            <p>「経費精算のやり方は？」「リモートワークの申請方法は？」——こうした社内の質問に、社内ドキュメントをベースに正確に回答できます。人事部やIT部門の問い合わせ対応を大幅に効率化できるユースケースです。</p>
+
+            <h3>カスタマーサポート</h3>
+
+            <p>製品マニュアルやFAQデータベースを知識ベースとして、顧客からの問い合わせに自動回答。従来のキーワード検索では対応しきれなかった「言い回しの揺れ」にも対応できます。</p>
+
+            <h3>法律・医療文書検索</h3>
+
+            <p>膨大な判例や医学論文から、質問に関連する条文や知見を引き出して回答。専門家の調査業務を支援するツールとして導入が進んでいます。</p>
+
+            <h3>最新ニュース要約</h3>
+
+            <p>ニュースサイトやRSSフィードを知識ベースに取り込むことで、LLMの学習データにない<strong>最新の出来事についても正確に回答</strong>できるようになります。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>自分の仕事に当てはめてみてください。「ドキュメントを探して、読んで、まとめる」作業があるなら、それはRAGで効率化できる可能性が高いです。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>面白いのは、RAGの活用場面がほぼ「人間が日常的にやっている知的作業」と重なること。逆に言うと、RAGが苦手な領域は「正解のない創造的判断」。使い分けが大事ですね。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション6: RAGの限界と進化 -->
+            <!-- ===================== -->
+
+            <h2>6. RAGの限界と進化</h2>
+
+            <p>RAGは強力な手法ですが、万能ではありません。現時点での課題と、それを乗り越えるための進化の方向を見ておきましょう。</p>
+
+            <h3>検索精度の課題</h3>
+
+            <p>RAGの回答品質は、検索ステップの精度に大きく依存します。関連性の低い文書を取得してしまえば、LLMの回答もピントがずれます。特に<strong>質問が曖昧な場合や、専門用語の表記揺れがある場合</strong>に精度が落ちやすいです。</p>
+
+            <h3>チャンク設計の難しさ</h3>
+
+            <p>チャンクが小さすぎると文脈が失われ、大きすぎるとノイズが増える。<strong>最適なチャンクサイズはデータの性質によって異なる</strong>ため、一律の正解がありません。実験と調整を繰り返す必要があります。</p>
+
+            <h3>マルチモーダルRAG</h3>
+
+            <p>テキストだけでなく、画像・表・グラフなどを含むドキュメントへの対応が進んでいます。<strong>マルチモーダルRAG</strong>は、視覚的な情報も検索・参照できるようにする次世代の手法です。</p>
+
+            <h3>GraphRAG</h3>
+
+            <p>Microsoft Researchが提唱した<strong>GraphRAG</strong>は、ベクトル検索にナレッジグラフ（知識の構造化）を組み合わせたアプローチです。エンティティ間の関係性を活用することで、複雑な質問への回答精度を高めます。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「限界がある」と聞くと不安になるかもしれませんが、大丈夫。どんな技術にも限界はあります。大事なのは、それを知ったうえで使うことです。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>そう、RAGは「完成形」ではなく「進化の途中」にある技術です。GraphRAG、マルチモーダル対応、Agentic RAG——次々と新しいアプローチが生まれている。今の基本を押さえておけば、その進化についていけます。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション7: まとめ -->
+            <!-- ===================== -->
+
+            <h2>7. まとめ</h2>
+
+            <p>この記事で解説したRAGの要点を3つにまとめます。</p>
+
+            <ol>
+                <li><strong>RAGは「検索 + 生成」の仕組み</strong>: LLMが回答する前に外部知識ベースから関連情報を検索し、それを根拠に回答を生成する。ハルシネーションの抑制と最新情報への対応が可能になる</li>
+                <li><strong>3ステップで動く</strong>: Retrieve（検索）→ Augment（付加）→ Generate（生成）。このシンプルな流れがRAGの核心</li>
+                <li><strong>ベクトル検索が鍵</strong>: 埋め込みモデル、ベクトルDB、チャンキング、類似度検索——これらの技術がRAGの精度を支えている</li>
+            </ol>
+
+            <h3>さらに学ぶためのキーワード</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>キーワード</th>
+                        <th>ひとこと説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Embedding</td>
+                        <td>テキストを数値ベクトルに変換する技術</td>
+                    </tr>
+                    <tr>
+                        <td>Vector Database</td>
+                        <td>ベクトルの類似度検索に特化したデータベース</td>
+                    </tr>
+                    <tr>
+                        <td>Chunking Strategy</td>
+                        <td>文書を適切なサイズに分割する設計方針</td>
+                    </tr>
+                    <tr>
+                        <td>Reranking</td>
+                        <td>検索結果の関連度を再評価して精度を上げる手法</td>
+                    </tr>
+                    <tr>
+                        <td>GraphRAG</td>
+                        <td>ナレッジグラフとRAGを組み合わせたアプローチ</td>
+                    </tr>
+                    <tr>
+                        <td>Agentic RAG</td>
+                        <td>AIエージェントが検索戦略を自律的に決定するRAG</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>RAGの基礎、しっかり掴めたでしょうか？ ここから先は、実際にベクトルDBを触ってみたり、小さなRAGシステムを作ってみたりすると、理解がぐっと深まるはずです。一歩ずつ進みましょう。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>Compassのガイド、わかりやすかったですね。最後にひとつだけ補足を。RAGは技術としてだけでなく、「AIに何を任せ、何を人間が判断するか」という問いへのひとつの回答でもあります。ぜひ別の角度からも見てみてください。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>Prism、今回もいい深掘りをありがとう。読者のみなさん、また次の記事でお会いしましょう。</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

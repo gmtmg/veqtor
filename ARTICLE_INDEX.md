@@ -8,6 +8,7 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
+| 7 | 2026-04-06 | 20260406-rag-basics.html | RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド | AI | Compass / Prism | published |
 | 6 | 2026-04-06 | 20260406-passkey-guide.html | パスワードはもう古い？ パスキー完全ガイド ― 仕組み・設定方法・よくある疑問まとめ | Security | Aegis | published |
 | 5 | 2026-04-06 | 20260406-python-basics-if.html | Python基礎講座 ― print・変数・if文をブラウザで体験しよう | Development | Compass | published |
 | 4 | 2026-04-05 | 20260405-ai-model-wars-2026.html | 【2026年4月】最強AIはどれだ？ GPT-5・Claude・Gemini・Llama・Grok 主要LLM徹底比較まとめ | AI | Bolt | published |
@@ -54,3 +55,4 @@
 - 2026-04-05: 記事#4「AIモデル群雄割拠 — 主要LLM完全比較」を公開(Bolt)
 - 2026-04-06: 記事#5「Python基礎講座 ― print・変数・if文をブラウザで体験しよう」を公開(Compass)
 - 2026-04-06: 記事#6「パスワードはもう古い？ パスキー完全ガイド」を公開(Aegis)
+- 2026-04-06: 記事#7「RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド」を公開(Compass / Prism合作)

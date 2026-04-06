@@ -38,6 +38,17 @@
             <div class="hero-geo">
                 <div class="hero-glow"></div>
                 <div class="hero-accent-line"></div>
+                <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="none">
+                    <!-- Wave group 1: cyan, left-to-right descent -->
+                    <path class="hero-wave hero-wave--1" d="M-100,180 C100,140 300,260 500,200 S800,100 1000,180 1300,160" fill="none" stroke="var(--accent-primary)" stroke-width="1"/>
+                    <path class="hero-wave hero-wave--2" d="M-100,220 C150,280 350,160 550,240 S850,320 1050,220 1300,260" fill="none" stroke="var(--accent-secondary)" stroke-width="1"/>
+                    <!-- Wave group 2: crossing diagonals -->
+                    <path class="hero-wave hero-wave--3" d="M-50,400 C200,320 400,380 600,300 S900,220 1100,320 1300,280" fill="none" stroke="var(--accent-primary)" stroke-width="0.8"/>
+                    <path class="hero-wave hero-wave--4" d="M-50,100 C200,200 450,120 650,220 S900,340 1100,260 1300,320" fill="none" stroke="var(--accent-secondary)" stroke-width="0.8"/>
+                    <!-- Wave group 3: fine accent lines -->
+                    <path class="hero-wave hero-wave--5" d="M-100,320 C100,260 350,340 600,280 S850,200 1050,300 1300,250" fill="none" stroke="var(--accent-tertiary)" stroke-width="0.6"/>
+                    <path class="hero-wave hero-wave--6" d="M-100,140 C150,200 400,100 650,180 S900,260 1100,160 1300,200" fill="none" stroke="var(--accent-tertiary)" stroke-width="0.6"/>
+                </svg>
                 <svg class="hero-noise" xmlns="http://www.w3.org/2000/svg">
                     <filter id="hero-grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter>
                     <rect width="100%" height="100%" filter="url(#hero-grain)"/>
@@ -50,15 +61,15 @@
                     <p class="hero-description">AI、開発、インフラ、セキュリティ。<br>あらゆるテック情報が交わるメディア。</p>
                     <hr class="hero-divider">
                 </div>
-                <a href="articles/20260406-passkey-guide.html" class="hero-pickup">
+                <a href="articles/20260406-rag-basics.html" class="hero-pickup">
                     <div class="hero-pickup-thumbnail">
-                        <img src="assets/images/thumbnails/20260406-passkey-guide-thumb.svg"
-                             alt="パスワードはもう古い？ パスキー完全ガイド"
+                        <img src="assets/images/thumbnails/20260406-rag-basics-thumb.svg"
+                             alt="RAGとは何か？ AI検索拡張の仕組みをゼロから理解する完全ガイド"
                              loading="lazy">
                     </div>
                     <div class="hero-pickup-body">
                         <span class="hero-pickup-badge">PICK UP</span>
-                        <h3 class="hero-pickup-title">パスワードはもう古い？ パスキー完全ガイド ― 仕組み・設定方法・よくある疑問まとめ</h3>
+                        <h3 class="hero-pickup-title">RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド</h3>
                         <time class="hero-pickup-date" datetime="2026-04-06">2026年4月6日</time>
                     </div>
                 </a>
@@ -87,6 +98,32 @@
             <div class="articles-grid">
                 <!-- 記事カードはここに追加される -->
                 <!-- publisher エージェントが ARTICLE_INDEX.md を元に自動更新 -->
+
+                <article class="article-card animate-on-scroll">
+                    <a href="articles/20260406-rag-basics.html">
+                        <div class="card-thumbnail">
+                            <img src="assets/images/thumbnails/20260406-rag-basics-thumb.svg"
+                                 alt="RAGとは何か？ AI検索拡張の仕組みをゼロから理解する完全ガイド"
+                                 loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-category">AI</span>
+                            <h2 class="card-title">RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド</h2>
+                            <p class="card-excerpt">RAGの3ステップ、ベクトルDBの仕組み、活用場面と限界まで。AI検索拡張技術をゼロから理解する入門記事。Compass × Prism合作。</p>
+                            <div class="card-footer">
+                                <time class="card-date" datetime="2026-04-06">2026年4月6日</time>
+                                <a href="writers.html#compass" class="card-writer" data-writer="compass">
+                                    <img src="assets/images/writers/COMPASS.png" alt="" class="card-writer-avatar">
+                                    <span>Compass</span>
+                                </a>
+                                <a href="writers.html#prism" class="card-writer" data-writer="prism">
+                                    <img src="assets/images/writers/PRISM.png" alt="" class="card-writer-avatar">
+                                    <span>Prism</span>
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                </article>
 
                 <article class="article-card animate-on-scroll">
                     <a href="articles/20260406-passkey-guide.html">

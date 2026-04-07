@@ -3,7 +3,7 @@ name: Deploy to Xserver
 on:
   push:
     branches:
-      - main # mainブランチにPushされた時にロボットが動き出します
+      - main
 
 jobs:
   deploy:
@@ -13,24 +13,30 @@ jobs:
     - name: 1. 最新のコードを受け取る
       uses: actions/checkout@v4
 
-    # ※ビルドが不要なので、Node.jsの準備や npm run build の工程は削除しました！
-
-    - name: 2. エックスサーバーへ配置する
+    - name: 2. SSH鍵をセットアップ
       env:
         SSH_PRIVATE_KEY: ${{ secrets.XSERVER_SSH_KEY }}
+        HOST_NAME: ${{ secrets.XSERVER_HOST }}
+      run: |
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -p 10022 -H $HOST_NAME >> ~/.ssh/known_hosts 2>/dev/null
+
+    - name: 3. SSH接続テスト
+      env:
         USER_NAME: ${{ secrets.XSERVER_USER }}
         HOST_NAME: ${{ secrets.XSERVER_HOST }}
-        # 【書き換えポイント】 取得したドメイン名に書き換えてください（例: egawa-game.com）
+      run: |
+        ssh -p 10022 -v -o BatchMode=yes -o ConnectTimeout=10 ${USER_NAME}@${HOST_NAME} "echo SSH_OK" 2>&1 || true
+
+    - name: 4. エックスサーバーへ配置する
+      env:
+        USER_NAME: ${{ secrets.XSERVER_USER }}
+        HOST_NAME: ${{ secrets.XSERVER_HOST }}
         TARGET_DIR: /home/${{ secrets.XSERVER_USER }}/algoyosuga.com/public_html/veqtor/
       run: |
-        # サーバーに入るための合鍵の準備
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -p 10022 -H $HOST_NAME >> ~/.ssh/known_hosts
-
-        # HTMLやJSのファイルをそのままアップロードします
-        # 隠しフォルダ（.git や .github）は不要なので省く設定にしています
         rsync -avz -e "ssh -p 10022" \
           --delete \
           --exclude='.git/' \

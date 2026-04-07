@@ -178,32 +178,29 @@ print("こんにちは")</code></pre>
 
             <h2>4. range() を使いこなそう</h2>
 
-            <p><code>range()</code> には3つの書き方があります。</p>
+            <p><code>range()</code> には2つの書き方を覚えておけばOKです。</p>
 
             <ul>
                 <li><code>range(stop)</code> : 0 から stop-1 まで</li>
                 <li><code>range(start, stop)</code> : start から stop-1 まで</li>
-                <li><code>range(start, stop, step)</code> : start から stop-1 まで、step ずつ増える</li>
             </ul>
+
+            <p>特に便利なのが <code>range(start, stop)</code> です。「1から数えたい」ときに使います。</p>
 
             <div class="code-playground">
                 <div class="playground-header">
                     <span class="playground-label">コードを試してみよう</span>
                 </div>
                 <div class="playground-editor">
-                    <textarea class="playground-code" spellcheck="false" rows="12"># パターン1: 0から4まで
+                    <textarea class="playground-code" spellcheck="false" rows="9"># パターン1: 0から4まで（5回繰り返し）
 for i in range(5):
-    print(i, end=" ")
-print()  # 改行
+    print(f"{i}番目")
+
+print("---")
 
 # パターン2: 1から5まで
 for i in range(1, 6):
-    print(i, end=" ")
-print()
-
-# パターン3: 0から10まで2ずつ
-for i in range(0, 11, 2):
-    print(i, end=" ")</textarea>
+    print(f"{i}回目")</textarea>
                 </div>
                 <div class="playground-controls">
                     <button class="playground-run" type="button">&#9654; 実行</button>
@@ -216,23 +213,23 @@ for i in range(0, 11, 2):
                 <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
                 <div class="writer-comment-body">
                     <span class="writer-comment-name">Compass</span>
-                    <p><code>end=" "</code> は print の出力の最後を改行ではなくスペースに変える指定です。横並びで表示したいときに便利ですよ。</p>
+                    <p><code>range(1, 6)</code> で「1から5まで」になります。<strong>終わりの数は含まれない</strong>のがポイント。最初は混乱しますが、「欲しい最後の数 + 1 を書く」と覚えましょう。</p>
                 </div>
             </div>
 
             <!-- 演習1 -->
-            <div class="code-playground" data-mode="exercise" data-expected="1 2 3 4 5 6 7 8 9 10">
+            <div class="code-playground" data-mode="exercise" data-expected="1回目の繰り返し\n2回目の繰り返し\n3回目の繰り返し\n4回目の繰り返し\n5回目の繰り返し\n6回目の繰り返し\n7回目の繰り返し\n8回目の繰り返し\n9回目の繰り返し\n10回目の繰り返し">
                 <div class="playground-header">
                     <span class="playground-label">演習問題</span>
                     <span class="playground-badge">問題 1</span>
                 </div>
                 <div class="playground-task">
-                    <p><code>for</code> 文と <code>range()</code> を使って、<code>1 2 3 4 5 6 7 8 9 10</code> と横並びで出力してください。</p>
+                    <p><code>for</code> 文と <code>range()</code> を使って、<code>1回目の繰り返し</code> から <code>10回目の繰り返し</code> まで出力してください。</p>
                 </div>
                 <div class="playground-editor">
-                    <textarea class="playground-code" spellcheck="false" rows="3"># 1から10まで横並びで表示しよう
+                    <textarea class="playground-code" spellcheck="false" rows="3"># 1から10まで表示しよう
 for i in range():
-    print(i, end=" ")</textarea>
+    print(f"{i}回目の繰り返し")</textarea>
                 </div>
                 <div class="playground-controls">
                     <button class="playground-run" type="button">&#9654; 実行して確認</button>
@@ -245,7 +242,7 @@ for i in range():
             <details class="playground-answer">
                 <summary>答えを見る</summary>
                 <pre><code>for i in range(1, 11):
-    print(i, end=" ")</code></pre>
+    print(f"{i}回目の繰り返し")</code></pre>
             </details>
 
             <!-- ===================== -->
@@ -426,21 +423,24 @@ for score in scores:
             <!-- 8. 実践チャレンジ -->
             <!-- ===================== -->
 
-            <h2>8. 実践チャレンジ ― 偶数を見つけよう</h2>
+            <h2>8. 実践チャレンジ ― 買い物リストを作ろう</h2>
 
-            <p>ここまでの総まとめです。for文、range()、if文を組み合わせて、1から20までの偶数だけを表示するプログラムを作ってみましょう。</p>
+            <p>ここまでの総まとめです。リスト、for文、if文を組み合わせて、実用的な「買い物リスト」プログラムを作ってみましょう。</p>
 
-            <p>偶数の判定には<strong>余り演算子 <code>%</code></strong> を使います。<code>i % 2</code> は「i を 2 で割った余り」です。余りが0なら偶数です。</p>
+            <p>まずは、リストの要素にfor文で番号をつけて表示するテクニックを見てみましょう。</p>
 
             <div class="code-playground">
                 <div class="playground-header">
                     <span class="playground-label">コードを試してみよう</span>
                 </div>
                 <div class="playground-editor">
-                    <textarea class="playground-code" spellcheck="false" rows="4"># % は余りを求める演算子
-print(10 % 3)  # 10 / 3 = 3 余り 1
-print(8 % 2)   # 8 / 2 = 4 余り 0（偶数）
-print(7 % 2)   # 7 / 2 = 3 余り 1（奇数）</textarea>
+                    <textarea class="playground-code" spellcheck="false" rows="7"># 買い物リストに番号をつけて表示
+items = ["牛乳", "卵", "パン", "バター"]
+number = 1
+
+for item in items:
+    print(f"{number}. {item}")
+    number = number + 1</textarea>
                 </div>
                 <div class="playground-controls">
                     <button class="playground-run" type="button">&#9654; 実行</button>
@@ -450,20 +450,31 @@ print(7 % 2)   # 7 / 2 = 3 余り 1（奇数）</textarea>
             </div>
 
             <!-- 演習3 -->
-            <div class="code-playground" data-mode="exercise" data-expected="2 4 6 8 10 12 14 16 18 20">
+            <div class="code-playground" data-mode="exercise" data-expected="--- 買い物リスト ---\n1. 牛乳 → 200円\n2. 卵 → 300円\n3. パン → 150円\n合計: 650円">
                 <div class="playground-header">
                     <span class="playground-label">最終チャレンジ</span>
                     <span class="playground-badge">問題 3</span>
                 </div>
                 <div class="playground-task">
-                    <p><code>for</code> 文と <code>if</code> 文を使って、1から20までの<strong>偶数だけ</strong>を <code>2 4 6 8 10 12 14 16 18 20</code> と横並びで出力してください。</p>
+                    <p>商品名リストと価格リストを for 文で回して、番号付きリストと合計金額を出力してください。期待される出力は下記の通りです。</p>
+                    <pre><code>--- 買い物リスト ---
+1. 牛乳 → 200円
+2. 卵 → 300円
+3. パン → 150円
+合計: 650円</code></pre>
                 </div>
                 <div class="playground-editor">
-                    <textarea class="playground-code" spellcheck="false" rows="5"># 1から20までの偶数を表示しよう
-for i in range(1, 21):
-    if i % 2 == 0:
-        print(i, end=" ")
-</textarea>
+                    <textarea class="playground-code" spellcheck="false" rows="14">names = ["牛乳", "卵", "パン"]
+prices = [200, 300, 150]
+total = 0
+
+print("--- 買い物リスト ---")
+
+for i in range(len(names)):
+    print(f"{i + 1}. {names[i]} → {prices[i]}円")
+    total = total + prices[i]
+
+print(f"合計: {total}円")</textarea>
                 </div>
                 <div class="playground-controls">
                     <button class="playground-run" type="button">&#9654; 実行して確認</button>
@@ -475,21 +486,24 @@ for i in range(1, 21):
 
             <details class="playground-answer">
                 <summary>答えを見る</summary>
-                <pre><code># 方法1: if文で偶数を判定
-for i in range(1, 21):
-    if i % 2 == 0:
-        print(i, end=" ")
+                <pre><code>names = ["牛乳", "卵", "パン"]
+prices = [200, 300, 150]
+total = 0
 
-# 方法2: range の step を使う（こちらも正解！）
-# for i in range(2, 21, 2):
-#     print(i, end=" ")</code></pre>
+print("--- 買い物リスト ---")
+
+for i in range(len(names)):
+    print(f"{i + 1}. {names[i]} → {prices[i]}円")
+    total = total + prices[i]
+
+print(f"合計: {total}円")</code></pre>
             </details>
 
-            <div class="writer-comment" data-writer="compass">
-                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
                 <div class="writer-comment-body">
-                    <span class="writer-comment-name">Compass</span>
-                    <p>答えは1つではありません。<code>range(2, 21, 2)</code> のように step を使う方法もあります。「同じ結果を出す方法が複数ある」のもプログラミングの面白さですね。</p>
+                    <span class="writer-comment-name">Syntax</span>
+                    <p><code>range(len(names))</code> はリストの長さ分だけ繰り返すテクニック。<code>names[i]</code> と <code>prices[i]</code> のように同じ <code>i</code> で2つのリストを同時に回せるのが便利だよ。実務でもよく使うパターン！</p>
                 </div>
             </div>
 

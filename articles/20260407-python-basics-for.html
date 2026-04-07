@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基礎講座 ― for文・リストをブラウザで体験しよう | Veqtor</title>
+    <meta name="description" content="ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座（第2回）。for文、range()、リストの基本をハンズオンで身につけます。">
+    <meta property="og:title" content="Python基礎講座 ― for文・リストをブラウザで体験しよう">
+    <meta property="og:description" content="ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座。for文とリストの基本をハンズオンで。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/20260407-python-basics-for-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-07">2026年4月7日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+                <a href="../writers.html#syntax" class="article-writer" data-writer="syntax">
+                    <img src="../assets/images/writers/SYNTAX.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Syntax</span>
+                </a>
+            </div>
+            <h1>Python基礎講座 ― for文・リストをブラウザで体験しよう</h1>
+
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>前回はprint・変数・if文を学びました。今回はいよいよ「繰り返し」です。for文を覚えると、同じ処理を何百回でも一瞬で実行できるようになります。今回はSyntaxと一緒にお届けします。ここから一緒に進みましょう。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>Syntaxです！ for文は実務で毎日使う超重要構文。今回もブラウザ上でコードを動かしながら学べるから、読んだら手を動かす。それが一番の近道だよ。さあ、コード書こう！</p>
+                </div>
+            </div>
+
+            <p>この記事では以下の内容を扱います。</p>
+
+            <ul>
+                <li><code>for</code> 文で処理を繰り返す方法</li>
+                <li><code>range()</code> で回数を指定する方法</li>
+                <li><strong>リスト</strong>でデータをまとめて管理する方法</li>
+                <li>リストを <code>for</code> 文で1つずつ処理する方法</li>
+            </ul>
+
+            <p>前回と同じく、すべてのコード例はその場で実行できます。どんどん書き換えて試してみてください。</p>
+
+            <!-- ===================== -->
+            <!-- 1. 前回のおさらい -->
+            <!-- ===================== -->
+
+            <h2>1. 前回のおさらい</h2>
+
+            <p>前回学んだ内容を簡単に確認しましょう。</p>
+
+            <ul>
+                <li><code>print()</code> で画面に文字を表示する</li>
+                <li><strong>変数</strong>にデータを保存する（<code>name = "太郎"</code>）</li>
+                <li><strong>if / elif / else</strong> で条件分岐する</li>
+            </ul>
+
+            <p>これらの知識はこの記事でもたくさん使います。もしあやふやな方は<a href="20260406-python-basics-if.html">前回の記事</a>をもう一度見てみてくださいね。</p>
+
+            <!-- ===================== -->
+            <!-- 2. for文の基本 -->
+            <!-- ===================== -->
+
+            <h2>2. for文の基本 ― 同じ処理を繰り返す</h2>
+
+            <p>たとえば「こんにちは」を5回表示したいとき、<code>print()</code> を5行書くのは面倒です。</p>
+
+            <pre><code>print("こんにちは")
+print("こんにちは")
+print("こんにちは")
+print("こんにちは")
+print("こんにちは")</code></pre>
+
+            <p>これが100回だったら？1000回だったら？もちろん手で書くのは現実的ではありません。そこで登場するのが <code>for</code> 文です。</p>
+
+            <pre><code>for i in range(5):
+    print("こんにちは")</code></pre>
+
+            <p>たった2行で5回の繰り返しが実現できます。<code>range(5)</code> は「0から4まで、つまり5回繰り返す」という意味です。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="3">for i in range(5):
+    print("こんにちは")
+# 数字を変えて試してみよう！</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>if文と同じく、<code>for</code> の次の行は<strong>半角スペース4つ</strong>で字下げ（インデント）するのを忘れずに。この字下げが「繰り返す範囲」を決めています。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 3. 変数 i の正体 -->
+            <!-- ===================== -->
+
+            <h2>3. 変数 i の正体 ― カウンターを使おう</h2>
+
+            <p><code>for i in range(5):</code> の <code>i</code> は変数です。ループが回るたびに、<code>i</code> の値が自動的に変わります。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="3">for i in range(5):
+    print(f"{i}回目のループです")
+# i が 0, 1, 2, 3, 4 と変わる！</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <p>ここで大事なポイント。<code>range(5)</code> は <strong>0から始まって4で終わる</strong>ことに気づきましたか？ 5ではありません。プログラミングでは「0から数える」のが基本です。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>「0から数える」は最初つまずくポイントだけど、慣れると自然になるよ。<code>range(5)</code> = 「5個の数（0,1,2,3,4）」と覚えるのが一番シンプル。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 4. range() の使い方いろいろ -->
+            <!-- ===================== -->
+
+            <h2>4. range() を使いこなそう</h2>
+
+            <p><code>range()</code> には3つの書き方があります。</p>
+
+            <ul>
+                <li><code>range(stop)</code> : 0 から stop-1 まで</li>
+                <li><code>range(start, stop)</code> : start から stop-1 まで</li>
+                <li><code>range(start, stop, step)</code> : start から stop-1 まで、step ずつ増える</li>
+            </ul>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="12"># パターン1: 0から4まで
+for i in range(5):
+    print(i, end=" ")
+print()  # 改行
+
+# パターン2: 1から5まで
+for i in range(1, 6):
+    print(i, end=" ")
+print()
+
+# パターン3: 0から10まで2ずつ
+for i in range(0, 11, 2):
+    print(i, end=" ")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p><code>end=" "</code> は print の出力の最後を改行ではなくスペースに変える指定です。横並びで表示したいときに便利ですよ。</p>
+                </div>
+            </div>
+
+            <!-- 演習1 -->
+            <div class="code-playground" data-mode="exercise" data-expected="1 2 3 4 5 6 7 8 9 10">
+                <div class="playground-header">
+                    <span class="playground-label">演習問題</span>
+                    <span class="playground-badge">問題 1</span>
+                </div>
+                <div class="playground-task">
+                    <p><code>for</code> 文と <code>range()</code> を使って、<code>1 2 3 4 5 6 7 8 9 10</code> と横並びで出力してください。</p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="3"># 1から10まで横並びで表示しよう
+for i in range():
+    print(i, end=" ")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>for i in range(1, 11):
+    print(i, end=" ")</code></pre>
+            </details>
+
+            <!-- ===================== -->
+            <!-- 5. リストとは -->
+            <!-- ===================== -->
+
+            <h2>5. リスト ― データをまとめて管理する</h2>
+
+            <p>ここまでは <code>range()</code> を使って数の繰り返しを学びました。次は<strong>リスト</strong>を学びましょう。</p>
+
+            <p><strong>リスト</strong>とは、複数のデータをひとまとめにして管理できるデータ型です。<code>[ ]</code>（角カッコ）で囲み、要素をカンマで区切ります。</p>
+
+            <pre><code>fruits = ["りんご", "バナナ", "みかん"]</code></pre>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="8">fruits = ["りんご", "バナナ", "みかん"]
+print(fruits)        # リスト全体を表示
+print(fruits[0])     # 最初の要素（0番目）
+print(fruits[1])     # 2番目の要素
+print(fruits[2])     # 3番目の要素
+print(len(fruits))   # 要素の数
+
+# 数字のリストも作れる
+scores = [85, 92, 78, 96, 88]
+print(scores)</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <p>リストの要素にアクセスするときは <code>[番号]</code> を使います。ここでも<strong>0から数える</strong>のがポイントです。</p>
+
+            <ul>
+                <li><code>fruits[0]</code> → <code>"りんご"</code>（最初の要素）</li>
+                <li><code>fruits[1]</code> → <code>"バナナ"</code>（2番目の要素）</li>
+                <li><code>fruits[2]</code> → <code>"みかん"</code>（3番目の要素）</li>
+                <li><code>len(fruits)</code> → <code>3</code>（要素の数）</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>リストは Python で最もよく使うデータ構造のひとつ。ユーザー一覧、商品リスト、テストの点数……何でもリストに入れて管理できるよ。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 6. リストを for 文で回す -->
+            <!-- ===================== -->
+
+            <h2>6. リストを for 文で回す</h2>
+
+            <p>for文の本領発揮です。リストの要素を<strong>1つずつ取り出して処理</strong>できます。</p>
+
+            <pre><code>fruits = ["りんご", "バナナ", "みかん"]
+for fruit in fruits:
+    print(fruit)</code></pre>
+
+            <p><code>for fruit in fruits:</code> は「<code>fruits</code> リストから1つずつ取り出して <code>fruit</code> に入れる」という意味です。ループが回るたびに、<code>fruit</code> の中身が次の要素に変わります。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="8">fruits = ["りんご", "バナナ", "みかん"]
+
+for fruit in fruits:
+    print(f"{fruit}が好きです！")
+
+print("---")
+
+# 数字のリストも同じように回せる
+scores = [85, 92, 78]
+for score in scores:
+    print(f"点数: {score}")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>変数名は何でもOKですが、リスト名が <code>fruits</code>（複数形）なら、取り出す変数は <code>fruit</code>（単数形）にすると読みやすいですよ。</p>
+                </div>
+            </div>
+
+            <!-- 演習2 -->
+            <div class="code-playground" data-mode="exercise" data-expected="3 + 7 + 2 + 9 + 5 = 26">
+                <div class="playground-header">
+                    <span class="playground-label">演習問題</span>
+                    <span class="playground-badge">問題 2</span>
+                </div>
+                <div class="playground-task">
+                    <p>リスト <code>numbers = [3, 7, 2, 9, 5]</code> の合計を for 文で計算し、<code>3 + 7 + 2 + 9 + 5 = 26</code> と出力してください。</p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="7">numbers = [3, 7, 2, 9, 5]
+total = 0
+
+for num in numbers:
+    total = total + num
+
+# 結果を出力しよう
+print(f"3 + 7 + 2 + 9 + 5 = {total}")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>numbers = [3, 7, 2, 9, 5]
+total = 0
+
+for num in numbers:
+    total = total + num
+
+print(f"3 + 7 + 2 + 9 + 5 = {total}")</code></pre>
+            </details>
+
+            <!-- ===================== -->
+            <!-- 7. for + if を組み合わせる -->
+            <!-- ===================== -->
+
+            <h2>7. for文とif文の組み合わせ</h2>
+
+            <p>for文の中に if文を入れることで、条件に合う要素だけを処理できます。前回学んだ if文がここで活きてきます。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="8">scores = [45, 82, 67, 91, 55, 78]
+
+for score in scores:
+    if score >= 80:
+        print(f"{score}点: 合格！")
+    else:
+        print(f"{score}点: 不合格")
+
+# 合格は80点以上。点数を変えてみよう！</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>for の中の if はインデントが2段になるのがポイント。<code>for</code> の下が4スペース、さらにその下の <code>if</code> の中が8スペース。インデントが合ってないとエラーになるから気をつけて。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 8. 実践チャレンジ -->
+            <!-- ===================== -->
+
+            <h2>8. 実践チャレンジ ― 偶数を見つけよう</h2>
+
+            <p>ここまでの総まとめです。for文、range()、if文を組み合わせて、1から20までの偶数だけを表示するプログラムを作ってみましょう。</p>
+
+            <p>偶数の判定には<strong>余り演算子 <code>%</code></strong> を使います。<code>i % 2</code> は「i を 2 で割った余り」です。余りが0なら偶数です。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="4"># % は余りを求める演算子
+print(10 % 3)  # 10 / 3 = 3 余り 1
+print(8 % 2)   # 8 / 2 = 4 余り 0（偶数）
+print(7 % 2)   # 7 / 2 = 3 余り 1（奇数）</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <!-- 演習3 -->
+            <div class="code-playground" data-mode="exercise" data-expected="2 4 6 8 10 12 14 16 18 20">
+                <div class="playground-header">
+                    <span class="playground-label">最終チャレンジ</span>
+                    <span class="playground-badge">問題 3</span>
+                </div>
+                <div class="playground-task">
+                    <p><code>for</code> 文と <code>if</code> 文を使って、1から20までの<strong>偶数だけ</strong>を <code>2 4 6 8 10 12 14 16 18 20</code> と横並びで出力してください。</p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="5"># 1から20までの偶数を表示しよう
+for i in range(1, 21):
+    if i % 2 == 0:
+        print(i, end=" ")
+</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code># 方法1: if文で偶数を判定
+for i in range(1, 21):
+    if i % 2 == 0:
+        print(i, end=" ")
+
+# 方法2: range の step を使う（こちらも正解！）
+# for i in range(2, 21, 2):
+#     print(i, end=" ")</code></pre>
+            </details>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>答えは1つではありません。<code>range(2, 21, 2)</code> のように step を使う方法もあります。「同じ結果を出す方法が複数ある」のもプログラミングの面白さですね。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2>まとめ</h2>
+
+            <p>この記事では、Pythonの繰り返しとリストの基礎を学びました。</p>
+
+            <ul>
+                <li><code>for i in range(n):</code> で <strong>n回</strong>の繰り返し</li>
+                <li><code>range(start, stop, step)</code> で開始・終了・増分を細かく指定</li>
+                <li><strong>リスト</strong>は <code>[ ]</code> で複数のデータをまとめて管理</li>
+                <li><code>for item in list:</code> でリストの要素を<strong>1つずつ取り出して処理</strong></li>
+                <li><code>for</code> と <code>if</code> の組み合わせで、条件に合うデータだけを処理</li>
+            </ul>
+
+            <p>前回の print・変数・if文と合わせて、これでPythonの基礎文法が一通り身についたはずです。「変数にデータを入れて、条件分岐して、繰り返す」——この3つができれば、もう立派にプログラムが書けます。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>お疲れさま！ 演習問題はクリアできた？ for文は書けば書くほど手に馴染む。この記事のエディタで色々な数やリストを試してみてね。とりあえず動かしてみよう、が上達の近道だよ。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>前回と今回の2記事で、Pythonの基礎の基礎はカバーできました。「変数・if文・for文・リスト」が分かれば、あとは組み合わせ次第でいろいろなプログラムが作れます。何度でも戻って復習してくださいね。</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // === Code Playground — Pyodide Integration ===
+    (function() {
+        var pyodideReady = null;
+        var pyodideInstance = null;
+
+        function loadPyodide() {
+            if (pyodideReady) return pyodideReady;
+            pyodideReady = new Promise(function(resolve, reject) {
+                var script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js';
+                script.onload = function() {
+                    window.loadPyodide().then(function(py) {
+                        pyodideInstance = py;
+                        resolve(py);
+                    }).catch(reject);
+                };
+                script.onerror = function() { reject(new Error('Pyodide failed to load')); };
+                document.head.appendChild(script);
+            });
+            return pyodideReady;
+        }
+
+        function escapeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function runSingleTest(py, code) {
+            py.runPython('import io, sys; sys.stdout = io.StringIO()');
+            var error = null;
+            try {
+                py.runPython(code);
+            } catch (e) {
+                error = e.message;
+            }
+            var stdout = '';
+            if (!error) {
+                stdout = py.runPython('sys.stdout.getvalue()');
+            }
+            py.runPython('sys.stdout = sys.__stdout__');
+            return { error: error, stdout: stdout };
+        }
+
+        function initPlaygrounds() {
+            var playgrounds = document.querySelectorAll('.code-playground');
+            playgrounds.forEach(function(pg) {
+                var textarea = pg.querySelector('.playground-code');
+                var runBtn = pg.querySelector('.playground-run');
+                var resetBtn = pg.querySelector('.playground-reset');
+                var output = pg.querySelector('.playground-output');
+                var result = pg.querySelector('.playground-result');
+                var mode = pg.getAttribute('data-mode');
+                var expected = pg.getAttribute('data-expected');
+                var testsAttr = pg.getAttribute('data-tests');
+                var tests = testsAttr ? JSON.parse(testsAttr) : null;
+
+                // Save initial code
+                textarea.setAttribute('data-initial', textarea.value);
+
+                // Tab key support
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        e.preventDefault();
+                        var start = this.selectionStart;
+                        var end = this.selectionEnd;
+                        this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                        this.selectionStart = this.selectionEnd = start + 4;
+                    }
+                });
+
+                // Run button
+                runBtn.addEventListener('click', function() {
+                    var code = textarea.value;
+                    var originalText = runBtn.textContent;
+                    runBtn.disabled = true;
+                    runBtn.textContent = 'Loading...';
+
+                    loadPyodide().then(function(py) {
+                        runBtn.textContent = originalText;
+                        runBtn.disabled = false;
+
+                        // Run user code as-is for output display
+                        var mainRun = runSingleTest(py, code);
+
+                        if (mainRun.error) {
+                            output.textContent = mainRun.error;
+                            output.classList.add('has-content', 'has-error');
+                        } else {
+                            var trimmed = mainRun.stdout.replace(/\n$/, '');
+                            output.textContent = trimmed || '(出力なし)';
+                            output.classList.add('has-content');
+                            output.classList.remove('has-error');
+                        }
+
+                        // Exercise mode: check answer
+                        if (mode === 'exercise' && result) {
+                            pg.classList.remove('is-correct');
+                            result.className = 'playground-result';
+                            result.innerHTML = '';
+                            pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+
+                            if (tests) {
+                                // Multi-test mode
+                                var passCount = 0;
+                                var lines = [];
+
+                                for (var t = 0; t < tests.length; t++) {
+                                    var test = tests[t];
+                                    var varName = test.assign.split('=')[0].trim();
+                                    var pattern = new RegExp('^' + varName + '\\s*=\\s*.*$', 'm');
+                                    var testCode = code.replace(pattern, test.assign);
+                                    var r = runSingleTest(py, testCode);
+
+                                    if (!r.error && r.stdout.replace(/\n$/, '') === test.expected) {
+                                        passCount++;
+                                        lines.push('<span class="test-pass">\u2713 ' + escapeHtml(test.label) + ' \u2192 ' + escapeHtml(test.expected) + '</span>');
+                                    } else if (r.error) {
+                                        lines.push('<span class="test-fail">\u2717 ' + escapeHtml(test.label) + ' \u2192 Error</span>');
+                                    } else {
+                                        var actual = escapeHtml(r.stdout.replace(/\n$/, '') || '(出力なし)');
+                                        lines.push('<span class="test-fail">\u2717 ' + escapeHtml(test.label) + ' \u2192 ' + actual + ' (期待: ' + escapeHtml(test.expected) + ')</span>');
+                                    }
+                                }
+
+                                if (passCount === tests.length) {
+                                    result.innerHTML = '<strong>\u2713 全問正解！ (' + passCount + '/' + tests.length + ')</strong>\n' + lines.join('\n');
+                                    result.classList.add('correct');
+                                    pg.classList.add('is-correct');
+                                    spawnParticles(pg);
+                                } else if (passCount > 0) {
+                                    result.innerHTML = '<strong>' + passCount + '/' + tests.length + ' 正解</strong>\n' + lines.join('\n');
+                                    result.classList.add('partial');
+                                } else {
+                                    result.innerHTML = '<strong>\u2717 0/' + tests.length + ' 正解</strong>\n' + lines.join('\n');
+                                    result.classList.add('wrong');
+                                }
+                            } else if (expected) {
+                                // Single-test mode
+                                if (mainRun.error) {
+                                    result.textContent = 'Error \u2014 コードを修正してもう一度実行してください。';
+                                    result.classList.add('wrong');
+                                } else {
+                                    var actual = mainRun.stdout.replace(/\n$/, '');
+                                    if (actual === expected) {
+                                        result.textContent = '\u2713 正解！';
+                                        result.classList.add('correct');
+                                        pg.classList.add('is-correct');
+                                        spawnParticles(pg);
+                                    } else {
+                                        result.textContent = '\u2717 不正解 \u2014 期待される出力: ' + expected;
+                                        result.classList.add('wrong');
+                                    }
+                                }
+                            }
+                        }
+                    }).catch(function(err) {
+                        runBtn.textContent = originalText;
+                        runBtn.disabled = false;
+                        output.textContent = 'Pyodide load error: ' + err.message;
+                        output.classList.add('has-content', 'has-error');
+                    });
+                });
+
+                // Reset button
+                resetBtn.addEventListener('click', function() {
+                    textarea.value = textarea.getAttribute('data-initial');
+                    output.textContent = '';
+                    output.classList.remove('has-content', 'has-error');
+                    pg.classList.remove('is-correct');
+                    if (result) {
+                        result.className = 'playground-result';
+                        result.innerHTML = '';
+                    }
+                    pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+                });
+            });
+        }
+
+        function spawnParticles(pg) {
+            var emojis = ['\u2728', '\u2B50', '\u2728', '\u2B50', '\u2728', '\u2B50'];
+            for (var i = 0; i < emojis.length; i++) {
+                var span = document.createElement('span');
+                span.className = 'playground-particle';
+                span.textContent = emojis[i];
+                span.style.left = (15 + Math.random() * 70) + '%';
+                span.style.top = (20 + Math.random() * 50) + '%';
+                span.style.animationDelay = (Math.random() * 0.3) + 's';
+                pg.appendChild(span);
+            }
+            // Cleanup after animation
+            setTimeout(function() {
+                pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+            }, 1600);
+        }
+
+        // Init
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPlaygrounds);
+        } else {
+            initPlaygrounds();
+        }
+    })();
+
+    // Theme toggle
+    (function() {
+        var toggle = document.querySelector('.theme-toggle');
+        if (!toggle) return;
+        toggle.addEventListener('click', function() {
+            var html = document.documentElement;
+            var current = html.getAttribute('data-theme') || 'dark';
+            var next = current === 'dark' ? 'light' : 'dark';
+            html.classList.add('theme-transitioning');
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                var html = document.documentElement;
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

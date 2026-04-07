@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#10101e"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="280" rx="12" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="70" x2="760" y2="70"/><line x1="0" y1="140" x2="760" y2="140"/>
+    <line x1="0" y1="210" x2="760" y2="210"/>
+    <line x1="190" y1="0" x2="190" y2="280"/><line x1="380" y1="0" x2="380" y2="280"/>
+    <line x1="570" y1="0" x2="570" y2="280"/>
+  </g>
+
+  <!-- Title -->
+  <text x="380" y="30" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#a0a0b0" opacity="0.8" letter-spacing="0.1em">EVOLUTION TIMELINE</text>
+
+  <!-- Year labels -->
+  <text x="155" y="58" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#00d4ff" opacity="0.7">2022</text>
+  <text x="380" y="58" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#f59e0b" opacity="0.7">2025</text>
+  <text x="605" y="58" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#7c3aed" opacity="0.7">2026</text>
+
+  <!-- ===== Stage 1: Prompt Engineering ===== -->
+  <g transform="translate(155,125)">
+    <rect x="-75" y="-50" width="150" height="100" rx="10" fill="#141425" stroke="#00d4ff" stroke-width="1.5"/>
+    <!-- Speech bubble icon -->
+    <g transform="translate(0,-16)">
+      <rect x="-14" y="-10" width="28" height="18" rx="4" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+      <polygon points="-4,8 0,14 4,8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+    </g>
+    <text x="0" y="16" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#00d4ff" opacity="0.9">Prompt</text>
+    <text x="0" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#00d4ff" opacity="0.9">Engineering</text>
+  </g>
+
+  <!-- Description below Stage 1 -->
+  <text x="155" y="205" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">How to ask?</text>
+  <text x="155" y="220" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">どう聞くか</text>
+
+  <!-- Arrow 1 to 2 -->
+  <g transform="translate(248,125)">
+    <line x1="0" y1="0" x2="50" y2="0" stroke="url(#flow)" stroke-width="2" stroke-dasharray="6,3" opacity="0.5"/>
+    <polygon points="50,-5 60,0 50,5" fill="#f59e0b" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Stage 2: Context Engineering ===== -->
+  <g transform="translate(380,125)">
+    <rect x="-75" y="-50" width="150" height="100" rx="10" fill="#141425" stroke="#f59e0b" stroke-width="1.5"/>
+    <!-- Document + window icon -->
+    <g transform="translate(0,-16)">
+      <rect x="-14" y="-10" width="18" height="20" rx="2" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+      <line x1="-10" y1="-4" x2="-2" y2="-4" stroke="#f59e0b" stroke-width="1" opacity="0.6"/>
+      <line x1="-10" y1="0" x2="-2" y2="0" stroke="#f59e0b" stroke-width="1" opacity="0.6"/>
+      <line x1="-10" y1="4" x2="-6" y2="4" stroke="#f59e0b" stroke-width="1" opacity="0.6"/>
+      <rect x="6" y="-8" width="10" height="8" rx="1" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.5"/>
+    </g>
+    <text x="0" y="16" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#f59e0b" opacity="0.9">Context</text>
+    <text x="0" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#f59e0b" opacity="0.9">Engineering</text>
+  </g>
+
+  <!-- Description below Stage 2 -->
+  <text x="380" y="205" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">What to show?</text>
+  <text x="380" y="220" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">何を見せるか</text>
+
+  <!-- Arrow 2 to 3 -->
+  <g transform="translate(473,125)">
+    <line x1="0" y1="0" x2="50" y2="0" stroke="url(#flow)" stroke-width="2" stroke-dasharray="6,3" opacity="0.5"/>
+    <polygon points="50,-5 60,0 50,5" fill="#7c3aed" opacity="0.6"/>
+  </g>
+
+  <!-- ===== Stage 3: Harness Engineering ===== -->
+  <g transform="translate(605,125)">
+    <rect x="-75" y="-50" width="150" height="100" rx="10" fill="#141425" stroke="#7c3aed" stroke-width="1.5"/>
+    <!-- Harness/guardrail icon -->
+    <g transform="translate(0,-16)">
+      <circle cx="0" cy="0" r="10" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
+      <path d="M-18,-8 Q-10,-2 -10,0" fill="none" stroke="#7c3aed" stroke-width="1.2" opacity="0.7"/>
+      <path d="M18,-8 Q10,-2 10,0" fill="none" stroke="#7c3aed" stroke-width="1.2" opacity="0.7"/>
+      <path d="M-18,8 Q-10,2 -10,0" fill="none" stroke="#7c3aed" stroke-width="1.2" opacity="0.7"/>
+      <path d="M18,8 Q10,2 10,0" fill="none" stroke="#7c3aed" stroke-width="1.2" opacity="0.7"/>
+    </g>
+    <text x="0" y="16" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#7c3aed" opacity="0.9">Harness</text>
+    <text x="0" y="30" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#7c3aed" opacity="0.9">Engineering</text>
+  </g>
+
+  <!-- Description below Stage 3 -->
+  <text x="605" y="205" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">Where to work?</text>
+  <text x="605" y="220" text-anchor="middle" font-family="sans-serif" font-size="9.5" fill="#ffffff" opacity="0.6">どんな環境で働かせるか</text>
+
+  <!-- Bottom summary bar -->
+  <g transform="translate(380,256)">
+    <rect x="-260" y="-14" width="520" height="28" rx="14" fill="#7c3aed" fill-opacity="0.06" stroke="#7c3aed" stroke-width="0.8" opacity="0.5"/>
+    <text x="0" y="5" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="600" fill="#ffffff" opacity="0.7">問いかけ → 情報提供 → 環境設計: AIとの協働は第3段階へ</text>
+  </g>
+</svg>

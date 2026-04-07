@@ -31,4 +31,13 @@ jobs:
 
         # HTMLやJSのファイルをそのままアップロードします
         # 隠しフォルダ（.git や .github）は不要なので省く設定にしています
-        rsync -avz -e "ssh -p 10022" --delete --exclude='.git/' --exclude='.github/' ./ ${USER_NAME}@${HOST_NAME}:${TARGET_DIR}
+        rsync -avz -e "ssh -p 10022" \
+          --delete \
+          --exclude='.git/' \
+          --exclude='.github/' \
+          --exclude='.gitignore' \
+          --exclude='.DS_Store' \
+          --exclude='ARTICLE_INDEX.md' \
+          --exclude='STYLE_GUIDE.md' \
+          --exclude='IMAGE_GUIDE.md' \
+          ./ ${USER_NAME}@${HOST_NAME}:${TARGET_DIR}

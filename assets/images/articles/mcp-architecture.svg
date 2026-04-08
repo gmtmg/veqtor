@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360">
+  <defs>
+    <linearGradient id="abg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#10101e"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="360" rx="12" fill="url(#abg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="72" x2="760" y2="72"/><line x1="0" y1="144" x2="760" y2="144"/>
+    <line x1="0" y1="216" x2="760" y2="216"/><line x1="0" y1="288" x2="760" y2="288"/>
+    <line x1="152" y1="0" x2="152" y2="360"/><line x1="304" y1="0" x2="304" y2="360"/>
+    <line x1="456" y1="0" x2="456" y2="360"/><line x1="608" y1="0" x2="608" y2="360"/>
+  </g>
+
+  <!-- Title -->
+  <text x="380" y="34" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#3b82f6" opacity="0.9" letter-spacing="0.1em">MCP ARCHITECTURE</text>
+
+  <!-- === HOST layer === -->
+  <g>
+    <text x="105" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#3b82f6" opacity="0.8">HOST</text>
+    <text x="105" y="82" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6b6b80">(AI Application)</text>
+
+    <!-- Claude -->
+    <rect x="50" y="96" width="110" height="38" rx="8" fill="none" stroke="#f59e0b" stroke-width="1.2" opacity="0.7"/>
+    <text x="105" y="120" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#f59e0b">Claude Desktop</text>
+
+    <!-- Cursor -->
+    <rect x="50" y="146" width="110" height="38" rx="8" fill="none" stroke="#a855f7" stroke-width="1.2" opacity="0.7"/>
+    <text x="105" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#a855f7">Cursor / VS Code</text>
+
+    <!-- ChatGPT -->
+    <rect x="50" y="196" width="110" height="38" rx="8" fill="none" stroke="#10b981" stroke-width="1.2" opacity="0.7"/>
+    <text x="105" y="220" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#10b981">ChatGPT</text>
+  </g>
+
+  <!-- === CLIENT layer === -->
+  <g>
+    <text x="330" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#00d4ff" opacity="0.8">CLIENT</text>
+    <text x="330" y="82" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6b6b80">(1:1 Connection)</text>
+
+    <!-- Client boxes -->
+    <rect x="280" y="96" width="100" height="34" rx="6" fill="#3b82f6" fill-opacity="0.08" stroke="#3b82f6" stroke-width="1" opacity="0.6"/>
+    <text x="330" y="118" text-anchor="middle" font-family="monospace" font-size="9" fill="#3b82f6">MCP Client</text>
+
+    <rect x="280" y="140" width="100" height="34" rx="6" fill="#3b82f6" fill-opacity="0.08" stroke="#3b82f6" stroke-width="1" opacity="0.6"/>
+    <text x="330" y="162" text-anchor="middle" font-family="monospace" font-size="9" fill="#3b82f6">MCP Client</text>
+
+    <rect x="280" y="184" width="100" height="34" rx="6" fill="#3b82f6" fill-opacity="0.08" stroke="#3b82f6" stroke-width="1" opacity="0.6"/>
+    <text x="330" y="206" text-anchor="middle" font-family="monospace" font-size="9" fill="#3b82f6">MCP Client</text>
+
+    <rect x="280" y="228" width="100" height="34" rx="6" fill="#3b82f6" fill-opacity="0.08" stroke="#3b82f6" stroke-width="1" opacity="0.6"/>
+    <text x="330" y="250" text-anchor="middle" font-family="monospace" font-size="9" fill="#3b82f6">MCP Client</text>
+  </g>
+
+  <!-- === SERVER layer === -->
+  <g>
+    <text x="610" y="68" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#10b981" opacity="0.8">SERVER</text>
+    <text x="610" y="82" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#6b6b80">(Tool Provider)</text>
+
+    <!-- GitHub Server -->
+    <rect x="545" y="96" width="130" height="34" rx="8" fill="none" stroke="#e5e7eb" stroke-width="1.2" opacity="0.6"/>
+    <text x="610" y="118" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#e5e7eb">GitHub</text>
+
+    <!-- Slack Server -->
+    <rect x="545" y="140" width="130" height="34" rx="8" fill="none" stroke="#e91e8c" stroke-width="1.2" opacity="0.6"/>
+    <text x="610" y="162" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#e91e8c">Slack</text>
+
+    <!-- Database Server -->
+    <rect x="545" y="184" width="130" height="34" rx="8" fill="none" stroke="#06b6d4" stroke-width="1.2" opacity="0.6"/>
+    <text x="610" y="206" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#06b6d4">Database</text>
+
+    <!-- Filesystem Server -->
+    <rect x="545" y="228" width="130" height="34" rx="8" fill="none" stroke="#f59e0b" stroke-width="1.2" opacity="0.6"/>
+    <text x="610" y="250" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#f59e0b">Filesystem</text>
+  </g>
+
+  <!-- === Connection arrows: Host to Client === -->
+  <g stroke="url(#flow)" stroke-width="1.5" opacity="0.5">
+    <!-- Claude to clients -->
+    <line x1="160" y1="115" x2="280" y2="113"/>
+    <line x1="160" y1="115" x2="280" y2="157"/>
+    <!-- Cursor to client -->
+    <line x1="160" y1="165" x2="280" y2="201"/>
+    <!-- ChatGPT to client -->
+    <line x1="160" y1="215" x2="280" y2="245"/>
+  </g>
+
+  <!-- === Connection arrows: Client to Server === -->
+  <g stroke="url(#flow)" stroke-width="1.5" opacity="0.5">
+    <line x1="380" y1="113" x2="545" y2="113"/>
+    <line x1="380" y1="157" x2="545" y2="157"/>
+    <line x1="380" y1="201" x2="545" y2="201"/>
+    <line x1="380" y1="245" x2="545" y2="245"/>
+  </g>
+
+  <!-- Arrow heads on Client-Server lines -->
+  <g fill="#00d4ff" opacity="0.5">
+    <polygon points="545,109 535,113 545,117"/>
+    <polygon points="545,153 535,157 545,161"/>
+    <polygon points="545,197 535,201 545,205"/>
+    <polygon points="545,241 535,245 545,249"/>
+  </g>
+
+  <!-- JSON-RPC label on lines -->
+  <g>
+    <rect x="430" y="105" width="70" height="16" rx="4" fill="#0a0a14" opacity="0.9"/>
+    <text x="465" y="116" text-anchor="middle" font-family="monospace" font-size="7.5" fill="#3b82f6" opacity="0.7">JSON-RPC 2.0</text>
+  </g>
+
+  <!-- === Transport layer === -->
+  <g>
+    <line x1="50" y1="290" x2="710" y2="290" stroke="#2a2a40" stroke-width="1"/>
+    <text x="380" y="310" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#6b6b80">Transport Layer</text>
+
+    <!-- STDIO -->
+    <rect x="180" y="320" width="120" height="26" rx="6" fill="#3b82f6" fill-opacity="0.08" stroke="#3b82f6" stroke-width="0.8" opacity="0.5"/>
+    <text x="240" y="338" text-anchor="middle" font-family="monospace" font-size="9" fill="#3b82f6" opacity="0.7">STDIO (Local)</text>
+
+    <!-- Streamable HTTP -->
+    <rect x="420" y="320" width="170" height="26" rx="6" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-width="0.8" opacity="0.5"/>
+    <text x="505" y="338" text-anchor="middle" font-family="monospace" font-size="9" fill="#00d4ff" opacity="0.7">Streamable HTTP (Remote)</text>
+  </g>
+</svg>

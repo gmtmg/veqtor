@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌 | Veqtor</title>
+    <meta name="description" content="MCP（Model Context Protocol）を徹底解説。アーキテクチャ、6つの機能、対応ツール、エコシステム、サーバーの作り方、2026年最新動向まで。AIの接続標準を完全理解。">
+    <meta property="og:title" content="MCP完全解説 ― AIの&quot;USB-C&quot;と呼ばれる革命的プロトコルの全貌">
+    <meta property="og:description" content="MCPのアーキテクチャ、6つの機能、対応ツール、エコシステム、サーバーの作り方、最新動向まで。AIの接続標準を完全理解する決定版ガイド。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/mcp-guide-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-08">2026年4月8日</time>
+                <span class="article-category">AI</span>
+                <a href="../writers.html#bolt" class="article-writer" data-writer="bolt">
+                    <img src="../assets/images/writers/BOLT.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Bolt</span>
+                </a>
+            </div>
+            <h1>MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌</h1>
+
+            <div class="writer-intro" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Bolt</span>
+                    <p>速報です！ AIエージェント界隈で一番アツいプロトコル、MCPを徹底解説します。これを知らずに2026年のAI開発は語れません！</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 1. MCPとは何か？ -->
+            <!-- ===================== -->
+
+            <h2>MCPとは何か？ ― AIの"USB-C"が生まれた理由</h2>
+
+            <p>2024年11月、Anthropicが<strong>MCP（Model Context Protocol）</strong>をオープンソースで発表した。一言で言えば、<strong>AIモデルと外部ツール・データソースの接続を標準化するプロトコル</strong>だ。</p>
+
+            <p>なぜこれが必要だったのか。AIの世界には<strong>M&#215;N問題</strong>と呼ばれる深刻な課題があった。</p>
+
+            <p>例えば、10種類のAIモデルと10種類のツールがあるとする。MCPがなければ、それぞれの組み合わせごとに個別の統合コードが必要になる。<strong>10&#215;10＝100個</strong>のカスタム接続だ。新しいモデルやツールが1つ増えるたびに、さらに10個の接続コードを追加しなければならない。</p>
+
+            <p>これはまさに、USB-Cが登場する前の充電器問題と同じだ。スマートフォン、タブレット、ノートPC、カメラ、イヤホン——デバイスごとに違う充電ケーブルが必要で、引き出しの中はケーブルだらけ。USB-Cはこのカオスを<strong>「1つの規格で全部つなぐ」</strong>ことで解決した。</p>
+
+            <p>MCPが目指しているのはまったく同じことだ。AIモデルとツールの間に<strong>共通の接続規格</strong>を置くことで、M&#215;N問題を<strong>M＋N</strong>に変える。100個の個別統合が、20個の標準接続になる。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>USB-Cが出る前のカオスを覚えてますか？ あれと同じことがAIの世界で起きてたんです。MCPはそれを一掃する「統一規格」。しかもオープンソース！</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 2. MCPのアーキテクチャ -->
+            <!-- ===================== -->
+
+            <h2>MCPのアーキテクチャ ― 3層構造を理解する</h2>
+
+            <p>MCPの設計は非常にシンプルで、<strong>3つの層</strong>で構成されている。</p>
+
+            <h3>Host（ホスト）</h3>
+
+            <p>ユーザーが直接操作するAIアプリケーション。Claude Desktop、Cursor、VS Code（GitHub Copilot）、ChatGPTなどがこれにあたる。Hostは1つ以上のClientを内部に持つ。</p>
+
+            <h3>Client（クライアント）</h3>
+
+            <p>Host内で動作し、特定のServerとの<strong>1対1の接続</strong>を管理するコンポーネント。プロトコルのネゴシエーション、メッセージのルーティング、機能の調整を担う。重要なのは、1つのClientが接続するServerは常に1つだけという点だ。</p>
+
+            <h3>Server（サーバー）</h3>
+
+            <p>外部のツールやデータソースを公開する軽量プログラム。GitHub、Slack、データベース、ファイルシステムなど、あらゆるサービスがMCPサーバーになれる。</p>
+
+            <p>通信には<strong>JSON-RPC 2.0</strong>が使われる。HTTPのようなステートレスな通信ではなく、<strong>ステートフルなセッション</strong>を維持する設計だ。これにより、AIとツールの間で文脈を保ったやり取りが可能になる。</p>
+
+            <h3>トランスポート層</h3>
+
+            <p>データの運搬方法は2種類ある。</p>
+
+            <ul>
+                <li><strong>STDIO</strong> ― ローカル実行向け。MCPサーバーを子プロセスとして起動し、標準入出力で通信。レイテンシが極めて低い</li>
+                <li><strong>Streamable HTTP</strong> ― リモート実行向け。HTTP上でJSON-RPCメッセージを送受信。2025年3月にSSE（Server-Sent Events）トランスポートを置き換えた新方式</li>
+            </ul>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/mcp-architecture.svg" alt="MCPアーキテクチャ図：Host（Claude/Cursor/ChatGPT）からClient（1対1接続）を経由してServer（GitHub/Slack/DB/Filesystem）に接続。トランスポート層はSTDIOとStreamable HTTP。">
+                <figcaption>MCPの3層アーキテクチャ。HostがClientを通じてServerに接続し、JSON-RPC 2.0で通信する。</figcaption>
+            </figure>
+
+            <!-- ===================== -->
+            <!-- 3. MCPの6つの機能 -->
+            <!-- ===================== -->
+
+            <h2>MCPの6つの機能 ― Toolsだけじゃない</h2>
+
+            <p>MCPと聞くと「AIがツールを呼び出せる仕組み」と思われがちだが、実際にはもっと多機能だ。サーバー側が提供する3つの機能（Primitives）と、クライアント側が提供する3つの機能がある。</p>
+
+            <h3>サーバー側の3機能</h3>
+
+            <p><strong>1. Tools（ツール）</strong> ― AIが実行できる関数。「GitHubにイシューを作成する」「データベースにクエリを投げる」「ファイルを読み書きする」など、<strong>アクションを実行</strong>する機能。LLMが自動的に呼び出せるが、通常はユーザーの承認（Human-in-the-loop）が必要。</p>
+
+            <p><strong>2. Resources（リソース）</strong> ― AIが読み取れるデータ。ファイルの内容、データベースのレコード、APIレスポンスなど、<strong>コンテキストとして提供</strong>される情報。REST APIのGETエンドポイントに似ている。副作用がなく、読み取り専用。</p>
+
+            <p><strong>3. Prompts（プロンプト）</strong> ― 再利用可能なテンプレート。「コードレビューを依頼するときのプロンプト」「バグ報告のフォーマット」など、<strong>定型の指示パターン</strong>を提供する。ユーザーが明示的に選択して使う。</p>
+
+            <h3>クライアント側の3機能</h3>
+
+            <p><strong>4. Sampling（サンプリング）</strong> ― サーバーがクライアントを通じて<strong>LLMにリクエストを送る</strong>仕組み。これにより、MCPサーバー自身が「AIに考えてもらう」ことが可能になる。エージェント的な再帰的動作の基盤。</p>
+
+            <p><strong>5. Roots（ルーツ）</strong> ― クライアントがサーバーに対して「このディレクトリ/URIが作業対象だよ」と伝える仕組み。サーバーが適切なコンテキストで動作できるようにする。</p>
+
+            <p><strong>6. Elicitation（エリシテーション）</strong> ― サーバーが処理の途中で<strong>ユーザーに追加情報を問い合わせる</strong>仕組み。「このファイルを上書きしていいですか？」「APIキーを入力してください」といったインタラクティブなやり取りが可能になる。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>Toolsだけでも十分すごいけど、Samplingが加わるとエージェントが"考えながら動く"ようになるんです。MCPは単なるAPI統合じゃなく、AIの自律性を支えるインフラなんですよね。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 4. 対応ツール・企業一覧 -->
+            <!-- ===================== -->
+
+            <h2>対応ツール・企業一覧 ― 業界標準への道</h2>
+
+            <p>MCPの凄さは技術だけじゃない。<strong>業界のほぼ全プレイヤーが参画している</strong>点が決定的だ。</p>
+
+            <h3>主要対応クライアント</h3>
+
+            <ul>
+                <li><strong>Claude Desktop / Claude Code</strong> ― Anthropic純正。最も早くMCPをサポート</li>
+                <li><strong>Cursor</strong> ― AI特化コードエディタ。MCP統合でツール連携が飛躍的に向上</li>
+                <li><strong>Windsurf（Codeium）</strong> ― AI開発環境。MCP対応で外部ツール接続</li>
+                <li><strong>VS Code + GitHub Copilot</strong> ― Microsoftが公式にMCPサポートを発表</li>
+                <li><strong>ChatGPT</strong> ― OpenAIが2025年3月にMCPサポートを発表。最大の衝撃</li>
+            </ul>
+
+            <h3>参画企業・団体</h3>
+
+            <ul>
+                <li><strong>Anthropic</strong> ― 創設者。MCPを設計・公開</li>
+                <li><strong>OpenAI</strong> ― 2025年3月にMCPサポートを発表。Agents SDKにも統合</li>
+                <li><strong>Google DeepMind</strong> ― Gemini向けMCPサポートを開発</li>
+                <li><strong>Microsoft</strong> ― VS Code、Copilot、Azure AIでMCPを採用</li>
+                <li><strong>Amazon Web Services</strong> ― Amazon Bedrockの新エージェント機能にMCPを統合</li>
+                <li><strong>Cloudflare</strong> ― リモートMCPサーバーのホスティング基盤を提供</li>
+            </ul>
+
+            <h3>Agentic AI Foundation設立</h3>
+
+            <p>2025年後半、MCPの管理は<strong>Linux Foundation傘下のAgentic AI Foundation</strong>に移管された。Anthropic単独のプロジェクトから、業界全体で管理するオープン標準へと進化した。これはHTTPやTCP/IPがIETFで標準化されたのと同じ道筋だ。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>OpenAIまで乗っかったのは衝撃でした。もう業界標準確定ですね。MCPに対応しないAIツールは、USB-C非対応のデバイスみたいなもの——取り残されるだけです。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 5. MCPサーバーエコシステム -->
+            <!-- ===================== -->
+
+            <h2>MCPサーバーエコシステム ― 9,700万インストールの衝撃</h2>
+
+            <p>2026年3月時点で、MCPサーバーの累計インストール数は<strong>約9,700万</strong>に達した。npmレジストリのダウンロード数だけで5,500万を超え、Pythonパッケージも急速に伸びている。</p>
+
+            <h3>カテゴリ別の主要サーバー</h3>
+
+            <p><strong>開発ツール系</strong></p>
+            <ul>
+                <li><strong>GitHub</strong> ― リポジトリ操作、Issue/PR管理、コードレビュー</li>
+                <li><strong>GitLab</strong> ― CI/CDパイプライン連携</li>
+                <li><strong>Linear</strong> ― プロジェクト管理、タスク自動作成</li>
+            </ul>
+
+            <p><strong>コミュニケーション系</strong></p>
+            <ul>
+                <li><strong>Slack</strong> ― メッセージ送受信、チャンネル操作</li>
+                <li><strong>Google Drive</strong> ― ドキュメントの読み書き</li>
+                <li><strong>Notion</strong> ― ページ作成・更新</li>
+            </ul>
+
+            <p><strong>データ・インフラ系</strong></p>
+            <ul>
+                <li><strong>PostgreSQL / MySQL</strong> ― データベースクエリ実行</li>
+                <li><strong>Kubernetes</strong> ― クラスタ管理、Pod操作</li>
+                <li><strong>AWS</strong> ― S3、Lambda、CloudWatchなどの操作</li>
+                <li><strong>Filesystem</strong> ― ローカルファイルの読み書き</li>
+            </ul>
+
+            <p><strong>情報取得系</strong></p>
+            <ul>
+                <li><strong>Brave Search / Tavily</strong> ― Web検索</li>
+                <li><strong>Puppeteer / Playwright</strong> ― Webスクレイピング・ブラウザ自動操作</li>
+            </ul>
+
+            <p>Anthropicが公式に提供するコネクタだけで<strong>75種類以上</strong>。コミュニティ製を含めると数千のMCPサーバーが利用可能だ。ほとんどが<strong>無料・オープンソース</strong>で公開されている。</p>
+
+            <!-- ===================== -->
+            <!-- 6. MCPサーバーの作り方 -->
+            <!-- ===================== -->
+
+            <h2>MCPサーバーの作り方 ― 概要とポイント</h2>
+
+            <p>既存のMCPサーバーを使うだけでなく、<strong>自分でMCPサーバーを作る</strong>ことも可能だ。公式SDKが充実しており、基本的なサーバーなら数十行で実装できる。</p>
+
+            <h3>公式SDK</h3>
+
+            <ul>
+                <li><strong>TypeScript</strong> ― <code>@modelcontextprotocol/sdk</code></li>
+                <li><strong>Python</strong> ― <code>mcp</code>パッケージ + <code>FastMCP</code>（高レベルAPI）</li>
+                <li><strong>Java / Kotlin</strong> ― Spring AI MCPサポート</li>
+                <li><strong>C# / .NET</strong> ― 公式SDKあり</li>
+            </ul>
+
+            <h3>基本ステップ（TypeScriptの場合）</h3>
+
+            <ol>
+                <li><strong>SDKをインストール</strong> ― <code>npm install @modelcontextprotocol/sdk</code></li>
+                <li><strong>サーバーを初期化</strong> ― <code>McpServer</code>クラスのインスタンスを作成</li>
+                <li><strong>ツールを定義</strong> ― 関数名、説明、入力スキーマ（Zod）、実行ロジックを登録</li>
+                <li><strong>トランスポートを接続</strong> ― STDIOまたはStreamable HTTPで起動</li>
+                <li><strong>MCP Inspectorで検証</strong> ― 公式デバッグツールで動作確認</li>
+            </ol>
+
+            <h3>開発時の注意点</h3>
+
+            <ul>
+                <li><strong>stdoutに書かない</strong> ― STDIOトランスポートでは標準出力がプロトコル通信に使われる。ログは標準エラー出力（stderr）に出すこと</li>
+                <li><strong>ツールの説明が最重要</strong> ― LLMはツールの<code>description</code>を読んで「いつ使うか」を判断する。曖昧な説明はツールが呼ばれない原因になる</li>
+                <li><strong>エラーハンドリング</strong> ― ツール実行時のエラーは<code>isError: true</code>フラグで返す。例外を投げるとプロトコル通信が壊れる</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>自分でMCPサーバーを作れると、AIの使い方が根本的に変わります。「社内DBを検索するサーバー」とか「独自APIをラップするサーバー」とか、可能性は無限大。ぜひ挑戦してみて！</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 7. 2026年の最新動向 -->
+            <!-- ===================== -->
+
+            <h2>2026年の最新動向 ― MCPはどこへ向かうのか</h2>
+
+            <p>MCPは発表から約1年半で驚異的な進化を遂げている。2026年時点の主要トピックを整理する。</p>
+
+            <h3>Streamable HTTP ― SSEの後継</h3>
+
+            <p>2025年3月、リモート通信方式がSSE（Server-Sent Events）から<strong>Streamable HTTP</strong>に移行した。SSEは「サーバーからクライアントへの一方向ストリーム」という制約があったが、Streamable HTTPは<strong>双方向の柔軟な通信</strong>を実現。ステートレスなHTTPリクエストとストリーミングを状況に応じて使い分けられる。</p>
+
+            <h3>OAuth 2.1 + PKCE ― 認証の標準化</h3>
+
+            <p>リモートMCPサーバーへのアクセスに<strong>OAuth 2.1（PKCE拡張付き）</strong>が標準認証として採用された。ユーザーがブラウザでログインするだけで、MCPクライアントがトークンを取得してサーバーにアクセスできる。APIキーの手動管理が不要になる。</p>
+
+            <h3>リモートサーバーの本格化 ― Cloudflare Workers</h3>
+
+            <p>Cloudflareが<strong>MCPサーバーのリモートホスティング基盤</strong>を提供。これまでのMCPサーバーはローカル実行（STDIO）が主流だったが、リモートサーバーをワンクリックでデプロイできるようになった。エンタープライズでの導入障壁が大幅に下がった。</p>
+
+            <h3>Agentic AI Foundation ― ガバナンスの確立</h3>
+
+            <p>Linux Foundation傘下に<strong>Agentic AI Foundation</strong>が設立され、MCPの仕様策定がマルチステークホルダー体制に移行。Anthropic、OpenAI、Google、Microsoft、AWSが共同で仕様を管理することで、特定企業への依存リスクが解消された。</p>
+
+            <h3>エンタープライズ対応</h3>
+
+            <p>監査証跡（Audit Trail）、SSO統合、細粒度のアクセス制御など、<strong>企業利用に必要な機能</strong>が急速に整備されている。「個人開発者の便利ツール」から「企業のAIインフラ基盤」へとフェーズが変わりつつある。</p>
+
+            <!-- ===================== -->
+            <!-- 8. まとめ -->
+            <!-- ===================== -->
+
+            <h2>まとめ</h2>
+
+            <ol>
+                <li><strong>MCPはAIの"USB-C"</strong> ― AIモデルとツールの接続をM&#215;NからM+Nに変える標準プロトコル</li>
+                <li><strong>3層アーキテクチャ</strong> ― Host/Client/Serverのシンプルな構造。JSON-RPC 2.0で通信</li>
+                <li><strong>6つの機能</strong> ― Tools、Resources、Promptsに加え、Sampling、Roots、Elicitationでエージェント的動作を実現</li>
+                <li><strong>業界全体が採用</strong> ― Anthropic、OpenAI、Google、Microsoft、AWSが参画。9,700万インストール超</li>
+                <li><strong>まだ始まったばかり</strong> ― Streamable HTTP、OAuth 2.1、リモートサーバー、エンタープライズ対応が進行中</li>
+            </ol>
+
+            <p>MCPは「AIが外の世界とつながる方法」を根本から変えた。プロンプトを書くだけだったAIが、ツールを使い、データにアクセスし、他のシステムと連携する。その接続の土台がMCPだ。</p>
+
+            <h3>さらに学ぶために</h3>
+
+            <ul>
+                <li><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer"><strong>MCP公式ドキュメント</strong> ― modelcontextprotocol.io</a></li>
+                <li><a href="https://github.com/modelcontextprotocol/specification" target="_blank" rel="noopener noreferrer"><strong>MCP仕様書（GitHub）</strong> ― github.com/modelcontextprotocol/specification</a></li>
+                <li><a href="https://github.com/modelcontextprotocol/typescript-sdk" target="_blank" rel="noopener noreferrer"><strong>公式TypeScript SDK</strong> ― github.com/modelcontextprotocol/typescript-sdk</a></li>
+                <li><a href="https://github.com/modelcontextprotocol/python-sdk" target="_blank" rel="noopener noreferrer"><strong>公式Python SDK</strong> ― github.com/modelcontextprotocol/python-sdk</a></li>
+                <li><a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener noreferrer"><strong>MCPサーバー一覧</strong> ― github.com/modelcontextprotocol/servers</a></li>
+            </ul>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>MCPはまだ始まったばかり。でも、もう「使うか使わないか」ではなく「いつ使い始めるか」のフェーズに入ってます。乗り遅れないで！</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

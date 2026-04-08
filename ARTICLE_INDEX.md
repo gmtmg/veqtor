@@ -8,6 +8,7 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
+| 10 | 2026-04-08 | mcp-guide.html | MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌 | AI | Bolt | published |
 | 9 | 2026-04-07 | python-basics-for.html | Python基礎講座 ― for文・リストをブラウザで体験しよう | Development | Compass / Syntax | published |
 | 8 | 2026-04-06 | harness-engineering.html | ハーネスエンジニアリングとは何か ― AIエージェント時代の「環境設計」という新パラダイム | AI | Prism | published |
 | 7 | 2026-04-06 | rag-basics.html | RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド | AI | Compass / Prism | published |
@@ -60,3 +61,4 @@
 - 2026-04-06: 記事#7「RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド」を公開(Compass / Prism合作)
 - 2026-04-06: 記事#8「ハーネスエンジニアリングとは何か」を公開(Prism)
 - 2026-04-07: 記事#9「Python基礎講座 ― for文・リスト」を公開(Compass / Syntax合作)
+- 2026-04-08: 記事#10「MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌」を公開(Bolt)

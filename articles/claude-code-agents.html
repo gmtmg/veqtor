@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Codeエージェント機能 完全入門ガイド【前編】| Veqtor</title>
+    <title>Claude Codeエージェント機能 完全入門ガイド | Veqtor</title>
     <meta name="description" content="Claude Codeのエージェント機能をゼロから解説。ターミナルの開き方からエージェントファイルの作成、実行まで、完全初心者でも手を動かしながら学べます。">
-    <meta property="og:title" content="Claude Codeエージェント機能 完全入門ガイド【前編】">
-    <meta property="og:description" content="ターミナルの開き方から最初のエージェント作成・実行まで、完全初心者でも手を動かしながら学べます。">
+    <meta property="og:title" content="Claude Codeエージェント機能 完全入門ガイド">
+    <meta property="og:description" content="Claude Codeのエージェント機能をゼロから解説。完全初心者でも手を動かしながら学べます。">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="../assets/images/thumbnails/20260402-claude-code-agents-thumb.svg">
+    <meta property="og:image" content="../assets/images/thumbnails/claude-code-agents-thumb.svg">
     <script>
         (function() {
             var saved = localStorage.getItem('theme');
@@ -25,7 +25,6 @@
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
-                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
                 </ul>
                 <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
                     <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
@@ -39,24 +38,10 @@
             <div class="article-meta">
                 <time datetime="2026-04-02">2026年4月2日</time>
                 <span class="article-category">AI</span>
-                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
-                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
-                    <span class="article-writer-name">Compass</span>
-                </a>
             </div>
-            <h1>Claude Codeエージェント機能 完全入門ガイド【前編】</h1>
+            <h1>Claude Codeエージェント機能 完全入門ガイド</h1>
 
-            <div class="writer-intro" data-writer="compass">
-                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
-                <div class="writer-intro-body">
-                    <span class="writer-intro-name">Compass</span>
-                    <p>こんにちは、Compassです。「エージェント」って聞くと難しそうですよね。でも大丈夫。この記事では、ターミナルの開き方から一歩ずつ進めていきます。技術の世界は広いけど、最初の一歩さえ踏み出せば道は開けます。一緒にやっていきましょう。</p>
-                </div>
-            </div>
-
-            <p>「エージェント」と聞くと難しそうに感じるかもしれませんが、実はとてもシンプルです。この前編では<strong>「ターミナルって何？」というレベルから</strong>、実際に手を動かしてエージェントを作って動かすところまで、一歩ずつ進めていきます。</p>
-
-            <p class="article-series-nav"><strong>この記事は前後編です</strong>: 前編（この記事） ｜ <a href="20260402-claude-code-agents-part2.html">後編 — 応用テクニックとベストプラクティス</a></p>
+            <p>「エージェント」と聞くと難しそうに感じるかもしれませんが、実はとてもシンプルです。この記事では<strong>「ターミナルって何？」というレベルから</strong>、実際に手を動かしてエージェントを作って動かすところまで、一歩ずつ進めていきます。</p>
 
             <!-- ===================== -->
             <!-- 前提知識 -->
@@ -67,7 +52,7 @@
             <p>いきなり本題に入る前に、2つの言葉を整理させてください。</p>
 
             <figure class="article-figure">
-                <img src="../assets/images/articles/20260402-claude-code-agents-07.svg"
+                <img src="../assets/images/articles/claude-code-agents-07.svg"
                      alt="Claude CodeとAgentの違いを並べた図。Claude Codeはターミナルで動くAIアシスタント、Agentはその中の専門家"
                      loading="lazy">
             </figure>
@@ -94,16 +79,8 @@
 
             <p>つまり、エージェントの正体は<strong>ただのテキストファイル</strong>です。プログラミングの知識は必要ありません。</p>
 
-            <div class="writer-comment" data-writer="compass">
-                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
-                <div class="writer-comment-body">
-                    <span class="writer-comment-name">Compass</span>
-                    <p>「テキストファイルを置くだけ」って聞くと、拍子抜けしますよね。でも本当にそうなんです。構えなくて大丈夫ですよ。</p>
-                </div>
-            </div>
-
             <figure class="article-figure">
-                <img src="../assets/images/articles/20260402-claude-code-agents-01.svg"
+                <img src="../assets/images/articles/claude-code-agents-01.svg"
                      alt="Claude Codeがユーザーのプロンプトを分析し、code-reviewer・debugger・seo-optimizerなどの専門エージェントに委任する流れを示す図"
                      loading="lazy">
             </figure>
@@ -166,7 +143,7 @@ cd my-project</code></pre>
             <p>ここからは実際に手を動かしていきます。<strong>コマンドは1行ずつコピーして、ターミナルに貼り付けて実行してください。</strong></p>
 
             <figure class="article-figure">
-                <img src="../assets/images/articles/20260402-claude-code-agents-06.svg"
+                <img src="../assets/images/articles/claude-code-agents-06.svg"
                      alt="ターミナルでのステップを示す図。cd、mkdir、ファイル作成、Claude Code起動の4ステップ"
                      loading="lazy">
             </figure>
@@ -265,20 +242,12 @@ model: sonnet
 
             <p>貼り付けたら、ファイルを<strong>保存</strong>して閉じてください（Ctrl+S または Cmd+S）。</p>
 
-            <div class="writer-comment" data-writer="compass">
-                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
-                <div class="writer-comment-body">
-                    <span class="writer-comment-name">Compass</span>
-                    <p>保存できましたか？ ここまで来れば、もう半分クリアです。次は中身を理解していきましょう。わからない部分があっても、まず動かしてみてから振り返れば大丈夫。</p>
-                </div>
-            </div>
-
             <h3>ファイルの中身を解説</h3>
 
             <p>今書いた内容は、大きく2つの部分に分かれています。</p>
 
             <figure class="article-figure">
-                <img src="../assets/images/articles/20260402-claude-code-agents-03.svg"
+                <img src="../assets/images/articles/claude-code-agents-03.svg"
                      alt="code-reviewer.mdのコード例。YAML frontmatterにname・description・tools・modelフィールド、本文にシステムプロンプトを記述している"
                      loading="lazy">
             </figure>
@@ -312,33 +281,267 @@ model: sonnet
 
             <p>おめでとうございます。これであなたの最初のエージェントが動きました。</p>
 
-            <div class="writer-comment" data-writer="compass">
-                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
-                <div class="writer-comment-body">
-                    <span class="writer-comment-name">Compass</span>
-                    <p>最初のエージェントが動いた瞬間は、けっこう感動しますよね。ここからは自分好みにカスタマイズしていく楽しさが待っています。後編では応用テクニックを紹介するので、ぜひ続けて読んでみてください。</p>
-                </div>
-            </div>
-
             <!-- ===================== -->
-            <!-- 前編まとめ -->
+            <!-- 呼び出し方法 -->
             <!-- ===================== -->
 
-            <h2>前編のまとめ</h2>
+            <h2>エージェントの呼び出し方いろいろ</h2>
+
+            <p>先ほどは自然に話しかけるだけで動きましたが、他にもいくつかの呼び出し方があります。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/claude-code-agents-04.svg"
+                     alt="5つの呼び出し方法を示す図。Natural Language、@Mention、CLI Flag、/agents Command、Resumeの5種類"
+                     loading="lazy">
+            </figure>
+
+            <h3>方法1：自然に話しかける（いちばん簡単）</h3>
+
+            <pre><code>このコードをレビューして</code></pre>
+            <p>Claude Codeが自動的に適切なエージェントを選んでくれます。</p>
+
+            <h3>方法2：@メンションで名指しする（確実に呼び出せる）</h3>
+
+            <pre><code>@"code-reviewer" src/login.js を確認して</code></pre>
+            <p>「このエージェントを絶対に使って」と明示的に指定できます。</p>
+
+            <h3>方法3：起動時にエージェントを指定する</h3>
+
+            <pre><code>claude --agent code-reviewer</code></pre>
+            <p>このセッション（会話）全体を、ずっとcode-reviewerとしてやり取りするモードです。</p>
+
+            <h3>方法4：一覧から選ぶ</h3>
+
+            <p>Claude Code起動中に以下を入力します。</p>
+
+            <pre><code>/agents</code></pre>
+            <p>使えるエージェントの一覧が出てきて、選択できます。新しいエージェントを作ることもできます。</p>
+
+            <p>最初は<strong>方法1（自然に話しかける）</strong>だけ覚えておけば十分です。慣れてきたら他の方法も試してみてください。</p>
+
+            <!-- ===================== -->
+            <!-- 2つ目のエージェント -->
+            <!-- ===================== -->
+
+            <h2>もう1つ作ってみよう：バグ修正エージェント</h2>
+
+            <p>コツをつかんだところで、もう1つ作ってみましょう。今度はバグを見つけて直してくれるエージェントです。</p>
+
+            <h3>ステップ1：ファイルを作る</h3>
+
+            <pre><code># Mac / Linux
+touch .claude/agents/debugger.md
+
+# Windows（PowerShell）
+New-Item .claude\agents\debugger.md</code></pre>
+
+            <h3>ステップ2：内容を書く</h3>
+
+            <p>エディタで開いて、以下を貼り付けて保存してください。</p>
+
+            <pre><code>---
+name: debugger
+description: バグ修正の専門家。エラーが出たときや、
+  プログラムが期待通りに動かないときに使う。
+tools: Read, Edit, Write, Bash, Grep, Glob
+model: sonnet
+---
+
+あなたはデバッグ（バグ修正）の専門家です。
+
+## 作業手順
+1. エラーメッセージを確認する
+2. 問題が起きているファイルを探す
+3. 原因を特定する
+4. 最小限の修正を行う
+5. 修正後に動作を確認する
+
+## 報告の仕方
+修正するたびに以下を教えてください：
+- 何が原因だったか（わかりやすく）
+- 何をどう直したか
+- 同じ問題が再発しないためのアドバイス</code></pre>
+
+            <h3>最初のエージェントとの違いに注目</h3>
+
+            <p>コードレビュアーとデバッガーの<code>tools</code>を比べてみてください。</p>
+
+            <pre><code># コードレビュアー（読むだけ）
+tools: Read, Grep, Glob, Bash
+
+# デバッガー（読む＋直す）
+tools: Read, Edit, Write, Bash, Grep, Glob</code></pre>
+
+            <p>デバッガーには <code>Edit</code>（既存ファイルの修正）と <code>Write</code>（新しいファイルの作成）が追加されています。バグを直すためにはファイルの書き換えが必要だからです。</p>
+
+            <p>一方、コードレビュアーにはこれらの権限を与えていません。レビューの目的は「読んで指摘する」ことなので、ファイルを変更する必要がないからです。<strong>必要な権限だけを与える</strong>ことで、意図しない変更を防げます。</p>
+
+            <!-- ===================== -->
+            <!-- ファイル配置 -->
+            <!-- ===================== -->
+
+            <h2>エージェントファイルの置き場所</h2>
+
+            <p>エージェントファイルは2つの場所に置けます。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/claude-code-agents-02.svg"
+                     alt="エージェントファイルの配置場所とスコープの関係を示す図。プロジェクト、ユーザー、組織の3つのスコープがある"
+                     loading="lazy">
+            </figure>
+
+            <h3>場所A：プロジェクトの中（おすすめ）</h3>
+
+            <pre><code>my-project/.claude/agents/code-reviewer.md</code></pre>
+
+            <p>そのプロジェクト内でだけ使えるエージェントです。チームメンバーと共有したいエージェントはここに置きます。Git（バージョン管理）にも含めることができます。</p>
+
+            <h3>場所B：ホームフォルダ（個人用）</h3>
+
+            <pre><code>~/.claude/agents/code-reviewer.md</code></pre>
+
+            <p>すべてのプロジェクトで使えるエージェントです。自分だけが使う便利ツール的なエージェントはここに置くとよいでしょう。</p>
+
+            <pre><code># 個人用のフォルダを作成
+mkdir -p ~/.claude/agents</code></pre>
+
+            <p>迷ったら<strong>場所A（プロジェクトの中）</strong>を選んでおけば大丈夫です。</p>
+
+            <!-- ===================== -->
+            <!-- 設定フィールド -->
+            <!-- ===================== -->
+
+            <h2>設定フィールド一覧</h2>
+
+            <p>エージェントファイルの設定セクション（<code>---</code>で囲まれた部分）で使えるフィールドを整理します。</p>
+
+            <h3>まず覚える2つ（必須）</h3>
+
+            <p><strong><code>name</code></strong>: エージェントの名前です。</p>
+            <ul>
+                <li>英語の小文字とハイフンだけ使えます</li>
+                <li>例: <code>code-reviewer</code>、<code>debugger</code>、<code>doc-writer</code></li>
+            </ul>
+
+            <p><strong><code>description</code></strong>: エージェントの説明です。</p>
+            <ul>
+                <li>Claude Codeがこの文章を読んで「どのエージェントに任せるか」を決めます</li>
+                <li><strong>「いつ使うか」を必ず含めてください</strong>（例: 「コードを書いた後に使う」「エラーが出たときに使う」）</li>
+            </ul>
+
+            <h3>次に覚える2つ（よく使う）</h3>
+
+            <p><strong><code>tools</code></strong>: 使える道具のリストです。</p>
+
+            <pre><code># よく使う組み合わせ例
+
+# 読むだけ（安全）
+tools: Read, Grep, Glob
+
+# 読む＋コマンド実行
+tools: Read, Grep, Glob, Bash
+
+# 読む＋書く（フル権限）
+tools: Read, Write, Edit, Bash, Grep, Glob</code></pre>
+
+            <p><strong><code>model</code></strong>: どのAIモデルを使うかです。</p>
+
+            <pre><code>model: haiku    # 軽い作業向き（速い・安い）
+model: sonnet   # 普通の作業（バランス良し）★おすすめ
+model: opus     # 難しい作業（高性能・高コスト）</code></pre>
+
+            <h3>慣れたら試す（オプション）</h3>
+
+            <ul>
+                <li><code>maxTurns: 10</code> → 最大10回まで作業する（暴走防止に便利）</li>
+                <li><code>memory: project</code> → 前回の会話を覚えておく（使うほど賢くなる）</li>
+                <li><code>background: true</code> → 裏側で作業する（待たなくていい）</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- ベストプラクティス -->
+            <!-- ===================== -->
+
+            <h2>うまくいく4つのコツ</h2>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/claude-code-agents-05.svg"
+                     alt="4つのベストプラクティス。Single Purpose、Clear Description、Limit Tools、Version Controlを示すカード型の図"
+                     loading="lazy">
+            </figure>
+
+            <h3>コツ1：1つのエージェントには1つの役割だけ</h3>
+
+            <p>「レビューもデバッグもテストもやる」エージェントは作らないでください。器用貧乏になります。「コードレビュー専門」「デバッグ専門」のように分けたほうが、それぞれの品質が上がります。</p>
+
+            <h3>コツ2：descriptionに「いつ使うか」を書く</h3>
+
+            <pre><code># NG: 何をする人なのかわからない
+description: コードを見るエージェント
+
+# OK: いつ使うかが明確
+description: コードレビューの専門家。コードを書いた後
+  や変更した後に使う。品質とセキュリティをチェックする。</code></pre>
+
+            <h3>コツ3：道具（tools）は必要最小限にする</h3>
+
+            <p>「念のため全部入れておこう」ではなく、本当に必要なものだけにしましょう。レビューするだけなら読み取り権限だけで十分です。</p>
+
+            <h3>コツ4：手順を番号付きで書く</h3>
+
+            <p>指示書の本文には、「1. まずこれをやる」「2. 次にこれをやる」と番号で手順を書きましょう。AIは曖昧な指示より、明確な手順のほうが正確に動いてくれます。</p>
+
+            <!-- ===================== -->
+            <!-- フォルダ構成の確認 -->
+            <!-- ===================== -->
+
+            <h2>最終確認：ここまでの作業を振り返る</h2>
+
+            <p>ここまでの手順で、プロジェクトのフォルダは以下のようになっているはずです。</p>
+
+            <pre><code>my-project/
+└── .claude/
+    └── agents/
+        ├── code-reviewer.md   ← レビュー専門家
+        └── debugger.md        ← バグ修正専門家</code></pre>
+
+            <p>確認コマンド:</p>
+
+            <pre><code># Mac / Linux
+ls -la .claude/agents/
+
+# Windows（PowerShell）
+dir .claude\agents\</code></pre>
+
+            <p>2つのファイルが表示されれば成功です。Claude Codeを起動すれば、これらのエージェントを使えます。</p>
+
+            <pre><code># Claude Codeを起動
+claude
+
+# あとは話しかけるだけ
+このコードをレビューして
+# → code-reviewer が自動的に対応
+
+エラーの原因を調べて直して
+# → debugger が自動的に対応</code></pre>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2>まとめ</h2>
 
             <p>ここまでの内容を整理します。</p>
 
             <ol>
-                <li><strong>Claude Code</strong>はターミナルで動くAIコーディングアシスタント</li>
-                <li><strong>エージェント = テキストファイル</strong>。プログラミングの知識は不要</li>
-                <li>ファイルは<strong>2パート構成</strong>：上半分に設定（name, description, tools, model）、下半分に指示書（自由記述）</li>
-                <li>エージェントは <code>.claude/agents/</code> フォルダに置くだけで使える</li>
-                <li>呼び出しは<strong>普通に話しかけるだけ</strong>。Claude Codeが自動で適切なエージェントを選んでくれる</li>
+                <li><strong>エージェント = テキストファイル</strong>。<code>.claude/agents/</code> に置くだけで使えます</li>
+                <li><strong>ファイルは2パート構成</strong>。上半分に設定（name, description, tools, model）、下半分に指示書（自由記述）</li>
+                <li><strong>必須は2つだけ</strong>。<code>name</code>（名前）と <code>description</code>（説明）さえあれば動きます</li>
+                <li><strong>呼び出しは話しかけるだけ</strong>。Claude Codeが自動で適切なエージェントを選んでくれます</li>
+                <li><strong>まずは1つ作ってみる</strong>のが一番の近道。失敗してもファイルを消すだけでやり直せます</li>
             </ol>
 
-            <p>前編では最初のエージェント（コードレビュアー）を作って動かすところまでを学びました。後編では、呼び出し方のバリエーション、2つ目のエージェント作成、設定の詳細、そしてうまく使いこなすコツを紹介します。</p>
-
-            <p class="article-series-nav"><a href="20260402-claude-code-agents-part2.html">後編 — 応用テクニックとベストプラクティスへ進む →</a></p>
+            <p>この記事で紹介したコマンドを上から順に実行すれば、10分もかからずにエージェントを動かせるはずです。まずはコードレビュアーを作るところから、ぜひ試してみてください。</p>
 
         </article>
     </main>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://veqtor.jp/sitemap.xml
+Sitemap: https://algoyosuga.com/veqtor/sitemap.xml

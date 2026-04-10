@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由 | Veqtor</title>
+    <meta name="description" content="ゼロトラストセキュリティの基本原則から5つの柱、導入ロードマップ、よくある誤解まで。境界型セキュリティの限界を超える新しいセキュリティモデルをAegisが丁寧に解説。">
+    <meta property="og:title" content="ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由">
+    <meta property="og:description" content="ゼロトラストの基本原則、5つの柱、導入ステップ、よくある誤解まで。境界型セキュリティの限界を超える新モデルを解説。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/zero-trust-guide-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由",
+      "description": "ゼロトラストセキュリティの基本原則から5つの柱、導入ロードマップ、よくある誤解まで。境界型セキュリティの限界を超える新しいセキュリティモデルをAegisが丁寧に解説。",
+      "datePublished": "2026-04-11",
+      "author": { "@type": "Person", "name": "Aegis" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/zero-trust-guide-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/zero-trust-guide"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun">&#9728;</span><span class="icon-moon">&#9790;</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-11">2026年4月11日</time>
+                <span class="article-category">Security</span>
+                <a href="../writers.html#aegis" class="article-writer" data-writer="aegis">
+                    <img src="../assets/images/writers/AEGIS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Aegis</span>
+                </a>
+            </div>
+            <h1>ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由</h1>
+
+            <!-- writer-intro -->
+            <div class="writer-intro" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Aegis</span>
+                    <p>「社内ネットワークだから安全」——その前提が、いま音を立てて崩れています。リモートワークの普及、クラウドへの移行、そして巧妙化するサイバー攻撃。従来の「壁で囲って守る」セキュリティでは、もう限界です。今回は、その限界を根本から覆す考え方「ゼロトラスト」について、仕組みから導入ステップまで丁寧に解説します。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション1: 境界型セキュリティの限界 -->
+            <!-- ========================== -->
+
+            <h2>1. 「社内ネットワーク＝安全」の時代は終わった</h2>
+
+            <p>長らく、企業のセキュリティは<strong>「境界型」</strong>モデルが主流でした。ファイアウォールやVPNで社内と社外の境界線を引き、「壁の内側は安全、外側は危険」と区別する。城壁で守られた城のようなイメージです。</p>
+
+            <h3>境界型モデルが機能していた時代</h3>
+
+            <p>この考え方は、社員がオフィスのPCから社内ネットワークにアクセスしていた時代にはうまく機能していました。守るべきデータも、アクセスする人も、すべてが「壁の内側」にあったからです。</p>
+
+            <h3>環境の激変</h3>
+
+            <p>しかし、いまの企業環境は激変しています。</p>
+
+            <ul>
+                <li><strong>リモートワークの常態化</strong>: 社員は自宅やカフェから、私物のデバイスで業務システムにアクセスする</li>
+                <li><strong>クラウドサービスの普及</strong>: データはオンプレミスのサーバーではなく、AWS・Azure・GCPなどのクラウド上にある</li>
+                <li><strong>SaaS利用の拡大</strong>: Slack、Google Workspace、Salesforceなど、業務データがさまざまなクラウドサービスに分散している</li>
+                <li><strong>BYODの浸透</strong>: 個人のスマートフォンやタブレットが業務に使われる</li>
+            </ul>
+
+            <p>「壁の内側」と「外側」の区別が曖昧になった結果、境界型モデルの前提そのものが崩壊しています。</p>
+
+            <h3>VPN依存のリスク</h3>
+
+            <p>「リモートワークにはVPNがあるじゃないか」——そう思う方もいるでしょう。たしかにVPNはリモートアクセスの定番手段ですが、大きな問題を抱えています。</p>
+
+            <p>VPNは「一度認証を通れば社内ネットワークに入れる」仕組みです。つまり、<strong>VPNの認証さえ突破されれば、攻撃者は社内ネットワーク全体に自由にアクセスできてしまいます</strong>。実際、VPNの脆弱性を突いた大規模な情報漏洩事件は後を絶ちません。</p>
+
+            <p>さらに、VPNは同時接続数やパフォーマンスにも課題があり、全社員がリモートワークする状況では帯域のボトルネックにもなります。</p>
+
+            <!-- ========================== -->
+            <!-- セクション2: ゼロトラストとは何か -->
+            <!-- ========================== -->
+
+            <h2>2. ゼロトラストとは何か</h2>
+
+            <p>ここで登場するのが<strong>「ゼロトラスト（Zero Trust）」</strong>という考え方です。</p>
+
+            <h3>「Never Trust, Always Verify」</h3>
+
+            <p>ゼロトラストの根本原則は非常にシンプルです。</p>
+
+            <p><strong>「何も信頼しない。常に検証する（Never Trust, Always Verify）」</strong></p>
+
+            <p>社内ネットワークからのアクセスであっても、社外からのアクセスであっても、すべてを等しく「信頼できないもの」として扱い、アクセスのたびに認証と認可を行う。これがゼロトラストの基本姿勢です。</p>
+
+            <h3>NISTによる定義</h3>
+
+            <p>ゼロトラストは米国国立標準技術研究所（NIST）が2020年に公開した<strong>SP 800-207「Zero Trust Architecture」</strong>で体系化されました。NISTはゼロトラストを以下のように定義しています。</p>
+
+            <blockquote>
+                <p>ゼロトラストとは、ネットワークの場所に関係なく、すべてのリソースへのアクセスに対して「信頼は暗黙的に付与されるものではなく、常に評価・検証されるべきもの」と捉えるセキュリティモデルである。</p>
+            </blockquote>
+
+            <p>つまり、「どこにいるか」ではなく「誰が、どのデバイスで、何にアクセスしようとしているか」を常に確認するということです。</p>
+
+            <h3>境界型 vs ゼロトラスト</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>境界型セキュリティ</th>
+                        <th>ゼロトラスト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>基本思想</td>
+                        <td>壁の内側は信頼できる</td>
+                        <td>何も信頼しない</td>
+                    </tr>
+                    <tr>
+                        <td>認証タイミング</td>
+                        <td>壁を通過するときだけ</td>
+                        <td>すべてのアクセスのたびに</td>
+                    </tr>
+                    <tr>
+                        <td>侵入後の被害</td>
+                        <td>内部を自由に移動可能</td>
+                        <td>個々のリソースで再認証が必要</td>
+                    </tr>
+                    <tr>
+                        <td>リモートワーク対応</td>
+                        <td>VPN依存（ボトルネック化）</td>
+                        <td>場所に依存しない設計</td>
+                    </tr>
+                    <tr>
+                        <td>クラウド対応</td>
+                        <td>境界の外にデータがある矛盾</td>
+                        <td>クラウドネイティブに適合</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/zero-trust-architecture.svg" alt="境界型セキュリティ vs ゼロトラストの比較図。境界型は侵入されたら内部が無防備だが、ゼロトラストはすべてのアクセスを常に検証する。">
+                <figcaption>境界型セキュリティとゼロトラストの根本的な違い。境界型は壁を突破されると内部が無防備になるが、ゼロトラストはすべてのアクセスポイントで検証を行う。</figcaption>
+            </figure>
+
+            <!-- ========================== -->
+            <!-- セクション3: 5つの柱 -->
+            <!-- ========================== -->
+
+            <h2>3. ゼロトラストを支える5つの柱</h2>
+
+            <p>ゼロトラストは単一の製品や技術ではなく、複数の要素を組み合わせたセキュリティモデルです。ここでは、ゼロトラストを支える<strong>5つの柱</strong>を解説します。</p>
+
+            <h3>柱1: ID認証（Identity）</h3>
+
+            <p>すべてのアクセスの出発点は<strong>「誰がアクセスしているのか」</strong>の確認です。ユーザー名とパスワードだけでなく、多要素認証（MFA）やパスキーを組み合わせ、本人確認の精度を高めます。</p>
+
+            <p>さらに、ユーザーの行動パターン（普段と異なる場所からのアクセス、異常な時間帯のログインなど）をリアルタイムで分析し、リスクに応じて追加の認証を要求する<strong>「リスクベース認証」</strong>も重要な要素です。</p>
+
+            <h3>柱2: デバイス検証（Device）</h3>
+
+            <p>「誰が」だけでなく<strong>「どのデバイスで」</strong>アクセスしているかも重要です。OSのバージョンが最新か、セキュリティパッチが適用されているか、マルウェアに感染していないか——デバイスの健全性を常にチェックします。</p>
+
+            <p>会社支給の管理端末だけでなく、BYODの個人端末についても一定のセキュリティ基準を満たしているか検証し、基準を満たさない端末からのアクセスは制限します。</p>
+
+            <h3>柱3: ネットワークセグメンテーション（Network）</h3>
+
+            <p>従来のフラットなネットワーク（一度入れば何でもアクセスできる構造）ではなく、ネットワークを細かく分割する<strong>「マイクロセグメンテーション」</strong>を実施します。</p>
+
+            <p>たとえば、経理システムのネットワークと開発環境のネットワークを論理的に分離し、経理部門のアカウントからは開発環境にアクセスできないようにする。万が一ひとつのセグメントが侵害されても、被害が他に波及しにくくなります。</p>
+
+            <h3>柱4: アプリケーション制御（Application）</h3>
+
+            <p>アプリケーションレベルでもアクセス制御を行います。ユーザーの役割に応じて<strong>「最小権限の原則」</strong>を適用し、業務に必要な最低限のアプリケーションとデータだけにアクセスを許可します。</p>
+
+            <p>たとえば、マーケティング部門の社員が人事データベースにアクセスする必要はありません。不要な権限を与えないことで、内部不正や誤操作によるリスクを最小化します。</p>
+
+            <h3>柱5: データ保護（Data）</h3>
+
+            <p>最終的に守るべきは<strong>データそのもの</strong>です。データの分類（機密レベルの設定）、暗号化（保存時・転送時）、アクセスログの記録と監視を徹底します。</p>
+
+            <p>重要なのは、データがどこにあっても（オンプレミス、クラウド、社員のデバイス上）一貫した保護ポリシーを適用することです。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>5つの柱を一度にすべて完璧に実装する必要はありません。大事なのは「どれかひとつの柱が突破されても、他の柱で被害を食い止められる」という多層防御の考え方です。一つずつ着実に積み上げていきましょう。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション4: 身近な例 -->
+            <!-- ========================== -->
+
+            <h2>4. 身近な例で理解するゼロトラスト</h2>
+
+            <p>概念だけでは掴みにくいので、身近な例で考えてみましょう。</p>
+
+            <h3>オフィスビルのたとえ</h3>
+
+            <p>従来の境界型セキュリティは、<strong>「1階の正面入口にだけ警備員がいるオフィスビル」</strong>のようなものです。入口でIDカードをチェックすれば、あとは各階のどの部屋にも自由に出入りできます。</p>
+
+            <p>一方、ゼロトラストは<strong>「各階のエレベーターホール、各部屋のドアすべてに認証装置があるビル」</strong>です。1階の入口を通過しても、3階のサーバールームに入るにはさらに別の認証が必要。2階の経理部に入るにも、その部屋専用の権限が求められます。</p>
+
+            <p>面倒に見えるかもしれません。しかし、もし不審者が1階の警備を突破したとしても、各階・各部屋の認証があるため、被害は最小限に抑えられます。</p>
+
+            <h3>Google BeyondCorp: ゼロトラストの先駆者</h3>
+
+            <p>ゼロトラストを最も早く実践した企業のひとつが<strong>Google</strong>です。</p>
+
+            <p>2009年、Googleは「Operation Aurora」と呼ばれる高度なサイバー攻撃を受けました。この経験をきっかけに、Googleは社内ネットワークの信頼を前提としないセキュリティモデル<strong>「BeyondCorp」</strong>を開発。VPNを廃止し、すべてのアクセスをインターネット経由に統一した上で、ユーザーとデバイスの信頼度をリアルタイムで評価する仕組みを構築しました。</p>
+
+            <p>BeyondCorpの導入により、Googleの社員はオフィスでも自宅でもカフェでも、同じセキュリティポリシーのもとで業務システムにアクセスできるようになりました。ゼロトラストが「理論」ではなく「実践」として機能することを証明した事例です。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/zero-trust-building-analogy.svg" alt="ゼロトラストのビル比喩。従来型は入口だけの警備、ゼロトラストは各階・各部屋に認証がある。">
+                <figcaption>オフィスビルのたとえ。従来型は正面入口だけの警備。ゼロトラストは各階・各部屋すべてに認証装置を設置する。</figcaption>
+            </figure>
+
+            <!-- ========================== -->
+            <!-- セクション5: 導入ロードマップ -->
+            <!-- ========================== -->
+
+            <h2>5. 導入のロードマップ</h2>
+
+            <p>ゼロトラストは「一晩で完成する」ものではありません。段階的に導入していくのが現実的です。ここでは5つのステップを紹介します。</p>
+
+            <h3>ステップ1: 現状把握</h3>
+
+            <p>まず自社の現状を正確に把握します。</p>
+
+            <ul>
+                <li>どんな<strong>データ</strong>を持っていて、どこに保存されているか</li>
+                <li>誰が（<strong>ユーザー</strong>）、どのデバイスから、何にアクセスしているか</li>
+                <li>現在の<strong>認証方式</strong>はどうなっているか（パスワードだけ？MFAは？）</li>
+                <li>ネットワークの<strong>構成</strong>はどうなっているか</li>
+            </ul>
+
+            <p>守るべきものがわからなければ、守りようがありません。棚卸しから始めましょう。</p>
+
+            <h3>ステップ2: ID認証の強化</h3>
+
+            <p>最もインパクトが大きく、比較的すぐに着手できるのがID認証の強化です。</p>
+
+            <ul>
+                <li>全アカウントへの<strong>多要素認証（MFA）の適用</strong></li>
+                <li><strong>シングルサインオン（SSO）</strong>の導入によるID管理の一元化</li>
+                <li>パスキーなど<strong>フィッシング耐性のある認証方式</strong>の検討</li>
+            </ul>
+
+            <p>パスワードだけの認証を残しているシステムがあるなら、ここが最初の着手ポイントです。</p>
+
+            <h3>ステップ3: デバイス管理</h3>
+
+            <p>MDM（モバイルデバイス管理）やEDR（エンドポイント検知・対応）を導入し、アクセスするデバイスの健全性を把握・管理します。</p>
+
+            <ul>
+                <li>OSやソフトウェアが<strong>最新の状態</strong>か確認</li>
+                <li>セキュリティポリシーに<strong>準拠</strong>しているか判定</li>
+                <li>準拠していないデバイスからのアクセスを<strong>制限</strong></li>
+            </ul>
+
+            <h3>ステップ4: マイクロセグメンテーション</h3>
+
+            <p>ネットワークを論理的に分割し、各セグメント間のアクセスを制御します。全社員が全リソースにアクセスできる「フラットなネットワーク」を脱却し、必要な人が必要なリソースにだけアクセスできる構成に移行します。</p>
+
+            <h3>ステップ5: 継続的な監視と改善</h3>
+
+            <p>ゼロトラストは「導入して終わり」ではなく、継続的なプロセスです。</p>
+
+            <ul>
+                <li>すべてのアクセスログを<strong>収集・分析</strong>する</li>
+                <li>異常な振る舞いを<strong>リアルタイムで検知</strong>する</li>
+                <li>脅威の変化に応じてポリシーを<strong>更新</strong>する</li>
+            </ul>
+
+            <p>SIEM（セキュリティ情報イベント管理）やSOAR（セキュリティオーケストレーション）などのツールを活用し、監視と対応を自動化していくことが重要です。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>「うちの規模だと大掛かりすぎる」と感じるかもしれません。しかし、ステップ2のMFA導入だけでも効果は絶大です。すべてを一気にやる必要はありません。ステップ1と2から始めれば、それだけでセキュリティレベルは大きく向上します。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション6: よくある誤解 -->
+            <!-- ========================== -->
+
+            <h2>6. よくある誤解</h2>
+
+            <p>ゼロトラストに関しては、いくつかの根強い誤解があります。ここで一つずつ解消しておきましょう。</p>
+
+            <h3>誤解1: 「製品を買えば完成する」</h3>
+
+            <p>これが最も多い誤解です。「ゼロトラスト対応」を謳う製品は数多く存在しますが、<strong>ゼロトラストは製品ではなく、考え方・アーキテクチャ</strong>です。</p>
+
+            <p>特定のベンダーの製品を導入すれば自動的にゼロトラストになるわけではありません。自社の環境に合わせて、認証・デバイス管理・ネットワーク・データ保護を組み合わせた設計が必要です。製品はその設計を実現するための道具に過ぎません。</p>
+
+            <h3>誤解2: 「中小企業には不要」</h3>
+
+            <p>「ゼロトラストはGoogleのような大企業だけのもの」という認識も間違いです。むしろ、<strong>中小企業こそサイバー攻撃のターゲットにされやすい</strong>のが現実です。</p>
+
+            <p>大企業ほど高度なセキュリティ体制を持たない中小企業は、攻撃者にとって「コスパの良い標的」です。そして中小企業が踏み台にされ、取引先の大企業に侵入する<strong>「サプライチェーン攻撃」</strong>も増加しています。</p>
+
+            <p>ゼロトラストの原則はスケールに依存しません。MFAの導入、不要な権限の見直し、クラウドサービスのアクセス制御強化——これらは中小企業でもすぐに始められます。</p>
+
+            <h3>誤解3: 「ユーザー体験が悪化する」</h3>
+
+            <p>「認証が増える＝面倒になる」というイメージは理解できます。しかし、適切に設計されたゼロトラストは、<strong>むしろユーザー体験を向上させる</strong>ことがあります。</p>
+
+            <p>たとえば、リスクベース認証を導入すれば、普段通りのアクセスパターンでは追加認証なしでスムーズにログインでき、異常なアクセスのときだけ追加認証が求められます。VPNの接続待ちやパフォーマンス低下がなくなる点も、ユーザーにとってはメリットです。</p>
+
+            <p>パスキーやSSOの活用で「パスワードを入力する回数」はむしろ減ります。セキュリティと利便性は、ゼロトラストにおいてはトレードオフではありません。</p>
+
+            <!-- ========================== -->
+            <!-- セクション7: まとめ -->
+            <!-- ========================== -->
+
+            <h2>7. まとめ</h2>
+
+            <h3>今日からできる3つのアクション</h3>
+
+            <ol>
+                <li><strong>すべてのアカウントでMFA（多要素認証）を有効にする</strong>。個人のGoogleアカウント、Microsoft アカウント、GitHubなどから。パスキーに対応しているならパスキーを設定する</li>
+                <li><strong>「最小権限」の観点で棚卸しする</strong>。自分がアクセスできるシステムやデータのうち、本当に必要なものはどれか。管理者であれば、不要な権限が残っていないか確認する</li>
+                <li><strong>VPN依存を見直す</strong>。社外からのアクセスをすべてVPN経由にしているなら、クラウドサービスのネイティブなアクセス制御（Azure ADの条件付きアクセス、Google Workspaceのコンテキストアウェアアクセスなど）への移行を検討する</li>
+            </ol>
+
+            <h3>ゼロトラストは「完成」しない</h3>
+
+            <p>ゼロトラストは目的地ではなく、旅路です。完璧なゼロトラストなど存在しません。脅威は日々進化し、ビジネス環境も変化し続けます。大切なのは、<strong>「何も信頼しない」という原則を持ち続け、継続的に改善していくこと</strong>です。</p>
+
+            <p>境界型セキュリティが「城壁」だとすれば、ゼロトラストは「免疫システム」です。外から来る脅威だけでなく、内部の異変にも反応し、常に全身をモニタリングしている。組織のセキュリティをそのレベルに引き上げていく——それがゼロトラストの本質です。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>「ゼロトラスト」と聞くと大げさに感じるかもしれませんが、その本質は「当たり前のことを、当たり前にやる」ことです。MFAを有効にする。不要な権限を削除する。アクセスログを確認する。一つひとつは小さなことですが、積み重ねれば組織のセキュリティは確実に変わります。まず守りを固めましょう。</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

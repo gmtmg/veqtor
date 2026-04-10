@@ -16,6 +16,16 @@
         })();
     </script>
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Veqtor",
+      "url": "https://algoyosuga.com/veqtor/",
+      "description": "AI、開発、インフラ、セキュリティ。あらゆるテック情報が交わるメディア。"
+    }
+    </script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -62,16 +72,16 @@
                     <p class="hero-description">AI、開発、インフラ、セキュリティ。<br>あらゆるテック情報が交わるメディア。</p>
                     <hr class="hero-divider">
                 </div>
-                <a href="articles/mcp-guide.html" class="hero-pickup">
+                <a href="articles/zero-trust-guide.html" class="hero-pickup">
                     <div class="hero-pickup-thumbnail">
-                        <img src="assets/images/thumbnails/mcp-guide-thumb.svg"
-                             alt="MCP完全解説 ― AIの&quot;USB-C&quot;と呼ばれる革命的プロトコルの全貌"
+                        <img src="assets/images/thumbnails/zero-trust-guide-thumb.svg"
+                             alt="ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由"
                              loading="lazy">
                     </div>
                     <div class="hero-pickup-body">
                         <span class="hero-pickup-badge">PICK UP</span>
-                        <h3 class="hero-pickup-title">MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌</h3>
-                        <time class="hero-pickup-date" datetime="2026-04-08">2026年4月8日</time>
+                        <h3 class="hero-pickup-title">ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由</h3>
+                        <time class="hero-pickup-date" datetime="2026-04-11">2026年4月11日</time>
                     </div>
                 </a>
             </div>
@@ -99,6 +109,28 @@
             <div class="articles-grid">
                 <!-- 記事カードはここに追加される -->
                 <!-- publisher エージェントが ARTICLE_INDEX.md を元に自動更新 -->
+
+                <article class="article-card animate-on-scroll">
+                    <a href="articles/zero-trust-guide.html">
+                        <div class="card-thumbnail">
+                            <img src="assets/images/thumbnails/zero-trust-guide-thumb.svg"
+                                 alt="ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由"
+                                 loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-category">Security</span>
+                            <h2 class="card-title">ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由</h2>
+                            <p class="card-excerpt">ゼロトラストの基本原則「Never Trust, Always Verify」から5つの柱、導入ロードマップ、よくある誤解まで。境界型セキュリティの限界を超える新モデルを解説。</p>
+                            <div class="card-footer">
+                                <time class="card-date" datetime="2026-04-11">2026年4月11日</time>
+                                <a href="writers.html#aegis" class="card-writer" data-writer="aegis">
+                                    <img src="assets/images/writers/AEGIS.png" alt="" class="card-writer-avatar">
+                                    <span>Aegis</span>
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                </article>
 
                 <article class="article-card animate-on-scroll">
                     <a href="articles/mcp-guide.html">

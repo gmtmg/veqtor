@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://algoyosuga.com/veqtor/</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-11</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://algoyosuga.com/veqtor/writers.html</loc>
-    <lastmod>2026-04-06</lastmod>
+    <lastmod>2026-04-11</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://algoyosuga.com/veqtor/articles/zero-trust-guide.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://algoyosuga.com/veqtor/articles/mcp-guide.html</loc>

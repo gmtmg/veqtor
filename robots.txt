@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://algoyosuga.com/veqtor/sitemap.xml
+Feed: https://algoyosuga.com/veqtor/feed.xml

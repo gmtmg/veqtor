@@ -8,6 +8,7 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
+| 12 | 2026-04-11 | local-llm-guide.html | Ollama + Open WebUI で始めるローカルLLM完全ガイド ― 自分だけのAIを手元で動かそう | AI | Syntax | published |
 | 11 | 2026-04-11 | zero-trust-guide.html | ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由 | Security | Aegis | published |
 | 10 | 2026-04-08 | mcp-guide.html | MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌 | AI | Bolt | published |
 | 9 | 2026-04-07 | python-basics-for.html | Python基礎講座 ― for文・リストをブラウザで体験しよう | Development | Compass / Syntax | published |
@@ -64,3 +65,4 @@
 - 2026-04-07: 記事#9「Python基礎講座 ― for文・リスト」を公開(Compass / Syntax合作)
 - 2026-04-11: 記事#11「ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由」を公開(Aegis)
 - 2026-04-08: 記事#10「MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌」を公開(Bolt)
+- 2026-04-11: 記事#12「Ollama + Open WebUI で始めるローカルLLM完全ガイド」を公開(Syntax)

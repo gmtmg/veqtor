@@ -8,6 +8,15 @@
   <updated>2026-04-11T00:00:00+09:00</updated>
 
   <entry>
+    <title>Ollama + Open WebUI で始めるローカルLLM完全ガイド ― 自分だけのAIを手元で動かそう</title>
+    <link href="https://algoyosuga.com/veqtor/articles/local-llm-guide" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/local-llm-guide</id>
+    <updated>2026-04-11T00:00:00+09:00</updated>
+    <summary>OllamaとOpen WebUIを使ってローカル環境でLLMを動かす方法を完全解説。インストールからモデル選び、API活用まで、手元で動くAI環境を構築するハンズオンガイド。</summary>
+    <author><name>Syntax</name></author>
+  </entry>
+
+  <entry>
     <title>ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由</title>
     <link href="https://algoyosuga.com/veqtor/articles/zero-trust-guide" rel="alternate" type="text/html"/>
     <id>https://algoyosuga.com/veqtor/articles/zero-trust-guide</id>
@@ -86,15 +95,6 @@
     <updated>2026-04-05T00:00:00+09:00</updated>
     <summary>MIT Technology Review選出の2026年ブレークスルー技術「バイブコーディング」を多角的に検証。光と影、プロ開発者への影響、そして本当の価値を考察します。</summary>
     <author><name>Prism</name></author>
-  </entry>
-
-  <entry>
-    <title>Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化</title>
-    <link href="https://algoyosuga.com/veqtor/articles/claude-code-skills" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/claude-code-skills</id>
-    <updated>2026-04-03T00:00:00+09:00</updated>
-    <summary>Claude Code Skillsの作り方・使い方をゼロから解説。スラッシュコマンドで繰り返し作業を自動化する方法を、実際の体験談とともに紹介します。</summary>
-    <author><name>Compass</name></author>
   </entry>
 
 

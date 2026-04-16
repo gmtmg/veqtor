@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git & GitHub入門 ― チーム開発の第一歩を完全図解 | Veqtor</title>
+    <meta name="description" content="GitとGitHubの違いからインストール、コミット、ブランチ、Pull Requestまで。完全初学者向けにチーム開発の基礎を図解で丁寧に解説する入門ガイド。">
+    <meta property="og:title" content="Git & GitHub入門 ― チーム開発の第一歩を完全図解">
+    <meta property="og:description" content="GitとGitHubの違い、インストール、コミット、ブランチ、Pull Requestまで図解で解説。チーム開発の第一歩を踏み出そう。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/git-github-guide-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Git & GitHub入門 ― チーム開発の第一歩を完全図解",
+      "description": "GitとGitHubの違いからインストール、コミット、ブランチ、Pull Requestまで。完全初学者向けにチーム開発の基礎を図解で丁寧に解説する入門ガイド。",
+      "datePublished": "2026-04-16",
+      "author": { "@type": "Person", "name": "Compass" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/git-github-guide-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/git-github-guide"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-16">2026年4月16日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+                <a href="../writers.html#syntax" class="article-writer" data-writer="syntax">
+                    <img src="../assets/images/writers/SYNTAX.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Syntax</span>
+                </a>
+            </div>
+            <h1>Git & GitHub入門 ― チーム開発の第一歩を完全図解</h1>
+
+            <!-- writer-intro -->
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>「Git？GitHub？名前は聞いたことあるけど、何が違うの？」——そんな方のための記事です。ファイル名に「最終版_本当の最終版」と付けた経験がある人なら、きっとGitの便利さに感動するはず。今日は一緒に、チーム開発の第一歩を踏み出しましょう。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション1: なぜGitとGitHubを学ぶのか -->
+            <!-- ========================== -->
+
+            <h2>1. なぜGitとGitHubを学ぶのか</h2>
+
+            <p>こんなファイル名、見覚えありませんか？</p>
+
+            <pre><code>report_v1.docx
+report_v2.docx
+report_v2_修正版.docx
+report_v2_修正版_最終.docx
+report_v2_修正版_最終_本当の最終版.docx</code></pre>
+
+            <p>「あれ、どれが最新？」「誰がどこを変えたの？」「先週の状態に戻したい……」。こうした悩みは、プログラミングの世界でも日常茶飯事でした。</p>
+
+            <p><strong>Git</strong>は、この「ファイルのコピー地獄」を解決するために生まれたツールです。すべての変更履歴を自動で記録し、いつでも過去の状態に戻せる。しかも<strong>誰が・いつ・何を変えたか</strong>が一目瞭然です。</p>
+
+            <p>そして<strong>GitHub</strong>は、Gitで管理したコードをチームで共有・協力するためのプラットフォーム。世界中の開発者が使っている、いわば「開発者のSNS」です。</p>
+
+            <p>エンジニアを目指すなら、GitとGitHubは<strong>避けて通れない基礎スキル</strong>。この記事で、ゼロからしっかりマスターしましょう。</p>
+
+            <!-- ========================== -->
+            <!-- セクション2: GitとGitHubは何が違うの？ -->
+            <!-- ========================== -->
+
+            <h2>2. GitとGitHubは何が違うの？</h2>
+
+            <p>初心者がまず混乱するのが「GitとGitHubの違い」です。名前が似ているので混同しがちですが、役割はまったく異なります。</p>
+
+            <h3>Git = 道具（バージョン管理ソフト）</h3>
+
+            <p>Gitは、自分のパソコン上で動く<strong>バージョン管理ソフトウェア</strong>です。ファイルの変更履歴を記録し、過去の状態に戻したり、変更内容を比較したりできます。インターネットがなくても使えます。</p>
+
+            <h3>GitHub = 場所（クラウド上の共有サービス）</h3>
+
+            <p>GitHubは、Gitで管理しているコードを<strong>インターネット上で共有するためのWebサービス</strong>です。他の人とコードを共有したり、レビューし合ったり、共同開発したりできます。</p>
+
+            <h3>日記帳 vs SNS</h3>
+
+            <p>わかりやすくたとえるなら:</p>
+
+            <ul>
+                <li><strong>Git</strong> = <strong>日記帳</strong>。自分の手元で日々の記録をつける道具</li>
+                <li><strong>GitHub</strong> = <strong>SNS</strong>。日記の内容をみんなに公開・共有する場所</li>
+            </ul>
+
+            <p>日記帳だけでも十分役に立ちますが、SNSと組み合わせれば、みんなと一緒にプロジェクトを進められる。これがGitとGitHubの関係です。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/git-vs-github.svg" alt="GitとGitHubの違い図解。Git＝ローカルの道具（日記帳）、GitHub＝クラウドの共有場所（SNS）。pushとpullで連携する。">
+                <figcaption>Git＝自分のPCで動く「道具」、GitHub＝クラウド上の「共有場所」。pushとpullでつながります。</figcaption>
+            </figure>
+
+            <!-- ========================== -->
+            <!-- セクション3: Gitの基本概念 -->
+            <!-- ========================== -->
+
+            <h2>3. Gitの基本概念 — 「セーブポイント」で考える</h2>
+
+            <p>Gitを理解するために、<strong>ゲームのセーブ</strong>に例えて考えてみましょう。</p>
+
+            <h3>3段階の仕組み</h3>
+
+            <p>Gitには3つの「場所」があります:</p>
+
+            <ol>
+                <li><strong>ワーキングツリー（Working Directory）</strong> — ファイルを実際に編集する場所。ゲームで言えば「プレイ中」の状態</li>
+                <li><strong>ステージングエリア（Staging Area）</strong> — 「次のセーブに含める変更」を選ぶ場所。セーブメニューを開いて「どのスロットにセーブするか」を選んでいる状態</li>
+                <li><strong>リポジトリ（Repository）</strong> — セーブデータが保存される場所。過去のセーブポイントがすべて残っていて、いつでも好きな時点に戻れる</li>
+            </ol>
+
+            <h3>なぜ「ステージング」が必要なの？</h3>
+
+            <p>「ファイルを変更したら自動でセーブしてくれればいいのに」と思うかもしれません。でもステージングがあることで、<strong>変更の一部だけをセーブする</strong>ことができます。</p>
+
+            <p>たとえば、ファイルAとファイルBを同時に編集したけど、「今回はファイルAの変更だけ記録したい」というケース。ステージングなら、ファイルAだけ選んでセーブ（コミット）できます。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>ステージングは最初ちょっとめんどくさく感じるかもしれないけど、慣れるとこれが超便利。「今やった変更のうち、この部分だけコミットしよう」ってのが自在にできるようになる。きれいなコミット履歴を作るためのコツです！</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション4: Gitをインストールしよう -->
+            <!-- ========================== -->
+
+            <h2>4. Gitをインストールしよう</h2>
+
+            <p>それでは、実際にGitをインストールしましょう。</p>
+
+            <h3>macOS</h3>
+
+            <p>ターミナルを開いて以下を実行:</p>
+
+            <pre><code># Homebrewがインストール済みなら
+brew install git
+
+# または、Xcode Command Line Toolsに含まれるGitを使う
+xcode-select --install</code></pre>
+
+            <h3>Windows</h3>
+
+            <p><a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a> から「Git for Windows」をダウンロードしてインストール。インストーラーの設定はデフォルトのままでOKです。「Git Bash」というターミナルが一緒にインストールされます。</p>
+
+            <h3>Linux（Ubuntu/Debian）</h3>
+
+            <pre><code>sudo apt update
+sudo apt install git</code></pre>
+
+            <h3>インストール確認</h3>
+
+            <p>インストールが完了したら、バージョンを確認しましょう:</p>
+
+            <pre><code>git --version
+# 出力例: git version 2.44.0</code></pre>
+
+            <h3>初期設定（必須）</h3>
+
+            <p>Gitを使い始める前に、<strong>名前とメールアドレス</strong>を設定します。これはコミット（セーブ）のたびに「誰が変更したか」を記録するために必要です。</p>
+
+            <pre><code>git config --global user.name "あなたの名前"
+git config --global user.email "you@example.com"</code></pre>
+
+            <p>設定内容の確認:</p>
+
+            <pre><code>git config --list
+# 出力例:
+# user.name=あなたの名前
+# user.email=you@example.com</code></pre>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p><code>user.email</code> は、あとでGitHubアカウントを作るときに使うメールアドレスと同じにしておくのがおすすめ。そうするとGitHub上でコミットが自分のアカウントに紐づくようになります。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション5: はじめてのコミット -->
+            <!-- ========================== -->
+
+            <h2>5. はじめてのコミット</h2>
+
+            <p>いよいよ実践です。手を動かしながら、Gitの基本操作を覚えましょう。</p>
+
+            <h3>ステップ1: プロジェクトフォルダを作る</h3>
+
+            <pre><code>mkdir my-first-project
+cd my-first-project</code></pre>
+
+            <h3>ステップ2: Gitリポジトリを初期化する</h3>
+
+            <pre><code>git init</code></pre>
+
+            <p>これで、<code>my-first-project</code> フォルダがGitで管理されるようになります。目に見えない <code>.git</code> フォルダが作成され、ここにすべての履歴データが保存されます。</p>
+
+            <h3>ステップ3: ファイルを作成する</h3>
+
+            <pre><code># テキストエディタでファイルを作成
+echo "# My First Project" > README.md</code></pre>
+
+            <h3>ステップ4: 状態を確認する</h3>
+
+            <pre><code>git status</code></pre>
+
+            <p>すると以下のような出力が表示されます:</p>
+
+            <pre><code>On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+        README.md
+
+nothing added to commit but untracked files present</code></pre>
+
+            <p>「<strong>Untracked files</strong>」= Gitがまだ追跡していないファイル。ステージングに載せる前の状態です。</p>
+
+            <h3>ステップ5: ステージングに追加する</h3>
+
+            <pre><code>git add README.md</code></pre>
+
+            <p>もう一度 <code>git status</code> を実行すると:</p>
+
+            <pre><code>Changes to be committed:
+  (use "git rm --cached &lt;file&gt;..." to unstage)
+        new file:   README.md</code></pre>
+
+            <p>「Changes to be committed」= 次のコミットに含まれる変更。ステージングに載った状態です。</p>
+
+            <h3>ステップ6: コミットする</h3>
+
+            <pre><code>git commit -m "最初のコミット: READMEを追加"</code></pre>
+
+            <p><code>-m</code> のあとに「<strong>コミットメッセージ</strong>」を書きます。「何をしたか」を簡潔に記録するメモです。未来の自分やチームメンバーが見て意味がわかるように書きましょう。</p>
+
+            <h3>ステップ7: 履歴を確認する</h3>
+
+            <pre><code>git log</code></pre>
+
+            <p>コミットの記録が表示されます。「誰が・いつ・何をしたか」がすべて残っています。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/git-basic-flow.svg" alt="Gitの基本フロー図。Working Directory → git add → Staging → git commit → Repository → git push → Remote（GitHub）。">
+                <figcaption>Gitの基本フロー: edit → add（準備）→ commit（確定）→ push（共有）。</figcaption>
+            </figure>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>おめでとうございます、最初のコミット完了！ このinit → add → commitの流れがGitの基本中の基本。毎日使うことになるので、指が覚えるまで何度も練習してみてください。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション6: ブランチ -->
+            <!-- ========================== -->
+
+            <h2>6. ブランチ — 「パラレルワールド」で安全に実験する</h2>
+
+            <p>ブランチ（branch = 枝）は、Gitの最も強力な機能のひとつです。</p>
+
+            <h3>ブランチとは？</h3>
+
+            <p>ブランチは、<strong>「パラレルワールド」を作る機能</strong>です。メインのコードに影響を与えずに、新機能の開発やバグ修正を別の世界線で進められます。</p>
+
+            <ul>
+                <li><strong>main</strong>（本編の世界） — 常に動く安定版のコード</li>
+                <li><strong>feature</strong>（パラレルワールド） — 新機能を実験する場所</li>
+            </ul>
+
+            <p>実験がうまくいったら本編に合流（マージ）。失敗したらパラレルワールドごと消せばいい。本編は一切傷つきません。</p>
+
+            <h3>ブランチを作る・切り替える</h3>
+
+            <pre><code># 新しいブランチを作成して切り替え
+git checkout -b feature/add-login
+
+# 確認（現在のブランチに * が付く）
+git branch
+#   main
+# * feature/add-login</code></pre>
+
+            <p>これで「feature/add-login」というパラレルワールドに移動しました。ここでの変更は main ブランチには影響しません。</p>
+
+            <h3>ブランチでの作業</h3>
+
+            <pre><code># ファイルを編集・追加
+echo "ログイン機能を追加" >> README.md
+
+# いつもどおりadd & commit
+git add README.md
+git commit -m "ログイン機能の説明を追加"</code></pre>
+
+            <h3>mainブランチに戻る</h3>
+
+            <pre><code>git checkout main</code></pre>
+
+            <p>mainに戻ると、さっき加えた変更は消えています（パラレルワールドに残っている）。</p>
+
+            <h3>マージ（合流）する</h3>
+
+            <pre><code># mainブランチにいる状態で
+git merge feature/add-login</code></pre>
+
+            <p>これで、feature/add-loginの変更がmainに取り込まれます。パラレルワールドの成果が本編に合流した瞬間です。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/git-branch-merge.svg" alt="ブランチとマージの図解。mainブランチからfeatureブランチが分岐し、コミットを重ねたあとmergeで合流する。">
+                <figcaption>ブランチで安全に実験→完成したらmergeで本編に合流。</figcaption>
+            </figure>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>ブランチは「1機能1ブランチ」が基本。<code>feature/login</code>、<code>fix/typo</code>、<code>update/readme</code> みたいに、何をしているかわかる名前を付けるのがコツ。慣れてくると「ブランチなしでは怖くてコード書けない」ってなりますよ！</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション7: GitHubに登録しよう -->
+            <!-- ========================== -->
+
+            <h2>7. GitHubに登録しよう</h2>
+
+            <p>ここまではGit（手元の道具）の話でした。ここからは、GitHub（共有の場所）を使ってみましょう。</p>
+
+            <h3>アカウントを作成する</h3>
+
+            <ol>
+                <li><a href="https://github.com" target="_blank" rel="noopener">github.com</a> にアクセス</li>
+                <li>「Sign up」をクリック</li>
+                <li>メールアドレス、パスワード、ユーザー名を入力</li>
+                <li>メール認証を完了</li>
+            </ol>
+
+            <p>無料プランで十分です。パブリック（公開）リポジトリもプライベート（非公開）リポジトリも、どちらも無制限に作れます。</p>
+
+            <h3>リポジトリを作成する</h3>
+
+            <ol>
+                <li>GitHubのトップページ右上の「+」→「New repository」</li>
+                <li>Repository name に名前を入力（例: <code>my-first-project</code>）</li>
+                <li>PublicまたはPrivateを選択</li>
+                <li>「Create repository」をクリック</li>
+            </ol>
+
+            <h3>ローカルのGitリポジトリをGitHubに接続する</h3>
+
+            <p>リポジトリ作成後に表示される手順をそのまま実行:</p>
+
+            <pre><code># リモート（GitHub）を登録
+git remote add origin https://github.com/あなたのユーザー名/my-first-project.git
+
+# ローカルのコミットをGitHubにアップロード
+git push -u origin main</code></pre>
+
+            <p>これで、手元のコードがGitHubにアップロードされました！ ブラウザでリポジトリのページを開くと、コードが表示されているはずです。</p>
+
+            <h3>clone（クローン）で他の人のリポジトリを手元に持ってくる</h3>
+
+            <pre><code>git clone https://github.com/ユーザー名/リポジトリ名.git</code></pre>
+
+            <p>これで、GitHub上のリポジトリをまるごと手元にコピーできます。オープンソースのコードを読んだり、チームのプロジェクトに参加したりするときに使います。</p>
+
+            <h3>pull（プル）で最新の変更を取得する</h3>
+
+            <pre><code>git pull origin main</code></pre>
+
+            <p>チームメンバーがGitHubにpushした変更を、自分の手元に取り込む操作です。朝一番に <code>git pull</code> するのが良い習慣です。</p>
+
+            <!-- ========================== -->
+            <!-- セクション8: Pull Request -->
+            <!-- ========================== -->
+
+            <h2>8. Pull Request — チーム開発の必殺技</h2>
+
+            <p><strong>Pull Request（PR）</strong>は、GitHubが提供するチーム開発の核心機能です。</p>
+
+            <h3>Pull Requestとは？</h3>
+
+            <p>「自分のブランチの変更を、mainブランチに取り込んでほしい」というリクエスト。いきなりmergeするのではなく、<strong>チームメンバーにレビューしてもらってからマージ</strong>する仕組みです。</p>
+
+            <h3>PRの流れ</h3>
+
+            <ol>
+                <li><strong>ブランチを作って作業する</strong>（前のセクションで学んだとおり）</li>
+                <li><strong>GitHubにpushする</strong>
+                    <pre><code>git push origin feature/add-login</code></pre>
+                </li>
+                <li><strong>GitHubでPull Requestを作成する</strong>
+                    <ul>
+                        <li>リポジトリのページで「Pull requests」→「New pull request」</li>
+                        <li>変更内容のタイトルと説明を書く</li>
+                    </ul>
+                </li>
+                <li><strong>レビューを受ける</strong>
+                    <ul>
+                        <li>チームメンバーがコードを確認し、コメントをつける</li>
+                        <li>「ここは別の書き方のほうがいいかも」「バグがありそう」などフィードバックをもらう</li>
+                    </ul>
+                </li>
+                <li><strong>修正があれば対応する</strong>
+                    <ul>
+                        <li>ブランチに追加でコミット＆pushすれば、PRに自動的に反映される</li>
+                    </ul>
+                </li>
+                <li><strong>承認されたらマージ</strong>
+                    <ul>
+                        <li>「Merge pull request」ボタンをクリック</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>なぜPRが大事なの？</h3>
+
+            <ul>
+                <li><strong>バグの早期発見</strong>: 複数の目でコードをチェックすることで、見落としを防ぐ</li>
+                <li><strong>知識の共有</strong>: レビューを通じて、チーム全体のスキルが向上する</li>
+                <li><strong>変更の記録</strong>: 「なぜこの変更をしたのか」がPRのコメントに残る</li>
+                <li><strong>安全なマージ</strong>: レビューなしにmainブランチが壊れるリスクを防ぐ</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>PRは「自分のコードを見てもらう」というと緊張するかもしれないけど、最高の学習機会です。ベテランのレビューコメントから学べることがめちゃくちゃ多い。個人開発でも「mainに直接pushしない、必ずPRを通す」という習慣をつけておくと、チームに入ったとき即戦力になれます。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション9: コンフリクト -->
+            <!-- ========================== -->
+
+            <h2>9. コンフリクト（衝突）を恐れない</h2>
+
+            <p>チーム開発をしていると、避けて通れないのが<strong>コンフリクト（衝突）</strong>です。</p>
+
+            <h3>コンフリクトはなぜ起きる？</h3>
+
+            <p>2人の開発者が<strong>同じファイルの同じ場所</strong>を同時に変更した場合に発生します。Gitは「どちらの変更を採用すればいいかわからない」ので、人間に判断を委ねます。</p>
+
+            <p>たとえば:</p>
+            <ul>
+                <li>Aさんが <code>greeting = "Hello"</code> を <code>"Hi"</code> に変更</li>
+                <li>Bさんが同じ行を <code>"Hey"</code> に変更</li>
+                <li>→ Gitは「Hi? Hey? どっち？」と迷う = コンフリクト発生</li>
+            </ul>
+
+            <h3>コンフリクトの解消方法</h3>
+
+            <p>マージ時にコンフリクトが起きると、ファイルにこんなマーカーが入ります:</p>
+
+            <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+greeting = "Hi"
+=======
+greeting = "Hey"
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/update-greeting</code></pre>
+
+            <p>解消手順:</p>
+            <ol>
+                <li><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> のマーカーを削除する</li>
+                <li>正しいコードだけを残す（片方を採用、または両方を組み合わせる）</li>
+                <li>ファイルを保存して <code>git add</code> → <code>git commit</code></li>
+            </ol>
+
+            <pre><code># 解消後（正しい方を残す）
+greeting = "Hi"</code></pre>
+
+            <h3>コンフリクトを減らすコツ</h3>
+
+            <ul>
+                <li><strong>こまめにpullする</strong>: 他の人の変更を早めに取り込む</li>
+                <li><strong>ブランチを小さく保つ</strong>: 大きな変更を一気にやらない</li>
+                <li><strong>担当箇所を分ける</strong>: チームで「誰がどのファイルを触るか」を共有する</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>コンフリクトは怖くないです。最初は焦るかもしれないけど、マーカーの見方さえ覚えれば対処は簡単。VS CodeやGitHub Desktopなら、「どちらを採用するか」をボタンひとつで選べるGUIもあるので、ツールに頼るのもアリです。</p>
+                </div>
+            </div>
+
+            <!-- ========================== -->
+            <!-- セクション10: まとめ＆チートシート -->
+            <!-- ========================== -->
+
+            <h2>10. まとめ＆Gitコマンドチートシート</h2>
+
+            <p>お疲れさまでした！ Git＆GitHubの基礎を一気に駆け抜けましたね。最後に、今日学んだことを振り返りましょう。</p>
+
+            <h3>今日のポイント</h3>
+
+            <ul>
+                <li><strong>Git</strong>はバージョン管理の「道具」、<strong>GitHub</strong>はコードを共有する「場所」</li>
+                <li>Gitは<strong>ワーキングツリー → ステージング → リポジトリ</strong>の3段階</li>
+                <li><strong>ブランチ</strong>でパラレルワールドを作り、安全に実験できる</li>
+                <li><strong>Pull Request</strong>でチームのコードレビューを実践できる</li>
+                <li><strong>コンフリクト</strong>は怖くない。マーカーを見て正しいコードを残すだけ</li>
+            </ul>
+
+            <h3>よく使うGitコマンド一覧</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>コマンド</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>git init</code></td>
+                        <td>リポジトリを新規作成</td>
+                    </tr>
+                    <tr>
+                        <td><code>git clone URL</code></td>
+                        <td>リモートリポジトリをコピー</td>
+                    </tr>
+                    <tr>
+                        <td><code>git status</code></td>
+                        <td>現在の状態を確認</td>
+                    </tr>
+                    <tr>
+                        <td><code>git add ファイル名</code></td>
+                        <td>ステージングに追加</td>
+                    </tr>
+                    <tr>
+                        <td><code>git add .</code></td>
+                        <td>すべての変更をステージングに追加</td>
+                    </tr>
+                    <tr>
+                        <td><code>git commit -m "メッセージ"</code></td>
+                        <td>コミット（セーブ確定）</td>
+                    </tr>
+                    <tr>
+                        <td><code>git log</code></td>
+                        <td>コミット履歴を表示</td>
+                    </tr>
+                    <tr>
+                        <td><code>git diff</code></td>
+                        <td>変更内容を比較</td>
+                    </tr>
+                    <tr>
+                        <td><code>git branch ブランチ名</code></td>
+                        <td>新しいブランチを作成</td>
+                    </tr>
+                    <tr>
+                        <td><code>git checkout ブランチ名</code></td>
+                        <td>ブランチを切り替え</td>
+                    </tr>
+                    <tr>
+                        <td><code>git checkout -b ブランチ名</code></td>
+                        <td>作成と切り替えを同時に</td>
+                    </tr>
+                    <tr>
+                        <td><code>git merge ブランチ名</code></td>
+                        <td>指定ブランチを現在のブランチに統合</td>
+                    </tr>
+                    <tr>
+                        <td><code>git remote add origin URL</code></td>
+                        <td>リモートリポジトリを登録</td>
+                    </tr>
+                    <tr>
+                        <td><code>git push origin ブランチ名</code></td>
+                        <td>リモートにアップロード</td>
+                    </tr>
+                    <tr>
+                        <td><code>git pull origin ブランチ名</code></td>
+                        <td>リモートの変更を取得して統合</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>次のステップ</h3>
+
+            <ul>
+                <li><strong>GitHub上でオープンソースプロジェクトを見てみる</strong>。実際のPRやIssueを読むだけで学びになります</li>
+                <li><strong>個人プロジェクトをGitHubに公開してみる</strong>。ポートフォリオにもなります</li>
+                <li><strong><code>.gitignore</code> ファイルを学ぶ</strong>。「Gitで管理しないファイル」を指定する設定ファイルです</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>Git & GitHubは、使えば使うほど手に馴染む道具です。最初のうちは「add → commit → push」だけでOK。慣れてきたらブランチ、PR、コンフリクト解消……と段階的にステップアップしていけば大丈夫。まずは今日、自分のプロジェクトで <code>git init</code> してみてください！</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

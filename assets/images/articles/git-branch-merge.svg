@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400">
+  <defs>
+    <linearGradient id="hbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#10101e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="400" rx="12" fill="url(#hbg)"/>
+
+  <!-- Grid -->
+  <g opacity="0.03" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="100" x2="760" y2="100"/><line x1="0" y1="200" x2="760" y2="200"/>
+    <line x1="0" y1="300" x2="760" y2="300"/>
+    <line x1="190" y1="0" x2="190" y2="400"/><line x1="380" y1="0" x2="380" y2="400"/>
+    <line x1="570" y1="0" x2="570" y2="400"/>
+  </g>
+
+  <!-- Title -->
+  <text x="380" y="35" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#f05033" opacity="0.9" letter-spacing="0.1em">BRANCH &amp; MERGE</text>
+
+  <!-- ===== Main branch line ===== -->
+  <g transform="translate(0,160)">
+    <!-- Main branch -->
+    <line x1="60" y1="0" x2="700" y2="0" stroke="#f05033" stroke-width="2.5" opacity="0.7"/>
+    <text x="45" y="4" text-anchor="end" font-family="monospace" font-size="11" font-weight="600" fill="#f05033" opacity="0.8">main</text>
+
+    <!-- Commits on main -->
+    <circle cx="120" cy="0" r="10" fill="#141425" stroke="#f05033" stroke-width="2"/>
+    <text x="120" y="4" text-anchor="middle" font-family="monospace" font-size="8" fill="#f05033" opacity="0.7">C1</text>
+
+    <circle cx="220" cy="0" r="10" fill="#141425" stroke="#f05033" stroke-width="2"/>
+    <text x="220" y="4" text-anchor="middle" font-family="monospace" font-size="8" fill="#f05033" opacity="0.7">C2</text>
+
+    <circle cx="420" cy="0" r="10" fill="#141425" stroke="#f05033" stroke-width="2"/>
+    <text x="420" y="4" text-anchor="middle" font-family="monospace" font-size="8" fill="#f05033" opacity="0.7">C3</text>
+
+    <!-- Merge commit -->
+    <circle cx="600" cy="0" r="12" fill="#141425" stroke="#10b981" stroke-width="2.5"/>
+    <text x="600" y="4" text-anchor="middle" font-family="monospace" font-size="8" fill="#10b981" opacity="0.8">M</text>
+
+    <!-- HEAD pointer on merge -->
+    <g transform="translate(600,-28)">
+      <rect x="-20" y="-8" width="40" height="16" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1"/>
+      <text x="0" y="4" text-anchor="middle" font-family="monospace" font-size="8" font-weight="600" fill="#10b981" opacity="0.9">HEAD</text>
+    </g>
+  </g>
+
+  <!-- ===== Feature branch ===== -->
+  <g transform="translate(0,160)">
+    <!-- Branch-off curve -->
+    <path d="M220,0 C260,-30 280,-70 320,-80" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.7"/>
+    <!-- Feature branch line -->
+    <line x1="320" y1="-80" x2="530" y2="-80" stroke="#8b5cf6" stroke-width="2" opacity="0.7"/>
+    <!-- Merge-back curve -->
+    <path d="M530,-80 C560,-70 580,-30 600,0" fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.6" stroke-dasharray="5,3"/>
+
+    <text x="310" y="-86" text-anchor="end" font-family="monospace" font-size="11" font-weight="600" fill="#8b5cf6" opacity="0.8">feature</text>
+
+    <!-- Feature commits -->
+    <circle cx="370" cy="-80" r="9" fill="#141425" stroke="#8b5cf6" stroke-width="1.8"/>
+    <text x="370" y="-76" text-anchor="middle" font-family="monospace" font-size="8" fill="#8b5cf6" opacity="0.7">F1</text>
+
+    <circle cx="450" cy="-80" r="9" fill="#141425" stroke="#8b5cf6" stroke-width="1.8"/>
+    <text x="450" y="-76" text-anchor="middle" font-family="monospace" font-size="8" fill="#8b5cf6" opacity="0.7">F2</text>
+
+    <circle cx="530" cy="-80" r="9" fill="#141425" stroke="#8b5cf6" stroke-width="1.8"/>
+    <text x="530" y="-76" text-anchor="middle" font-family="monospace" font-size="8" fill="#8b5cf6" opacity="0.7">F3</text>
+  </g>
+
+  <!-- Step annotations -->
+  <!-- Step 1: branch -->
+  <g transform="translate(240,280)">
+    <rect x="-70" y="-14" width="140" height="28" rx="6" fill="#8b5cf6" fill-opacity="0.08" stroke="#8b5cf6" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="4" text-anchor="middle" font-family="monospace" font-size="10" fill="#8b5cf6" opacity="0.8">git branch feature</text>
+  </g>
+  <line x1="240" y1="266" x2="240" y2="180" stroke="#8b5cf6" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.3"/>
+
+  <!-- Step 2: checkout -->
+  <g transform="translate(400,320)">
+    <rect x="-80" y="-14" width="160" height="28" rx="6" fill="#8b5cf6" fill-opacity="0.08" stroke="#8b5cf6" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="4" text-anchor="middle" font-family="monospace" font-size="10" fill="#8b5cf6" opacity="0.8">git checkout feature</text>
+  </g>
+
+  <!-- Step 3: merge -->
+  <g transform="translate(600,280)">
+    <rect x="-70" y="-14" width="140" height="28" rx="6" fill="#10b981" fill-opacity="0.08" stroke="#10b981" stroke-width="1" opacity="0.5"/>
+    <text x="0" y="4" text-anchor="middle" font-family="monospace" font-size="10" fill="#10b981" opacity="0.8">git merge feature</text>
+  </g>
+  <line x1="600" y1="266" x2="600" y2="180" stroke="#10b981" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.3"/>
+
+  <!-- Parallel world labels -->
+  <g transform="translate(140,350)">
+    <text x="0" y="0" font-family="sans-serif" font-size="10" fill="#f05033" opacity="0.6">main = 本編の世界</text>
+  </g>
+  <g transform="translate(370,350)">
+    <text x="0" y="0" font-family="sans-serif" font-size="10" fill="#8b5cf6" opacity="0.6">feature = パラレルワールド</text>
+  </g>
+  <g transform="translate(580,350)">
+    <text x="0" y="0" font-family="sans-serif" font-size="10" fill="#10b981" opacity="0.6">merge = 合流!</text>
+  </g>
+
+  <!-- Bottom summary -->
+  <g transform="translate(380,385)">
+    <rect x="-240" y="-14" width="480" height="28" rx="14" fill="#f05033" fill-opacity="0.05" stroke="#f05033" stroke-width="0.8" opacity="0.4"/>
+    <text x="0" y="4" text-anchor="middle" font-family="sans-serif" font-size="10.5" font-weight="600" fill="#a0a0b0" opacity="0.7">ブランチで安全に実験 → 完成したらmergeで本編に合流</text>
+  </g>
+</svg>

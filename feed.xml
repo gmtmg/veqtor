@@ -5,7 +5,16 @@
   <link href="https://algoyosuga.com/veqtor/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://algoyosuga.com/veqtor/" rel="alternate" type="text/html"/>
   <id>https://algoyosuga.com/veqtor/</id>
-  <updated>2026-04-11T00:00:00+09:00</updated>
+  <updated>2026-04-16T00:00:00+09:00</updated>
+
+  <entry>
+    <title>Git &amp; GitHub入門 ― チーム開発の第一歩を完全図解</title>
+    <link href="https://algoyosuga.com/veqtor/articles/git-github-guide" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/git-github-guide</id>
+    <updated>2026-04-16T00:00:00+09:00</updated>
+    <summary>GitとGitHubの違いからインストール、コミット、ブランチ、Pull Requestまで。完全初学者向けにチーム開発の基礎を図解で丁寧に解説する入門ガイド。</summary>
+    <author><name>Compass</name></author>
+  </entry>
 
   <entry>
     <title>Ollama + Open WebUI で始めるローカルLLM完全ガイド ― 自分だけのAIを手元で動かそう</title>
@@ -86,15 +95,6 @@
     <updated>2026-04-05T00:00:00+09:00</updated>
     <summary>2026年前半の主要AIモデルを徹底比較。GPT-5.4、Claude Opus 4.6、Gemini 3.1、Llama 4、Grok 4、DeepSeek V4の性能・特徴・料金を速報でまとめます。</summary>
     <author><name>Bolt</name></author>
-  </entry>
-
-  <entry>
-    <title>バイブコーディングの正体 — 「コードを書かない開発」は革命か幻想か</title>
-    <link href="https://algoyosuga.com/veqtor/articles/vibe-coding" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/vibe-coding</id>
-    <updated>2026-04-05T00:00:00+09:00</updated>
-    <summary>MIT Technology Review選出の2026年ブレークスルー技術「バイブコーディング」を多角的に検証。光と影、プロ開発者への影響、そして本当の価値を考察します。</summary>
-    <author><name>Prism</name></author>
   </entry>
 
 

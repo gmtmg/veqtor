@@ -65,6 +65,23 @@
             </div>
             <h1>Git & GitHub入門 ― チーム開発の第一歩を完全図解</h1>
 
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">1. なぜGitとGitHubを学ぶのか</a></li>
+                    <li><a href="#toc-2">2. GitとGitHubは何が違うの？</a></li>
+                    <li><a href="#toc-3">3. Gitの基本概念 — 「セーブポイント」で考える</a></li>
+                    <li><a href="#toc-4">4. Gitをインストールしよう</a></li>
+                    <li><a href="#toc-5">5. はじめてのコミット</a></li>
+                    <li><a href="#toc-6">6. ブランチ — 「パラレルワールド」で安全に実験する</a></li>
+                    <li><a href="#toc-7">7. GitHubに登録しよう</a></li>
+                    <li><a href="#toc-8">8. Pull Request — チーム開発の必殺技</a></li>
+                    <li><a href="#toc-9">9. コンフリクト（衝突）を恐れない</a></li>
+                    <li><a href="#toc-10">10. まとめ＆Gitコマンドチートシート</a></li>
+                </ol>
+            </nav>
+
             <!-- writer-intro -->
             <div class="writer-intro" data-writer="compass">
                 <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
@@ -78,7 +95,7 @@
             <!-- セクション1: なぜGitとGitHubを学ぶのか -->
             <!-- ========================== -->
 
-            <h2>1. なぜGitとGitHubを学ぶのか</h2>
+            <h2 id="toc-1">1. なぜGitとGitHubを学ぶのか</h2>
 
             <p>こんなファイル名、見覚えありませんか？</p>
 
@@ -100,7 +117,7 @@ report_v2_修正版_最終_本当の最終版.docx</code></pre>
             <!-- セクション2: GitとGitHubは何が違うの？ -->
             <!-- ========================== -->
 
-            <h2>2. GitとGitHubは何が違うの？</h2>
+            <h2 id="toc-2">2. GitとGitHubは何が違うの？</h2>
 
             <p>初心者がまず混乱するのが「GitとGitHubの違い」です。名前が似ているので混同しがちですが、役割はまったく異なります。</p>
 
@@ -132,7 +149,7 @@ report_v2_修正版_最終_本当の最終版.docx</code></pre>
             <!-- セクション3: Gitの基本概念 -->
             <!-- ========================== -->
 
-            <h2>3. Gitの基本概念 — 「セーブポイント」で考える</h2>
+            <h2 id="toc-3">3. Gitの基本概念 — 「セーブポイント」で考える</h2>
 
             <p>Gitを理解するために、<strong>ゲームのセーブ</strong>に例えて考えてみましょう。</p>
 
@@ -164,7 +181,7 @@ report_v2_修正版_最終_本当の最終版.docx</code></pre>
             <!-- セクション4: Gitをインストールしよう -->
             <!-- ========================== -->
 
-            <h2>4. Gitをインストールしよう</h2>
+            <h2 id="toc-4">4. Gitをインストールしよう</h2>
 
             <p>それでは、実際にGitをインストールしましょう。</p>
 
@@ -220,7 +237,7 @@ git config --global user.email "you@example.com"</code></pre>
             <!-- セクション5: はじめてのコミット -->
             <!-- ========================== -->
 
-            <h2>5. はじめてのコミット</h2>
+            <h2 id="toc-5">5. はじめてのコミット</h2>
 
             <p>いよいよ実践です。手を動かしながら、Gitの基本操作を覚えましょう。</p>
 
@@ -299,7 +316,7 @@ nothing added to commit but untracked files present</code></pre>
             <!-- セクション6: ブランチ -->
             <!-- ========================== -->
 
-            <h2>6. ブランチ — 「パラレルワールド」で安全に実験する</h2>
+            <h2 id="toc-6">6. ブランチ — 「パラレルワールド」で安全に実験する</h2>
 
             <p>ブランチ（branch = 枝）は、Gitの最も強力な機能のひとつです。</p>
 
@@ -365,7 +382,7 @@ git merge feature/add-login</code></pre>
             <!-- セクション7: GitHubに登録しよう -->
             <!-- ========================== -->
 
-            <h2>7. GitHubに登録しよう</h2>
+            <h2 id="toc-7">7. GitHubに登録しよう</h2>
 
             <p>ここまではGit（手元の道具）の話でした。ここからは、GitHub（共有の場所）を使ってみましょう。</p>
 
@@ -417,7 +434,7 @@ git push -u origin main</code></pre>
             <!-- セクション8: Pull Request -->
             <!-- ========================== -->
 
-            <h2>8. Pull Request — チーム開発の必殺技</h2>
+            <h2 id="toc-8">8. Pull Request — チーム開発の必殺技</h2>
 
             <p><strong>Pull Request（PR）</strong>は、GitHubが提供するチーム開発の核心機能です。</p>
 
@@ -477,7 +494,7 @@ git push -u origin main</code></pre>
             <!-- セクション9: コンフリクト -->
             <!-- ========================== -->
 
-            <h2>9. コンフリクト（衝突）を恐れない</h2>
+            <h2 id="toc-9">9. コンフリクト（衝突）を恐れない</h2>
 
             <p>チーム開発をしていると、避けて通れないのが<strong>コンフリクト（衝突）</strong>です。</p>
 
@@ -532,7 +549,7 @@ greeting = "Hi"</code></pre>
             <!-- セクション10: まとめ＆チートシート -->
             <!-- ========================== -->
 
-            <h2>10. まとめ＆Gitコマンドチートシート</h2>
+            <h2 id="toc-10">10. まとめ＆Gitコマンドチートシート</h2>
 
             <p>お疲れさまでした！ Git＆GitHubの基礎を一気に駆け抜けましたね。最後に、今日学んだことを振り返りましょう。</p>
 

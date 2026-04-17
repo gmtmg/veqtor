@@ -8,6 +8,7 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
+| 14 | 2026-04-17 | gpt-cyber-vs-mythos.html | AIサイバーセキュリティの分岐点 ― GPT-5.4 Cyber vs Claude Mythos、2つの哲学が描く未来 | AI | Bolt / Prism | published |
 | 13 | 2026-04-16 | git-github-guide.html | Git & GitHub入門 ― チーム開発の第一歩を完全図解 | Development | Compass / Syntax | published |
 | 12 | 2026-04-11 | local-llm-guide.html | Ollama + Open WebUI で始めるローカルLLM完全ガイド ― 自分だけのAIを手元で動かそう | AI | Syntax | published |
 | 11 | 2026-04-11 | zero-trust-guide.html | ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由 | Security | Aegis | published |
@@ -68,3 +69,4 @@
 - 2026-04-08: 記事#10「MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌」を公開(Bolt)
 - 2026-04-11: 記事#12「Ollama + Open WebUI で始めるローカルLLM完全ガイド」を公開(Syntax)
 - 2026-04-16: 記事#13「Git & GitHub入門 ― チーム開発の第一歩を完全図解」を公開(Compass / Syntax合作)
+- 2026-04-17: 記事#14「AIサイバーセキュリティの分岐点 ― GPT-5.4 Cyber vs Claude Mythos」を公開(Bolt / Prism合作)

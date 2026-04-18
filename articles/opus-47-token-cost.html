@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体 | Veqtor</title>
+    <meta name="description" content="Claude Opus 4.7の新トークナイザにより、同じテキストが最大1.35倍のトークン数にカウントされる。価格据え置きでも実質コスト増。日本語ユーザーへの影響と対策を徹底解説。">
+    <meta property="og:title" content="【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体">
+    <meta property="og:description" content="Opus 4.7は公式価格据え置き。しかし新トークナイザで実コスト最大35%増。日本語ユーザーへの影響と5つの対策。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/opus-47-token-cost-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体",
+      "description": "Claude Opus 4.7の新トークナイザにより、同じテキストが最大1.35倍のトークン数にカウントされる。価格据え置きでも実質コスト増。日本語ユーザーへの影響と対策を徹底解説。",
+      "datePublished": "2026-04-18",
+      "author": { "@type": "Person", "name": "Bolt" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/opus-47-token-cost-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/opus-47-token-cost"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-18">2026年4月18日</time>
+                <span class="article-category">AI</span>
+                <a href="../writers.html#bolt" class="article-writer" data-writer="bolt">
+                    <img src="../assets/images/writers/BOLT.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Bolt</span>
+                </a>
+                <a href="../writers.html#prism" class="article-writer" data-writer="prism">
+                    <img src="../assets/images/writers/PRISM.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Prism</span>
+                </a>
+            </div>
+            <h1>【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体</h1>
+
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">何が起きたのか</a></li>
+                    <li><a href="#toc-2">独立検証では「1.47倍」の報告も</a></li>
+                    <li><a href="#toc-3">追い打ち①：Claude Code のデフォルトが xhigh に</a></li>
+                    <li><a href="#toc-4">追い打ち②：プロンプトキャッシュの無効化</a></li>
+                    <li><a href="#toc-5">実務への影響リスト</a></li>
+                    <li><a href="#toc-6">今すぐやるべき対策 5 つ</a></li>
+                    <li><a href="#toc-7">それでも 4.7 に上げる価値はあるのか</a></li>
+                    <li><a href="#toc-8">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <div class="writer-intro" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Bolt</span>
+                    <p>速報です！ Opus 4.7の価格は据え置き——でも請求額は増えています。「え？」と思った方、正しい反応です。今回はPrismと一緒に、トークナイザ変更の裏側を掘り下げます。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>「料金表が変わらない＝コストが変わらない」——この等式が成り立たなくなった瞬間を解剖します。特に日本語ユーザーにとっては他人事ではありません。</p>
+                </div>
+            </div>
+
+            <p>まず3行で要点を押さえよう。</p>
+
+            <ul>
+                <li>2026年4月16日にリリースされた Claude Opus 4.7 は、公式価格が<strong>据え置き</strong>（入力 $5 / 出力 $25 per MTok）</li>
+                <li>しかし<strong>新しいトークナイザ</strong>の採用により、<strong>同じテキストが 1.0〜1.35 倍のトークン数</strong>にカウントされるようになった</li>
+                <li>料金表は変わっていないのに、<strong>実質的な請求額は最大35%増</strong>。特に日本語・コード・構造化データで顕著で、英語圏より日本のチームの方がダメージがデカい</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- 何が起きたのか -->
+            <!-- ===================== -->
+
+            <h2 id="toc-1">何が起きたのか</h2>
+
+            <p>Opus 4.7 は性能改善の一環として、テキストをモデルが扱える単位に分割する「トークナイザ」を刷新した。Anthropic の公式マイグレーションガイドによれば、新トークナイザは従来モデルと比べて<strong>同じテキストを 1 倍〜1.35 倍のトークン数</strong>として処理するという（コンテンツにより最大約 35% 増）。</p>
+
+            <p>文字単価は動いていない。変わったのは「<strong>1 つのテキストが何トークンにカウントされるか</strong>」という前提そのもの。つまり値段表の数字は不動なのに、請求書の合計額は勝手に膨らむ構造になっている。</p>
+
+            <h3>コンテンツタイプ別の増加率イメージ</h3>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>コンテンツタイプ</th>
+                            <th>おおよその増加率</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>英語のプレーンテキスト</td>
+                            <td>ほぼ 1.0 倍（影響軽微）</td>
+                        </tr>
+                        <tr>
+                            <td>コード・構造化データ（JSON等）</td>
+                            <td>1.3 倍前後</td>
+                        </tr>
+                        <tr>
+                            <td><strong>日本語・非英語テキスト</strong></td>
+                            <td><strong>1.35 倍に近い、もしくは超える</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>ここが日本人開発者にとっての最大のポイントだ。非英語はもともと英語よりトークン効率が悪いうえに、今回の変更は「コードと非英語」に偏って効いてくる。<strong>英語圏のユーザーより、日本語メインで使っているチームの方が確実にインパクトが大きい</strong>。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>英語圏のメディアは「1.0〜1.35倍」を一般論として扱っていますが、日本語ユーザーはレンジの<strong>上限側に張り付く</strong>のがポイント。他人事じゃありません。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 独立検証 -->
+            <!-- ===================== -->
+
+            <h2 id="toc-2">独立検証では「1.47倍」の報告も</h2>
+
+            <p>公式は「1.0〜1.35 倍」と幅を持たせているが、リリース直後に実測データを公開した開発者によれば、技術ドキュメントで約 <strong>1.47 倍</strong>、Claude Code で使う <code>CLAUDE.md</code> ファイルで約 <strong>1.45 倍</strong> という、公式レンジの上限を超える数字が出ている。</p>
+
+            <p>これが示しているのは、<strong>実運用のコンテンツ（コード＋自然言語＋構造化データが混ざったもの）では、公式レンジの上限〜それ以上に張り付く</strong>という現実だ。Claude Code ユーザーのほとんどがこの領域にいる。</p>
+
+            <p>つまり「1.0〜1.35 倍」のレンジのうち、多くの人は下限ではなく<strong>上限側を引く</strong>と思っておいた方が安全、ということになる。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>公式レンジの「1.0〜1.35倍」という表現自体が、英語プレーンテキストを下限、非英語+コードを上限として設計されたレンジです。つまり<strong>日本の開発者は構造的に上限側を引く</strong>。これは偶然ではなく、トークナイザの性質上の必然です。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 追い打ち① -->
+            <!-- ===================== -->
+
+            <h2 id="toc-3">追い打ち①：Claude Code のデフォルトが xhigh に</h2>
+
+            <p>Opus 4.7 では推論の深さを制御する <code>effort level</code> に、新しく <code>xhigh</code> というティアが追加された。<code>high</code> と <code>max</code> の中間に位置するものだ。</p>
+
+            <p>そして<strong>Claude Code では、全プランでこの <code>xhigh</code> がデフォルト</strong>になっている。</p>
+
+            <p><code>xhigh</code> はモデルがより深く考え、より長く出力する。結果として<strong>出力トークン数も自然に増える</strong>。</p>
+
+            <p>つまり構造としては：</p>
+
+            <ul>
+                <li><strong>入力</strong>：新トークナイザで最大 1.35 倍（さらに実測では 1.45〜1.47 倍）</li>
+                <li><strong>出力</strong>：<code>xhigh</code> デフォルトでさらに増加</li>
+            </ul>
+
+            <p>この掛け算が、「同じようなタスクを投げているのに、Pro / Max プランのクォータがやたら早く尽きる」という体感を生んでいる。</p>
+
+            <p><strong>救いはある</strong>。low-effort の Opus 4.7 が、medium-effort の Opus 4.6 とほぼ同等の性能を出すという報告があるからだ。つまり <code>effort</code> を 1 段下げるだけで、品質を保ったままトークン消費を抑えられるケースは多い。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>「low の 4.7 ≒ medium の 4.6」。この換算レートを覚えておくと、effort 調整のときの判断がグッと楽になります。まずは <code>/config</code> で確認してみて！</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 追い打ち② -->
+            <!-- ===================== -->
+
+            <h2 id="toc-4">追い打ち②：プロンプトキャッシュの無効化</h2>
+
+            <p>Anthropic のプロンプトキャッシュは<strong>モデル単位</strong>で分かれている。Opus 4.6 から 4.7 に切り替えた瞬間、<strong>既存のキャッシュプレフィックスはすべて無効化される</strong>。</p>
+
+            <p>切り替え後の流れはこうなる：</p>
+
+            <ol>
+                <li>最初のセッションはコールドスタート（全キャッシュミス）</li>
+                <li>新しく書き込まれるプレフィックスは 1.3〜1.45 倍サイズに膨らんでいる</li>
+                <li>以降のキャッシュリードも、その膨らんだサイズに対して課金される</li>
+            </ol>
+
+            <p>キャッシュ割引（約 90% off）は引き続き効くが、<strong>ベースが 1.45 倍に膨らんだものに 90% 割引</strong>を掛けるので、割引後の絶対額も当然上がる。仕組みとしては壊れていないが、払う総額は増えている。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>ここは多くの記事がまだ触れていない盲点です。「切り替えた瞬間キャッシュが吹き飛び、コールドスタートで膨らんだサイズを払う」——二重苦の構造になっています。移行のタイミングも戦略的に考える必要があります。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 実務への影響 -->
+            <!-- ===================== -->
+
+            <h2 id="toc-5">実務への影響リスト</h2>
+
+            <ol>
+                <li><strong>予算管理の破綻</strong>：月次 AI 予算を 4.6 時代の消費量ベースで組んでいたチームは、何もしなくても <strong>20〜35% オーバー</strong>する可能性</li>
+                <li><strong>レート制限に早く到達</strong>：トークン数ベースのレート制限が、これまでより早く発動する</li>
+                <li><strong><code>max_tokens</code> 不足事故</strong>：4.6 時代の <code>max_tokens</code> 設定が相対的に小さくなり、出力が途中で切れる事故が増える</li>
+                <li><strong>観測性グラフの段差</strong>：歴史的なトークン消費のダッシュボードに、モデル切り替え日でステップチェンジが発生する。過去データとの素直な比較ができなくなる</li>
+                <li><strong><code>count_tokens</code> API の戻り値が変わる</strong>：クライアント側で文字数からトークン数を推定しているロジックは<strong>全面的に書き直しが必要</strong></li>
+            </ol>
+
+            <!-- ===================== -->
+            <!-- 対策 -->
+            <!-- ===================== -->
+
+            <h2 id="toc-6">今すぐやるべき対策 5 つ</h2>
+
+            <h3>1. max_tokens に 3〜5 割のヘッドルームを追加</h3>
+
+            <p>Anthropic の公式ガイドも「<code>max_tokens</code> を更新して十分なヘッドルームを持たせること」と明記している。コンパクション（要約）のトリガー値も同時に見直す。</p>
+
+            <h3>2. Claude Code の effort level を下げる</h3>
+
+            <p>デフォルトの <code>xhigh</code> は、多くの日常タスクにはオーバースペック。<code>high</code> や <code>medium</code> で通るタスクが大半なので、体感しながら段階的に下げるのがおすすめ。low-effort の 4.7 ≒ medium-effort の 4.6 という目安を覚えておくと判断しやすい。</p>
+
+            <h3>3. 本番切り替え前に必ず並行検証</h3>
+
+            <p>Anthropic 自身が「非本番環境で先にテストし、プロンプト調整の要否と実コスト変化を把握してから移行せよ」と推奨している。少なくとも主要なワークロードについては、4.6 と 4.7 で同じ入力を流して<strong>トークン数と実コストをログ比較</strong>する期間を設けるべき。</p>
+
+            <h3>4. task_budget（ベータ）を活用</h3>
+
+            <p>Opus 4.7 で追加された、<strong>1 回の実行あたりのトークン上限を固定する機能</strong>。暴走コストを防ぐ最後の砦になる。特にエージェント系のワークロードでは設定推奨。</p>
+
+            <h3>5. モデル ID のハードコードを洗い出す</h3>
+
+            <p><code>claude-opus-4-6</code> を直書きしているコードは自動では上がらない。<code>grep</code> で全リポジトリを検索してから、計画的に切り替えるべき。ただし<strong>切り替えた瞬間、上記のコスト増が効く</strong>ことを忘れずに。CI の予算アラートも同時にチューニングしておきたい。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>「とりあえず最新版に上げておこう」で痛い目に遭うパターンです。5つ全部やらなくても、まず<strong>effort level を下げる</strong>と<strong>max_tokens に余裕を持たせる</strong>の2つだけでもやっておくと安心。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 上げる価値 -->
+            <!-- ===================== -->
+
+            <h2 id="toc-7">それでも 4.7 に上げる価値はあるのか</h2>
+
+            <p>コストだけを見ると厳しい値上げに見えるが、Opus 4.7 には明確な改善もある：</p>
+
+            <ul>
+                <li><strong>視覚入力の解像度向上</strong>：2576px / 3.75MP まで対応（従来の約 2〜3 倍）</li>
+                <li><strong><code>/ultrareview</code> コマンド</strong>：シニアレビュアー級のコードレビューを実行（設計上の欠陥やロジックの穴を指摘）</li>
+                <li><strong>1M トークンコンテキストが標準価格で利用可能</strong>（long-context プレミアムなし）</li>
+                <li><strong><code>.docx</code> / <code>.pptx</code> 編集などナレッジワーカー系タスクで顕著な性能向上</strong></li>
+                <li><strong>エージェント実行の信頼性向上</strong>（長時間タスク・マルチステップ推論）</li>
+            </ul>
+
+            <p>これらを使いこなすユースケースなら、トークン増の元は十分に取れる。</p>
+
+            <p>逆に、<strong>これらの改善を活かさないまま惰性で切り替えると、純粋な値上げ</strong>としてしか跳ね返ってこない。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>「上げるべきか、留まるべきか」は、結局「4.7の新機能を活かすワークロードがあるか」に帰着します。惰性での切り替えは純粋な値上げ。目的ある切り替えは投資。同じ行動でも意味がまったく変わります。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2 id="toc-8">まとめ</h2>
+
+            <p>Opus 4.7 のトークナイザ変更は、悪意ではなく技術的な副作用だとしても、「価格は上げないが、みんなが気づかないところで使用量が勝手に増える」という<strong>実質ステルス値上げ</strong>に近い構造になっている。</p>
+
+            <p>特に日本語を主戦場にしているチームは、英語圏のユーザーより影響が大きく出る可能性が高い。切り替えるなら最低限、</p>
+
+            <ul>
+                <li><code>effort level</code> を見直す</li>
+                <li><code>max_tokens</code> に余裕を持たせる</li>
+                <li>並行検証期間を設ける</li>
+            </ul>
+
+            <p>の 3 点は絶対にやっておきたい。「料金表が変わらない＝コストが変わらない」とは<strong>もう言えない時代</strong>だということを、まず前提として共有するところから始めるのがいいだろう。</p>
+
+            <p><small>本記事の情報は 2026 年 4 月 18 日時点のものです。Anthropic の公式ドキュメント、および複数の第三者検証レポートを参照しています。</small></p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>Anthropicが追加のアナウンスを出したらすぐにアップデートします。見逃せないニュース、真っ先に届けます！</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>トークナイザの変更は地味ですが、ビジネスモデルの根幹に関わる変更です。「同じテキストなのに測定値が変わる」——これは料金体系の信頼性そのものへの問いかけでもあります。今後も注視していきます。</p>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

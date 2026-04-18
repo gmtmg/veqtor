@@ -5,7 +5,16 @@
   <link href="https://algoyosuga.com/veqtor/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://algoyosuga.com/veqtor/" rel="alternate" type="text/html"/>
   <id>https://algoyosuga.com/veqtor/</id>
-  <updated>2026-04-17T00:00:00+09:00</updated>
+  <updated>2026-04-18T00:00:00+09:00</updated>
+
+  <entry>
+    <title>【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体</title>
+    <link href="https://algoyosuga.com/veqtor/articles/opus-47-token-cost" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/opus-47-token-cost</id>
+    <updated>2026-04-18T00:00:00+09:00</updated>
+    <summary>Claude Opus 4.7の新トークナイザにより、同じテキストが最大1.35倍のトークン数にカウントされる。価格据え置きでも実質コスト増。日本語ユーザーへの影響と対策を徹底解説。</summary>
+    <author><name>Bolt</name></author>
+  </entry>
 
   <entry>
     <title>AIサイバーセキュリティの分岐点 ― GPT-5.4 Cyber vs Claude Mythos、2つの哲学が描く未来</title>
@@ -86,15 +95,6 @@
     <updated>2026-04-06T00:00:00+09:00</updated>
     <summary>パスワードの限界からパスキーの仕組み、主要サービスでの設定手順、よくある疑問までを網羅的に解説。セキュリティ専門ライターAegisによるパスキー完全ガイド。</summary>
     <author><name>Aegis</name></author>
-  </entry>
-
-  <entry>
-    <title>Python基礎講座 ― print・変数・if文をブラウザで体験しよう</title>
-    <link href="https://algoyosuga.com/veqtor/articles/python-basics-if" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/python-basics-if</id>
-    <updated>2026-04-06T00:00:00+09:00</updated>
-    <summary>ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座。print関数、変数、比較演算子、if文の基本をハンズオンで身につけます。</summary>
-    <author><name>Compass</name></author>
   </entry>
 
 

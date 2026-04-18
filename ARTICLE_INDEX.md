@@ -8,6 +8,7 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
+| 15 | 2026-04-18 | opus-47-token-cost.html | 【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体 | AI | Bolt / Prism | published |
 | 14 | 2026-04-17 | gpt-cyber-vs-mythos.html | AIサイバーセキュリティの分岐点 ― GPT-5.4 Cyber vs Claude Mythos、2つの哲学が描く未来 | AI | Bolt / Prism | published |
 | 13 | 2026-04-16 | git-github-guide.html | Git & GitHub入門 ― チーム開発の第一歩を完全図解 | Development | Compass / Syntax | published |
 | 12 | 2026-04-11 | local-llm-guide.html | Ollama + Open WebUI で始めるローカルLLM完全ガイド ― 自分だけのAIを手元で動かそう | AI | Syntax | published |
@@ -70,3 +71,4 @@
 - 2026-04-11: 記事#12「Ollama + Open WebUI で始めるローカルLLM完全ガイド」を公開(Syntax)
 - 2026-04-16: 記事#13「Git & GitHub入門 ― チーム開発の第一歩を完全図解」を公開(Compass / Syntax合作)
 - 2026-04-17: 記事#14「AIサイバーセキュリティの分岐点 ― GPT-5.4 Cyber vs Claude Mythos」を公開(Bolt / Prism合作)
+- 2026-04-18: 記事#15「Opus 4.6 → 4.7で実コストが最大35%増えた話」を公開(Bolt / Prism合作)

@@ -2486,39 +2486,37 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
 
 /* --- Card Benefit Line --- */
 .card-benefit {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    padding: 0.5rem 0.85rem;
+    position: relative;
     margin-bottom: 1rem;
+    padding: 0.6rem 0.75rem 0.5rem;
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.10), rgba(124, 58, 237, 0.08));
     border: 1px solid var(--badge-border);
     border-radius: 8px;
-    font-size: 0.8rem;
-    line-height: 1.5;
-    position: relative;
-    overflow: hidden;
-}
-
-.card-benefit::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.06), transparent);
-    background-size: 200% 100%;
-    animation: shimmer 4s ease-in-out infinite;
+    overflow: visible;
 }
 
 .card-benefit-icon {
+    position: absolute;
+    top: -0.55rem;
+    left: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0 0.45rem;
+    font-size: 0.65rem;
+    font-weight: 700;
     color: var(--accent-primary);
-    flex-shrink: 0;
-    font-size: 1rem;
+    background: var(--bg-card);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
     filter: drop-shadow(0 0 3px var(--accent-primary));
 }
 
 .card-benefit-text {
+    display: block;
     color: var(--text-heading);
-    position: relative;
+    font-size: 0.8rem;
+    line-height: 1.5;
 }
 
 html[data-theme="light"] .card-benefit {
@@ -2527,15 +2525,14 @@ html[data-theme="light"] .card-benefit {
 
 /* --- Article Benefit Bar --- */
 .article-benefit {
+    position: relative;
     margin-bottom: 2rem;
-    padding: 1rem 1.25rem;
+    padding: 1rem 1.25rem 0.85rem;
     background: var(--bg-hover);
     border: 1px solid var(--border-color);
     border-left: 3px solid var(--accent-primary);
     border-radius: 0 var(--card-radius) var(--card-radius) 0;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    position: relative;
+    overflow: visible;
 }
 
 .article-benefit::before {
@@ -2551,12 +2548,25 @@ html[data-theme="light"] .card-benefit {
 }
 
 .article-benefit span:first-child {
-    color: var(--accent-primary);
+    position: absolute;
+    top: -0.6rem;
+    left: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
     font-weight: 700;
+    color: var(--accent-primary);
+    background: var(--bg-card);
+    line-height: 1.1;
 }
 
 .article-benefit-text {
+    display: block;
     color: var(--text-primary);
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
 /* --- Read Badge --- */

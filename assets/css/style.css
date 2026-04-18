@@ -2518,7 +2518,6 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
 
 .card-benefit-text {
     color: var(--text-heading);
-    font-weight: 600;
     position: relative;
 }
 

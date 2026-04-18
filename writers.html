@@ -387,6 +387,31 @@
                 }
             });
         })();
+
+        // Writer read rate
+        (function() {
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+
+            document.querySelectorAll('.writer-card-articles').forEach(function(section) {
+                var links = section.querySelectorAll('a[href]');
+                var total = links.length;
+                var count = 0;
+                links.forEach(function(a) {
+                    var href = a.getAttribute('href');
+                    var m = href.match(/articles\/([^\/]+?)(?:\.html)?$/);
+                    if (m && read.indexOf(m[1]) !== -1) count++;
+                });
+                var label = section.querySelector('.writer-card-articles-label');
+                if (label && !label.querySelector('.writer-read-rate')) {
+                    var span = document.createElement('span');
+                    span.className = 'writer-read-rate';
+                    span.textContent = count + '/' + total + ' 読了';
+                    label.appendChild(span);
+                }
+            });
+        })();
     </script>
 </body>
 </html>

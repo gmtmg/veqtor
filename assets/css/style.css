@@ -2484,6 +2484,113 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
     animation: cyber-tap 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* --- Card Benefit Line --- */
+.card-benefit {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding: 0.35rem 0.7rem;
+    margin-bottom: 1rem;
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.card-benefit-icon {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+}
+
+.card-benefit-text {
+    color: var(--text-primary);
+}
+
+/* --- Article Benefit Bar --- */
+.article-benefit {
+    margin-bottom: 2rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-primary);
+    border-radius: 0 var(--card-radius) var(--card-radius) 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    position: relative;
+}
+
+.article-benefit::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent-primary);
+    filter: blur(6px);
+    opacity: 0.4;
+}
+
+.article-benefit span:first-child {
+    color: var(--accent-primary);
+    font-weight: 700;
+}
+
+.article-benefit-text {
+    color: var(--text-primary);
+}
+
+/* --- Read Badge --- */
+.read-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--color-success);
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1;
+    letter-spacing: 0.05em;
+}
+
+.article-card.is-read .card-thumbnail img {
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.article-card.is-read:hover .card-thumbnail img {
+    opacity: 1;
+}
+
+/* --- Footer Read Progress --- */
+.footer-read-progress {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+}
+
+.footer-read-progress .read-count {
+    color: var(--accent-primary);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+/* --- Writer Read Rate --- */
+.writer-read-rate {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--color-success);
+    vertical-align: middle;
+}
+
 /* --- Utility: Reduced Motion --- */
 @media (prefers-reduced-motion: reduce) {
     *,

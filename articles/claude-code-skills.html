@@ -61,6 +61,11 @@
             </div>
             <h1>Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化</h1>
 
+            <div class="article-benefit">
+                <span>&#9201; 8分で学べること:</span>
+                <span class="article-benefit-text">Skills機能の仕組みとスラッシュコマンドの作り方</span>
+            </div>
+
 
             <nav class="article-toc">
                 <div class="article-toc-title">目次</div>
@@ -632,6 +637,21 @@ description: コミットメッセージの規約チェック。
                     setTimeout(function() { overlay.remove(); }, 250);
                 }
             });
+        })();
+    </script>
+
+    <script>
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
         })();
     </script>
 </body>

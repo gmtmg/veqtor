@@ -65,6 +65,11 @@
             </div>
             <h1>Git & GitHub入門 ― チーム開発の第一歩を完全図解</h1>
 
+            <div class="article-benefit">
+                <span>&#9201; 15分で学べること:</span>
+                <span class="article-benefit-text">Git導入からPull Requestまでの基本ワークフロー</span>
+            </div>
+
 
             <nav class="article-toc">
                 <div class="article-toc-title">目次</div>
@@ -744,6 +749,21 @@ greeting = "Hi"</code></pre>
                     setTimeout(function() { overlay.remove(); }, 250);
                 }
             });
+        })();
+    </script>
+
+    <script>
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
         })();
     </script>
 </body>

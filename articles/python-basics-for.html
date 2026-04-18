@@ -640,6 +640,7 @@ print(f"合計: {total}円")</code></pre>
                 var result = pg.querySelector('.playground-result');
                 var mode = pg.getAttribute('data-mode');
                 var expected = pg.getAttribute('data-expected');
+                if (expected) expected = expected.replace(/\\n/g, '\n');
                 var testsAttr = pg.getAttribute('data-tests');
                 var tests = testsAttr ? JSON.parse(testsAttr) : null;
 

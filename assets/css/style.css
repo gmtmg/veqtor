@@ -2488,23 +2488,42 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
 .card-benefit {
     display: flex;
     align-items: baseline;
-    gap: 0.4rem;
-    padding: 0.35rem 0.7rem;
+    gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
     margin-bottom: 1rem;
-    background: var(--badge-bg);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.10), rgba(124, 58, 237, 0.08));
     border: 1px solid var(--badge-border);
-    border-radius: 6px;
-    font-size: 0.78rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
     line-height: 1.5;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-benefit::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.06), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
 }
 
 .card-benefit-icon {
     color: var(--accent-primary);
     flex-shrink: 0;
+    font-size: 1rem;
+    filter: drop-shadow(0 0 3px var(--accent-primary));
 }
 
 .card-benefit-text {
-    color: var(--text-primary);
+    color: var(--text-heading);
+    font-weight: 600;
+    position: relative;
+}
+
+html[data-theme="light"] .card-benefit {
+    background: linear-gradient(135deg, rgba(0, 153, 204, 0.08), rgba(105, 41, 196, 0.06));
 }
 
 /* --- Article Benefit Bar --- */

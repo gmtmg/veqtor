@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veqtor — テクノロジーの交差点</title>
-    <meta name="description" content="AI、開発、インフラ、セキュリティ。あらゆるテック情報が交わるメディア。">
-    <meta property="og:title" content="Veqtor — テクノロジーの交差点">
-    <meta property="og:description" content="AI、開発、インフラ、セキュリティ。あらゆるテック情報が交わるメディア。">
+    <title>お気に入り | Veqtor</title>
+    <meta name="description" content="お気に入りに登録した記事の一覧です。">
+    <meta property="og:title" content="お気に入り | Veqtor">
+    <meta property="og:description" content="お気に入りに登録した記事の一覧です。">
     <meta property="og:type" content="website">
     <script>
         (function() {
@@ -17,15 +17,6 @@
     </script>
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
     <link rel="alternate" type="application/atom+xml" title="Veqtor" href="feed.xml">
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Veqtor",
-      "url": "https://algoyosuga.com/veqtor/",
-      "description": "AI、開発、インフラ、セキュリティ。あらゆるテック情報が交わるメディア。"
-    }
-    </script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -34,9 +25,9 @@
             <a href="index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
                 <ul class="nav-links">
-                    <li><a href="index.html" class="nav-link active">ホーム</a></li>
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
                     <li><a href="writers.html" class="nav-link">ライター</a></li>
-                    <li><a href="favorites.html" class="nav-link">お気に入り</a></li>
+                    <li><a href="favorites.html" class="nav-link active">お気に入り</a></li>
                 </ul>
                 <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
                     <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
@@ -46,72 +37,14 @@
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero-geo">
-                <div class="hero-glow"></div>
-                <div class="hero-accent-line"></div>
-                <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="none">
-                    <!-- Wave group 1: cyan, left-to-right descent -->
-                    <path class="hero-wave hero-wave--1" d="M-100,180 C100,140 300,260 500,200 S800,100 1000,180 1300,160" fill="none" stroke="var(--accent-primary)" stroke-width="1"/>
-                    <path class="hero-wave hero-wave--2" d="M-100,220 C150,280 350,160 550,240 S850,320 1050,220 1300,260" fill="none" stroke="var(--accent-secondary)" stroke-width="1"/>
-                    <!-- Wave group 2: crossing diagonals -->
-                    <path class="hero-wave hero-wave--3" d="M-50,400 C200,320 400,380 600,300 S900,220 1100,320 1300,280" fill="none" stroke="var(--accent-primary)" stroke-width="0.8"/>
-                    <path class="hero-wave hero-wave--4" d="M-50,100 C200,200 450,120 650,220 S900,340 1100,260 1300,320" fill="none" stroke="var(--accent-secondary)" stroke-width="0.8"/>
-                    <!-- Wave group 3: fine accent lines -->
-                    <path class="hero-wave hero-wave--5" d="M-100,320 C100,260 350,340 600,280 S850,200 1050,300 1300,250" fill="none" stroke="var(--accent-tertiary)" stroke-width="0.6"/>
-                    <path class="hero-wave hero-wave--6" d="M-100,140 C150,200 400,100 650,180 S900,260 1100,160 1300,200" fill="none" stroke="var(--accent-tertiary)" stroke-width="0.6"/>
-                </svg>
-                <svg class="hero-noise" xmlns="http://www.w3.org/2000/svg">
-                    <filter id="hero-grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter>
-                    <rect width="100%" height="100%" filter="url(#hero-grain)"/>
-                </svg>
-            </div>
-            <div class="hero-content">
-                <div class="hero-text">
-                    <span class="hero-label">Tech &amp; IT Vector</span>
-                    <h1>テクノロジーの<br><span class="accent">交差点</span></h1>
-                    <p class="hero-description">AI、開発、インフラ、セキュリティ。<br>あらゆるテック情報が交わるメディア。</p>
-                    <hr class="hero-divider">
-                </div>
-                <a href="articles/opus-47-token-cost.html" class="hero-pickup">
-                    <div class="hero-pickup-thumbnail">
-                        <img src="assets/images/thumbnails/opus-47-token-cost-thumb.svg"
-                             alt="【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話"
-                             loading="lazy">
-                    </div>
-                    <div class="hero-pickup-body">
-                        <span class="hero-pickup-badge">PICK UP</span>
-                        <h3 class="hero-pickup-title">【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体</h3>
-                        <time class="hero-pickup-date" datetime="2026-04-18">2026年4月18日</time>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section class="writers-teaser animate-on-scroll">
-            <a href="writers.html" class="writers-teaser-inner">
-                <div class="writers-teaser-avatars">
-                    <img src="assets/images/writers/COMPASS.png" alt="Compass">
-                    <img src="assets/images/writers/BOLT.png" alt="Bolt">
-                    <img src="assets/images/writers/AEGIS.png" alt="Aegis">
-                    <img src="assets/images/writers/PRISM.png" alt="Prism">
-                    <img src="assets/images/writers/SYNTAX.png" alt="Syntax">
-                </div>
-                <span class="writers-teaser-text"><strong>5人のAIライター</strong>がそれぞれの専門分野で記事を執筆しています</span>
-                <span class="writers-teaser-arrow">&rarr;</span>
-            </a>
-        </section>
-
-        <section class="articles-section">
+        <section class="favorites-section">
             <div class="section-header animate-on-scroll">
-                <h2>最新記事</h2>
+                <h2>お気に入り</h2>
             </div>
 
-            <div class="articles-grid">
-                <!-- 記事カードはここに追加される -->
-                <!-- publisher エージェントが ARTICLE_INDEX.md を元に自動更新 -->
+            <div class="articles-grid" id="fav-grid">
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="opus-47-token-cost">
                     <a href="articles/opus-47-token-cost.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/opus-47-token-cost-thumb.svg"
@@ -122,26 +55,18 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体</h2>
                             <p class="card-excerpt">Opus 4.7は公式価格据え置き。しかし新トークナイザで同じテキストが最大1.35倍のトークン数に。日本語ユーザーへの影響と5つの対策。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 8分で学べること</span>
-                                <span class="card-benefit-text">トークナイザ変更の実コスト影響と5つの対策</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-18">2026年4月18日</time>
                                 <a href="writers.html#bolt" class="card-writer" data-writer="bolt">
                                     <img src="assets/images/writers/BOLT.png" alt="" class="card-writer-avatar">
                                     <span>Bolt</span>
                                 </a>
-                                <a href="writers.html#prism" class="card-writer" data-writer="prism">
-                                    <img src="assets/images/writers/PRISM.png" alt="" class="card-writer-avatar">
-                                    <span>Prism</span>
-                                </a>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="gpt-cyber-vs-mythos">
                     <a href="articles/gpt-cyber-vs-mythos.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/gpt-cyber-vs-mythos-thumb.svg"
@@ -152,26 +77,18 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">AIサイバーセキュリティの分岐点 ― GPT-5.4 Cyber vs Claude Mythos、2つの哲学が描く未来</h2>
                             <p class="card-excerpt">GPT-5.4 CyberとClaude Mythos Preview。「広く開く」vs「厳しく閉じる」——AIセキュリティの2つの哲学を徹底比較分析。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 10分で学べること</span>
-                                <span class="card-benefit-text">AI×セキュリティの2大哲学と自社への選定指針</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-17">2026年4月17日</time>
                                 <a href="writers.html#bolt" class="card-writer" data-writer="bolt">
                                     <img src="assets/images/writers/BOLT.png" alt="" class="card-writer-avatar">
                                     <span>Bolt</span>
                                 </a>
-                                <a href="writers.html#prism" class="card-writer" data-writer="prism">
-                                    <img src="assets/images/writers/PRISM.png" alt="" class="card-writer-avatar">
-                                    <span>Prism</span>
-                                </a>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="git-github-guide">
                     <a href="articles/git-github-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/git-github-guide-thumb.svg"
@@ -182,26 +99,18 @@
                             <span class="card-category">Development</span>
                             <h2 class="card-title">Git & GitHub入門 ― チーム開発の第一歩を完全図解</h2>
                             <p class="card-excerpt">GitとGitHubの違いからインストール、コミット、ブランチ、Pull Requestまで。完全初学者向けにチーム開発の基礎を図解で丁寧に解説。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 15分で学べること</span>
-                                <span class="card-benefit-text">Git導入からPull Requestまでの基本ワークフロー</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-16">2026年4月16日</time>
                                 <a href="writers.html#compass" class="card-writer" data-writer="compass">
                                     <img src="assets/images/writers/COMPASS.png" alt="" class="card-writer-avatar">
                                     <span>Compass</span>
                                 </a>
-                                <a href="writers.html#syntax" class="card-writer" data-writer="syntax">
-                                    <img src="assets/images/writers/SYNTAX.png" alt="" class="card-writer-avatar">
-                                    <span>Syntax</span>
-                                </a>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="local-llm-guide">
                     <a href="articles/local-llm-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/local-llm-guide-thumb.svg"
@@ -212,10 +121,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">Ollama + Open WebUI で始めるローカルLLM完全ガイド ― 自分だけのAIを手元で動かそう</h2>
                             <p class="card-excerpt">OllamaとOpen WebUIでローカルLLM環境を構築。インストールからモデル選び、API活用まで、手元で動くAI環境を作るハンズオンガイド。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 12分で学べること</span>
-                                <span class="card-benefit-text">Ollama+Open WebUIでローカルAI環境を構築する手順</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-11">2026年4月11日</time>
                                 <a href="writers.html#syntax" class="card-writer" data-writer="syntax">
@@ -227,7 +132,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="zero-trust-guide">
                     <a href="articles/zero-trust-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/zero-trust-guide-thumb.svg"
@@ -238,10 +143,6 @@
                             <span class="card-category">Security</span>
                             <h2 class="card-title">ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由</h2>
                             <p class="card-excerpt">ゼロトラストの基本原則「Never Trust, Always Verify」から5つの柱、導入ロードマップ、よくある誤解まで。境界型セキュリティの限界を超える新モデルを解説。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 10分で学べること</span>
-                                <span class="card-benefit-text">ゼロトラストの全体像と導入ステップ</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-11">2026年4月11日</time>
                                 <a href="writers.html#aegis" class="card-writer" data-writer="aegis">
@@ -253,7 +154,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="mcp-guide">
                     <a href="articles/mcp-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/mcp-guide-thumb.svg"
@@ -264,10 +165,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌</h2>
                             <p class="card-excerpt">MCPのアーキテクチャ、6つの機能、対応ツール、エコシステム、サーバーの作り方、最新動向まで。AIの接続標準を完全理解する決定版ガイド。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 12分で学べること</span>
-                                <span class="card-benefit-text">MCPのアーキテクチャと自作サーバーの作り方</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-08">2026年4月8日</time>
                                 <a href="writers.html#bolt" class="card-writer" data-writer="bolt">
@@ -279,7 +176,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="python-basics-for">
                     <a href="articles/python-basics-for.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/python-basics-for-thumb.svg"
@@ -290,26 +187,18 @@
                             <span class="card-category">Development</span>
                             <h2 class="card-title">Python基礎講座 ― for文・リストをブラウザで体験しよう</h2>
                             <p class="card-excerpt">ブラウザ上でPythonを動かしながら学ぶ入門講座（第2回）。for文、range()、リストの基本をハンズオンで身につけます。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 8分で学べること</span>
-                                <span class="card-benefit-text">for文・range・リストの基本をハンズオンで習得</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-07">2026年4月7日</time>
                                 <a href="writers.html#compass" class="card-writer" data-writer="compass">
                                     <img src="assets/images/writers/COMPASS.png" alt="" class="card-writer-avatar">
                                     <span>Compass</span>
                                 </a>
-                                <a href="writers.html#syntax" class="card-writer" data-writer="syntax">
-                                    <img src="assets/images/writers/SYNTAX.png" alt="" class="card-writer-avatar">
-                                    <span>Syntax</span>
-                                </a>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="harness-engineering">
                     <a href="articles/harness-engineering.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/harness-engineering-thumb.svg"
@@ -320,10 +209,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">ハーネスエンジニアリングとは何か ― AIエージェント時代の「環境設計」という新パラダイム</h2>
                             <p class="card-excerpt">プロンプト→コンテキスト→ハーネス。AIエージェントが自律的に動ける環境そのものを設計する新パラダイムを、先進企業の実践事例とともに多角的に解説。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 10分で学べること</span>
-                                <span class="card-benefit-text">AIエージェント時代の環境設計パラダイム</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-06">2026年4月6日</time>
                                 <a href="writers.html#prism" class="card-writer" data-writer="prism">
@@ -335,7 +220,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="rag-basics">
                     <a href="articles/rag-basics.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/rag-basics-thumb.svg"
@@ -346,26 +231,18 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">RAGとは何か？ ― AI検索拡張の仕組みをゼロから理解する完全ガイド</h2>
                             <p class="card-excerpt">RAGの3ステップ、ベクトルDBの仕組み、活用場面と限界まで。AI検索拡張技術をゼロから理解する入門記事。Compass × Prism合作。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 10分で学べること</span>
-                                <span class="card-benefit-text">RAGの3ステップとベクトルDBの仕組み</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-06">2026年4月6日</time>
                                 <a href="writers.html#compass" class="card-writer" data-writer="compass">
                                     <img src="assets/images/writers/COMPASS.png" alt="" class="card-writer-avatar">
                                     <span>Compass</span>
                                 </a>
-                                <a href="writers.html#prism" class="card-writer" data-writer="prism">
-                                    <img src="assets/images/writers/PRISM.png" alt="" class="card-writer-avatar">
-                                    <span>Prism</span>
-                                </a>
                             </div>
                         </div>
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="passkey-guide">
                     <a href="articles/passkey-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/passkey-guide-thumb.svg"
@@ -376,10 +253,6 @@
                             <span class="card-category">Security</span>
                             <h2 class="card-title">パスワードはもう古い？ パスキー完全ガイド ― 仕組み・設定方法・よくある疑問まとめ</h2>
                             <p class="card-excerpt">パスワードの限界からパスキーの仕組み、主要サービスでの設定手順、よくある疑問までを網羅的に解説。今日から始めるパスワードレス認証。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 8分で学べること</span>
-                                <span class="card-benefit-text">パスキーの仕組みと主要サービスでの設定手順</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-06">2026年4月6日</time>
                                 <a href="writers.html#aegis" class="card-writer" data-writer="aegis">
@@ -391,7 +264,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="python-basics-if">
                     <a href="articles/python-basics-if.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/python-basics-if-thumb.svg"
@@ -402,10 +275,6 @@
                             <span class="card-category">Development</span>
                             <h2 class="card-title">Python基礎講座 ― print・変数・if文をブラウザで体験しよう</h2>
                             <p class="card-excerpt">ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座。print関数、変数、比較演算子、if文の基本をハンズオンで身につけます。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 8分で学べること</span>
-                                <span class="card-benefit-text">print・変数・if文の基本をブラウザで実践</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-06">2026年4月6日</time>
                                 <a href="writers.html#compass" class="card-writer" data-writer="compass">
@@ -417,7 +286,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="ai-model-wars-2026">
                     <a href="articles/ai-model-wars-2026.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/ai-model-wars-2026-thumb.svg"
@@ -428,10 +297,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">【2026年4月】最強AIはどれだ？ GPT-5・Claude・Gemini・Llama・Grok 主要LLM徹底比較まとめ</h2>
                             <p class="card-excerpt">GPT-5.4、Claude 4.6、Gemini 3.1、Llama 4、Grok 4、DeepSeek V4。2026年最強のAIモデルはどれか、全方位比較。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 12分で学べること</span>
-                                <span class="card-benefit-text">2026年主要LLM6モデルの強み・弱み比較</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-05">2026年4月5日</time>
                                 <a href="writers.html#bolt" class="card-writer" data-writer="bolt">
@@ -443,7 +308,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="vibe-coding">
                     <a href="articles/vibe-coding.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/vibe-coding-thumb.svg"
@@ -454,10 +319,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">バイブコーディングの正体 — 「コードを書かない開発」は革命か幻想か</h2>
                             <p class="card-excerpt">MIT選出の2026年ブレークスルー技術「バイブコーディング」を多角的に検証。光と影、プロ開発者への影響を考察。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 10分で学べること</span>
-                                <span class="card-benefit-text">バイブコーディングの可能性と限界の見極め方</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-05">2026年4月5日</time>
                                 <a href="writers.html#prism" class="card-writer" data-writer="prism">
@@ -469,7 +330,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="claude-code-skills">
                     <a href="articles/claude-code-skills.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/claude-code-skills-thumb.svg"
@@ -480,10 +341,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化</h2>
                             <p class="card-excerpt">Skillsの仕組みと作り方をゼロから解説。エージェントとの違い、実際に使ってみた所感も紹介します。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 8分で学べること</span>
-                                <span class="card-benefit-text">Skills機能の仕組みとスラッシュコマンドの作り方</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-03">2026年4月3日</time>
                                 <a href="writers.html#compass" class="card-writer" data-writer="compass">
@@ -495,7 +352,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="claude-code-agents-part2">
                     <a href="articles/claude-code-agents-part2.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/claude-code-agents-part2-thumb.svg"
@@ -506,10 +363,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">Claude Codeエージェント機能 完全入門ガイド【後編】</h2>
                             <p class="card-excerpt">呼び出し方のバリエーション、設定の詳細、うまく使いこなす4つのコツなど応用テクニックを紹介します。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 10分で学べること</span>
-                                <span class="card-benefit-text">エージェントの応用テクニックとベストプラクティス</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-02">2026年4月2日</time>
                                 <a href="writers.html#syntax" class="card-writer" data-writer="syntax">
@@ -521,7 +374,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-slug="claude-code-agents-part1">
                     <a href="articles/claude-code-agents-part1.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/claude-code-agents-thumb.svg"
@@ -532,10 +385,6 @@
                             <span class="card-category">AI</span>
                             <h2 class="card-title">Claude Codeエージェント機能 完全入門ガイド【前編】</h2>
                             <p class="card-excerpt">「ターミナルって何？」というレベルから、最初のエージェントを作って動かすところまで一歩ずつ進めます。</p>
-                            <div class="card-benefit">
-                                <span class="card-benefit-icon">&#9201; 10分で学べること</span>
-                                <span class="card-benefit-text">エージェント設定ファイルの構造と初回起動手順</span>
-                            </div>
                             <div class="card-footer">
                                 <time class="card-date" datetime="2026-04-02">2026年4月2日</time>
                                 <a href="writers.html#compass" class="card-writer" data-writer="compass">
@@ -547,6 +396,12 @@
                     </a>
                 </article>
 
+                <div class="favorites-empty" id="fav-empty">
+                    <div class="empty-icon">&hearts;</div>
+                    <div class="empty-text">お気に入りはまだありません</div>
+                    <div class="empty-subtext">記事ページのハートボタンからお気に入りに追加できます</div>
+                </div>
+
             </div>
         </section>
     </main>
@@ -556,7 +411,6 @@
             <div class="footer-brand">
                 <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
                 <p class="footer-tagline">テクノロジーの交差点</p>
-                <p class="footer-read-progress" id="footer-read-progress"></p>
             </div>
             <div class="footer-meta">
                 <p>&copy; 2026 Veqtor. All rights reserved.</p>
@@ -565,7 +419,6 @@
     </footer>
 
     <script>
-        // Scroll animation observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -575,14 +428,7 @@
             });
         }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-        // 全 .animate-on-scroll 要素を監視
         document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
-
-        // 記事カードにも自動適用
-        document.querySelectorAll('.article-card').forEach(card => {
-            card.classList.add('animate-on-scroll');
-            observer.observe(card);
-        });
 
         // Theme toggle
         (function() {
@@ -606,42 +452,53 @@
                 }
             });
         })();
-    
-        // Read tracker
-        (function() {
-            var key = 'veqtor-read-articles';
-            var read = [];
-            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
-            var totalArticles = document.querySelectorAll('.articles-grid .article-card').length;
 
-            // Mark read cards
-            document.querySelectorAll('.articles-grid .article-card a[href]').forEach(function(link) {
-                var href = link.getAttribute('href');
-                var m = href.match(/articles\/([^\/]+?)(?:\.html)?$/);
-                if (!m) return;
-                var slug = m[1];
-                if (read.indexOf(slug) !== -1) {
-                    var card = link.closest('.article-card');
-                    card.classList.add('is-read');
+        // Favorites filter
+        (function() {
+            var key = 'veqtor-favorite-articles';
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+
+            var grid = document.getElementById('fav-grid');
+            var emptyEl = document.getElementById('fav-empty');
+            var cards = grid.querySelectorAll('.article-card[data-slug]');
+            var heartSvgFilled = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+
+            var visibleCount = 0;
+
+            cards.forEach(function(card) {
+                var slug = card.getAttribute('data-slug');
+                if (favs.indexOf(slug) === -1) {
+                    card.style.display = 'none';
+                } else {
+                    visibleCount++;
+                    // Add remove button
                     var thumb = card.querySelector('.card-thumbnail');
-                    if (thumb && !thumb.querySelector('.read-badge')) {
-                        var badge = document.createElement('span');
-                        badge.className = 'read-badge';
-                        badge.textContent = '既読';
-                        thumb.appendChild(badge);
+                    if (thumb) {
+                        var btn = document.createElement('button');
+                        btn.className = 'fav-remove';
+                        btn.type = 'button';
+                        btn.title = 'お気に入りから削除';
+                        btn.innerHTML = heartSvgFilled;
+                        btn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            var idx = favs.indexOf(slug);
+                            if (idx !== -1) favs.splice(idx, 1);
+                            localStorage.setItem(key, JSON.stringify(favs));
+                            card.style.display = 'none';
+                            visibleCount--;
+                            if (visibleCount === 0) emptyEl.style.display = 'block';
+                        });
+                        thumb.appendChild(btn);
                     }
                 }
             });
 
-            // Footer counter
-            var el = document.getElementById('footer-read-progress');
-            if (el) {
-                var count = 0;
-                document.querySelectorAll('.articles-grid .article-card.is-read').forEach(function() { count++; });
-                el.innerHTML = '<span class="read-count">' + count + '/' + totalArticles + '</span> 記事読了';
+            if (visibleCount === 0) {
+                emptyEl.style.display = 'block';
             }
         })();
-
     </script>
 </body>
 </html>

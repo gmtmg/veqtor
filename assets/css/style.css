@@ -2619,6 +2619,191 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
     vertical-align: middle;
 }
 
+/* --- Favorite Button (article page) --- */
+.fav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    touch-action: manipulation;
+}
+
+.fav-btn:hover {
+    color: var(--accent-tertiary);
+    border-color: var(--accent-tertiary);
+    background: rgba(255, 60, 172, 0.06);
+}
+
+.fav-btn:active {
+    animation: cyber-tap 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fav-btn.is-fav {
+    color: var(--accent-tertiary);
+    border-color: var(--accent-tertiary);
+    background: rgba(255, 60, 172, 0.08);
+}
+
+html[data-theme="light"] .fav-btn:hover,
+html[data-theme="light"] .fav-btn.is-fav {
+    background: rgba(212, 42, 143, 0.06);
+}
+
+.fav-btn .fav-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.share-section .fav-btn {
+    margin-right: 0.75rem;
+}
+
+/* --- Article Header Favorite Button --- */
+.article-fav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.7rem;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    touch-action: manipulation;
+    margin-left: auto;
+}
+
+.article-fav-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.article-fav-btn:hover {
+    color: var(--accent-tertiary);
+    border-color: var(--accent-tertiary);
+    background: rgba(255, 60, 172, 0.06);
+}
+
+.article-fav-btn:active {
+    animation: cyber-tap 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.article-fav-btn.is-fav {
+    color: var(--accent-tertiary);
+    border-color: var(--accent-tertiary);
+    background: rgba(255, 60, 172, 0.08);
+}
+
+html[data-theme="light"] .article-fav-btn:hover,
+html[data-theme="light"] .article-fav-btn.is-fav {
+    background: rgba(212, 42, 143, 0.06);
+}
+
+/* --- Favorites Page --- */
+.favorites-section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem var(--padding-side) 6rem;
+}
+
+.favorites-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 6rem 2rem;
+    background: var(--bg-card);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--card-radius);
+    position: relative;
+    overflow: hidden;
+    display: none;
+}
+
+.favorites-empty::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, var(--empty-glow), transparent 70%);
+    pointer-events: none;
+}
+
+.favorites-empty .empty-icon {
+    font-size: 4rem;
+    color: var(--accent-tertiary);
+    margin-bottom: 1.5rem;
+    opacity: 0.3;
+}
+
+.favorites-empty .empty-text {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--text-heading);
+    margin-bottom: 0.75rem;
+}
+
+.favorites-empty .empty-subtext {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Fav remove button on favorites page cards */
+.fav-remove {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 6px;
+    color: var(--accent-tertiary);
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    touch-action: manipulation;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.fav-remove:hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+.fav-remove:active {
+    animation: cyber-tap 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fav-remove svg {
+    width: 18px;
+    height: 18px;
+}
+
+html[data-theme="light"] .fav-remove {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+html[data-theme="light"] .fav-remove:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
 /* --- Utility: Reduced Motion --- */
 @media (prefers-reduced-motion: reduce) {
     *,

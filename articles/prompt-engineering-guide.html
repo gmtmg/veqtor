@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロンプトエンジニアリング入門 ― AIへの「伝え方」で出力が激変する | Veqtor</title>
+    <meta name="description" content="AIへの質問の仕方を変えるだけで、出力の質が劇的に変わる。プロンプトエンジニアリングの基本テクニック5選、エモーションプロンプティング、実践シナリオまで初学者向けに徹底解説。">
+    <meta property="og:title" content="プロンプトエンジニアリング入門 ― AIへの「伝え方」で出力が激変する">
+    <meta property="og:description" content="AIへの質問の仕方を変えるだけで、出力の質が劇的に変わる。プロンプトの書き方5つのテクニックと実践シナリオを初学者向けに解説。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/prompt-engineering-guide-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "プロンプトエンジニアリング入門 ― AIへの「伝え方」で出力が激変する",
+      "description": "AIへの質問の仕方を変えるだけで、出力の質が劇的に変わる。プロンプトエンジニアリングの基本テクニック5選、エモーションプロンプティング、実践シナリオまで初学者向けに徹底解説。",
+      "datePublished": "2026-04-19",
+      "author": { "@type": "Person", "name": "Compass" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/prompt-engineering-guide-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/prompt-engineering-guide"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-04-19">2026年4月19日</time>
+                <span class="article-category">AI</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+                <a href="../writers.html#prism" class="article-writer" data-writer="prism">
+                    <img src="../assets/images/writers/PRISM.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Prism</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="prompt-engineering-guide">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+            </div>
+            <h1>プロンプトエンジニアリング入門 ― AIへの「伝え方」で出力が激変する</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 10分で学べること</span>
+                <span class="article-benefit-text">プロンプトの書き方5つのテクニックと実践活用法</span>
+            </div>
+
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">1. AIは「検索エンジン」ではない</a></li>
+                    <li><a href="#toc-2">2. 「人にお願いする」ように話しかけよう</a></li>
+                    <li><a href="#toc-3">3. 出力をコントロールする5つのテクニック</a></li>
+                    <li><a href="#toc-4">4. エモーションプロンプティング</a></li>
+                    <li><a href="#toc-5">5. 日常と仕事に取り込む実践シナリオ</a></li>
+                    <li><a href="#toc-6">6. やってはいけないこと ― AI活用の落とし穴</a></li>
+                    <li><a href="#toc-7">7. まとめ</a></li>
+                </ol>
+            </nav>
+
+            <!-- writer-intro: Compass -->
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>AIに質問するとき、Google検索みたいに単語を並べていませんか？ 実は「伝え方」を少し変えるだけで、AIの出力は劇的に変わります。今回はPrismと一緒に、プロンプトエンジニアリングの基本を初学者向けにわかりやすく解説します。</p>
+                </div>
+            </div>
+
+            <!-- 冒頭の二人の会話 -->
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>Prism、今回のテーマは「プロンプトエンジニアリング」です。AIの使い方で最も基本的で、最も効果が大きいスキルですよね。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>そうですね。ChatGPTやClaudeを使い始めた人が最初にぶつかるのが、「なんか思った通りの答えが返ってこない」という壁。その壁を越える鍵が、まさにプロンプトの書き方です。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>今回は私が基本の流れをガイドしつつ、Prismに「なぜそうなるのか」を深掘りしてもらいます。では、始めましょう。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション1: AIは「検索エンジン」ではない -->
+            <!-- ===================== -->
+
+            <h2 id="toc-1">1. AIは「検索エンジン」ではない</h2>
+
+            <p>多くの人がAIを初めて使うとき、Google検索と同じ感覚で使ってしまいます。「Excel 使い方」「メール 書き方」「Python エラー 直し方」——こんなふうに、キーワードを並べて入力していませんか？</p>
+
+            <p>Google検索では、キーワードに合致するWebページを探して一覧表示します。しかしAI（ChatGPTやClaudeなど）は、まったく違う仕組みで動いています。</p>
+
+            <h3>Google検索とAIの根本的な違い</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Google検索</th>
+                        <th>AI（LLM）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>やっていること</strong></td>
+                        <td>既存のWebページを探す</td>
+                        <td>文章をゼロから生成する</td>
+                    </tr>
+                    <tr>
+                        <td><strong>入力</strong></td>
+                        <td>キーワード（単語の羅列）</td>
+                        <td>自然言語（人間の言葉）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>出力</strong></td>
+                        <td>リンクの一覧</td>
+                        <td>あなた専用の回答</td>
+                    </tr>
+                    <tr>
+                        <td><strong>文脈理解</strong></td>
+                        <td>限定的</td>
+                        <td>会話全体を理解</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>AIは「ものすごく物知りだけど、あなたの状況を何も知らない人」と考えてください。どんなに優秀な人でも、「Excel やり方」とだけ言われたら困りますよね。何がしたいのか、どのレベルの話なのか、何も分からないからです。</p>
+
+            <p>だからこそ、<strong>「何を知りたいのか」「どんな状況なのか」「どんな形式で答えてほしいのか」</strong>を伝えることが重要になるのです。この「AIへの伝え方」を体系化したものが、<strong>プロンプトエンジニアリング</strong>です。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>面白い視点をひとつ。AIが「キーワード検索」で微妙な結果を返すのは、AIのせいではなく「人間の伝え方」の問題なんです。AIは与えられた情報から最善の回答をしようとしている。でも情報が少なすぎると、「多分こういうことだろう」と推測するしかない。その推測が的外れになる——これが「AIって使えない」と感じる原因の大半です。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション2: 人にお願いするように -->
+            <!-- ===================== -->
+
+            <h2 id="toc-2">2. 「人にお願いする」ように話しかけよう</h2>
+
+            <p>プロンプトエンジニアリングの最も大切な原則は、実はとてもシンプルです。<strong>「人にお願いするように話しかける」</strong>——これだけで、AIの回答品質は格段に上がります。</p>
+
+            <p>優秀な同僚に仕事をお願いするとき、あなたはどうしますか？ 背景を説明し、目的を伝え、条件を明示しますよね。AIにも同じことをすればいいのです。</p>
+
+            <h3>Bad → Good のビフォーアフター</h3>
+
+            <p><strong>例1: メールの作成</strong></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bad</th>
+                        <th>Good</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>お詫びメール 書いて</td>
+                        <td>取引先への納期遅延のお詫びメールを書いてください。納期は3日遅れ、原因は部品調達の遅延です。丁寧で誠実なトーンで、今後の対策にも触れてください。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>例2: 企画のアイデア出し</strong></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bad</th>
+                        <th>Good</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>新商品のアイデア</td>
+                        <td>20代女性向けのサブスクリプション型スキンケアサービスの企画アイデアを5つ出してください。月額3000円前後、差別化ポイントも含めてください。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>例3: プログラミングの質問</strong></p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bad</th>
+                        <th>Good</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Python エラー 直して</td>
+                        <td>Python 3.12でCSVファイルを読み込む際に「UnicodeDecodeError」が出ます。ファイルはShift_JISエンコーディングです。pandasを使った解決方法を教えてください。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Good例に共通しているのは、<strong>背景・目的・条件</strong>の3つがしっかり含まれていることです。</p>
+
+            <h3>ロールプロンプティング</h3>
+
+            <p>さらに効果的なテクニックが、<strong>ロールプロンプティング</strong>です。「あなたは〇〇の専門家です」とAIに役割を与えることで、その分野に特化した回答を引き出せます。</p>
+
+            <ul>
+                <li>「あなたはシニアのWebデザイナーです。」</li>
+                <li>「あなたは10年経験のある人事担当者です。」</li>
+                <li>「あなたは小学5年生にもわかるように説明するのが得意な先生です。」</li>
+            </ul>
+
+            <p>役割を設定することで、AIの回答のトーン、専門性、詳しさが変わります。「誰に聞いているのか」を明確にするのは、実世界でも同じですよね。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>最初は「こんなに丁寧に書かなきゃいけないの？」と思うかもしれません。でも大丈夫、慣れると自然に書けるようになります。大事なのは「AIは自分のことを何も知らない」という前提に立つことです。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>ロールプロンプティングが効く理由を少し掘り下げると、LLMは学習データの中の「専門家が書いた文章のパターン」を再現しているんです。「あなたは医師です」と指定すると、医師が書きそうなスタイルと深さで回答する。逆に何も指定しないと、最大公約数的な一般回答になりやすい。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション3: 5つのテクニック -->
+            <!-- ===================== -->
+
+            <h2 id="toc-3">3. 出力をコントロールする5つのテクニック</h2>
+
+            <p>ここからは、AIの出力を思い通りにコントロールするための具体的なテクニックを5つ紹介します。これらを組み合わせることで、プロンプトの精度はさらに高まります。</p>
+
+            <h3>テクニック1: 具体的な条件を指定する</h3>
+
+            <p>「文字数」「対象読者」「形式」など、具体的な条件を指定するだけで出力の方向性が定まります。</p>
+
+            <ul>
+                <li>「300文字以内で要約してください」</li>
+                <li>「IT初心者向けに解説してください」</li>
+                <li>「ビジネスメールの形式で書いてください」</li>
+            </ul>
+
+            <p>条件が曖昧だと、AIは「最も一般的な」回答を返そうとします。条件を絞ることで、あなたが本当に欲しい出力に近づくのです。</p>
+
+            <h3>テクニック2: 例を与える（Few-shot）</h3>
+
+            <p>「こういう入力に対して、こういう出力が欲しい」という例を1〜3つ示す手法を<strong>Few-shotプロンプティング</strong>と呼びます。</p>
+
+            <p>たとえば、商品名からキャッチコピーを作りたい場合:</p>
+
+            <blockquote>
+                <p>以下の例を参考に、商品名からキャッチコピーを作ってください。</p>
+                <p>商品: 超軽量スニーカー → キャッチ: 「まるで履いていないみたい。」<br>
+                商品: オーガニック化粧水 → キャッチ: 「素肌が喜ぶ、毎日の一滴。」<br>
+                商品: AI搭載掃除機 → キャッチ:</p>
+            </blockquote>
+
+            <p>例を見せることで、AIは出力のトーン、長さ、スタイルを正確に把握できます。「言葉で説明するより、見せたほうが早い」というのは、人間もAIも同じです。</p>
+
+            <h3>テクニック3: ステップバイステップで考えさせる（Chain-of-Thought）</h3>
+
+            <p>複雑な問題を解かせるとき、「ステップバイステップで考えてください」と一言添えるだけで、回答の精度が大幅に向上します。これを<strong>Chain-of-Thought（思考の連鎖）プロンプティング</strong>と呼びます。</p>
+
+            <p>たとえば、数学の文章題やロジカルな判断が必要な場面で効果を発揮します。</p>
+
+            <blockquote>
+                <p>以下の問題をステップバイステップで考えて、最終的な答えを出してください。<br>
+                「1個120円のりんごを5個、1個80円のみかんを3個買いました。1000円札で支払うとおつりはいくらですか？」</p>
+            </blockquote>
+
+            <p>この一言があるだけで、AIは「りんご代 → みかん代 → 合計 → おつり」と段階的に計算し、間違いを減らせるのです。</p>
+
+            <h3>テクニック4: 制約を明示する</h3>
+
+            <p>「やってほしくないこと」を明示するのも効果的です。</p>
+
+            <ul>
+                <li>「専門用語は使わないでください」</li>
+                <li>「コードの説明は不要です。コードだけ出力してください」</li>
+                <li>「ネガティブな表現は避けてください」</li>
+                <li>「2023年以前の情報は含めないでください」</li>
+            </ul>
+
+            <p>人に指示を出すとき「これだけはやらないで」と伝えることがありますよね。AIにも同じことをすれば、不要な出力を抑えられます。</p>
+
+            <h3>テクニック5: 出力形式を指定する</h3>
+
+            <p>回答をどんな「形」で受け取りたいかを指定すると、後から加工する手間が省けます。</p>
+
+            <ul>
+                <li>「箇条書きで5つ挙げてください」</li>
+                <li>「表形式で比較してください」</li>
+                <li>「JSON形式で出力してください」</li>
+                <li>「メリット・デメリットに分けてください」</li>
+            </ul>
+
+            <p>特にビジネスシーンでは、そのままコピペして使えるフォーマットで出力させると、作業効率が格段に上がります。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>5つ全部をいきなり使う必要はありません。まずは「条件を具体的にする」と「出力形式を指定する」の2つから試してみてください。これだけでもかなり変わりますよ。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>Chain-of-Thoughtは、2022年にGoogleの研究チームが論文で発表して一気に広まりました。「ステップバイステップで考えて」というたった一言が、LLMの推論能力を劇的に引き上げる。この発見はAI研究における大きなブレークスルーのひとつです。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション4: エモーションプロンプティング -->
+            <!-- ===================== -->
+
+            <h2 id="toc-4">4. エモーションプロンプティング ― 「気持ち」を込めると精度が上がる？</h2>
+
+            <p>少し意外に聞こえるかもしれませんが、<strong>プロンプトに「感情」を込めると、AIの回答精度が上がる</strong>という研究結果があります。これを<strong>エモーションプロンプティング（EmotionPrompt）</strong>と呼びます。</p>
+
+            <h3>研究が示した驚きの結果</h3>
+
+            <p>2023年、Microsoftやアリゾナ州立大学などの研究チームが発表した論文では、プロンプトの末尾に感情的なフレーズを追加するだけで、LLMのタスク遂行能力が<strong>平均8%向上</strong>したことが報告されています。</p>
+
+            <p>具体的には、こんなフレーズを付け加えます:</p>
+
+            <ul>
+                <li>「これは私のキャリアにとって非常に重要です」</li>
+                <li>「あなたの回答が私の仕事の成果に直結します」</li>
+                <li>「最善を尽くしてください。あなたならできます」</li>
+            </ul>
+
+            <h3>丁寧語・感謝の言葉の効果</h3>
+
+            <p>また、プロンプトで「お願いします」「ありがとうございます」といった丁寧な言葉を使うと、出力の質が微妙に改善されるという報告もあります。</p>
+
+            <p>Googleの研究では、プロンプトに「チップを渡します」と書くと出力が改善した事例もあり、話題になりました（もちろんAIは実際のチップを受け取れません）。</p>
+
+            <h3>なぜ「感情」が効くのか？</h3>
+
+            <p>LLMは人間が書いた大量のテキストデータで学習しています。人間は、重要な依頼や感謝の気持ちが込められたメッセージに対して、<strong>より丁寧で質の高い回答</strong>をする傾向があります。学習データにもその傾向が反映されているため、感情を込めたプロンプトに対してAIも「より良い回答パターン」を選びやすくなる——というのが有力な仮説です。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>もちろん、AIには感情はありません。でも「丁寧にお願いする」と良い回答が来やすいのは事実。理屈はさておき、使えるテクニックとして覚えておいて損はないと思います。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>エモーションプロンプティングの研究結果は、別の角度から見ると「学習データのバイアス」の表れとも言えます。人間が真剣に書いた文章と、雑に書いた文章では、対応する回答の質にも差がある。LLMはそのパターンを学習しているわけです。感情の「理解」ではなく「パターンマッチング」——ここを区別して理解しておくことが大事ですね。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション5: 実践シナリオ -->
+            <!-- ===================== -->
+
+            <h2 id="toc-5">5. 日常と仕事に取り込む実践シナリオ</h2>
+
+            <p>テクニックを学んだら、次は実践です。プロンプトエンジニアリングが活きる具体的なシナリオを見てみましょう。</p>
+
+            <h3>シナリオ1: メールの下書き</h3>
+
+            <blockquote>
+                <p>あなたはビジネスメールのライティングが得意なアシスタントです。<br>
+                以下の条件でメールの下書きを作成してください。<br><br>
+                ・宛先: クライアント（初対面ではない）<br>
+                ・目的: 来週水曜の打ち合わせ日程の確認<br>
+                ・トーン: 丁寧だが堅すぎない<br>
+                ・補足: Zoomリンクはこちらから送る旨を伝える</p>
+            </blockquote>
+
+            <h3>シナリオ2: 企画書のアイデア出し</h3>
+
+            <blockquote>
+                <p>あなたは新規事業の企画に強いコンサルタントです。<br>
+                地方の中小製造業が取り組める「DX推進」のアイデアを5つ提案してください。<br><br>
+                ・予算: 年間500万円以内<br>
+                ・従業員数: 30人規模<br>
+                ・現状: 受発注がFAXとExcel中心<br>
+                ・出力形式: 各アイデアにタイトル、概要、期待効果を表形式で</p>
+            </blockquote>
+
+            <h3>シナリオ3: 調べ物の壁打ち</h3>
+
+            <blockquote>
+                <p>「マイクロサービスとモノリスの違い」について、以下の観点から比較表を作ってください。<br><br>
+                ・開発スピード<br>
+                ・運用コスト<br>
+                ・チーム規模<br>
+                ・障害の影響範囲<br>
+                ・学習コスト<br><br>
+                対象読者はエンジニア歴1年の人です。専門用語には簡単な注釈をつけてください。</p>
+            </blockquote>
+
+            <h3>シナリオ4: コードレビュー</h3>
+
+            <blockquote>
+                <p>以下のPythonコードをレビューしてください。<br>
+                観点: パフォーマンス、可読性、セキュリティ<br>
+                改善点があれば、修正後のコードも提示してください。<br>
+                説明は日本語でお願いします。</p>
+            </blockquote>
+
+            <p>共通するポイントは、<strong>AIを「同僚」として扱うマインドセット</strong>です。役割を与え、背景を共有し、期待する成果を明示する。この3つを意識するだけで、AIとの協働の質は大きく変わります。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>最初は「テンプレ」として使ってOKです。慣れてきたら自分なりにアレンジしていけばいい。大事なのは、今日から一つでも実践してみることですよ。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>「AIを同僚として使う」というマインドセットは、実はプロンプトエンジニアリング以上に大事かもしれません。道具として使うと雑になる。でも「一緒に考えてくれる相手」と思えば、自然と情報を丁寧に伝えるようになるんです。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション6: やってはいけないこと -->
+            <!-- ===================== -->
+
+            <h2 id="toc-6">6. やってはいけないこと ― AI活用の落とし穴</h2>
+
+            <p>プロンプトを工夫すればAIの出力は劇的に良くなります。しかし、どんなに優れたプロンプトを書いても、守るべきルールがあります。</p>
+
+            <h3>落とし穴1: 出力を鵜呑みにする</h3>
+
+            <p>AIは<strong>ハルシネーション（幻覚）</strong>を起こすことがあります。存在しない論文を引用したり、架空の事実をもっともらしく語ったりします。特に固有名詞、数値、法律の条文などは、必ず自分で裏付けを取ってください。</p>
+
+            <p>プロンプトのテクニックでハルシネーションを減らすことはできますが、完全にゼロにはできません。<strong>「AIの出力は下書き」</strong>と考え、最終判断は人間が行うのが鉄則です。</p>
+
+            <h3>落とし穴2: 個人情報・機密情報を入力する</h3>
+
+            <p>AIに入力したデータは、サービスによってはモデルの学習に使われる可能性があります。以下の情報は入力しないでください:</p>
+
+            <ul>
+                <li>個人の氏名・住所・電話番号・マイナンバー</li>
+                <li>社内の機密情報・未公開の事業計画</li>
+                <li>顧客データ・取引先との契約内容</li>
+                <li>パスワードやAPIキー</li>
+            </ul>
+
+            <p>業務で使う場合は、会社が契約しているエンタープライズ版（データが学習に使われない設定のもの）を利用するか、IT部門の方針を確認しましょう。</p>
+
+            <h3>落とし穴3: 1回で完璧を求める</h3>
+
+            <p>AIとのやり取りは<strong>「対話」</strong>です。1回のプロンプトで完璧な回答が得られることは稀です。</p>
+
+            <ul>
+                <li>「もう少し具体的にしてください」</li>
+                <li>「この部分をもっと詳しく」</li>
+                <li>「トーンをもう少しカジュアルに」</li>
+                <li>「3番目の案を膨らませて」</li>
+            </ul>
+
+            <p>こうしたフィードバックを重ねることで、出力は徐々にあなたの求める形に近づきます。<strong>1回で諦めず、対話を重ねる</strong>ことが、AI活用の最大のコツです。</p>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>「AIの出力は下書き」——この一言に、AI活用の本質が詰まっていると思います。AIは「完成品を作るマシン」ではなく、「叩き台を高速で出してくれるパートナー」。その叩き台を磨き上げるのは、あくまで人間の仕事です。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- セクション7: まとめ -->
+            <!-- ===================== -->
+
+            <h2 id="toc-7">7. まとめ</h2>
+
+            <p>この記事で解説したプロンプトエンジニアリングの要点を5つにまとめます。</p>
+
+            <ol>
+                <li><strong>AIは検索エンジンではない</strong>: キーワードの羅列ではなく、自然な言葉で「背景・目的・条件」を伝えよう</li>
+                <li><strong>人にお願いするように話しかける</strong>: ロールプロンプティングで役割を与え、具体的な指示を出す</li>
+                <li><strong>5つのテクニックで出力をコントロール</strong>: 条件指定、Few-shot、Chain-of-Thought、制約の明示、出力形式の指定</li>
+                <li><strong>感情を込めると精度が上がる</strong>: エモーションプロンプティングは研究でも効果が実証されている</li>
+                <li><strong>AIの出力は「下書き」と心得る</strong>: ハルシネーションに注意し、対話を重ねて出力を磨く</li>
+            </ol>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>プロンプトエンジニアリングは、特別な技術スキルがなくても今日から始められるAI活用の第一歩です。まずは日常の小さなタスクで試してみてください。「伝え方ひとつで、こんなに変わるんだ」——その実感が、あなたのAI活用を一段引き上げてくれるはずです。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="prism">
+                <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Prism</span>
+                    <p>最後にひとつ。プロンプトエンジニアリングは「AIを上手に操る技術」と思われがちですが、本質は「自分の思考を明確に言語化する技術」です。AIに伝える過程で、自分が何を求めているのかがクリアになる。これは、AI時代における最も価値のあるスキルのひとつだと思います。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>Prism、今回もいい深掘りをありがとう。読者のみなさん、また次の記事でお会いしましょう。</p>
+                </div>
+            </div>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="prompt-engineering-guide">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                var text = document.title + '\n' + location.href;
+                var overlay = document.createElement('div');
+                overlay.className = 'share-modal-overlay';
+                overlay.innerHTML = '<div class="share-modal">' +
+                    '<button class="share-modal-close" type="button">&times;</button>' +
+                    '<div class="share-modal-title">この記事を共有</div>' +
+                    '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                    '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                    '</div>';
+                overlay.querySelector('.share-modal-textarea').value = text;
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+                navigator.clipboard.writeText(text).catch(function() {});
+                overlay.querySelector('.share-modal-close').addEventListener('click', close);
+                overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+                var copyBtn = overlay.querySelector('.share-copy-btn');
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(text).then(function() {
+                        copyBtn.classList.add('is-copied');
+                        copyBtn.textContent = 'コピーされました';
+                        setTimeout(function() {
+                            copyBtn.classList.remove('is-copied');
+                            copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                        }, 2000);
+                    });
+                });
+                function close() {
+                    overlay.classList.remove('is-visible');
+                    setTimeout(function() { overlay.remove(); }, 250);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+</body>
+</html>

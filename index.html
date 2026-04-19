@@ -107,11 +107,40 @@
                 <h2>最新記事</h2>
             </div>
 
+            <div class="articles-filter">
+                <div class="filter-search">
+                    <svg class="filter-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" class="filter-search-input" placeholder="記事を検索...">
+                    <button class="filter-search-clear" type="button" hidden>&times;</button>
+                </div>
+                <div class="filter-tags">
+                    <button class="filter-tag is-active" data-tag="">すべて</button>
+                    <button class="filter-tag" data-tag="LLM">#LLM</button>
+                    <button class="filter-tag" data-tag="プロンプト">#プロンプト</button>
+                    <button class="filter-tag" data-tag="Claude">#Claude</button>
+                    <button class="filter-tag" data-tag="ChatGPT">#ChatGPT</button>
+                    <button class="filter-tag" data-tag="RAG">#RAG</button>
+                    <button class="filter-tag" data-tag="MCP">#MCP</button>
+                    <button class="filter-tag" data-tag="セキュリティ">#セキュリティ</button>
+                    <button class="filter-tag" data-tag="Python">#Python</button>
+                    <button class="filter-tag" data-tag="Git">#Git</button>
+                    <button class="filter-tag" data-tag="開発ツール">#開発ツール</button>
+                    <button class="filter-tag" data-tag="入門">#入門</button>
+                    <button class="filter-tag" data-tag="コスト">#コスト</button>
+                    <button class="filter-tag" data-tag="エージェント">#エージェント</button>
+                    <button class="filter-tag" data-tag="ローカルAI">#ローカルAI</button>
+                    <button class="filter-tag" data-tag="コラム">#コラム</button>
+                </div>
+                <div class="filter-status" hidden>
+                    <span class="filter-count"></span>件の記事
+                </div>
+            </div>
+
             <div class="articles-grid">
                 <!-- 記事カードはここに追加される -->
                 <!-- publisher エージェントが ARTICLE_INDEX.md を元に自動更新 -->
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="LLM,プロンプト,入門">
                     <a href="articles/prompt-engineering-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/prompt-engineering-guide-thumb.svg"
@@ -141,7 +170,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="LLM,Claude,コスト">
                     <a href="articles/opus-47-token-cost.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/opus-47-token-cost-thumb.svg"
@@ -171,7 +200,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="ChatGPT,セキュリティ,コラム">
                     <a href="articles/gpt-cyber-vs-mythos.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/gpt-cyber-vs-mythos-thumb.svg"
@@ -201,7 +230,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="Git,開発ツール,入門">
                     <a href="articles/git-github-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/git-github-guide-thumb.svg"
@@ -231,7 +260,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="LLM,ローカルAI">
                     <a href="articles/local-llm-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/local-llm-guide-thumb.svg"
@@ -257,7 +286,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="セキュリティ,入門">
                     <a href="articles/zero-trust-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/zero-trust-guide-thumb.svg"
@@ -283,7 +312,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="MCP">
                     <a href="articles/mcp-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/mcp-guide-thumb.svg"
@@ -309,7 +338,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="Python,入門">
                     <a href="articles/python-basics-for.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/python-basics-for-thumb.svg"
@@ -339,7 +368,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="LLM,プロンプト,エージェント,コラム">
                     <a href="articles/harness-engineering.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/harness-engineering-thumb.svg"
@@ -365,7 +394,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="LLM,RAG,入門">
                     <a href="articles/rag-basics.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/rag-basics-thumb.svg"
@@ -395,7 +424,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="セキュリティ,入門">
                     <a href="articles/passkey-guide.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/passkey-guide-thumb.svg"
@@ -421,7 +450,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="Python,入門">
                     <a href="articles/python-basics-if.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/python-basics-if-thumb.svg"
@@ -447,7 +476,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="LLM,ChatGPT">
                     <a href="articles/ai-model-wars-2026.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/ai-model-wars-2026-thumb.svg"
@@ -473,7 +502,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="LLM,コラム">
                     <a href="articles/vibe-coding.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/vibe-coding-thumb.svg"
@@ -499,7 +528,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="Claude,開発ツール">
                     <a href="articles/claude-code-skills.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/claude-code-skills-thumb.svg"
@@ -525,7 +554,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="Claude,開発ツール,エージェント">
                     <a href="articles/claude-code-agents-part2.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/claude-code-agents-part2-thumb.svg"
@@ -551,7 +580,7 @@
                     </a>
                 </article>
 
-                <article class="article-card animate-on-scroll">
+                <article class="article-card animate-on-scroll" data-tags="Claude,開発ツール,エージェント">
                     <a href="articles/claude-code-agents-part1.html">
                         <div class="card-thumbnail">
                             <img src="assets/images/thumbnails/claude-code-agents-thumb.svg"
@@ -576,6 +605,11 @@
                         </div>
                     </a>
                 </article>
+
+                <div class="filter-empty">
+                    <p class="filter-empty-text">該当する記事がありません</p>
+                    <p class="filter-empty-sub">別のキーワードやタグで検索してみてください</p>
+                </div>
 
             </div>
         </section>
@@ -637,6 +671,68 @@
             });
         })();
     
+        // Articles filter
+        (function() {
+            var searchInput = document.querySelector('.filter-search-input');
+            var clearBtn = document.querySelector('.filter-search-clear');
+            var tagButtons = document.querySelectorAll('.filter-tag');
+            var cards = document.querySelectorAll('.articles-grid .article-card');
+            var statusEl = document.querySelector('.filter-status');
+            var countEl = document.querySelector('.filter-count');
+            var emptyEl = document.querySelector('.filter-empty');
+            var activeTag = '';
+
+            if (!searchInput) return;
+
+            function applyFilter() {
+                var query = searchInput.value.trim().toLowerCase();
+                var visibleCount = 0;
+
+                cards.forEach(function(card) {
+                    var tags = (card.getAttribute('data-tags') || '').split(',');
+                    var title = (card.querySelector('.card-title') || {}).textContent || '';
+                    var excerpt = (card.querySelector('.card-excerpt') || {}).textContent || '';
+                    var tagsText = tags.join(' ');
+                    var searchTarget = (title + ' ' + excerpt + ' ' + tagsText).toLowerCase();
+
+                    var tagMatch = !activeTag || tags.indexOf(activeTag) !== -1;
+                    var textMatch = !query || searchTarget.indexOf(query) !== -1;
+
+                    if (tagMatch && textMatch) {
+                        card.style.display = '';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                var isFiltering = activeTag || query;
+                clearBtn.hidden = !query;
+                statusEl.hidden = !isFiltering;
+                if (isFiltering) {
+                    countEl.textContent = visibleCount;
+                }
+                emptyEl.style.display = (isFiltering && visibleCount === 0) ? 'block' : 'none';
+            }
+
+            searchInput.addEventListener('input', applyFilter);
+
+            clearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                applyFilter();
+                searchInput.focus();
+            });
+
+            tagButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    tagButtons.forEach(function(b) { b.classList.remove('is-active'); });
+                    btn.classList.add('is-active');
+                    activeTag = btn.getAttribute('data-tag') || '';
+                    applyFilter();
+                });
+            });
+        })();
+
         // Read tracker
         (function() {
             var key = 'veqtor-read-articles';

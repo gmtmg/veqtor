@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -199,7 +204,7 @@ tools: Read, Edit, Write, Bash, Grep, Glob</code></pre>
 
             <p>デバッガーには <code>Edit</code>（既存ファイルの修正）と <code>Write</code>（新しいファイルの作成）が追加されています。バグを直すためにはファイルの書き換えが必要だからです。</p>
 
-            <p>一方、コードレビュアーにはこれらの権限を与えていません。レビューの目的は「読んで指摘する」ことなので、ファイルを変更する必要がないからです。<strong>必要な権限だけを与える</strong>ことで、意図しない変更を防げます。</p>
+            <p>一方、コードレビュアーにはこれらの権限を与えていません。レビューの目的は「読んで指摘する」ことなので、ファイルを変更する必要がないからです。<mark class="marker"><strong>必要な権限だけを与える</strong></mark>ことで、意図しない変更を防げます。</p>
 
             <div class="writer-comment" data-writer="syntax">
                 <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
@@ -305,7 +310,7 @@ model: opus     # 難しい作業（高性能・高コスト）</code></pre>
 
             <h3>コツ1：1つのエージェントには1つの役割だけ</h3>
 
-            <p>「レビューもデバッグもテストもやる」エージェントは作らないでください。器用貧乏になります。「コードレビュー専門」「デバッグ専門」のように分けたほうが、それぞれの品質が上がります。</p>
+            <p>「レビューもデバッグもテストもやる」エージェントは作らないでください。器用貧乏になります。<mark class="marker">「コードレビュー専門」「デバッグ専門」のように分けたほうが、それぞれの品質が上がります</mark>。</p>
 
             <h3>コツ2：descriptionに「いつ使うか」を書く</h3>
 
@@ -369,7 +374,7 @@ claude
             <ol>
                 <li><strong>呼び出し方は4種類</strong>。自然に話しかける、@メンション、CLIフラグ、/agentsコマンド。まずは「話しかけるだけ」でOK</li>
                 <li><strong>toolsで権限を制御する</strong>。レビュー用は読み取り権限のみ、修正用は書き込み権限も付与するなど、用途に応じて使い分ける</li>
-                <li><strong>必須は2つだけ</strong>。<code>name</code>（名前）と <code>description</code>（説明）さえあれば動く</li>
+                <li><strong>必須は2つだけ</strong>。<mark class="marker"><code>name</code>（名前）と <code>description</code>（説明）さえあれば動く</mark></li>
                 <li><strong>1エージェント1役割</strong>が原則。専門性を高めるほうが品質が上がる</li>
                 <li><strong>まずは1つ作ってみる</strong>のが一番の近道。失敗してもファイルを消すだけでやり直せる</li>
             </ol>
@@ -442,6 +447,55 @@ claude
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -101,7 +106,7 @@
 
             <h2 id="toc-1">MCPとは何か？ ― AIの"USB-C"が生まれた理由</h2>
 
-            <p>2024年11月、Anthropicが<strong>MCP（Model Context Protocol）</strong>をオープンソースで発表した。一言で言えば、<strong>AIモデルと外部ツール・データソースの接続を標準化するプロトコル</strong>だ。</p>
+            <p>2024年11月、Anthropicが<strong>MCP（Model Context Protocol）</strong>をオープンソースで発表した。一言で言えば、<mark class="marker"><strong>AIモデルと外部ツール・データソースの接続を標準化するプロトコル</strong></mark>だ。</p>
 
             <p>なぜこれが必要だったのか。AIの世界には<strong>M&#215;N問題</strong>と呼ばれる深刻な課題があった。</p>
 
@@ -109,7 +114,7 @@
 
             <p>これはまさに、USB-Cが登場する前の充電器問題と同じだ。スマートフォン、タブレット、ノートPC、カメラ、イヤホン——デバイスごとに違う充電ケーブルが必要で、引き出しの中はケーブルだらけ。USB-Cはこのカオスを<strong>「1つの規格で全部つなぐ」</strong>ことで解決した。</p>
 
-            <p>MCPが目指しているのはまったく同じことだ。AIモデルとツールの間に<strong>共通の接続規格</strong>を置くことで、M&#215;N問題を<strong>M＋N</strong>に変える。100個の個別統合が、20個の標準接続になる。</p>
+            <p>MCPが目指しているのはまったく同じことだ。AIモデルとツールの間に<mark class="marker"><strong>共通の接続規格</strong></mark>を置くことで、M&#215;N問題を<strong>M＋N</strong>に変える。100個の個別統合が、20個の標準接続になる。</p>
 
             <div class="writer-comment" data-writer="bolt">
                 <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
@@ -139,7 +144,7 @@
 
             <p>外部のツールやデータソースを公開する軽量プログラム。GitHub、Slack、データベース、ファイルシステムなど、あらゆるサービスがMCPサーバーになれる。</p>
 
-            <p>通信には<strong>JSON-RPC 2.0</strong>が使われる。HTTPのようなステートレスな通信ではなく、<strong>ステートフルなセッション</strong>を維持する設計だ。これにより、AIとツールの間で文脈を保ったやり取りが可能になる。</p>
+            <p>通信には<strong>JSON-RPC 2.0</strong>が使われる。HTTPのようなステートレスな通信ではなく、<mark class="marker"><strong>ステートフルなセッション</strong></mark>を維持する設計だ。これにより、AIとツールの間で文脈を保ったやり取りが可能になる。</p>
 
             <h3>トランスポート層</h3>
 
@@ -429,6 +434,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

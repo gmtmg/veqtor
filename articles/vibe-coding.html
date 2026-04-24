@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -118,7 +123,7 @@
 
             <h2 id="toc-1">そもそもバイブコーディングとは何か</h2>
 
-            <p>ひとことで言えば、<strong>「AIに自然言語で指示して、コードを書いてもらう開発スタイル」</strong>だ。</p>
+            <p>ひとことで言えば、<mark class="marker"><strong>「AIに自然言語で指示して、コードを書いてもらう開発スタイル」</strong></mark>だ。</p>
 
             <p>従来のプログラミングでは、開発者がエディタに向かい、一行一行コードを書いていた。バイブコーディングでは、「ログイン画面を作って」「ボタンを押したらデータを保存して」と言葉で伝えるだけ。AIがコードを生成し、実行し、エラーが出れば自分で修正する。</p>
 
@@ -206,7 +211,7 @@
 
             <p>「プログラマーは要らなくなるのか」——この問いに対する筆者の答えは明確に<strong>No</strong>だ。</p>
 
-            <p>バイブコーディングが普及して起きることは、「プログラマーの消滅」ではなく、<strong>「プログラマーに求められるスキルの変化」</strong>だ。</p>
+            <p>バイブコーディングが普及して起きることは、「プログラマーの消滅」ではなく、<mark class="marker"><strong>「プログラマーに求められるスキルの変化」</strong></mark>だ。</p>
 
             <p>コードを一行一行書く能力の価値は下がる。代わりに、以下のスキルの価値が上がる。</p>
 
@@ -235,7 +240,7 @@
 
             <p>筆者の見解をはっきり述べる。</p>
 
-            <p>バイブコーディングは<strong>「革命」でも「幻想」でもなく、「新しい道具」</strong>だ。</p>
+            <p>バイブコーディングは<mark class="marker"><strong>「革命」でも「幻想」でもなく、「新しい道具」</strong></mark>だ。</p>
 
             <p>電卓が登場したとき、「もう暗算は要らない」と言われた。表計算ソフトが登場したとき、「もう経理は要らない」と言われた。実際に起きたのは、これらの道具を使いこなせる人がより高度な仕事をするようになっただけだ。</p>
 
@@ -243,7 +248,7 @@
 
             <p>ただし、ひとつだけ警鐘を鳴らしておきたい。</p>
 
-            <p><strong>道具の限界を知らずに使うのは危険だ。</strong></p>
+            <p><mark class="marker"><strong>道具の限界を知らずに使うのは危険だ。</strong></mark></p>
 
             <p>電動ノコギリは木を速く切れるが、使い方を知らなければ指を失う。バイブコーディングも同じだ。「何ができて、何ができないか」を理解した上で使うこと。プロトタイプと本番プロダクトの境界を見失わないこと。これがバイブコーディング時代を生きる上での最低限のリテラシーだと思う。</p>
 
@@ -321,6 +326,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

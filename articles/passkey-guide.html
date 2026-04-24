@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -111,7 +116,7 @@
 
             <p>「複雑なパスワードを、サービスごとに変えて、定期的に更新する」——これが理想だと言われ続けてきました。しかし現実には、人は平均して100以上のオンラインアカウントを持っています。すべてに異なる複雑なパスワードを設定し、記憶しておくのは非現実的です。</p>
 
-            <p>結果、多くの人が同じパスワードを使い回します。ひとつのサービスで漏洩したパスワードが、他のサービスへの不正ログインに使われる<strong>「クレデンシャルスタッフィング」</strong>は、攻撃者にとって最もコスパの良い手法のひとつです。</p>
+            <p>結果、多くの人が同じパスワードを使い回します。ひとつのサービスで漏洩したパスワードが、他のサービスへの不正ログインに使われる<mark class="marker"><strong>「クレデンシャルスタッフィング」</strong></mark>は、攻撃者にとって最もコスパの良い手法のひとつです。</p>
 
             <h3>大規模情報漏洩の現実</h3>
 
@@ -132,7 +137,7 @@
 
             <h2 id="toc-2">2. パスキーとは何か</h2>
 
-            <p><strong>パスキー（Passkey）</strong>は、パスワードに代わる新しい認証方式です。FIDO AllianceとW3Cが策定した国際標準規格に基づいており、Apple・Google・Microsoftの3社が共同で推進しています。</p>
+            <p><mark class="marker"><strong>パスキー（Passkey）</strong></mark>は、パスワードに代わる新しい認証方式です。FIDO AllianceとW3Cが策定した国際標準規格に基づいており、Apple・Google・Microsoftの3社が共同で推進しています。</p>
 
             <h3>「鍵と錠前」で理解するパスキー</h3>
 
@@ -217,7 +222,7 @@
                 <li><strong>秘密鍵</strong>はデバイス内の安全な領域（セキュアエンクレーブ/TPM）に保管される</li>
             </ol>
 
-            <p>ポイントは、<strong>秘密鍵がデバイスの外に出ない</strong>こと。サービス側に保存されるのは公開鍵のみです。公開鍵は文字通り「公開」しても問題ないデータであり、万が一サーバーから漏洩しても、それだけではログインできません。</p>
+            <p>ポイントは、<mark class="marker"><strong>秘密鍵がデバイスの外に出ない</strong></mark>こと。サービス側に保存されるのは公開鍵のみです。公開鍵は文字通り「公開」しても問題ないデータであり、万が一サーバーから漏洩しても、それだけではログインできません。</p>
 
             <h3>認証フロー: チャレンジ署名</h3>
 
@@ -235,7 +240,7 @@
 
             <h3>なぜフィッシングに強いのか: オリジンバインド</h3>
 
-            <p>パスキーの最大の強みが<strong>オリジンバインド</strong>です。</p>
+            <p>パスキーの最大の強みが<mark class="marker"><strong>オリジンバインド</strong></mark>です。</p>
 
             <p>パスキーの秘密鍵は、登録時のWebサイトのドメイン（オリジン）と紐づけられています。たとえば <code>accounts.google.com</code> で作ったパスキーは、<code>accounts.google.com</code> でしか使えません。</p>
 
@@ -467,6 +472,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

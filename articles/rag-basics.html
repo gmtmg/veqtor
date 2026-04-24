@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -136,7 +141,7 @@
 
             <h3>弱点1: ハルシネーション（幻覚）</h3>
 
-            <p>LLMは「もっともらしいが事実ではない回答」を生成することがあります。これを<strong>ハルシネーション</strong>と呼びます。存在しない論文を引用したり、架空の事実をさも本当のように語ったり。LLMは「知らない」と言うのが苦手なのです。</p>
+            <p>LLMは「もっともらしいが事実ではない回答」を生成することがあります。これを<mark class="marker"><strong>ハルシネーション</strong></mark>と呼びます。存在しない論文を引用したり、架空の事実をさも本当のように語ったり。LLMは「知らない」と言うのが苦手なのです。</p>
 
             <h3>弱点2: 学習データの鮮度切れ</h3>
 
@@ -170,7 +175,7 @@
 
             <p><strong>RAG（Retrieval-Augmented Generation）</strong>は、日本語で「検索拡張生成」と訳されます。2020年にMeta AI（旧Facebook AI Research）の研究チームが提唱した手法で、LLMの弱点を補うために生まれました。</p>
 
-            <p>一言でいえば、<strong>「LLMが回答する前に、関連する情報を外部から検索して渡してあげる仕組み」</strong>です。</p>
+            <p>一言でいえば、<mark class="marker"><strong>「LLMが回答する前に、関連する情報を外部から検索して渡してあげる仕組み」</strong></mark>です。</p>
 
             <h3>「図書館の司書」に例えると</h3>
 
@@ -224,7 +229,7 @@
 
             <h3>ステップ3: Generate（生成）</h3>
 
-            <p>拡張されたプロンプトをLLMに渡し、<strong>関連文書を根拠にした回答を生成</strong>してもらいます。LLMは自分の記憶だけでなく、渡された文書の内容を踏まえて回答するため、ハルシネーションのリスクが大幅に減ります。</p>
+            <p>拡張されたプロンプトをLLMに渡し、<mark class="marker"><strong>関連文書を根拠にした回答を生成</strong></mark>してもらいます。LLMは自分の記憶だけでなく、渡された文書の内容を踏まえて回答するため、ハルシネーションのリスクが大幅に減ります。</p>
 
             <div class="writer-comment" data-writer="compass">
                 <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
@@ -259,7 +264,7 @@
 
             <p>RAGの知識ベースとして使われるのが<strong>ベクトルデータベース</strong>です。Pinecone、Chroma、Weaviate、Qdrantなどが代表的なサービスです。</p>
 
-            <p>通常のデータベースがキーワードで検索するのに対し、ベクトルDBは<strong>「意味の近さ」で検索</strong>します。たとえば「犬」と「ペット」は文字列としては別物ですが、意味的には近い。ベクトルDBならこの関連性を捉えられるのです。</p>
+            <p>通常のデータベースがキーワードで検索するのに対し、ベクトルDBは<mark class="marker"><strong>「意味の近さ」で検索</strong></mark>します。たとえば「犬」と「ペット」は文字列としては別物ですが、意味的には近い。ベクトルDBならこの関連性を捉えられるのです。</p>
 
             <h3>埋め込みモデル（Embedding Model）</h3>
 
@@ -509,6 +514,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

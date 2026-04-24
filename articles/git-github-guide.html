@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -118,11 +123,11 @@ report_v2_修正版_最終_本当の最終版.docx</code></pre>
 
             <p>「あれ、どれが最新？」「誰がどこを変えたの？」「先週の状態に戻したい……」。こうした悩みは、プログラミングの世界でも日常茶飯事でした。</p>
 
-            <p><strong>Git</strong>は、この「ファイルのコピー地獄」を解決するために生まれたツールです。すべての変更履歴を自動で記録し、いつでも過去の状態に戻せる。しかも<strong>誰が・いつ・何を変えたか</strong>が一目瞭然です。</p>
+            <p><strong>Git</strong>は、この「ファイルのコピー地獄」を解決するために生まれたツールです。すべての変更履歴を自動で記録し、いつでも過去の状態に戻せる。しかも<mark class="marker"><strong>誰が・いつ・何を変えたか</strong></mark>が一目瞭然です。</p>
 
             <p>そして<strong>GitHub</strong>は、Gitで管理したコードをチームで共有・協力するためのプラットフォーム。世界中の開発者が使っている、いわば「開発者のSNS」です。</p>
 
-            <p>エンジニアを目指すなら、GitとGitHubは<strong>避けて通れない基礎スキル</strong>。この記事で、ゼロからしっかりマスターしましょう。</p>
+            <p>エンジニアを目指すなら、GitとGitHubは<mark class="marker"><strong>避けて通れない基礎スキル</strong></mark>。この記事で、ゼロからしっかりマスターしましょう。</p>
 
             <!-- ========================== -->
             <!-- セクション2: GitとGitHubは何が違うの？ -->
@@ -333,7 +338,7 @@ nothing added to commit but untracked files present</code></pre>
 
             <h3>ブランチとは？</h3>
 
-            <p>ブランチは、<strong>「パラレルワールド」を作る機能</strong>です。メインのコードに影響を与えずに、新機能の開発やバグ修正を別の世界線で進められます。</p>
+            <p>ブランチは、<mark class="marker"><strong>「パラレルワールド」を作る機能</strong></mark>です。メインのコードに影響を与えずに、新機能の開発やバグ修正を別の世界線で進められます。</p>
 
             <ul>
                 <li><strong>main</strong>（本編の世界） — 常に動く安定版のコード</li>
@@ -451,7 +456,7 @@ git push -u origin main</code></pre>
 
             <h3>Pull Requestとは？</h3>
 
-            <p>「自分のブランチの変更を、mainブランチに取り込んでほしい」というリクエスト。いきなりmergeするのではなく、<strong>チームメンバーにレビューしてもらってからマージ</strong>する仕組みです。</p>
+            <p>「自分のブランチの変更を、mainブランチに取り込んでほしい」というリクエスト。いきなりmergeするのではなく、<mark class="marker"><strong>チームメンバーにレビューしてもらってからマージ</strong></mark>する仕組みです。</p>
 
             <h3>PRの流れ</h3>
 
@@ -719,6 +724,55 @@ greeting = "Hi"</code></pre>
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

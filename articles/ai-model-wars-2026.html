@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -145,7 +150,7 @@
 
             <p>2026年3月5日リリースのGPT-5.4は、OpenAIの「統合路線」の集大成だ。</p>
 
-            <p>これまでOpenAIは汎用モデル（GPT-4o）と推論特化モデル（o1/o3シリーズ）を別々に提供していた。GPT-5.4はこの2系統を<strong>ひとつのモデルに統合</strong>。簡単な質問には即座に応答し、複雑な問題には自動で深い推論モードに切り替わる。</p>
+            <p>これまでOpenAIは汎用モデル（GPT-4o）と推論特化モデル（o1/o3シリーズ）を別々に提供していた。GPT-5.4はこの2系統を<mark class="marker">ひとつのモデルに統合</mark>。簡単な質問には即座に応答し、複雑な問題には自動で深い推論モードに切り替わる。</p>
 
             <p>目玉は<strong>ネイティブPC操作（Computer Use）</strong>だ。OSWorld-Verifiedベンチマークで<strong>75%</strong>のスコアを記録し、人間の平均（72%）を初めて超えた。ブラウザ操作、ファイル管理、アプリ操作をAIが直接行える時代が来た。</p>
 
@@ -168,7 +173,7 @@
 
             <p>2月5日にリリースされたClaude Opus 4.6の最大の特徴は<strong>「エージェントチーム」</strong>機能だ。</p>
 
-            <p>従来のAIエージェントは1つのタスクを1つのエージェントが処理していた。Opus 4.6では、大きなタスクを複数のエージェントに自動分割し、<strong>エージェント同士が直接連携</strong>して作業を進める。プロジェクトマネージャーが不要になる世界観だ。</p>
+            <p>従来のAIエージェントは1つのタスクを1つのエージェントが処理していた。Opus 4.6では、大きなタスクを複数のエージェントに自動分割し、<strong>エージェント同士が直接連携</strong>して作業を進める。<mark class="marker">プロジェクトマネージャーが不要になる世界観</mark>だ。</p>
 
             <p>文章生成の品質でも引き続きトップクラス。1回の出力で<strong>最大128Kトークン</strong>（約20万文字）を生成でき、長文コンテンツの一括生成に強い。</p>
 
@@ -243,7 +248,7 @@
 
             <h3>オープンソースの意味</h3>
 
-            <p>GPT-5もClaudeもGeminiもクローズドだ。Llama 4は<strong>重み・コードがオープン</strong>で、自社サーバーやエッジデバイスでの実行が可能。「データを外部に送りたくない」企業にとって、唯一の現実的な選択肢と言える。</p>
+            <p>GPT-5もClaudeもGeminiもクローズドだ。Llama 4は<mark class="marker"><strong>重み・コードがオープン</strong></mark>で、自社サーバーやエッジデバイスでの実行が可能。「データを外部に送りたくない」企業にとって、唯一の現実的な選択肢と言える。</p>
 
             <!-- ===================== -->
             <!-- xAI -->
@@ -329,7 +334,7 @@
 
             <h3>1. 「万能モデル」の終焉</h3>
 
-            <p>2025年までは「どのモデルが最強か」という一元的な比較が成立していた。2026年は違う。コーディングならClaude、推論ならGemini、リアルタイムならGrok、プライバシーならLlama——<strong>用途ごとに最適解が異なる時代</strong>に突入した。</p>
+            <p>2025年までは「どのモデルが最強か」という一元的な比較が成立していた。2026年は違う。コーディングならClaude、推論ならGemini、リアルタイムならGrok、プライバシーならLlama——<mark class="marker"><strong>用途ごとに最適解が異なる時代</strong></mark>に突入した。</p>
 
             <h3>2. エージェント能力の標準化</h3>
 
@@ -419,6 +424,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

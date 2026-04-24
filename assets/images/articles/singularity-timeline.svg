@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06060b"/>
+      <stop offset="100%" stop-color="#0e0e18"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.04" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="100" x2="800" y2="100"/><line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+  </g>
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#fff" opacity="0.9">Singularity Prediction Timeline</text>
+  <!-- Main timeline axis -->
+  <line x1="60" y1="200" x2="760" y2="200" stroke="#333" stroke-width="2"/>
+  <!-- Year markers -->
+  <g font-family="monospace" font-size="11" fill="#666" text-anchor="middle">
+    <text x="100" y="220">2024</text>
+    <line x1="100" y1="195" x2="100" y2="205" stroke="#444" stroke-width="1"/>
+    <text x="220" y="220">2026</text>
+    <line x1="220" y1="195" x2="220" y2="205" stroke="#444" stroke-width="1"/>
+    <text x="340" y="220">2029</text>
+    <line x1="340" y1="195" x2="340" y2="205" stroke="#444" stroke-width="1"/>
+    <text x="500" y="220">2035</text>
+    <line x1="500" y1="195" x2="500" y2="205" stroke="#444" stroke-width="1"/>
+    <text x="600" y="220">2040</text>
+    <line x1="600" y1="195" x2="600" y2="205" stroke="#444" stroke-width="1"/>
+    <text x="700" y="220">2045</text>
+    <line x1="700" y1="195" x2="700" y2="205" stroke="#444" stroke-width="1"/>
+  </g>
+  <!-- Prediction ranges (colored bands) -->
+  <!-- Amodei / Musk: 2026 AGI -->
+  <rect x="210" y="80" width="20" height="110" rx="3" fill="#ff3cac" opacity="0.15"/>
+  <circle cx="220" cy="85" r="4" fill="#ff3cac" opacity="0.8"/>
+  <text x="220" y="72" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#ff3cac" opacity="0.8">Amodei / Musk</text>
+  <text x="220" y="250" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#ff3cac" opacity="0.5">AGI 2026</text>
+  <!-- Altman: AGI 2029 -->
+  <rect x="330" y="100" width="20" height="90" rx="3" fill="#00d4ff" opacity="0.15"/>
+  <circle cx="340" cy="105" r="4" fill="#00d4ff" opacity="0.8"/>
+  <text x="340" y="92" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#00d4ff" opacity="0.8">Altman</text>
+  <text x="340" y="250" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#00d4ff" opacity="0.5">AGI 2029</text>
+  <!-- Kurzweil: AGI 2029, Singularity 2045 -->
+  <rect x="330" y="120" width="380" height="20" rx="3" fill="#f59e0b" opacity="0.08"/>
+  <circle cx="340" cy="130" r="4" fill="#f59e0b" opacity="0.8"/>
+  <circle cx="700" cy="130" r="6" fill="#f59e0b" opacity="0.9"/>
+  <text x="520" y="118" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f59e0b" opacity="0.8">Kurzweil</text>
+  <text x="340" y="265" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#f59e0b" opacity="0.5">AGI 2029</text>
+  <text x="700" y="250" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#f59e0b" opacity="0.7">Singularity 2045</text>
+  <!-- Researcher median: 2040-2045 -->
+  <rect x="590" y="150" width="120" height="20" rx="3" fill="#10b981" opacity="0.12"/>
+  <text x="650" y="148" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#10b981" opacity="0.8">Researcher Median</text>
+  <text x="650" y="265" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#10b981" opacity="0.5">2040-2045</text>
+  <!-- Legend -->
+  <g transform="translate(60, 300)">
+    <circle cx="10" cy="0" r="4" fill="#ff3cac" opacity="0.8"/>
+    <text x="20" y="4" font-family="sans-serif" font-size="9" fill="#aaa">AGI Optimistic (2026)</text>
+    <circle cx="200" cy="0" r="4" fill="#00d4ff" opacity="0.8"/>
+    <text x="210" y="4" font-family="sans-serif" font-size="9" fill="#aaa">AGI Moderate (2029)</text>
+    <circle cx="400" cy="0" r="4" fill="#f59e0b" opacity="0.8"/>
+    <text x="410" y="4" font-family="sans-serif" font-size="9" fill="#aaa">Kurzweil Full Arc</text>
+    <circle cx="580" cy="0" r="4" fill="#10b981" opacity="0.8"/>
+    <text x="590" y="4" font-family="sans-serif" font-size="9" fill="#aaa">Research Consensus</text>
+  </g>
+  <!-- Milestone labels at bottom -->
+  <g font-family="sans-serif" font-size="10" fill="#fff" opacity="0.6" text-anchor="middle">
+    <text x="280" y="350">AGI</text>
+    <text x="500" y="350">ASI</text>
+    <text x="700" y="350">Singularity</text>
+  </g>
+  <g opacity="0.3">
+    <line x1="280" y1="355" x2="500" y2="355" stroke="#fff" stroke-width="1" stroke-dasharray="4,3"/>
+    <line x1="500" y1="355" x2="700" y2="355" stroke="#fff" stroke-width="1" stroke-dasharray="4,3"/>
+    <polygon points="277,355 283,352 283,358" fill="#fff"/>
+    <polygon points="700,355 694,352 694,358" fill="#fff"/>
+  </g>
+</svg>

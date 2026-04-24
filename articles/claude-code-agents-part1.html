@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -125,11 +130,11 @@
 
             <h3>エージェントとは？</h3>
 
-            <p>Claude Codeの<strong>エージェント</strong>とは、ひとことで言えば<strong>「専門家のメモ書き」</strong>です。</p>
+            <p>Claude Codeの<strong>エージェント</strong>とは、ひとことで言えば<mark class="marker"><strong>「専門家のメモ書き」</strong></mark>です。</p>
 
             <p>日常で例えるとこうです。会社に新人が入ってきたとき、「この仕事はこのやり方でやってね」というマニュアルを渡しますよね。エージェントはまさにそれと同じです。AIに「あなたはコードレビューの専門家です。こういう手順でレビューしてください」という<strong>指示書をテキストファイルで渡す</strong>仕組みです。</p>
 
-            <p>つまり、エージェントの正体は<strong>ただのテキストファイル</strong>です。プログラミングの知識は必要ありません。</p>
+            <p>つまり、エージェントの正体は<mark class="marker"><strong>ただのテキストファイル</strong></mark>です。プログラミングの知識は必要ありません。</p>
 
             <div class="writer-comment" data-writer="compass">
                 <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
@@ -149,7 +154,7 @@
 
             <p>普通にClaude Codeに話しかけても仕事はしてくれます。でも、毎回「あなたはコードレビューの専門家で、こういう観点でチェックして、こういう形式でレポートして...」と説明するのは大変です。</p>
 
-            <p>エージェントを作っておけば、<strong>一度指示書を書くだけで、あとは何度でも同じ品質の仕事をしてくれます</strong>。</p>
+            <p>エージェントを作っておけば、<mark class="marker"><strong>一度指示書を書くだけで、あとは何度でも同じ品質の仕事をしてくれます</strong></mark>。</p>
 
             <ul>
                 <li>毎回の説明が不要になる（時間の節約）</li>
@@ -433,6 +438,55 @@ model: sonnet
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

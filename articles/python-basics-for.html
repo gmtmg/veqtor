@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -204,7 +209,7 @@ print("こんにちは")</code></pre>
                 <div class="playground-output"></div>
             </div>
 
-            <p>ここで大事なポイント。<code>range(5)</code> は <strong>0から始まって4で終わる</strong>ことに気づきましたか？ 5ではありません。プログラミングでは「0から数える」のが基本です。</p>
+            <p>ここで大事なポイント。<code>range(5)</code> は <mark class="marker"><strong>0から始まって4で終わる</strong></mark>ことに気づきましたか？ 5ではありません。プログラミングでは「0から数える」のが基本です。</p>
 
             <div class="writer-comment" data-writer="syntax">
                 <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
@@ -255,7 +260,7 @@ for i in range(1, 6):
                 <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
                 <div class="writer-comment-body">
                     <span class="writer-comment-name">Compass</span>
-                    <p><code>range(1, 6)</code> で「1から5まで」になります。<strong>終わりの数は含まれない</strong>のがポイント。最初は混乱しますが、「欲しい最後の数 + 1 を書く」と覚えましょう。</p>
+                    <p><code>range(1, 6)</code> で「1から5まで」になります。<mark class="marker"><strong>終わりの数は含まれない</strong></mark>のがポイント。最初は混乱しますが、「欲しい最後の数 + 1 を書く」と覚えましょう。</p>
                 </div>
             </div>
 
@@ -295,7 +300,7 @@ for i in range():
 
             <p>ここまでは <code>range()</code> を使って数の繰り返しを学びました。次は<strong>リスト</strong>を学びましょう。</p>
 
-            <p><strong>リスト</strong>とは、複数のデータをひとまとめにして管理できるデータ型です。<code>[ ]</code>（角カッコ）で囲み、要素をカンマで区切ります。</p>
+            <p><mark class="marker"><strong>リスト</strong></mark>とは、複数のデータをひとまとめにして管理できるデータ型です。<code>[ ]</code>（角カッコ）で囲み、要素をカンマで区切ります。</p>
 
             <pre><code>fruits = ["りんご", "バナナ", "みかん"]</code></pre>
 
@@ -831,6 +836,55 @@ print(f"合計: {total}円")</code></pre>
                 html.classList.add('theme-transitioning');
                 html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                 setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            }
+        });
+    })();
+
+    // Hamburger menu
+    (function() {
+        var hamburger = document.querySelector('.hamburger');
+        var navLinks = document.querySelector('.nav-links');
+        if (!hamburger || !navLinks) return;
+        hamburger.addEventListener('click', function() {
+            var isOpen = navLinks.classList.toggle('is-open');
+            hamburger.classList.toggle('is-active', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('is-open');
+                hamburger.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+
+    // Auto-hide header on scroll
+    (function() {
+        var header = document.querySelector('.site-header');
+        if (!header) return;
+        var lastY = window.scrollY;
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    var y = window.scrollY;
+                    if (y > 80 && y > lastY) {
+                        header.classList.add('is-hidden');
+                        var navLinks = document.querySelector('.nav-links');
+                        var hamburger = document.querySelector('.hamburger');
+                        if (navLinks) navLinks.classList.remove('is-open');
+                        if (hamburger) {
+                            hamburger.classList.remove('is-active');
+                            hamburger.setAttribute('aria-expanded', 'false');
+                        }
+                    } else {
+                        header.classList.remove('is-hidden');
+                    }
+                    lastY = y;
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
     })();

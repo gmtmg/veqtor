@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="800" height="340">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06060b"/>
+      <stop offset="100%" stop-color="#0e0e18"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="340" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.04" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="85" x2="800" y2="85"/><line x1="0" y1="170" x2="800" y2="170"/>
+    <line x1="0" y1="255" x2="800" y2="255"/>
+  </g>
+  <!-- Title -->
+  <text x="400" y="32" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" opacity="0.9">AGI → ASI → Singularity: 3 Stages</text>
+  <!-- Stage 1: AGI -->
+  <g transform="translate(130,170)">
+    <rect x="-90" y="-60" width="180" height="120" rx="12" fill="#141425" stroke="#00d4ff" stroke-width="1.5" opacity="0.8"/>
+    <text x="0" y="-36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#00d4ff">Stage 1: AGI</text>
+    <text x="0" y="-18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#00d4ff" opacity="0.6">Artificial General Intelligence</text>
+    <line x1="-70" y1="-8" x2="70" y2="-8" stroke="#00d4ff" stroke-width="0.5" opacity="0.3"/>
+    <text x="0" y="10" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aaa">Human-level reasoning</text>
+    <text x="0" y="26" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aaa">across all domains</text>
+    <text x="0" y="48" text-anchor="middle" font-family="monospace" font-size="9" fill="#00d4ff" opacity="0.5">~2029</text>
+  </g>
+  <!-- Arrow 1→2 -->
+  <g transform="translate(265,170)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <polygon points="62,0 54,-5 54,5" fill="#555"/>
+    <text x="30" y="-10" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">Self-improvement</text>
+  </g>
+  <!-- Stage 2: ASI -->
+  <g transform="translate(400,170)">
+    <rect x="-90" y="-60" width="180" height="120" rx="12" fill="#141425" stroke="#f59e0b" stroke-width="1.5" opacity="0.8"/>
+    <text x="0" y="-36" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f59e0b">Stage 2: ASI</text>
+    <text x="0" y="-18" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#f59e0b" opacity="0.6">Artificial Superintelligence</text>
+    <line x1="-70" y1="-8" x2="70" y2="-8" stroke="#f59e0b" stroke-width="0.5" opacity="0.3"/>
+    <text x="0" y="10" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aaa">Surpasses all human</text>
+    <text x="0" y="26" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aaa">cognitive abilities</text>
+    <text x="0" y="48" text-anchor="middle" font-family="monospace" font-size="9" fill="#f59e0b" opacity="0.5">~2035-2040</text>
+  </g>
+  <!-- Arrow 2→3 -->
+  <g transform="translate(535,170)">
+    <line x1="0" y1="0" x2="60" y2="0" stroke="#555" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <polygon points="62,0 54,-5 54,5" fill="#555"/>
+    <text x="30" y="-10" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#666">Fusion with biology</text>
+  </g>
+  <!-- Stage 3: Singularity -->
+  <g transform="translate(670,170)">
+    <rect x="-90" y="-60" width="180" height="120" rx="12" fill="#141425" stroke="#ff3cac" stroke-width="1.5" opacity="0.8"/>
+    <circle cx="0" cy="-38" r="12" fill="none" stroke="#ff3cac" stroke-width="0.8" opacity="0.3"/>
+    <circle cx="0" cy="-38" r="4" fill="#ff3cac" opacity="0.4"/>
+    <text x="0" y="-18" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#ff3cac">Stage 3: Singularity</text>
+    <line x1="-70" y1="-8" x2="70" y2="-8" stroke="#ff3cac" stroke-width="0.5" opacity="0.3"/>
+    <text x="0" y="10" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aaa">Irreversible, exponential</text>
+    <text x="0" y="26" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#aaa">civilizational transformation</text>
+    <text x="0" y="48" text-anchor="middle" font-family="monospace" font-size="9" fill="#ff3cac" opacity="0.5">~2045</text>
+  </g>
+  <!-- Bottom note -->
+  <text x="400" y="310" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#666">Kurzweil's framework: each stage enables the next through recursive self-improvement</text>
+</svg>

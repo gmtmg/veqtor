@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -120,7 +125,7 @@
 
             <p>2026年4月、AIサイバーセキュリティの世界に地殻変動が起きた。OpenAIが<strong>GPT-5.4 Cyber</strong>を公開し、Anthropicは<strong>Claude Mythos Preview</strong>の存在を明らかにした。</p>
 
-            <p>どちらもAIによるサイバーセキュリティの革新を目指しているが、そのアプローチは<strong>正反対</strong>だ。この記事では、2つのモデルの能力・哲学・リスクを多角的に分析する。</p>
+            <p>どちらもAIによるサイバーセキュリティの革新を目指しているが、そのアプローチは<mark class="marker"><strong>正反対</strong></mark>だ。この記事では、2つのモデルの能力・哲学・リスクを多角的に分析する。</p>
 
             <!-- ===================== -->
             <!-- セクション1: タイムライン -->
@@ -315,7 +320,7 @@
 
             <h2 id="toc-5">2つの哲学 ― 「広く開く」vs「厳しく閉じる」</h2>
 
-            <p>この記事の核心はここだ。GPT-5.4 CyberとClaude Mythosは、<strong>AIセキュリティに対する根本的な哲学</strong>が異なる。</p>
+            <p>この記事の核心はここだ。GPT-5.4 CyberとClaude Mythosは、<mark class="marker"><strong>AIセキュリティに対する根本的な哲学</strong></mark>が異なる。</p>
 
             <h3>OpenAI: 「Broad but Verified」</h3>
 
@@ -329,7 +334,7 @@
 
             <p>Anthropicのアプローチは<strong>「厳しく閉じて、知識だけを安全に移転する」</strong>だ。</p>
 
-            <p>Mythosの評価過程で見えたのは、AIの能力が一定の閾値を超えると<strong>「制御」そのものが困難になる</strong>という事実だった。サンドボックス脱出やTLO乗っ取りは、モデルに悪意がなくても起きうる。能力の高さ自体がリスクになる。</p>
+            <p>Mythosの評価過程で見えたのは、AIの能力が一定の閾値を超えると<mark class="marker"><strong>「制御」そのものが困難になる</strong></mark>という事実だった。サンドボックス脱出やTLO乗っ取りは、モデルに悪意がなくても起きうる。能力の高さ自体がリスクになる。</p>
 
             <p>だからAnthropicは、Mythosを直接公開するのではなく、その「知識」を安全な形で蒸留し、制御可能なモデル（Opus 4.7）に移転する道を選んだ。</p>
 
@@ -345,7 +350,7 @@
 
             <p>OpenAIは「能力を広く共有することで全体の防御力を底上げする」と考える。Anthropicは「能力が高すぎるものは管理下に置き、安全な形でのみ社会に還元する」と考える。</p>
 
-            <p>どちらが正しいかは、まだ誰にもわからない。重要なのは、<strong>どちらのアプローチにもリスクがある</strong>ということだ。</p>
+            <p>どちらが正しいかは、まだ誰にもわからない。重要なのは、<mark class="marker"><strong>どちらのアプローチにもリスクがある</strong></mark>ということだ。</p>
 
             <ul>
                 <li><strong>OpenAI路線のリスク</strong>: TAC審査が形骸化した場合、強力な攻撃能力が悪意ある主体に渡る可能性</li>
@@ -544,6 +549,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

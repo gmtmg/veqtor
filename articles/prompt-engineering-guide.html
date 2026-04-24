@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -170,7 +175,7 @@
 
             <p>AIは「ものすごく物知りだけど、あなたの状況を何も知らない人」と考えてください。どんなに優秀な人でも、「Excel やり方」とだけ言われたら困りますよね。何がしたいのか、どのレベルの話なのか、何も分からないからです。</p>
 
-            <p>だからこそ、<strong>「何を知りたいのか」「どんな状況なのか」「どんな形式で答えてほしいのか」</strong>を伝えることが重要になるのです。この「AIへの伝え方」を体系化したものが、<strong>プロンプトエンジニアリング</strong>です。</p>
+            <p>だからこそ、<strong>「何を知りたいのか」「どんな状況なのか」「どんな形式で答えてほしいのか」</strong>を伝えることが重要になるのです。この「AIへの伝え方」を体系化したものが、<mark class="marker"><strong>プロンプトエンジニアリング</strong></mark>です。</p>
 
             <div class="writer-comment" data-writer="prism">
                 <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
@@ -243,7 +248,7 @@
                 </tbody>
             </table>
 
-            <p>Good例に共通しているのは、<strong>背景・目的・条件</strong>の3つがしっかり含まれていることです。</p>
+            <p>Good例に共通しているのは、<mark class="marker"><strong>背景・目的・条件</strong>の3つ</mark>がしっかり含まれていることです。</p>
 
             <h3>ロールプロンプティング</h3>
 
@@ -310,7 +315,7 @@
 
             <h3>テクニック3: ステップバイステップで考えさせる（Chain-of-Thought）</h3>
 
-            <p>複雑な問題を解かせるとき、「ステップバイステップで考えてください」と一言添えるだけで、回答の精度が大幅に向上します。これを<strong>Chain-of-Thought（思考の連鎖）プロンプティング</strong>と呼びます。</p>
+            <p>複雑な問題を解かせるとき、「ステップバイステップで考えてください」と一言添えるだけで、回答の精度が大幅に向上します。これを<mark class="marker"><strong>Chain-of-Thought（思考の連鎖）プロンプティング</strong></mark>と呼びます。</p>
 
             <p>たとえば、数学の文章題やロジカルな判断が必要な場面で効果を発揮します。</p>
 
@@ -490,7 +495,7 @@
 
             <p>AIは<strong>ハルシネーション（幻覚）</strong>を起こすことがあります。存在しない論文を引用したり、架空の事実をもっともらしく語ったりします。特に固有名詞、数値、法律の条文などは、必ず自分で裏付けを取ってください。</p>
 
-            <p>プロンプトのテクニックでハルシネーションを減らすことはできますが、完全にゼロにはできません。<strong>「AIの出力は下書き」</strong>と考え、最終判断は人間が行うのが鉄則です。</p>
+            <p>プロンプトのテクニックでハルシネーションを減らすことはできますが、完全にゼロにはできません。<mark class="marker"><strong>「AIの出力は下書き」</strong></mark>と考え、最終判断は人間が行うのが鉄則です。</p>
 
             <h3>落とし穴2: 個人情報・機密情報を入力する</h3>
 
@@ -622,6 +627,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

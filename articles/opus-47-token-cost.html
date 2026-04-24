@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -112,7 +117,7 @@
             <ul>
                 <li>2026年4月16日にリリースされた Claude Opus 4.7 は、公式価格が<strong>据え置き</strong>（入力 $5 / 出力 $25 per MTok）</li>
                 <li>しかし<strong>新しいトークナイザ</strong>の採用により、<strong>同じテキストが 1.0〜1.35 倍のトークン数</strong>にカウントされるようになった</li>
-                <li>料金表は変わっていないのに、<strong>実質的な請求額は最大35%増</strong>。特に日本語・コード・構造化データで顕著で、英語圏より日本のチームの方がダメージがデカい</li>
+                <li>料金表は変わっていないのに、<mark class="marker"><strong>実質的な請求額は最大35%増</strong></mark>。特に日本語・コード・構造化データで顕著で、英語圏より日本のチームの方がダメージがデカい</li>
             </ul>
 
             <!-- ===================== -->
@@ -152,7 +157,7 @@
                 </table>
             </div>
 
-            <p>ここが日本人開発者にとっての最大のポイントだ。非英語はもともと英語よりトークン効率が悪いうえに、今回の変更は「コードと非英語」に偏って効いてくる。<strong>英語圏のユーザーより、日本語メインで使っているチームの方が確実にインパクトが大きい</strong>。</p>
+            <p>ここが日本人開発者にとっての最大のポイントだ。非英語はもともと英語よりトークン効率が悪いうえに、今回の変更は「コードと非英語」に偏って効いてくる。<mark class="marker"><strong>英語圏のユーザーより、日本語メインで使っているチームの方が確実にインパクトが大きい</strong></mark>。</p>
 
             <div class="writer-comment" data-writer="bolt">
                 <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
@@ -203,7 +208,7 @@
 
             <p>この掛け算が、「同じようなタスクを投げているのに、Pro / Max プランのクォータがやたら早く尽きる」という体感を生んでいる。</p>
 
-            <p><strong>救いはある</strong>。low-effort の Opus 4.7 が、medium-effort の Opus 4.6 とほぼ同等の性能を出すという報告があるからだ。つまり <code>effort</code> を 1 段下げるだけで、品質を保ったままトークン消費を抑えられるケースは多い。</p>
+            <p><strong>救いはある</strong>。<mark class="marker">low-effort の Opus 4.7 が、medium-effort の Opus 4.6 とほぼ同等の性能を出す</mark>という報告があるからだ。つまり <code>effort</code> を 1 段下げるだけで、品質を保ったままトークン消費を抑えられるケースは多い。</p>
 
             <div class="writer-comment" data-writer="bolt">
                 <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
@@ -321,7 +326,7 @@
 
             <h2 id="toc-8">まとめ</h2>
 
-            <p>Opus 4.7 のトークナイザ変更は、悪意ではなく技術的な副作用だとしても、「価格は上げないが、みんなが気づかないところで使用量が勝手に増える」という<strong>実質ステルス値上げ</strong>に近い構造になっている。</p>
+            <p>Opus 4.7 のトークナイザ変更は、悪意ではなく技術的な副作用だとしても、「価格は上げないが、みんなが気づかないところで使用量が勝手に増える」という<mark class="marker"><strong>実質ステルス値上げ</strong></mark>に近い構造になっている。</p>
 
             <p>特に日本語を主戦場にしているチームは、英語圏のユーザーより影響が大きく出る可能性が高い。切り替えるなら最低限、</p>
 
@@ -407,6 +412,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

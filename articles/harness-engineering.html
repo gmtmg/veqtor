@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -140,7 +145,7 @@
 
             <h3>第3段階: ハーネスエンジニアリング（2026年〜）</h3>
 
-            <p><strong>「どんな環境で働かせるか」</strong>——これがハーネスエンジニアリングの問いだ。</p>
+            <p><mark class="marker"><strong>「どんな環境で働かせるか」</strong></mark>——これがハーネスエンジニアリングの問いだ。</p>
 
             <p>「ハーネス」とは馬具、つまり手綱や鞍のことだ。馬を制御するのは騎手の力ではなく、馬具という<strong>仕組み</strong>だ。同じように、AIエージェントを制御するのはプロンプトの巧みさではなく、エージェントが動く<strong>環境そのもの</strong>だという考え方だ。</p>
 
@@ -172,7 +177,7 @@
 
             <p>エージェントが「何をしてはいけないか」を強制する層だ。</p>
 
-            <p>リンター、フォーマッター、CIパイプライン、プリコミットフック。これらは人間の開発者にとっても馴染み深いツールだが、ハーネスエンジニアリングではこれらを<strong>「エージェントの行動を制約するガードレール」</strong>として再定義する。</p>
+            <p>リンター、フォーマッター、CIパイプライン、プリコミットフック。これらは人間の開発者にとっても馴染み深いツールだが、ハーネスエンジニアリングではこれらを<mark class="marker"><strong>「エージェントの行動を制約するガードレール」</strong></mark>として再定義する。</p>
 
             <p>エージェントが生成したコードがリンターを通らなければ、自動的に修正される。テストが通らなければ、マージできない。人間がレビューで指摘する前に、機械的なチェックが品質を担保する。</p>
 
@@ -254,7 +259,7 @@
 
             <p>なぜか。シニアには「何を作るべきか」「この設計で問題ないか」を判断する基礎力がある。AIが出力したものを的確に評価し、方向修正できる。ジュニアにはその判断基準がないため、AIの出力を鵜呑みにし、問題が大きくなってから気づく。</p>
 
-            <p>AIは<strong>増幅装置</strong>だ。スキルのある人のスキルを増幅し、スキルのない人の「スキルのなさ」も増幅する。</p>
+            <p>AIは<mark class="marker"><strong>増幅装置</strong></mark>だ。スキルのある人のスキルを増幅し、スキルのない人の「スキルのなさ」も増幅する。</p>
 
             <div class="writer-comment" data-writer="prism">
                 <img src="../assets/images/writers/PRISM.png" alt="" class="writer-comment-avatar">
@@ -405,6 +410,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

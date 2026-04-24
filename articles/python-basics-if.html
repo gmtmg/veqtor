@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -151,7 +156,7 @@ print("Pythonへようこそ！")</textarea>
 
             <h2 id="toc-2">2. 変数とデータ型</h2>
 
-            <p><strong>変数（へんすう）</strong>は、データを入れておく「名前付きの箱」です。</p>
+            <p><strong>変数（へんすう）</strong>は、データを入れておく<mark class="marker">「名前付きの箱」</mark>です。</p>
 
             <pre><code>name = "太郎"
 age = 20
@@ -285,7 +290,7 @@ print(x <= 10)  # xは10以下？</textarea>
             <pre><code>if 条件:
     条件がTrueのとき実行される処理</code></pre>
 
-            <p>Pythonでは<strong>インデント（字下げ）</strong>がとても重要です。<code>if</code> の次の行は<strong>半角スペース4つ</strong>で字下げします。この字下げがないとエラーになります。</p>
+            <p>Pythonでは<mark class="marker"><strong>インデント（字下げ）</strong>がとても重要</mark>です。<code>if</code> の次の行は<strong>半角スペース4つ</strong>で字下げします。この字下げがないとエラーになります。</p>
 
             <h3>if / elif / else</h3>
 
@@ -300,7 +305,7 @@ elif temperature >= 25:
 else:
     print("過ごしやすい気温です")</code></pre>
 
-            <p>ポイントは、上から順にチェックされ、<strong>最初にTrueになった条件だけ</strong>が実行されることです。</p>
+            <p>ポイントは、上から順にチェックされ、<mark class="marker"><strong>最初にTrueになった条件だけ</strong>が実行される</mark>ことです。</p>
 
             <div class="code-playground">
                 <div class="playground-header">
@@ -705,6 +710,55 @@ else:
                 html.classList.add('theme-transitioning');
                 html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                 setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            }
+        });
+    })();
+
+    // Hamburger menu
+    (function() {
+        var hamburger = document.querySelector('.hamburger');
+        var navLinks = document.querySelector('.nav-links');
+        if (!hamburger || !navLinks) return;
+        hamburger.addEventListener('click', function() {
+            var isOpen = navLinks.classList.toggle('is-open');
+            hamburger.classList.toggle('is-active', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('is-open');
+                hamburger.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+
+    // Auto-hide header on scroll
+    (function() {
+        var header = document.querySelector('.site-header');
+        if (!header) return;
+        var lastY = window.scrollY;
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    var y = window.scrollY;
+                    if (y > 80 && y > lastY) {
+                        header.classList.add('is-hidden');
+                        var navLinks = document.querySelector('.nav-links');
+                        var hamburger = document.querySelector('.hamburger');
+                        if (navLinks) navLinks.classList.remove('is-open');
+                        if (hamburger) {
+                            hamburger.classList.remove('is-active');
+                            hamburger.setAttribute('aria-expanded', 'false');
+                        }
+                    } else {
+                        header.classList.remove('is-hidden');
+                    }
+                    lastY = y;
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
     })();

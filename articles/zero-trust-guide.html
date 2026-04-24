@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -124,7 +129,7 @@
 
             <p>「リモートワークにはVPNがあるじゃないか」——そう思う方もいるでしょう。たしかにVPNはリモートアクセスの定番手段ですが、大きな問題を抱えています。</p>
 
-            <p>VPNは「一度認証を通れば社内ネットワークに入れる」仕組みです。つまり、<strong>VPNの認証さえ突破されれば、攻撃者は社内ネットワーク全体に自由にアクセスできてしまいます</strong>。実際、VPNの脆弱性を突いた大規模な情報漏洩事件は後を絶ちません。</p>
+            <p>VPNは「一度認証を通れば社内ネットワークに入れる」仕組みです。つまり、<mark class="marker"><strong>VPNの認証さえ突破されれば、攻撃者は社内ネットワーク全体に自由にアクセスできてしまいます</strong></mark>。実際、VPNの脆弱性を突いた大規模な情報漏洩事件は後を絶ちません。</p>
 
             <p>さらに、VPNは同時接続数やパフォーマンスにも課題があり、全社員がリモートワークする状況では帯域のボトルネックにもなります。</p>
 
@@ -140,7 +145,7 @@
 
             <p>ゼロトラストの根本原則は非常にシンプルです。</p>
 
-            <p><strong>「何も信頼しない。常に検証する（Never Trust, Always Verify）」</strong></p>
+            <p><mark class="marker"><strong>「何も信頼しない。常に検証する（Never Trust, Always Verify）」</strong></mark></p>
 
             <p>社内ネットワークからのアクセスであっても、社外からのアクセスであっても、すべてを等しく「信頼できないもの」として扱い、アクセスのたびに認証と認可を行う。これがゼロトラストの基本姿勢です。</p>
 
@@ -350,7 +355,7 @@
 
             <h3>誤解1: 「製品を買えば完成する」</h3>
 
-            <p>これが最も多い誤解です。「ゼロトラスト対応」を謳う製品は数多く存在しますが、<strong>ゼロトラストは製品ではなく、考え方・アーキテクチャ</strong>です。</p>
+            <p>これが最も多い誤解です。「ゼロトラスト対応」を謳う製品は数多く存在しますが、<mark class="marker"><strong>ゼロトラストは製品ではなく、考え方・アーキテクチャ</strong></mark>です。</p>
 
             <p>特定のベンダーの製品を導入すれば自動的にゼロトラストになるわけではありません。自社の環境に合わせて、認証・デバイス管理・ネットワーク・データ保護を組み合わせた設計が必要です。製品はその設計を実現するための道具に過ぎません。</p>
 
@@ -386,7 +391,7 @@
 
             <h3>ゼロトラストは「完成」しない</h3>
 
-            <p>ゼロトラストは目的地ではなく、旅路です。完璧なゼロトラストなど存在しません。脅威は日々進化し、ビジネス環境も変化し続けます。大切なのは、<strong>「何も信頼しない」という原則を持ち続け、継続的に改善していくこと</strong>です。</p>
+            <p>ゼロトラストは目的地ではなく、旅路です。完璧なゼロトラストなど存在しません。脅威は日々進化し、ビジネス環境も変化し続けます。大切なのは、<mark class="marker"><strong>「何も信頼しない」という原則を持ち続け、継続的に改善していくこと</strong></mark>です。</p>
 
             <p>境界型セキュリティが「城壁」だとすれば、ゼロトラストは「免疫システム」です。外から来る脅威だけでなく、内部の異変にも反応し、常に全身をモニタリングしている。組織のセキュリティをそのレベルに引き上げていく——それがゼロトラストの本質です。</p>
 
@@ -454,6 +459,55 @@
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

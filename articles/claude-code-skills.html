@@ -38,6 +38,11 @@
         <nav class="nav-container">
             <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
             <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
                 <ul class="nav-links">
                     <li><a href="../index.html" class="nav-link">ホーム</a></li>
                     <li><a href="../writers.html" class="nav-link">ライター</a></li>
@@ -111,7 +116,7 @@
 
             <h2 id="toc-1">Skillsとは何か</h2>
 
-            <p>ひとことで言えば、<strong>「Claudeに渡すレシピ（手順書）」</strong>です。</p>
+            <p>ひとことで言えば、<mark class="marker"><strong>「Claudeに渡すレシピ（手順書）」</strong></mark>です。</p>
 
             <p>料理のレシピと同じです。「カレーの作り方」を一度メモしておけば、誰でも何度でも同じ味を再現できますよね。Skillsもまったく同じ考え方で、AIに対して「このタスクはこの手順でやってね」という指示書をファイルで渡します。</p>
 
@@ -171,7 +176,7 @@
 
             <h2 id="toc-3">Skillsの仕組み — なぜ軽量なのか</h2>
 
-            <p>Skillsには<strong>段階的読み込み（Progressive Disclosure）</strong>という賢い仕組みがあります。</p>
+            <p>Skillsには<mark class="marker"><strong>段階的読み込み（Progressive Disclosure）</strong></mark>という賢い仕組みがあります。</p>
 
             <ol>
                 <li><strong>起動時</strong>: スキル名と説明文だけを読み込む（1スキルあたり約100トークン）</li>
@@ -263,7 +268,7 @@ claude
                 </div>
             </div>
 
-            <p>また、スラッシュコマンドを使わなくても、「このコミットメッセージをチェックして」と自然に話しかけるだけでClaudeが自動的にこのスキルを見つけて適用してくれます。これが<strong>自動発見（Auto-discovery）</strong>の仕組みです。</p>
+            <p>また、スラッシュコマンドを使わなくても、「このコミットメッセージをチェックして」と自然に話しかけるだけでClaudeが自動的にこのスキルを見つけて適用してくれます。これが<mark class="marker"><strong>自動発見（Auto-discovery）</strong></mark>の仕組みです。</p>
 
             <!-- ===================== -->
             <!-- SKILL.mdの構造 -->
@@ -607,6 +612,55 @@ description: コミットメッセージの規約チェック。
                     html.classList.add('theme-transitioning');
                     html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                     setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
             });
         })();

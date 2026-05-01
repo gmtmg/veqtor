@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポスト量子暗号入門 ― 「量子コンピュータ」が暗号を壊す日に備える | Veqtor</title>
+    <meta name="description" content="量子コンピュータが現在の暗号を破る「Q-Day」に備え、ポスト量子暗号（PQC）の基礎からNIST標準化、企業の対応状況、今日からできる備えまでを完全解説。">
+    <meta property="og:title" content="ポスト量子暗号入門 ― 「量子コンピュータ」が暗号を壊す日に備える">
+    <meta property="og:description" content="量子コンピュータが暗号を破る日はいつ来るのか。ポスト量子暗号の基礎から企業の対応状況、今日からできる備えまで。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/post-quantum-crypto-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ポスト量子暗号入門 ― 「量子コンピュータ」が暗号を壊す日に備える",
+      "description": "量子コンピュータが現在の暗号を破る「Q-Day」に備え、ポスト量子暗号（PQC）の基礎からNIST標準化、企業の対応状況、今日からできる備えまでを完全解説。",
+      "datePublished": "2026-05-01",
+      "author": { "@type": "Person", "name": "Aegis" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/post-quantum-crypto-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/post-quantum-crypto"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-01">2026年5月1日</time>
+                <span class="article-category">Security</span>
+                <a href="../writers.html#aegis" class="article-writer" data-writer="aegis">
+                    <img src="../assets/images/writers/AEGIS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Aegis</span>
+                </a>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="post-quantum-crypto">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+            </div>
+            <h1>ポスト量子暗号入門 ― 「量子コンピュータ」が暗号を壊す日に備える</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 12分で学べること</span>
+                <span class="article-benefit-text">量子コンピュータの脅威とポスト量子暗号の全体像</span>
+            </div>
+
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">そもそも「量子コンピュータ」って何？</a></li>
+                    <li><a href="#toc-2">量子コンピュータはどこまで来たか ― 2026年の現在地</a></li>
+                    <li><a href="#toc-3">今の暗号はなぜ安全なのか</a></li>
+                    <li><a href="#toc-4">量子コンピュータが暗号を壊すメカニズム</a></li>
+                    <li><a href="#toc-5">ポスト量子暗号とは何か ― 量子でも破れない新しい数学</a></li>
+                    <li><a href="#toc-6">もう始まっている ― 大手企業の対応状況</a></li>
+                    <li><a href="#toc-7">今日からできること ― 個人と企業の備え</a></li>
+                    <li><a href="#toc-8">Q-Dayタイムライン ― いつ来るのか</a></li>
+                    <li><a href="#toc-9">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <div class="writer-intro" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Aegis</span>
+                    <p>2026年は「量子セキュリティ元年」と言われています。量子コンピュータが暗号を壊す日は、もはやSFの話ではありません。今日からの備えを一緒に確認していきましょう。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 1. 量子コンピュータとは -->
+            <!-- ========================= -->
+
+            <h2 id="toc-1">そもそも「量子コンピュータ」って何？</h2>
+
+            <p>ニュースで「量子コンピュータ」という言葉を見かける機会が増えた。だが、実際に何がすごくて、何が問題なのか。まずは基本を押さえよう。</p>
+
+            <h3>ビット vs キュービット ― コインで理解する</h3>
+
+            <p>普段使っているパソコンやスマホは<strong>古典コンピュータ</strong>と呼ばれる。情報の最小単位は<strong>ビット</strong>で、値は<strong>0か1のどちらか一方</strong>だ。コインに例えれば、表（0）か裏（1）か、常にどちらかが確定している。</p>
+
+            <p>量子コンピュータの情報単位は<strong>キュービット（量子ビット）</strong>という。キュービットは<mark class="marker"><strong>0と1を同時に持つ</strong></mark>ことができる。これを<strong>重ね合わせ（スーパーポジション）</strong>と呼ぶ。</p>
+
+            <p>比喩で言えば、<strong>回転しているコイン</strong>だ。着地するまでは表でも裏でもない——両方の可能性を同時に持っている。量子コンピュータは、この「回転中のコイン」を何十個、何百個と同時に操ることで、膨大な計算を一度に処理する。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/pqc-bit-vs-qubit.svg"
+                     alt="ビット vs キュービット: 古典ビットは0か1の一方、キュービットは重ね合わせで両方を同時に持つ" loading="lazy">
+                <figcaption>ビット（左）は常にどちらか一方。キュービット（右）は測定するまで両方の状態を同時に持つ</figcaption>
+            </figure>
+
+            <h3>迷路の比喩 ― なぜ速いのか</h3>
+
+            <p>古典コンピュータが迷路を解くとき、<strong>1本の道を進み、行き止まりなら戻ってやり直す</strong>。1つずつ順番に試すしかない。</p>
+
+            <p>量子コンピュータは、<strong>すべてのルートに同時に分身を送り込む</strong>ようなものだ。正解のルートがあれば、全ルートを試した結果から一瞬で見つけ出せる。これが「量子並列性」と呼ばれる能力であり、特定の問題——たとえば暗号の解読——において圧倒的な速度を発揮する。</p>
+
+            <h3>エンタングルメント ― 双子のサイコロ</h3>
+
+            <p>もう1つの重要な概念が<strong>エンタングルメント（量子もつれ）</strong>だ。</p>
+
+            <p>2つのサイコロが「量子もつれ」の状態にあると想像してほしい。一方を東京で振り、もう一方をニューヨークで振る。結果は<strong>必ず一致する</strong>。距離は関係ない。まるで2つのサイコロが瞬時に「会話」しているかのようだ。</p>
+
+            <p>量子コンピュータはこのエンタングルメントを活用して、複数のキュービット間で情報を即座に連携させ、計算のパワーを指数関数的に増大させる。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「回転するコイン」と「双子のサイコロ」。この2つのイメージを覚えておけば、量子コンピュータの本質はOKです。完璧に理解する必要はありません。</p>
+                </div>
+            </div>
+
+            <!-- ====================================== -->
+            <!-- 2. 2026年の現在地 -->
+            <!-- ====================================== -->
+
+            <h2 id="toc-2">量子コンピュータはどこまで来たか ― 2026年の現在地</h2>
+
+            <p>量子コンピュータの進化は加速している。2026年時点の主要な動きを整理しよう。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>組織</th>
+                        <th>量子ビット数</th>
+                        <th>特徴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Google（Willow）</td>
+                        <td>105</td>
+                        <td>エラー訂正で画期的成果。スパコン10<sup>25</sup>年の計算を5分で</td>
+                    </tr>
+                    <tr>
+                        <td>富士通 / 理研</td>
+                        <td>256</td>
+                        <td>超伝導量子コンピュータ。2025年実現</td>
+                    </tr>
+                    <tr>
+                        <td>IBM（Heron）</td>
+                        <td>156</td>
+                        <td>商用クラウドで量子サービスを提供</td>
+                    </tr>
+                    <tr>
+                        <td>Microsoft</td>
+                        <td>—</td>
+                        <td>トポロジカル量子ビットで新アプローチ</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>注目すべきは、暗号を破るために必要な量子ビット数の<strong>推定値が劇的に下がっている</strong>ことだ。かつては2,000万量子ビットが必要とされていたが、最新の研究では<strong>10万量子ビット程度</strong>で可能かもしれないという報告もある。</p>
+
+            <p>ただし、現時点で暗号を破れる量子コンピュータは<strong>まだ存在しない</strong>。論理キュービット（エラー訂正済みの安定したキュービット）の数がまだ足りない。</p>
+
+            <p><strong>すごいけど、まだ足りない</strong>——これが2026年の正確な状況だ。しかし「まだ足りない」は「永遠に足りない」ではない。そして、備えるには時間がかかる。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>セキュリティの鉄則は「脅威が現実になる前に備える」こと。量子コンピュータが暗号を破れるようになってから対策するのでは遅い。それがこの記事のメッセージです。</p>
+                </div>
+            </div>
+
+            <!-- ============================== -->
+            <!-- 3. 今の暗号はなぜ安全か -->
+            <!-- ============================== -->
+
+            <h2 id="toc-3">今の暗号はなぜ安全なのか ― 「掛け算は簡単、素因数分解は困難」</h2>
+
+            <p>量子コンピュータの脅威を理解するには、まず現在の暗号がなぜ安全なのかを知る必要がある。</p>
+
+            <h3>南京錠の比喩</h3>
+
+            <p>現在のインターネットセキュリティは、<strong>RSA</strong>や<strong>ECC（楕円曲線暗号）</strong>という暗号方式に支えられている。その安全性は、ある数学的な「一方通行」に基づいている。</p>
+
+            <p>南京錠を想像してほしい。<strong>閉めるのは誰でもできる</strong>（カチッと押すだけ）。しかし<strong>鍵なしで開けるのは極めて困難</strong>だ。</p>
+
+            <p>RSA暗号もこの原理だ。</p>
+
+            <ul>
+                <li><strong>掛け算は簡単</strong>: 61 × 53 = 3,233 ← すぐ計算できる</li>
+                <li><strong>素因数分解は困難</strong>: 3,233 = ? × ? ← 元の数を見つけるのは大変</li>
+            </ul>
+
+            <p>実際のRSA暗号では、600桁以上の巨大な数を使う。この数の素因数分解を古典コンピュータで行うと、宇宙の年齢を超える時間がかかる。<strong>だから安全</strong>だった。</p>
+
+            <h3>ECCも同じ原理</h3>
+
+            <p>ECC（楕円曲線暗号）は、楕円曲線上の点の計算において「順方向は簡単だが逆方向は困難」という性質を利用する。RSAよりも短い鍵で同等の安全性を実現でき、スマホやIoTデバイスで広く使われている。</p>
+
+            <p>しかしRSAもECCも、その安全性の根拠は<strong>「古典コンピュータでは解くのに時間がかかりすぎる」</strong>という前提に立っている。この前提が崩れたらどうなるか——それが次のセクションだ。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「南京錠は閉めるのは簡単、鍵なしで開けるのは大変」。暗号の仕組みはこのイメージだけで大丈夫。数学の詳細は気にしなくてOKです。</p>
+                </div>
+            </div>
+
+            <!-- ====================================== -->
+            <!-- 4. 量子が暗号を壊すメカニズム -->
+            <!-- ====================================== -->
+
+            <h2 id="toc-4">量子コンピュータが暗号を壊すメカニズム</h2>
+
+            <p>1994年、数学者ピーター・ショアが発表した<strong>ショアのアルゴリズム</strong>が、すべてを変えた。</p>
+
+            <h3>ショアのアルゴリズム ― 素因数分解を高速化する</h3>
+
+            <p>ショアのアルゴリズムは、量子コンピュータを使って<strong>素因数分解を劇的に高速化</strong>するアルゴリズムだ。古典コンピュータでは宇宙の寿命をかけても解けない問題を、十分な量子ビットがあれば<strong>数時間で解ける</strong>。</p>
+
+            <p>これが意味するのは明白だ——<strong>RSAは破られる</strong>。ECCも同様に、量子コンピュータに対して脆弱であることが証明されている。</p>
+
+            <p>つまり、現在のインターネットセキュリティの基盤が根底から崩れる可能性がある。</p>
+
+            <h3>「今盗んで、後で解読」（HNDL攻撃）</h3>
+
+            <p>ここで最も恐ろしいのは、<mark class="marker"><strong>HNDL攻撃（Harvest Now, Decrypt Later）</strong></mark>が<strong>今、この瞬間にも起きている</strong>という事実だ。</p>
+
+            <p>攻撃者（特に国家レベルの組織）は、今の段階で大量の暗号化データを収集・保存している。現時点では解読できないが、将来、十分な性能の量子コンピュータが完成したとき、<strong>過去に収集したデータを一括で解読する</strong>計画だ。</p>
+
+            <p>国家機密、医療記録、金融データ、個人情報——暗号化されていても、HNDL攻撃者にとっては「いつか開く金庫」にすぎない。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/pqc-hndl-timeline.svg"
+                     alt="HNDL攻撃のタイムライン: 現在データを収集し、Q-Day以降に量子コンピュータで一括解読" loading="lazy">
+                <figcaption>HNDL攻撃は「今」始まっている。Q-Dayが来たとき、過去のデータもすべて危険にさらされる</figcaption>
+            </figure>
+
+            <h3>Q-Day ― その日はいつ来るのか</h3>
+
+            <p>量子コンピュータがRSAやECCを実際に破れるようになる日を<strong>Q-Day</strong>と呼ぶ。専門家の予測は2029年〜2035年の間に集中している（詳細はセクション8で整理する）。</p>
+
+            <p>重要なのは、正確な日付ではない。<strong>「来るかもしれない」ではなく「いつ来るか」の問題になっている</strong>ことだ。そして、HNDL攻撃を考えれば、備えは「Q-Dayの前」ではなく「今日」から必要だ。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>HNDL攻撃が意味するのは、「Q-Dayが来てから対策すればいい」は完全に間違いということです。今日送信したデータが、10年後に丸裸になる可能性がある。</p>
+                </div>
+            </div>
+
+            <!-- ============================== -->
+            <!-- 5. ポスト量子暗号とは -->
+            <!-- ============================== -->
+
+            <h2 id="toc-5">ポスト量子暗号とは何か ― 量子でも破れない新しい数学</h2>
+
+            <p>では、量子コンピュータにも破れない暗号は存在するのか。答えは<strong>「ある」</strong>。それが<strong>ポスト量子暗号（PQC: Post-Quantum Cryptography）</strong>だ。</p>
+
+            <h3>NIST標準化 ― 2024年8月の歴史的決定</h3>
+
+            <p>米国国立標準技術研究所（NIST）は、8年間の検討・選考を経て、2024年8月にポスト量子暗号の最初の標準を正式に発表した。これは暗号の歴史における<strong>画期的な転換点</strong>だ。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>アルゴリズム</th>
+                        <th>用途</th>
+                        <th>基盤技術</th>
+                        <th>特徴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ML-KEM</strong>（旧CRYSTALS-Kyber）</td>
+                        <td>鍵交換</td>
+                        <td>格子暗号</td>
+                        <td>高速、鍵サイズ小。最も広く採用</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ML-DSA</strong>（旧CRYSTALS-Dilithium）</td>
+                        <td>デジタル署名</td>
+                        <td>格子暗号</td>
+                        <td>汎用的な署名方式。標準推奨</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SLH-DSA</strong>（旧SPHINCS+）</td>
+                        <td>デジタル署名</td>
+                        <td>ハッシュベース</td>
+                        <td>格子暗号と異なる数学的基盤。バックアップ用</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HQC</strong></td>
+                        <td>鍵交換</td>
+                        <td>符号暗号</td>
+                        <td>ML-KEMのバックアップ。2025年に追加標準化</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>格子暗号の比喩 ― 1000次元の地図</h3>
+
+            <p>ML-KEMやML-DSAの基盤となっている<strong>格子暗号</strong>とは何か。直感的に理解してみよう。</p>
+
+            <p>2次元の地図を想像してほしい。格子状の交差点が並んでいる。「この地点から最も近い交差点はどこか？」という問題は、見ればすぐにわかる。</p>
+
+            <p>では、<strong>1,000次元の地図</strong>ではどうか。人間にはもう想像すらできない。古典コンピュータでも、<strong>量子コンピュータでも</strong>、この問題を効率的に解く方法は見つかっていない。</p>
+
+            <p>この「高次元格子上の最近ベクトル問題」の困難さが、格子暗号の安全性の根拠だ。RSAの安全性が「素因数分解の困難さ」に依存していたのに対し、格子暗号は<strong>量子コンピュータでも解けない別の困難さ</strong>に依存している。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>要するに、「量子コンピュータでも得意じゃない種類の数学問題」を使っているのがポスト量子暗号。量子コンピュータはすべてを高速化できるわけではないんです。</p>
+                </div>
+            </div>
+
+            <!-- ============================== -->
+            <!-- 6. 大手企業の対応状況 -->
+            <!-- ============================== -->
+
+            <h2 id="toc-6">もう始まっている ― 大手企業の対応状況</h2>
+
+            <p>ポスト量子暗号は「将来の話」ではない。<strong>あなたが毎日使っているサービスで、すでに導入が進んでいる</strong>。</p>
+
+            <h3>Google Chrome ― ML-KEM標準搭載</h3>
+
+            <p>Google Chromeは、2024年後半からML-KEMによるハイブリッド鍵交換を<strong>デフォルトで有効化</strong>した。つまり、Chromeでウェブサイトにアクセスするだけで、あなたの通信はすでにポスト量子暗号で保護されている可能性が高い。</p>
+
+            <h3>Apple iMessage ― PQ3プロトコル</h3>
+
+            <p>Appleは2024年にiMessageに<strong>PQ3プロトコル</strong>を導入した。Appleはこれを「レベル3セキュリティ」——既知のメッセージングプロトコルで最も高いセキュリティレベル——と位置づけている。iPhoneのメッセージは、量子コンピュータに対しても安全に設計されている。</p>
+
+            <h3>Signal ― PQXDHプロトコル</h3>
+
+            <p>プライバシー重視のメッセージアプリSignalも、<strong>PQXDHプロトコル</strong>でポスト量子暗号に対応済みだ。暗号化通信の代名詞であるSignalが真っ先に対応したのは象徴的だ。</p>
+
+            <h3>Cloudflare ― 全トラフィックの65%が移行済み</h3>
+
+            <p>CDN大手のCloudflareは、2025年末時点で配信する全トラフィックの<strong>約65%がポスト量子暗号に移行済み</strong>と報告している。2024年3月から段階的に導入を進め、驚異的なスピードで移行を完了させつつある。</p>
+
+            <h3>AWS / Microsoft</h3>
+
+            <p>AWSはTLS 1.3接続でML-KEMベースのハイブリッド鍵交換をサポート開始。Microsoftも自社サービスのポスト量子暗号対応ロードマップを公開している。</p>
+
+            <p>つまり、<mark class="marker"><strong>あなたのスマホも、あなたのブラウザも、もうポスト量子暗号に対応している</strong></mark>可能性が高い。移行は静かに、しかし確実に進んでいる。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>「ポスト量子暗号？まだ先の話でしょ」と思った方——GoogleもAppleもSignalも、すでに動いています。対応していないのは、あなたの組織かもしれません。</p>
+                </div>
+            </div>
+
+            <!-- ============================== -->
+            <!-- 7. 今日からできること -->
+            <!-- ============================== -->
+
+            <h2 id="toc-7">今日からできること ― 個人と企業の備え</h2>
+
+            <p>では、具体的に何をすればいいのか。個人と企業、それぞれのアクションを整理する。</p>
+
+            <h3>個人でできること</h3>
+
+            <ol>
+                <li><strong>OS・アプリを最新に更新する</strong>: iOS、Android、Windows、macOS——すべて最新バージョンにアップデートするだけで、ポスト量子暗号の恩恵を受けられる場合が多い</li>
+                <li><strong>PQC対応ブラウザを使う</strong>: Chrome、Edge、Firefoxは順次PQCに対応。最新版を使えばOK</li>
+                <li><strong>PQC対応のメッセージアプリを使う</strong>: Signal、iMessageはすでに対応済み。機密性の高い会話にはこれらを使おう</li>
+            </ol>
+
+            <h3>企業がやるべき4フェーズ</h3>
+
+            <ol>
+                <li><strong>暗号棚卸し</strong>: 自社システムで使われている暗号方式を洗い出す。RSA、ECCがどこで使われているか把握する</li>
+                <li><strong>データ分類と優先度決定</strong>: 保護期間が長いデータ（医療記録、政府文書、知的財産）を特定し、移行の優先順位を決める</li>
+                <li><strong>ハイブリッド暗号の導入</strong>: 従来の暗号とポスト量子暗号を並行して使う「ハイブリッド方式」で段階的に移行する。万一PQCに問題が見つかっても、従来暗号がバックアップになる</li>
+                <li><strong>段階的な完全移行</strong>: NISTのスケジュールに合わせて、2030年のRSA非推奨、2035年のRSA禁止を見据えた計画的移行</li>
+            </ol>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/pqc-migration-roadmap.svg"
+                     alt="ポスト量子暗号の移行ロードマップ: 個人の3ステップと企業の4フェーズ" loading="lazy">
+                <figcaption>個人は「更新するだけ」。企業は4フェーズで計画的に移行する</figcaption>
+            </figure>
+
+            <h3>NISTの期限</h3>
+
+            <p>NISTは明確なスケジュールを示している。</p>
+
+            <ul>
+                <li><strong>2030年</strong>: RSA-2048など112ビット未満のセキュリティ強度を持つ暗号を<strong>非推奨</strong></li>
+                <li><strong>2035年</strong>: 従来暗号の使用を<strong>全面禁止</strong></li>
+            </ul>
+
+            <p>これは米国政府機関向けのスケジュールだが、民間企業も事実上このスケジュールに追随することが求められる。特にグローバル展開する企業にとっては必須の対応だ。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>個人としてやることは実はシンプル。「スマホとブラウザを最新版にする」——これだけで第一歩は完了です。難しいことは何もありません。</p>
+                </div>
+            </div>
+
+            <!-- ============================== -->
+            <!-- 8. Q-Dayタイムライン -->
+            <!-- ============================== -->
+
+            <h2 id="toc-8">Q-Dayタイムライン ― いつ来るのか</h2>
+
+            <p>Q-Dayの予測は専門家によって異なるが、共通しているのは「遠い未来ではない」という認識だ。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>予測元</th>
+                        <th>Q-Day予測時期</th>
+                        <th>備考</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Google（Hartmut Neven）</td>
+                        <td>2029年</td>
+                        <td>量子AI研究所所長の予測</td>
+                    </tr>
+                    <tr>
+                        <td>NIST</td>
+                        <td>2030年までに備え完了を要求</td>
+                        <td>標準化スケジュールから逆算</td>
+                    </tr>
+                    <tr>
+                        <td>BSI（ドイツ連邦情報セキュリティ庁）</td>
+                        <td>2030年代前半</td>
+                        <td>欧州の公的見解</td>
+                    </tr>
+                    <tr>
+                        <td>業界コンセンサス</td>
+                        <td>2028〜2035年</td>
+                        <td>複数の調査の中央値</td>
+                    </tr>
+                    <tr>
+                        <td>Global Risk Institute</td>
+                        <td>2033年（50%確率）</td>
+                        <td>毎年更新される確率予測</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>正確な日付を予測することは不可能だ。しかし、以下の点は確実に言える。</p>
+
+            <ul>
+                <li>量子コンピュータの進化は<strong>加速している</strong>（減速していない）</li>
+                <li>HNDL攻撃を考慮すると、<strong>Q-Dayの何年も前</strong>から実質的な脅威がある</li>
+                <li>暗号の移行には<strong>数年〜十数年</strong>かかる（一朝一夕にはいかない）</li>
+            </ul>
+
+            <p>不確実だが、<strong>備えるには十分な根拠がある</strong>——これが現時点での最も正確な答えだ。</p>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>「本当に来るかわからないなら対策しなくていいのでは？」——その考え方こそが最大のリスクです。セキュリティは「来てから考える」では間に合いません。</p>
+                </div>
+            </div>
+
+            <!-- ============================== -->
+            <!-- 9. まとめ -->
+            <!-- ============================== -->
+
+            <h2 id="toc-9">まとめ</h2>
+
+            <p>要点を3つに絞る。</p>
+
+            <ol>
+                <li><strong>量子コンピュータは今の暗号を破る力を持つ</strong>。ショアのアルゴリズムにより、RSAもECCも脆弱になる。Q-Dayは2029〜2035年と予測されている</li>
+                <li><strong>ポスト量子暗号はすでに標準化・実装済み</strong>。NISTが2024年に標準を発表し、Google、Apple、Signal、Cloudflareなど大手企業は移行を完了しつつある</li>
+                <li><strong>HNDL攻撃は「今」起きている</strong>。Q-Dayを待つまでもなく、今日の暗号化データは将来解読されるリスクがある。備えは今日から</li>
+            </ol>
+
+            <p>関連キーワードを整理しておく。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>キーワード</th>
+                        <th>概要</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ポスト量子暗号（PQC）</td>
+                        <td>量子コンピュータでも解読不可能な暗号方式の総称</td>
+                    </tr>
+                    <tr>
+                        <td>ML-KEM / ML-DSA</td>
+                        <td>NIST標準化されたポスト量子暗号アルゴリズム（格子暗号ベース）</td>
+                    </tr>
+                    <tr>
+                        <td>HNDL攻撃</td>
+                        <td>Harvest Now, Decrypt Later。今データを収集し、将来量子コンピュータで解読する攻撃</td>
+                    </tr>
+                    <tr>
+                        <td>Q-Day</td>
+                        <td>量子コンピュータが実用的にRSA/ECCを破れるようになる日</td>
+                    </tr>
+                    <tr>
+                        <td>ハイブリッド暗号</td>
+                        <td>従来暗号とPQCを併用する移行期の方式</td>
+                    </tr>
+                    <tr>
+                        <td>格子暗号</td>
+                        <td>高次元格子上の数学的問題に基づく暗号方式。PQCの主流</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="writer-comment" data-writer="aegis">
+                <img src="../assets/images/writers/AEGIS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Aegis</span>
+                    <p>脅威は未来にあるが、備えは今日から。量子コンピュータの進化を止めることはできません。できるのは、それに耐えうるセキュリティを今から構築することだけです。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>難しく感じても大丈夫です。まずは自分のスマホのアップデートから。それだけで、あなたはもうポスト量子暗号の世界に一歩踏み出しています。</p>
+                </div>
+            </div>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="post-quantum-crypto">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                var text = document.title + '\n' + location.href;
+                var overlay = document.createElement('div');
+                overlay.className = 'share-modal-overlay';
+                overlay.innerHTML = '<div class="share-modal">' +
+                    '<button class="share-modal-close" type="button">&times;</button>' +
+                    '<div class="share-modal-title">この記事を共有</div>' +
+                    '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                    '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                    '</div>';
+                overlay.querySelector('.share-modal-textarea').value = text;
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+                navigator.clipboard.writeText(text).catch(function() {});
+                overlay.querySelector('.share-modal-close').addEventListener('click', close);
+                overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+                var copyBtn = overlay.querySelector('.share-copy-btn');
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(text).then(function() {
+                        copyBtn.classList.add('is-copied');
+                        copyBtn.textContent = 'コピーされました';
+                        setTimeout(function() {
+                            copyBtn.classList.remove('is-copied');
+                            copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                        }, 2000);
+                    });
+                });
+                function close() {
+                    overlay.classList.remove('is-visible');
+                    setTimeout(function() { overlay.remove(); }, 250);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+</body>
+</html>

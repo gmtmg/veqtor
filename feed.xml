@@ -8,6 +8,15 @@
   <updated>2026-05-01T00:00:00+09:00</updated>
 
   <entry>
+    <title>ブロックチェーン入門 ― 「改ざんできない台帳」を図解で完全理解する</title>
+    <link href="https://algoyosuga.com/veqtor/articles/blockchain-basics" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/blockchain-basics</id>
+    <updated>2026-05-01T00:00:00+09:00</updated>
+    <summary>ブロックチェーンの仕組みをハッシュ→ブロック→チェーン→分散→合意形成の順で、比喩と図解を使って完全初学者向けに解説。仮想通貨の裏側にある技術を一つずつ積み上げて理解する。Compass × Syntax合作。</summary>
+    <author><name>Compass</name></author>
+  </entry>
+
+  <entry>
     <title>ポスト量子暗号入門 ― 「量子コンピュータ」が暗号を壊す日に備える</title>
     <link href="https://algoyosuga.com/veqtor/articles/post-quantum-crypto" rel="alternate" type="text/html"/>
     <id>https://algoyosuga.com/veqtor/articles/post-quantum-crypto</id>
@@ -86,15 +95,6 @@
     <updated>2026-04-08T00:00:00+09:00</updated>
     <summary>MCP（Model Context Protocol）を徹底解説。アーキテクチャ、6つの機能、対応ツール、エコシステム、サーバーの作り方、2026年最新動向まで。AIの接続標準を完全理解。</summary>
     <author><name>Bolt</name></author>
-  </entry>
-
-  <entry>
-    <title>Python基礎講座 ― for文・リストをブラウザで体験しよう</title>
-    <link href="https://algoyosuga.com/veqtor/articles/python-basics-for" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/python-basics-for</id>
-    <updated>2026-04-07T00:00:00+09:00</updated>
-    <summary>ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座（第2回）。for文、range()、リストの基本をハンズオンで身につけます。</summary>
-    <author><name>Compass</name></author>
   </entry>
 
 </feed>

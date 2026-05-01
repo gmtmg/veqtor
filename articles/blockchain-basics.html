@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブロックチェーン入門 ― 「改ざんできない台帳」を図解で完全理解する | Veqtor</title>
+    <meta name="description" content="ブロックチェーンの仕組みをハッシュ→ブロック→チェーン→分散→合意形成の順で、比喩と図解を使って完全初学者向けに解説。仮想通貨の裏側にある技術を一つずつ積み上げて理解する。">
+    <meta property="og:title" content="ブロックチェーン入門 ― 「改ざんできない台帳」を図解で完全理解する">
+    <meta property="og:description" content="ハッシュ→ブロック→チェーン→分散→合意形成。ブロックチェーンの本質を比喩と図解で完全理解する初学者向けガイド。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/blockchain-basics-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ブロックチェーン入門 ― 「改ざんできない台帳」を図解で完全理解する",
+      "description": "ブロックチェーンの仕組みをハッシュ→ブロック→チェーン→分散→合意形成の順で、比喩と図解を使って完全初学者向けに解説。仮想通貨の裏側にある技術を一つずつ積み上げて理解する。",
+      "datePublished": "2026-05-01",
+      "author": { "@type": "Person", "name": "Compass" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/blockchain-basics-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/blockchain-basics"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-01">2026年5月1日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+                <a href="../writers.html#syntax" class="article-writer" data-writer="syntax">
+                    <img src="../assets/images/writers/SYNTAX.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Syntax</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="blockchain-basics">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+            </div>
+            <h1>ブロックチェーン入門 ― 「改ざんできない台帳」を図解で完全理解する</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 12分で学べること</span>
+                <span class="article-benefit-text">ブロックチェーンの仕組みと本質を5つのキーワードで完全理解</span>
+            </div>
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">ブロックチェーンを一言で言うと？</a></li>
+                    <li><a href="#toc-2">ハッシュ ― データの「指紋」</a></li>
+                    <li><a href="#toc-3">ブロックとチェーン ― 「前のページの指紋を書く」ルール</a></li>
+                    <li><a href="#toc-4">分散ネットワーク ― なぜ「中央」がいらないのか</a></li>
+                    <li><a href="#toc-5">合意形成 ― みんなで「正しい」と決める方法</a></li>
+                    <li><a href="#toc-6">ビットコインだけじゃない ― ブロックチェーンの使い道</a></li>
+                    <li><a href="#toc-7">ブロックチェーンの限界と誤解</a></li>
+                    <li><a href="#toc-8">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>「ブロックチェーン」という言葉、ニュースでよく聞くけれどよくわからない――そんな方のために、比喩と図解を使って一つずつ積み上げていきます。この記事を読み終えるころには、仕組みの本質がしっかり見えているはずです。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 1. ブロックチェーンを一言で言うと？ -->
+            <!-- ========================= -->
+
+            <h2 id="toc-1">ブロックチェーンを一言で言うと？</h2>
+
+            <p>ブロックチェーンとは、ひとことで言えば<mark class="marker"><strong>「みんなで同じノートを持ち合う仕組み」</strong></mark>だ。</p>
+
+            <p>銀行を思い浮かべてほしい。あなたの預金残高は、銀行のシステムの中に「1冊の通帳」として記録されている。この通帳を管理しているのは銀行だけだ。銀行が「あなたの残高は100万円です」と言えば、それが事実になる。これが<strong>中央管理型</strong>の仕組みだ。</p>
+
+            <p>では、もしこの通帳のコピーを<strong>全員が持っていたら</strong>どうなるか？</p>
+
+            <p>たとえば、あなた、友人A、友人B、友人Cの4人が、まったく同じ内容の通帳を持っているとする。誰かが「自分の残高を100万円から1億円に書き換えた」としても、他の3人の通帳には「100万円」と書いてある。1人だけ違う→ <strong>改ざんがバレる</strong>。</p>
+
+            <p>これがブロックチェーンの根本的な発想だ。中央の管理者を置かず、参加者全員がデータのコピーを持つことで、不正を困難にする。</p>
+
+            <p>ただし、「全員が同じコピーを持つ」だけでは不十分だ。コピーの中身が本当に正しいかどうかを検証する仕組みが必要になる。その検証を可能にするのが、次に説明する<strong>「ハッシュ」</strong>という技術だ。</p>
+
+            <!-- ========================= -->
+            <!-- 2. ハッシュ ― データの「指紋」 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-2">ハッシュ ― データの「指紋」</h2>
+
+            <p>ハッシュとは、データの<strong>「指紋」</strong>のようなものだ。</p>
+
+            <p>人間の指紋を想像してほしい。指紋には3つの特徴がある。</p>
+
+            <ol>
+                <li><strong>一人ひとり違う</strong> ― 同じ指紋の人はいない</li>
+                <li><strong>いつ採取しても同じ</strong> ― 同じ指からは同じ指紋が取れる</li>
+                <li><strong>指紋から元の人を復元できない</strong> ― 指紋だけ見ても誰のものかわからない</li>
+            </ol>
+
+            <p>ハッシュ関数は、これとまったく同じ性質を持つ。どんなデータ（テキスト、画像、動画など）を入れても、<strong>固定長の文字列</strong>（ハッシュ値）に変換する。同じデータからは必ず同じハッシュ値が出るが、ハッシュ値から元のデータを復元することはできない。</p>
+
+            <p>そして最も重要な性質がある。<mark class="marker"><strong>入力を1文字でも変えると、ハッシュ値がまったく別物になる</strong></mark>。これを「雪崩効果（アバランシェ効果）」と呼ぶ。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/blockchain-hash.svg"
+                     alt="ハッシュ関数: 入力が1文字変わるだけでハッシュ値が激変する（雪崩効果）" loading="lazy">
+                <figcaption>ハッシュ関数は「データの指紋採取機」。1文字変えるだけで出力が激変する</figcaption>
+            </figure>
+
+            <p>この性質があるからこそ、「データが改ざんされていないか」を瞬時に検証できる。元のデータのハッシュ値を知っていれば、受け取ったデータのハッシュ値と比較するだけでいい。一致すれば改ざんなし、不一致なら改ざんありだ。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>補足すると、ブロックチェーンで使われるハッシュ関数は主に<strong>SHA-256</strong>（SHA = Secure Hash Algorithm）。出力は常に256ビット（16進数で64文字）になる。Linuxの<code>sha256sum</code>コマンドやPythonの<code>hashlib</code>で簡単に試せるので、気になる人は実際に動かしてみるといい。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 3. ブロックとチェーン -->
+            <!-- ========================= -->
+
+            <h2 id="toc-3">ブロックとチェーン ― 「前のページの指紋を書く」ルール</h2>
+
+            <p>ここまでの知識を組み合わせると、ブロックチェーンの核心が見えてくる。</p>
+
+            <p>ノートの比喩に戻ろう。ノートの各ページに取引記録を書き込むとする。このページ1枚1枚が<strong>「ブロック」</strong>だ。</p>
+
+            <p>各ブロックには、次の3つの情報が含まれる。</p>
+
+            <ol>
+                <li><strong>取引データ</strong> ― 「AさんがBさんに1BTC送った」などの記録</li>
+                <li><strong>自分のハッシュ値</strong> ― このブロック全体の「指紋」</li>
+                <li><strong>前のブロックのハッシュ値</strong> ― 1つ前のページの「指紋」</li>
+            </ol>
+
+            <p>3番目がポイントだ。各ブロックは、<mark class="marker"><strong>前のブロックの指紋（ハッシュ値）を必ず含む</strong></mark>。だからブロック同士が鎖（チェーン）のようにつながる。これが「ブロックチェーン」という名前の由来だ。</p>
+
+            <p>では、悪意のある人がBlock #1の取引データを書き換えたらどうなるか？</p>
+
+            <p>データが変わると、Block #1のハッシュ値も変わる（雪崩効果！）。するとBlock #2には「Block #1のハッシュ値はb92c」と書いてあるのに、実際のBlock #1のハッシュ値は別の値になっている。<strong>不一致が発覚</strong>する。</p>
+
+            <p>じゃあBlock #2のデータも書き換えれば？ そうするとBlock #2のハッシュ値も変わり、Block #3との整合性が崩れる。つまり、<strong>1つのブロックを改ざんすると、後続のすべてのブロックを書き換える必要がある</strong>。そしてこの書き換えは、次に説明する「分散ネットワーク」と「合意形成」によって、事実上不可能になっている。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/blockchain-structure.svg"
+                     alt="ブロックチェーンの連結構造: 正常なチェーンと改ざんした場合の比較" loading="lazy">
+                <figcaption>各ブロックが前のブロックのハッシュ値を持つことで、チェーン全体の整合性が保たれる</figcaption>
+            </figure>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>ここまで理解できれば、もう半分以上は押さえたも同然です。「ハッシュでデータの指紋を取る」→「各ブロックに前のブロックの指紋を書く」→「だから改ざんすると後ろ全部ズレる」。このロジック、シンプルですよね。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 4. 分散ネットワーク -->
+            <!-- ========================= -->
+
+            <h2 id="toc-4">分散ネットワーク ― なぜ「中央」がいらないのか</h2>
+
+            <p>ブロックチェーンのもう一つの柱が<strong>分散ネットワーク</strong>だ。</p>
+
+            <p>従来のシステムは「中央集権型」だ。銀行、SNS、ECサイト——すべて1つの会社（中央）がサーバーを管理し、データを保管している。これは効率的だが、弱点がある。</p>
+
+            <ul>
+                <li><strong>単一障害点</strong> ― 中央のサーバーがダウンすると、全員が使えなくなる</li>
+                <li><strong>権力の集中</strong> ― 管理者がデータを書き換えたり、アクセスを拒否したりできる</li>
+                <li><strong>攻撃対象</strong> ― ハッカーは中央のサーバー1つを狙えばいい</li>
+            </ul>
+
+            <p>ブロックチェーンはこれを逆転させる。データを1箇所に置くのではなく、ネットワークに参加する<strong>すべてのコンピュータ（ノード）</strong>が同じデータのコピーを持つ。</p>
+
+            <p>わかりやすい比喩で言えば、こういうことだ。</p>
+
+            <p>中央集権型は<strong>「町内会の回覧板」</strong>。1冊しかないから、回ってこないと情報がわからない。紛失したら終わりだ。分散型は<strong>「全員がコピーを持つLINEグループ」</strong>。全員が同じ情報を同時に持っている。誰かのスマホが壊れても、他の全員のスマホに情報が残っている。</p>
+
+            <p>ブロックチェーンのネットワークでは、新しいブロックが作られると、すべてのノードに配信される。各ノードは受け取ったブロックを検証し、問題がなければ自分のコピーに追加する。こうして、世界中に散らばった何千ものコンピュータが、同じ台帳を共有し続ける。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>技術的にはP2P（Peer-to-Peer）ネットワークと呼ばれる構成だ。BitTorrentと同じ原理で、参加者同士が直接通信する。中央サーバーがないから「誰かに止められる」ことがない。ビットコインのノード数は現在約1万8千台。これを全部ハッキングするのは事実上不可能だ。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 5. 合意形成 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-5">合意形成 ― みんなで「正しい」と決める方法</h2>
+
+            <p>ここで一つ問題が生じる。中央の管理者がいないなら、<strong>誰が「このデータは正しい」と決めるのか？</strong></p>
+
+            <p>答えは「みんなで決める」だ。これを<strong>合意形成（コンセンサス）</strong>と呼ぶ。</p>
+
+            <p>合意形成にはいくつかの方法があるが、代表的な2つを紹介する。</p>
+
+            <h3>PoW（Proof of Work / 仕事の証明）</h3>
+
+            <p>ビットコインが採用している方式だ。比喩で言えば、<strong>「超難しいパズルを最初に解いた人が、次のブロックを書く権利を得る」</strong>仕組みだ。</p>
+
+            <p>このパズルは計算量が膨大で、解くには大量の電力と計算機が必要になる。しかし解答の正しさを検証するのは一瞬でできる（ハッシュ値を1回計算するだけ）。パズルを解く作業が「マイニング（採掘）」と呼ばれるもので、解いた人には報酬として新しい暗号通貨が与えられる。</p>
+
+            <p>なぜこれが不正を防ぐのか？ 不正をするには、自分だけで全ネットワークの計算力の過半数を持つ必要がある。これを<strong>51%攻撃</strong>と呼ぶが、現実的にはビットコインネットワーク全体の51%の計算力を確保するには、小国の電力消費量に匹敵するコストがかかる。やるだけ損だ。</p>
+
+            <h3>PoS（Proof of Stake / 持分の証明）</h3>
+
+            <p>Ethereum（イーサリアム）が2022年に移行した方式だ。比喩で言えば、<strong>「保証金を預けた人の中から、ランダムにブロック作成者を選ぶ」</strong>仕組みだ。</p>
+
+            <p>不正をすると保証金（ステーク）が没収されるため、不正する動機がなくなる。PoWと比べて電力消費が99%以上削減できるのが大きな利点だ。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>合意形成は名前が難しそうですが、要は「みんなで不正ができないルールを決める」ということ。PoWは「膨大な労力をかけた人を信頼する」、PoSは「お金を預けた人を信頼する」。どちらも「不正するより正直にやるほうが得」という経済的インセンティブ設計なんです。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 6. ブロックチェーンの使い道 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-6">ビットコインだけじゃない ― ブロックチェーンの使い道</h2>
+
+            <p>ブロックチェーン＝仮想通貨、と思っている人は多い。だが仮想通貨は、ブロックチェーン技術の<strong>最初のユースケース</strong>に過ぎない。</p>
+
+            <p>ブロックチェーンの本質は<mark class="marker"><strong>「信頼のインフラ」</strong></mark>だ。「改ざんできない記録を、中央の管理者なしで共有する」——この能力は、さまざまな分野に応用できる。</p>
+
+            <h3>スマートコントラクト</h3>
+
+            <p><strong>「自動販売機」</strong>を想像してほしい。お金を入れてボタンを押せば、人間の介在なしに商品が出てくる。スマートコントラクトは、これのデジタル版だ。「条件Aが満たされたら、自動的にBを実行する」というプログラムをブロックチェーン上に置く。契約の実行に仲介者が不要になる。</p>
+
+            <h3>NFT（非代替性トークン）</h3>
+
+            <p>デジタルアートや限定アイテムの「所有証明書」をブロックチェーンに記録する。コピーは自由にできるが、「本物の所有者は誰か」がチェーン上に不変に記録される。</p>
+
+            <h3>サプライチェーン管理</h3>
+
+            <p>食品がどこの農場で作られ、どの倉庫を経由し、いつ店頭に並んだか。この流通経路をブロックチェーンに記録すれば、改ざんできない追跡が可能になる。食品偽装や偽ブランド品の防止に活用されている。</p>
+
+            <h3>電子投票</h3>
+
+            <p>投票結果をブロックチェーンに記録すれば、「票の改ざん」や「二重投票」を技術的に防げる。透明性と匿名性を両立できる可能性がある。</p>
+
+            <h3>DeFi（分散型金融）</h3>
+
+            <p>銀行や証券会社を介さずに、貸し借り、両替、保険などの金融サービスをブロックチェーン上で実現する。24時間365日、誰でもアクセスできる金融インフラだ。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>スマートコントラクトの登場は技術的に大きな転換点だった。ビットコインのブロックチェーンは「台帳」だが、Ethereumのブロックチェーンは「プログラムを実行できるコンピュータ」だ。この違いがDeFiやNFTを可能にした。興味がある人はSolidityという言語を覗いてみるといい。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 7. ブロックチェーンの限界と誤解 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-7">ブロックチェーンの限界と誤解</h2>
+
+            <p>ブロックチェーンは万能ではない。この技術を正しく評価するために、限界と誤解を整理しておこう。</p>
+
+            <h3>処理速度の課題</h3>
+
+            <p>Visaのクレジットカード決済は毎秒<strong>約65,000件</strong>を処理できる。一方、ビットコインは毎秒<strong>約7件</strong>だ。分散で検証するという仕組み上、中央集権型のシステムに処理速度で勝つのは難しい。Layer 2ソリューション（Lightning Networkなど）やシャーディングといった技術で改善が進んでいるが、完全に解決されたわけではない。</p>
+
+            <h3>エネルギー問題</h3>
+
+            <p>PoW（Proof of Work）は膨大な電力を消費する。ビットコインのマイニングに使われる電力は、一部の国の電力消費量を超えるほどだ。この問題に対応するため、EthereumはPoW→PoSに移行し、エネルギー消費を<strong>99.95%削減</strong>した。ただしPoSにも「富の集中」という別の課題がある。</p>
+
+            <h3>「ブロックチェーンに載せれば安全」は誤り</h3>
+
+            <p>ブロックチェーンは「記録の改ざん」を防ぐが、「最初に記録するデータが正しいか」は保証しない。嘘のデータをブロックチェーンに記録すれば、その嘘が改ざんできない形で残るだけだ。入口の品質は人間が担保する必要がある。</p>
+
+            <h3>向いている用途 / 向いていない用途</h3>
+
+            <p>ブロックチェーンが力を発揮するのは、<strong>「複数の組織間で、信頼できる第三者なしにデータを共有する必要がある」</strong>場面だ。逆に、1つの組織が管理すれば済むデータベースにブロックチェーンを使うのは過剰設計だ。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>エンジニア視点で言うと、「そのシステムに本当にブロックチェーンが必要か？」は常に問うべきだ。判断基準は3つ。(1)複数の主体がデータを共有するか、(2)信頼できる中央管理者がいないか、(3)データの改ざん耐性が必要か。3つとも当てはまるなら検討の価値がある。1つでも当てはまらなければ、普通のデータベースのほうが速くて安い。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 8. まとめ -->
+            <!-- ========================= -->
+
+            <h2 id="toc-8">まとめ</h2>
+
+            <p>この記事で学んだことを3つに絞る。</p>
+
+            <ol>
+                <li><strong>ブロックチェーンは「みんなで同じ台帳を持つ」仕組み</strong>。中央の管理者がいなくても、全員がコピーを持つことで改ざんを困難にする</li>
+                <li><strong>ハッシュとチェーンで整合性を保証する</strong>。各ブロックに前のブロックのハッシュ値を含めることで、1つでも改ざんすればチェーン全体の不整合が発覚する</li>
+                <li><strong>合意形成で「正しさ」を決める</strong>。PoWやPoSなどのルールによって、中央管理者なしでも全員が同じ結論に至る仕組みを実現している</li>
+            </ol>
+
+            <p>さらに学びたい方のために、関連キーワードを整理しておく。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>キーワード</th>
+                        <th>概要</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SHA-256</td>
+                        <td>ビットコインで使われるハッシュ関数。256ビットの固定長出力</td>
+                    </tr>
+                    <tr>
+                        <td>マイニング</td>
+                        <td>PoWにおける新ブロック作成作業。計算パズルを解いて報酬を得る</td>
+                    </tr>
+                    <tr>
+                        <td>スマートコントラクト</td>
+                        <td>ブロックチェーン上で自動実行されるプログラム。Ethereumが先駆</td>
+                    </tr>
+                    <tr>
+                        <td>51%攻撃</td>
+                        <td>ネットワークの過半数を支配する攻撃。理論上の脅威だが現実には極めて困難</td>
+                    </tr>
+                    <tr>
+                        <td>Layer 2</td>
+                        <td>メインチェーンの外で取引を処理し、処理速度を向上させる技術</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>ハッシュ→ブロック→チェーン→分散→合意。この5つを覚えれば、ブロックチェーンの本質は理解できています。新しいサービスや技術が出てきたときに「あ、これはブロックチェーンのここに関わる話だな」と見抜けるようになるはずです。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>技術の仕組みがわかれば、どんな新サービスが出てきても自分で評価できる。「このプロジェクトは本当にブロックチェーンが必要なのか？」を問える人は、投資判断でも技術選定でも強い。仕組みを知ることが、最大のリスクヘッジだ。</p>
+                </div>
+            </div>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="blockchain-basics">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                var text = document.title + '\n' + location.href;
+                var overlay = document.createElement('div');
+                overlay.className = 'share-modal-overlay';
+                overlay.innerHTML = '<div class="share-modal">' +
+                    '<button class="share-modal-close" type="button">&times;</button>' +
+                    '<div class="share-modal-title">この記事を共有</div>' +
+                    '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                    '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                    '</div>';
+                overlay.querySelector('.share-modal-textarea').value = text;
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+                navigator.clipboard.writeText(text).catch(function() {});
+                overlay.querySelector('.share-modal-close').addEventListener('click', close);
+                overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+                var copyBtn = overlay.querySelector('.share-copy-btn');
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(text).then(function() {
+                        copyBtn.classList.add('is-copied');
+                        copyBtn.textContent = 'コピーされました';
+                        setTimeout(function() {
+                            copyBtn.classList.remove('is-copied');
+                            copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                        }, 2000);
+                    });
+                });
+                function close() {
+                    overlay.classList.remove('is-visible');
+                    setTimeout(function() { overlay.remove(); }, 250);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+</body>
+</html>

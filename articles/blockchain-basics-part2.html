@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する | Veqtor</title>
+    <meta name="description" content="ブロックチェーン後編。公開鍵暗号、トランザクションの流れ、マークルツリー、Solidityによるスマートコントラクト実装、Web3開発エコシステムまで技術の裏側を実践的に解説。">
+    <meta property="og:title" content="ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する">
+    <meta property="og:description" content="公開鍵暗号、トランザクション、マークルツリー、Solidityスマートコントラクト。ブロックチェーンの技術的裏側を実践で理解する後編。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/blockchain-basics-part2-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する",
+      "description": "ブロックチェーン後編。公開鍵暗号、トランザクションの流れ、マークルツリー、Solidityによるスマートコントラクト実装、Web3開発エコシステムまで技術の裏側を実践的に解説。",
+      "datePublished": "2026-05-02",
+      "author": { "@type": "Person", "name": "Syntax" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/blockchain-basics-part2-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/blockchain-basics-part2"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-02">2026年5月2日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#syntax" class="article-writer" data-writer="syntax">
+                    <img src="../assets/images/writers/SYNTAX.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Syntax</span>
+                </a>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="blockchain-basics-part2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+            </div>
+            <h1>ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 15分で学べること</span>
+                <span class="article-benefit-text">ブロックチェーンの技術的裏側と実践スキルの全体像</span>
+            </div>
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">前編の復習と後編のゴール</a></li>
+                    <li><a href="#toc-2">公開鍵暗号 ― ブロックチェーンの「身分証明書」</a></li>
+                    <li><a href="#toc-3">トランザクションの一生 ― 送金ボタンから確定まで</a></li>
+                    <li><a href="#toc-4">マークルツリー ― 大量の取引を1つの指紋にまとめる</a></li>
+                    <li><a href="#toc-5">スマートコントラクト実践 ― Solidityで「貯金箱」を書く</a></li>
+                    <li><a href="#toc-6">ブロックチェーン開発の全体像 ― ツールとエコシステム</a></li>
+                    <li><a href="#toc-7">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <div class="writer-intro" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Syntax</span>
+                    <p>前編ではCompassが「ブロックチェーンとは何か」を丁寧に解説してくれた。後編では俺が技術の裏側を掘り下げる。公開鍵暗号、トランザクションの仕組み、マークルツリー、そしてSolidityでスマートコントラクトを実際に書くところまで。読み終わったら、手を動かしたくなるはずだ。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 1. 前編の復習と後編のゴール -->
+            <!-- ========================= -->
+
+            <h2 id="toc-1">前編の復習と後編のゴール</h2>
+
+            <p><a href="blockchain-basics.html">前編</a>で学んだ5つのキーワードを30秒で振り返ろう。</p>
+
+            <ol>
+                <li><strong>ハッシュ</strong> ― データの「指紋」。1文字変えるだけで出力が激変する</li>
+                <li><strong>ブロック</strong> ― 取引データ＋自分のハッシュ＋前のブロックのハッシュ</li>
+                <li><strong>チェーン</strong> ― ブロック同士がハッシュで鎖のようにつながる</li>
+                <li><strong>分散</strong> ― 全員がコピーを持つP2Pネットワーク</li>
+                <li><strong>合意形成</strong> ― PoW/PoSで「正しさ」をみんなで決める</li>
+            </ol>
+
+            <p>前編は「概念の理解」だった。後編のテーマは<mark class="marker"><strong>「技術の裏側と実践」</strong></mark>だ。</p>
+
+            <p>具体的には、次の5つを扱う。</p>
+
+            <ul>
+                <li><strong>公開鍵暗号</strong> ― 送金の「本人証明」をどう実現するか</li>
+                <li><strong>トランザクション</strong> ― 送金ボタンを押してから確定するまでの全工程</li>
+                <li><strong>マークルツリー</strong> ― 大量の取引を効率的に検証するデータ構造</li>
+                <li><strong>スマートコントラクト</strong> ― Solidityで実際にコードを書く</li>
+                <li><strong>開発エコシステム</strong> ― Web3開発者が使うツール群</li>
+            </ul>
+
+            <!-- ========================= -->
+            <!-- 2. 公開鍵暗号 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-2">公開鍵暗号 ― ブロックチェーンの「身分証明書」</h2>
+
+            <p>前編では「全員が同じ台帳を持つ」と説明した。ではここで疑問が浮かぶ。<strong>「AさんがBさんに1BTC送った」という記録を、誰でも書き込めるなら、偽物の送金記録を書けてしまうのでは？</strong></p>
+
+            <p>この問題を解決するのが<strong>公開鍵暗号</strong>だ。</p>
+
+            <h3>秘密鍵と公開鍵のペア</h3>
+
+            <p>現実世界の比喩で説明しよう。</p>
+
+            <ul>
+                <li><strong>秘密鍵</strong> ＝ あなただけが持つ<strong>印鑑</strong>。絶対に他人に見せない</li>
+                <li><strong>公開鍵</strong> ＝ みんなに公開する<strong>口座番号</strong>。送金先として教える</li>
+            </ul>
+
+            <p>この2つは数学的にペアになっている。秘密鍵から公開鍵を生成できるが、公開鍵から秘密鍵を逆算することは<strong>計算上不可能</strong>だ（これを「一方向性」と呼ぶ）。</p>
+
+            <h3>デジタル署名の仕組み</h3>
+
+            <p>送金するとき、次のプロセスが発生する。</p>
+
+            <ol>
+                <li>Aさんが「Bさんに1BTC送る」というメッセージを作る</li>
+                <li>Aさんが<strong>自分の秘密鍵</strong>でこのメッセージに<strong>デジタル署名</strong>する</li>
+                <li>ネットワークの全員が、Aさんの<strong>公開鍵</strong>を使って署名を検証する</li>
+                <li>署名が正しければ → Aさん本人が送ったと証明される</li>
+            </ol>
+
+            <p>ポイントは、<mark class="marker"><strong>秘密鍵を持っている人だけが有効な署名を作れる</strong></mark>ということだ。公開鍵で「検証」はできるが、「署名」はできない。これが偽の送金を防ぐ仕組みだ。</p>
+
+            <h3>ウォレットアドレスの正体</h3>
+
+            <p>ビットコインの「ウォレットアドレス」（例：<code>1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</code>）は、実は公開鍵をハッシュ化して短くしたものだ。生成過程を簡略化すると：</p>
+
+            <p><strong>秘密鍵（ランダムな256ビット）→ 公開鍵（楕円曲線暗号）→ ハッシュ化 → ウォレットアドレス</strong></p>
+
+            <p>つまり、あなたのウォレットアドレスは公開鍵から生まれ、公開鍵は秘密鍵から生まれる。<strong>すべての出発点は秘密鍵</strong>だ。だからこそ――</p>
+
+            <p><mark class="marker"><strong>秘密鍵を失くす ＝ 資産を永久に失う</strong></mark></p>
+
+            <p>銀行なら「パスワードを忘れました」と窓口に行ける。だがブロックチェーンには窓口がない。秘密鍵は誰にも復元できない。これは分散型の強みであり、同時に最大のリスクでもある。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「秘密鍵＝印鑑、公開鍵＝口座番号」と覚えておけば大丈夫です。大切なのは、秘密鍵を<strong>絶対に他人に教えないこと</strong>。SNSで「秘密鍵を入力してください」と言われたら、100%詐欺です。銀行の暗証番号を聞いてくる銀行がないのと同じですね。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 3. トランザクションの一生 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-3">トランザクションの一生 ― 送金ボタンから確定まで</h2>
+
+            <p>公開鍵暗号の仕組みがわかったところで、実際の送金がどう処理されるかを追いかけてみよう。ビットコインの場合、送金ボタンを押してから確定するまでに、以下の6ステップを踏む。</p>
+
+            <h3>Step 1: トランザクションの作成</h3>
+
+            <p>ウォレットアプリで「Bさんに0.1BTC送る」と入力する。裏側では、「送信元アドレス」「送信先アドレス」「金額」「手数料」を含むデータ構造が作られる。</p>
+
+            <h3>Step 2: デジタル署名</h3>
+
+            <p>作成したトランザクションに、送信者の秘密鍵で署名する。これにより「このトランザクションは確かにAさんが作った」と証明される。</p>
+
+            <h3>Step 3: ブロードキャスト</h3>
+
+            <p>署名付きトランザクションを、P2Pネットワーク上のノードに送信する。受け取ったノードは、隣接するノードにさらに転送する。数秒で世界中に伝搬する。</p>
+
+            <h3>Step 4: メモリプール（Mempool）</h3>
+
+            <p>各ノードは受け取ったトランザクションを検証し（署名の確認、残高の確認など）、問題がなければ<strong>メモリプール</strong>と呼ばれる「待合室」に入れる。まだブロックには入っていない。レストランの「順番待ちリスト」のようなものだ。</p>
+
+            <h3>Step 5: ブロックへの格納</h3>
+
+            <p>マイナー（PoWの場合）またはバリデータ（PoSの場合）が、メモリプールからトランザクションを選び出し、新しいブロックにまとめる。手数料の高いトランザクションが優先的に選ばれることが多い。</p>
+
+            <h3>Step 6: 承認（Confirmation）</h3>
+
+            <p>ブロックがチェーンに追加されると、そのトランザクションは<strong>1承認</strong>を得る。次のブロックが追加されると2承認、その次で3承認……と増えていく。</p>
+
+            <p>ビットコインでは一般的に<mark class="marker"><strong>6承認</strong></mark>（約60分）で「確定」とみなされる。なぜ6なのか？ 攻撃者がチェーンを書き換えるには、6ブロック分の計算を正規のネットワークより速く行う必要があるが、6ブロック以上先行するのは統計的にほぼ不可能だからだ。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>実務的な話をすると、少額の決済なら1〜2承認で十分な場合が多い。取引所は大口の入金に6承認を要求するが、コーヒー1杯の決済で60分も待てない。Lightning Networkのようなオフチェーン技術が生まれた背景にはこの問題がある。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 4. マークルツリー -->
+            <!-- ========================= -->
+
+            <h2 id="toc-4">マークルツリー ― 大量の取引を1つの指紋にまとめる</h2>
+
+            <p>1つのブロックには数百〜数千のトランザクションが含まれる。では、ある特定のトランザクションが本当にそのブロックに含まれているかを検証したいとき、全トランザクションを確認する必要があるのか？</p>
+
+            <p>答えはノーだ。ここで登場するのが<strong>マークルツリー（Merkle Tree）</strong>という賢いデータ構造だ。</p>
+
+            <h3>構造を理解する</h3>
+
+            <p>マークルツリーは<strong>二分木</strong>（各ノードが最大2つの子を持つ木構造）で、次のように構築される。</p>
+
+            <ol>
+                <li><strong>葉ノード</strong>：各トランザクションのハッシュ値（H_A, H_B, H_C, H_D...）</li>
+                <li><strong>中間ノード</strong>：2つの子ノードのハッシュ値を結合してハッシュ化（H_AB = Hash(H_A + H_B)）</li>
+                <li><strong>ルートノード</strong>：最終的に1つのハッシュ値に集約される（<strong>マークルルート</strong>）</li>
+            </ol>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/blockchain-merkle.svg"
+                     alt="マークルツリーの構造: トランザクションのハッシュを二分木で積み上げ、最終的に1つのマークルルートに集約する" loading="lazy">
+                <figcaption>マークルツリー：各トランザクションのハッシュを二分木で積み上げ、最終的にMerkle Rootへ集約する</figcaption>
+            </figure>
+
+            <p>このマークルルートだけがブロックヘッダーに記録される。つまり、<mark class="marker"><strong>何千ものトランザクションが、たった1つの32バイトのハッシュ値に要約される</strong></mark>。</p>
+
+            <h3>なぜ効率的なのか</h3>
+
+            <p>たとえば1,024件のトランザクションがあるブロックで、「トランザクションCは本当にこのブロックに含まれるか？」を検証したいとする。</p>
+
+            <p>全件を確認するなら1,024個のデータが必要だ。しかしマークルツリーなら、<strong>わずか10個のハッシュ値</strong>（log<sub>2</sub>(1024) = 10）だけで検証できる。検証パスに沿った「兄弟ノード」のハッシュ値があれば、ルートまで再計算して一致するかを確認するだけでいい。</p>
+
+            <h3>SPVノード（軽量検証）</h3>
+
+            <p>この性質を利用しているのが<strong>SPVノード</strong>（Simplified Payment Verification）だ。スマートフォンのウォレットアプリは、ブロックチェーン全体（ビットコインなら500GB超）をダウンロードできない。だがブロックヘッダー（約80バイト）とマークルパスだけで、自分のトランザクションが正しくブロックに含まれているかを検証できる。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>マークルツリーは名前が難しそうに見えるけど、要は「トーナメント表」です。1回戦で2つずつ対戦して勝者が上がっていくように、2つのハッシュを合わせて1つにまとめていく。最後に残った「優勝者」がマークルルート。この仕組みのおかげで、スマホでもブロックチェーンを検証できるんです。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 5. スマートコントラクト実践 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-5">スマートコントラクト実践 ― Solidityで「貯金箱」を書く</h2>
+
+            <p>前編で「スマートコントラクト＝自動販売機のようなもの」と説明した。ここでは実際にEthereumのスマートコントラクトをコードで書いてみよう。</p>
+
+            <h3>Solidityとは</h3>
+
+            <p><strong>Solidity</strong>は、Ethereumのスマートコントラクトを書くためのプログラミング言語だ。JavaScriptに似た構文で、比較的とっつきやすい。コントラクトは一度デプロイすると<strong>ブロックチェーン上に永久に記録</strong>され、誰でも呼び出せる。</p>
+
+            <h3>「貯金箱」コントラクト</h3>
+
+            <p>以下は、ETH（Ethereumの通貨）を預けて引き出せる「貯金箱」のコントラクトだ。</p>
+
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract PiggyBank {
+    address public owner;
+
+    // コントラクト作成時にオーナーを記録
+    constructor() {
+        owner = msg.sender;
+    }
+
+    // ETHを預け入れる（payableで受け取り可能に）
+    function deposit() public payable {
+        require(msg.value > 0, "Must send some ETH");
+    }
+
+    // オーナーだけが引き出せる
+    function withdraw() public {
+        require(msg.sender == owner, "Only owner");
+        payable(owner).transfer(address(this).balance);
+    }
+
+    // 残高を確認
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
+}</code></pre>
+
+            <p>順番に見ていこう。</p>
+
+            <ul>
+                <li><code>pragma solidity ^0.8.20;</code> ― コンパイラのバージョン指定</li>
+                <li><code>address public owner;</code> ― オーナー（貯金箱の持ち主）のアドレスを保存</li>
+                <li><code>constructor()</code> ― コントラクトをデプロイした人が自動的にオーナーになる</li>
+                <li><code>msg.sender</code> ― トランザクションの送信者アドレス（Solidityの組み込み変数）</li>
+                <li><code>msg.value</code> ― トランザクションに付与されたETHの量</li>
+                <li><code>payable</code> ― ETHの送受信を許可するキーワード</li>
+                <li><code>require()</code> ― 条件を満たさないとトランザクションを巻き戻す</li>
+            </ul>
+
+            <h3>ガス代の概念</h3>
+
+            <p>Ethereumでは、スマートコントラクトの実行に<strong>ガス代</strong>がかかる。これは「計算リソースの使用料」だ。</p>
+
+            <ul>
+                <li>単純な送金：約21,000ガス</li>
+                <li>コントラクトのデプロイ：数十万〜数百万ガス</li>
+                <li>コントラクトの関数呼び出し：数万〜数十万ガス</li>
+            </ul>
+
+            <p>ガス代 ＝ ガス量 × ガス単価（Gwei）。ネットワークが混雑するとガス単価が上がるため、同じ操作でも費用が変動する。これが「Ethereumは手数料が高い」と言われる原因でもある。</p>
+
+            <h3>テストネットでのデプロイ手順</h3>
+
+            <p>実際に試すなら、メインネット（本物のETHが必要）ではなく<strong>テストネット</strong>を使う。手順はこうだ。</p>
+
+            <ol>
+                <li>MetaMaskをインストールし、Sepoliaテストネットに接続</li>
+                <li>Faucet（蛇口）サイトからテスト用ETHを入手</li>
+                <li><a href="https://remix.ethereum.org/" rel="nofollow">Remix IDE</a>（ブラウザ上のSolidity開発環境）でコードを書く</li>
+                <li>コンパイル → デプロイ → 関数を呼び出してテスト</li>
+            </ol>
+
+            <p>テストネットなら費用ゼロで何度でも試行錯誤できる。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>スマートコントラクトのコードは、一度デプロイすると修正できない。バグがあっても「パッチを当てる」ということができないんだ。だからこそ<strong>セキュリティ監査</strong>が極めて重要になる。2016年のThe DAO事件（約360万ETH＝当時約50億円の流出）は、わずか数行のコードの脆弱性が原因だった。本番にデプロイする前に、監査ツール（Slither、Mythrilなど）や専門の監査会社によるレビューは必須だ。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 6. ブロックチェーン開発の全体像 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-6">ブロックチェーン開発の全体像 ― ツールとエコシステム</h2>
+
+            <p>スマートコントラクトを書けるようになったら、次はブロックチェーン開発者のエコシステムを知っておこう。Web3開発で使う主要なツールを紹介する。</p>
+
+            <h3>ウォレット：MetaMask</h3>
+
+            <p>ブラウザ拡張機能として動くEthereumウォレット。ユーザーがDApp（分散型アプリケーション）と対話するための入口だ。秘密鍵の管理、トランザクションの署名、ネットワークの切り替えなどを担う。</p>
+
+            <h3>開発フレームワーク：Hardhat / Foundry</h3>
+
+            <p><strong>Hardhat</strong>はJavaScript/TypeScriptベースの開発フレームワーク。コンパイル、テスト、デプロイ、デバッグを一括管理する。<strong>Foundry</strong>はRust製の高速なツールチェーンで、Solidityでテストを書ける点が特徴だ。</p>
+
+<pre><code># Hardhatプロジェクトの初期化
+npx hardhat init
+
+# コントラクトのコンパイル
+npx hardhat compile
+
+# テストの実行
+npx hardhat test
+
+# テストネットへのデプロイ
+npx hardhat run scripts/deploy.js --network sepolia</code></pre>
+
+            <h3>ブロックエクスプローラ：Etherscan</h3>
+
+            <p>ブロックチェーン上のトランザクション、アドレス、コントラクトを閲覧できるWebサービス。デバッグには欠かせない。コントラクトのソースコードを公開（Verify）すると、誰でもコードを読めるようになる。</p>
+
+            <h3>分散ストレージ：IPFS</h3>
+
+            <p>ブロックチェーンに大きなファイル（画像、動画など）を直接保存するのはコストが膨大になる。IPFS（InterPlanetary File System）は分散型のファイルストレージで、ファイルのハッシュ値をブロックチェーンに記録し、実データはIPFSに保存するという使い分けが一般的だ。</p>
+
+            <h3>インデックスプロトコル：The Graph</h3>
+
+            <p>ブロックチェーン上のデータを効率的に検索するためのプロトコル。ブロックチェーンは「書き込み」は得意だが「検索」は苦手だ。The Graphを使えば、SQLのようにデータを問い合わせられる（GraphQL API）。</p>
+
+            <h3>Web3開発者ロードマップ</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>段階</th>
+                        <th>学ぶこと</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Step 1</td>
+                        <td>JavaScript/TypeScriptの基礎（Web開発の土台）</td>
+                    </tr>
+                    <tr>
+                        <td>Step 2</td>
+                        <td>ブロックチェーンの基礎概念（この記事の前編・後編）</td>
+                    </tr>
+                    <tr>
+                        <td>Step 3</td>
+                        <td>Solidity + Remix IDEでスマートコントラクトを書く</td>
+                    </tr>
+                    <tr>
+                        <td>Step 4</td>
+                        <td>Hardhat/Foundry + テスト + デプロイ</td>
+                    </tr>
+                    <tr>
+                        <td>Step 5</td>
+                        <td>フロントエンド連携（ethers.js / wagmi）</td>
+                    </tr>
+                    <tr>
+                        <td>Step 6</td>
+                        <td>セキュリティ監査 + 本番運用</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>ツールが多くて圧倒されるかもしれませんが、最初の一歩は「Remix IDE + MetaMask + テストネット」の3つだけで大丈夫。ブラウザだけで開発環境が揃います。まずは上で紹介した貯金箱コントラクトをデプロイして動かしてみるのがおすすめです。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 7. まとめ -->
+            <!-- ========================= -->
+
+            <h2 id="toc-7">まとめ</h2>
+
+            <p>前編・後編を通じて、ブロックチェーンの全体像を学んだ。最後に整理しよう。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>前編（概念）</th>
+                        <th>後編（技術・実践）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ハッシュ（データの指紋）</td>
+                        <td>公開鍵暗号（本人証明）</td>
+                    </tr>
+                    <tr>
+                        <td>ブロック＋チェーン（連結構造）</td>
+                        <td>トランザクション（送金の全工程）</td>
+                    </tr>
+                    <tr>
+                        <td>分散ネットワーク（P2P）</td>
+                        <td>マークルツリー（効率的検証）</td>
+                    </tr>
+                    <tr>
+                        <td>合意形成（PoW/PoS）</td>
+                        <td>スマートコントラクト（Solidity実装）</td>
+                    </tr>
+                    <tr>
+                        <td>ユースケースと限界</td>
+                        <td>開発エコシステム（ツール群）</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>ブロックチェーン技術は日々進化している。Layer 2によるスケーリング、Account Abstractionによるウォレット体験の改善、ゼロ知識証明によるプライバシー強化――新しい概念が次々と登場している。しかし、この前編・後編で学んだ基礎がわかっていれば、どんな新技術が出てきても「ああ、あの仕組みの発展形だな」と理解できるはずだ。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>手を動かしたくなったら、まずテストネットから始めよう。Remix IDEで貯金箱コントラクトをデプロイして、deposit()とwithdraw()を呼んでみる。動くのを見ると、「ブロックチェーン上でプログラムが動く」という感覚がリアルに掴める。そこから先は、CryptoZombies（Solidityの無料チュートリアル）やEthereum公式ドキュメントが次のステップだ。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>前編の概念と後編の技術、両方わかればもう怖いものなし。ブロックチェーンは「難しそう」と敬遠されがちですが、一つずつ分解していけば、確かなロジックの積み重ねです。ここまで読んでくれた方は、もう立派にブロックチェーンを理解していますよ。</p>
+                </div>
+            </div>
+
+            <div class="next-article-link" style="margin: 3rem 0; padding: 1.5rem; border: 1px solid var(--accent-primary, #7c3aed); border-radius: 8px; background: var(--bg-secondary, rgba(124,58,237,0.05));">
+                <p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--text-secondary, #888);">前編はこちら</p>
+                <a href="blockchain-basics.html" style="font-size: 1.1rem; font-weight: bold; color: var(--accent-primary, #7c3aed); text-decoration: none;">&larr; ブロックチェーン入門【前編】― 「改ざんできない台帳」を図解で完全理解する</a>
+            </div>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="blockchain-basics-part2">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                var text = document.title + '\n' + location.href;
+                var overlay = document.createElement('div');
+                overlay.className = 'share-modal-overlay';
+                overlay.innerHTML = '<div class="share-modal">' +
+                    '<button class="share-modal-close" type="button">&times;</button>' +
+                    '<div class="share-modal-title">この記事を共有</div>' +
+                    '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                    '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                    '</div>';
+                overlay.querySelector('.share-modal-textarea').value = text;
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+                navigator.clipboard.writeText(text).catch(function() {});
+                overlay.querySelector('.share-modal-close').addEventListener('click', close);
+                overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+                var copyBtn = overlay.querySelector('.share-copy-btn');
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(text).then(function() {
+                        copyBtn.classList.add('is-copied');
+                        copyBtn.textContent = 'コピーされました';
+                        setTimeout(function() {
+                            copyBtn.classList.remove('is-copied');
+                            copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                        }, 2000);
+                    });
+                });
+                function close() {
+                    overlay.classList.remove('is-visible');
+                    setTimeout(function() { overlay.remove(); }, 250);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+</body>
+</html>

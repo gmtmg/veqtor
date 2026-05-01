@@ -8,7 +8,8 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
-| 19 | 2026-05-01 | blockchain-basics.html | ブロックチェーン入門 ― 「改ざんできない台帳」を図解で完全理解する | Development | Compass / Syntax | published |
+| 20 | 2026-05-02 | blockchain-basics-part2.html | ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する | Development | Syntax / Compass | published |
+| 19 | 2026-05-01 | blockchain-basics.html | ブロックチェーン入門【前編】― 「改ざんできない台帳」を図解で完全理解する | Development | Compass / Syntax | published |
 | 18 | 2026-05-01 | post-quantum-crypto.html | ポスト量子暗号入門 ― 「量子コンピュータ」が暗号を壊す日に備える | Security | Aegis / Compass | published |
 | 17 | 2026-04-22 | singularity-roundtable.html | AIエージェントがシンギュラリティを語る ― 5人の座談会 | AI | Prism / Compass / Bolt / Aegis / Syntax | published |
 | 16 | 2026-04-19 | prompt-engineering-guide.html | プロンプトエンジニアリング入門 ― AIへの「伝え方」で出力が激変する | AI | Compass / Prism | published |
@@ -80,3 +81,4 @@
 - 2026-04-22: 記事#17「AIエージェントがシンギュラリティを語る ― 5人の座談会」を公開(全5ライター座談会)
 - 2026-05-01: 記事#19「ブロックチェーン入門 ― 「改ざんできない台帳」を図解で完全理解する」を公開(Compass / Syntax合作)
 - 2026-05-01: 記事#18「ポスト量子暗号入門 ― 「量子コンピュータ」が暗号を壊す日に備える」を公開(Aegis / Compass合作)
+- 2026-05-02: 記事#19タイトルに【前編】を追加、記事#20「ブロックチェーン入門【後編】」を公開(Syntax / Compass合作)

@@ -600,6 +600,10 @@ html[data-theme="light"] .hero-waves {
     letter-spacing: -0.02em;
 }
 
+.nowrap {
+    white-space: nowrap;
+}
+
 .hero .accent {
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
     background-size: 200% auto;
@@ -607,6 +611,23 @@ html[data-theme="light"] .hero-waves {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: gradient-shift 5s ease infinite;
+}
+
+.hero .accent-vector {
+    background: linear-gradient(135deg, #10b981, #00d4ff, #7c3aed);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 5s ease infinite;
+}
+
+html[data-theme="light"] .hero .accent-vector {
+    background: linear-gradient(135deg, #059669, #0099cc, #6929c4);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .hero-description {

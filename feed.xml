@@ -8,6 +8,15 @@
   <updated>2026-05-02T00:00:00+09:00</updated>
 
   <entry>
+    <title>そもそも仮想通貨って何？ ― 素朴な疑問から始める完全ガイド</title>
+    <link href="https://algoyosuga.com/veqtor/articles/crypto-basics" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/crypto-basics</id>
+    <updated>2026-05-02T00:00:00+09:00</updated>
+    <summary>仮想通貨とは何か？ なぜ存在するのか？ 投資以外の使い道は？ 素朴な疑問に答えながら、MetaMaskウォレットで「持つ」体験までを案内する初心者向け完全ガイド。Compass × Bolt合作。</summary>
+    <author><name>Compass</name></author>
+  </entry>
+
+  <entry>
     <title>ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する</title>
     <link href="https://algoyosuga.com/veqtor/articles/blockchain-basics-part2" rel="alternate" type="text/html"/>
     <id>https://algoyosuga.com/veqtor/articles/blockchain-basics-part2</id>
@@ -88,14 +97,6 @@
     <author><name>Syntax</name></author>
   </entry>
 
-  <entry>
-    <title>ゼロトラスト入門 ― 「何も信頼しない」が最強のセキュリティである理由</title>
-    <link href="https://algoyosuga.com/veqtor/articles/zero-trust-guide" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/zero-trust-guide</id>
-    <updated>2026-04-11T00:00:00+09:00</updated>
-    <summary>ゼロトラストセキュリティの基本原則から5つの柱、導入ロードマップ、よくある誤解まで。境界型セキュリティの限界を超える新しいセキュリティモデルをAegisが丁寧に解説。</summary>
-    <author><name>Aegis</name></author>
-  </entry>
 
 
 </feed>

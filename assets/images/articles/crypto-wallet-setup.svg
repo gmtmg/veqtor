@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a0a14"/>
+      <stop offset="100%" stop-color="#0e1220"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg)" rx="8"/>
+
+  <!-- Step 1: Install -->
+  <g transform="translate(120,180)">
+    <rect x="-80" y="-70" width="160" height="140" rx="8" fill="none" stroke="#f59e0b" stroke-width="1.5" opacity="0.7"/>
+    <rect x="-80" y="-70" width="160" height="140" rx="8" fill="#f59e0b" fill-opacity="0.04"/>
+    <!-- Step number -->
+    <circle cx="-60" cy="-50" r="14" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
+    <text x="-60" y="-45" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f59e0b">1</text>
+    <!-- Browser icon -->
+    <g transform="translate(0,-15)">
+      <rect x="-22" y="-18" width="44" height="32" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.2" opacity="0.7"/>
+      <line x1="-22" y1="-10" x2="22" y2="-10" stroke="#f59e0b" stroke-width="0.8" opacity="0.5"/>
+      <circle cx="-16" cy="-14" r="1.5" fill="#f59e0b" opacity="0.5"/>
+      <circle cx="-10" cy="-14" r="1.5" fill="#f59e0b" opacity="0.5"/>
+      <!-- Fox icon simplified -->
+      <path d="M-6,2 L0,-6 L6,2 L3,6 L-3,6 Z" fill="#f59e0b" fill-opacity="0.3" stroke="#f59e0b" stroke-width="0.8"/>
+    </g>
+    <text x="0" y="42" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f59e0b" opacity="0.9">MetaMask</text>
+    <text x="0" y="56" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">インストール</text>
+  </g>
+
+  <!-- Arrow 1→2 -->
+  <g transform="translate(240,180)">
+    <line x1="0" y1="0" x2="40" y2="0" stroke="url(#arrowGrad)" stroke-width="2" opacity="0.5"/>
+    <polygon points="40,-5 50,0 40,5" fill="#00d4ff" opacity="0.5"/>
+  </g>
+
+  <!-- Step 2: Seed Phrase -->
+  <g transform="translate(360,180)">
+    <rect x="-80" y="-70" width="160" height="140" rx="8" fill="none" stroke="#7c3aed" stroke-width="1.5" opacity="0.7"/>
+    <rect x="-80" y="-70" width="160" height="140" rx="8" fill="#7c3aed" fill-opacity="0.04"/>
+    <circle cx="-60" cy="-50" r="14" fill="#7c3aed" fill-opacity="0.15" stroke="#7c3aed" stroke-width="1"/>
+    <text x="-60" y="-45" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#a78bfa">2</text>
+    <!-- Key/shield icon -->
+    <g transform="translate(0,-12)">
+      <path d="M0,-18 L12,-10 L12,4 C12,14 0,20 0,20 C0,20 -12,14 -12,4 L-12,-10 Z" fill="none" stroke="#a78bfa" stroke-width="1.2" opacity="0.7"/>
+      <text x="0" y="4" text-anchor="middle" font-family="monospace" font-size="12" fill="#a78bfa" opacity="0.8">!</text>
+    </g>
+    <text x="0" y="42" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#a78bfa" opacity="0.9">シードフレーズ</text>
+    <text x="0" y="56" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">安全に保管</text>
+  </g>
+
+  <!-- Arrow 2→3 -->
+  <g transform="translate(480,180)">
+    <line x1="0" y1="0" x2="40" y2="0" stroke="url(#arrowGrad)" stroke-width="2" opacity="0.5"/>
+    <polygon points="40,-5 50,0 40,5" fill="#00d4ff" opacity="0.5"/>
+  </g>
+
+  <!-- Step 3: Testnet -->
+  <g transform="translate(600,180)">
+    <rect x="-80" y="-70" width="160" height="140" rx="8" fill="none" stroke="#10b981" stroke-width="1.5" opacity="0.7"/>
+    <rect x="-80" y="-70" width="160" height="140" rx="8" fill="#10b981" fill-opacity="0.04"/>
+    <circle cx="-60" cy="-50" r="14" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1"/>
+    <text x="-60" y="-45" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#10b981">3</text>
+    <!-- Network/globe icon -->
+    <g transform="translate(0,-12)">
+      <circle cx="0" cy="0" r="16" fill="none" stroke="#6ee7b7" stroke-width="1.2" opacity="0.7"/>
+      <ellipse cx="0" cy="0" rx="8" ry="16" fill="none" stroke="#6ee7b7" stroke-width="0.8" opacity="0.4"/>
+      <line x1="-16" y1="0" x2="16" y2="0" stroke="#6ee7b7" stroke-width="0.8" opacity="0.4"/>
+      <text x="0" y="3" text-anchor="middle" font-family="monospace" font-size="6" fill="#6ee7b7" opacity="0.8">ETH</text>
+    </g>
+    <text x="0" y="42" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#10b981" opacity="0.9">テストネット</text>
+    <text x="0" y="56" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Sepoliaで体験</text>
+  </g>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#fff" opacity="0.85">MetaMask ウォレットセットアップの流れ</text>
+  <text x="400" y="65" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888" opacity="0.5">実際のお金を使わずにブロックチェーンを体験できる</text>
+
+  <!-- Bottom notes -->
+  <g transform="translate(120,330)" opacity="0.4">
+    <text x="0" y="0" font-family="monospace" font-size="8" fill="#f59e0b">chrome.google.com</text>
+    <text x="0" y="14" font-family="monospace" font-size="8" fill="#f59e0b">/webstore/metamask</text>
+  </g>
+  <g transform="translate(360,330)" opacity="0.4">
+    <text x="0" y="0" text-anchor="middle" font-family="monospace" font-size="8" fill="#a78bfa">12 words = Master Key</text>
+    <text x="0" y="14" text-anchor="middle" font-family="monospace" font-size="8" fill="#a78bfa">NEVER share online</text>
+  </g>
+  <g transform="translate(600,330)" opacity="0.4">
+    <text x="0" y="0" text-anchor="middle" font-family="monospace" font-size="8" fill="#6ee7b7">Sepolia Faucet</text>
+    <text x="0" y="14" text-anchor="middle" font-family="monospace" font-size="8" fill="#6ee7b7">Free test ETH</text>
+  </g>
+</svg>

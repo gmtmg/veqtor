@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド | Veqtor</title>
+    <meta name="description" content="Solidity設計パターン（Ownable, Factory, Proxy）、ERC標準、Reentrancy等の脆弱性対策、Hardhat/Foundryテスト、監査ツールまで。安全なスマートコントラクト開発の実践ガイド。">
+    <meta property="og:title" content="スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド">
+    <meta property="og:description" content="Solidity設計パターン、ERC標準、脆弱性対策、テスト、監査。安全なスマートコントラクト開発の実践ガイド。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/smart-contract-patterns-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド",
+      "description": "Solidity設計パターン（Ownable, Factory, Proxy）、ERC標準、Reentrancy等の脆弱性対策、Hardhat/Foundryテスト、監査ツールまで。安全なスマートコントラクト開発の実践ガイド。",
+      "datePublished": "2026-05-02",
+      "author": { "@type": "Person", "name": "Syntax" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/smart-contract-patterns-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/smart-contract-patterns"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-02">2026年5月2日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#syntax" class="article-writer" data-writer="syntax">
+                    <img src="../assets/images/writers/SYNTAX.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Syntax</span>
+                </a>
+                <a href="../writers.html#bolt" class="article-writer" data-writer="bolt">
+                    <img src="../assets/images/writers/BOLT.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Bolt</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="smart-contract-patterns">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+            </div>
+            <h1>スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 18分で学べること</span>
+                <span class="article-benefit-text">設計パターン・脆弱性対策・テスト・監査の実践的な全体像</span>
+            </div>
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">PiggyBankの「その先」へ</a></li>
+                    <li><a href="#toc-2">設計パターン基礎 ― OwnableとGuard Check</a></li>
+                    <li><a href="#toc-3">実践パターン ― Factory, Pull Payment, Proxy</a></li>
+                    <li><a href="#toc-4">ERC標準 ― トークンとNFTの「共通言語」</a></li>
+                    <li><a href="#toc-5">脆弱性を知る ― 攻撃者の視点で考える</a></li>
+                    <li><a href="#toc-6">テストで守る ― HardhatとFoundry</a></li>
+                    <li><a href="#toc-7">監査の実際 ― ツールと人の目</a></li>
+                    <li><a href="#toc-8">まとめ ― 設計パターンは「先人の知恵」</a></li>
+                </ol>
+            </nav>
+
+            <div class="writer-intro" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Syntax</span>
+                    <p><a href="blockchain-basics-part2.html">前回</a>はSolidityで「貯金箱」（PiggyBank）コントラクトを書いた。あれは入門としては十分だが、本番環境に出すには問題だらけだ。今回はPiggyBankの限界を出発点に、設計パターン・脆弱性対策・テスト・監査という4つの柱で「安全なコントラクトの書き方」を体系的に学ぶ。Boltには最新ツール動向を補足してもらう。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 1. PiggyBankの「その先」へ -->
+            <!-- ========================= -->
+
+            <h2 id="toc-1">PiggyBankの「その先」へ</h2>
+
+            <p><a href="blockchain-basics-part2.html">前回の記事</a>で書いたPiggyBankコントラクトを振り返ろう。</p>
+
+<pre><code>contract PiggyBank {
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    function deposit() public payable {
+        require(msg.value > 0, "Must send some ETH");
+    }
+
+    function withdraw() public {
+        require(msg.sender == owner, "Only owner");
+        payable(owner).transfer(address(this).balance);
+    }
+}</code></pre>
+
+            <p>動くことは動く。だが、本番で使うには<strong>3つの致命的な限界</strong>がある。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>限界</th>
+                        <th>問題</th>
+                        <th>解決策</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>オーナー変更不可</td>
+                        <td>constructorでownerを固定。秘密鍵を紛失したら永久にロック</td>
+                        <td>Ownableパターン</td>
+                    </tr>
+                    <tr>
+                        <td>withdrawが危険</td>
+                        <td>transfer()はRe-entrancy攻撃に対して安全だが、ガスリミット2300の制約で将来的に問題になりうる</td>
+                        <td>Checks-Effects-Interactions + Pull Payment</td>
+                    </tr>
+                    <tr>
+                        <td>アップグレード不可</td>
+                        <td>バグが見つかっても修正できない。デプロイしたら終わり</td>
+                        <td>Proxyパターン</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>この記事では、これらの限界を克服するための<mark class="marker"><strong>4つの柱</strong></mark>を順に学んでいく。</p>
+
+            <ol>
+                <li><strong>設計パターン</strong> ― 先人が確立した「安全な書き方」のテンプレート</li>
+                <li><strong>脆弱性</strong> ― 攻撃者がどこを狙うかを知る</li>
+                <li><strong>テスト</strong> ― コードが正しく動くことを証明する</li>
+                <li><strong>監査</strong> ― ツールと人の目で最終チェック</li>
+            </ol>
+
+            <!-- ========================= -->
+            <!-- 2. 設計パターン基礎 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-2">設計パターン基礎 ― OwnableとGuard Check</h2>
+
+            <h3>OpenZeppelin Ownableで書き直す</h3>
+
+            <p><strong>OpenZeppelin</strong>は、Solidityのセキュリティ監査済みライブラリ集だ。業界標準として広く使われている。PiggyBankの「オーナー管理」を、OpenZeppelinの<code>Ownable</code>を使って書き直してみよう。</p>
+
+<pre><code>// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract PiggyBankV2 is Ownable {
+    // Ownable(msg.sender) でデプロイ者をオーナーに設定
+    constructor() Ownable(msg.sender) {}
+
+    function deposit() public payable {
+        require(msg.value &gt; 0, "Must send some ETH");
+    }
+
+    function withdraw() public onlyOwner {
+        (bool success, ) = owner().call{value: address(this).balance}("");
+        require(success, "Transfer failed");
+    }
+
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
+}</code></pre>
+
+            <p>変更点を整理しよう。</p>
+
+            <ul>
+                <li><code>is Ownable</code> ― OpenZeppelinのOwnableコントラクトを<strong>継承</strong></li>
+                <li><code>onlyOwner</code> ― Ownableが提供するmodifier。オーナー以外の呼び出しを自動で拒否</li>
+                <li><code>transferOwnership()</code> ― Ownableに組み込まれた関数で、オーナーを別アドレスに<strong>変更可能</strong></li>
+                <li><code>renounceOwnership()</code> ― オーナー権限を完全に放棄する（誰もオーナーでなくなる）</li>
+            </ul>
+
+            <p>たった1行の<code>is Ownable</code>で、オーナー管理の問題が解決する。車輪の再発明をせず、監査済みのコードを使うのが鉄則だ。</p>
+
+            <h3>require / assert / revert の使い分け</h3>
+
+            <p>Solidityにはエラーを発生させる方法が3つある。使い分けを理解しておこう。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>構文</th>
+                        <th>用途</th>
+                        <th>未使用ガス</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>require(条件, "メッセージ")</code></td>
+                        <td>入力値の検証、アクセス制御</td>
+                        <td>返還される</td>
+                    </tr>
+                    <tr>
+                        <td><code>assert(条件)</code></td>
+                        <td>内部的に絶対に起きないはずの状態チェック</td>
+                        <td>返還される（0.8.0+）</td>
+                    </tr>
+                    <tr>
+                        <td><code>revert("メッセージ")</code></td>
+                        <td>複雑な条件分岐でのエラー処理</td>
+                        <td>返還される</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Custom Errors（0.8.4+）</h3>
+
+            <p>Solidity 0.8.4以降では、<strong>Custom Errors</strong>が使える。文字列メッセージよりもガス効率が良い。</p>
+
+<pre><code>// 従来の書き方（文字列がコントラクトに保存される）
+require(msg.sender == owner, "Only owner can call");
+
+// Custom Errors（ガス効率が良い）
+error NotOwner();
+error InsufficientBalance(uint256 requested, uint256 available);
+
+function withdraw(uint256 amount) public {
+    if (msg.sender != owner) revert NotOwner();
+    if (amount &gt; address(this).balance)
+        revert InsufficientBalance(amount, address(this).balance);
+    // ...
+}</code></pre>
+
+            <p>Custom Errorsはエラーの種類に応じた引数を持てるため、デバッグにも有用だ。</p>
+
+            <h3>modifierの設計原則</h3>
+
+            <p>modifierは「関数の前後に共通のチェックを差し込む」仕組みだ。便利だが、いくつかの原則がある。</p>
+
+            <ul>
+                <li><strong>1つのmodifierに1つの責務</strong> ― <code>onlyOwner</code>は「オーナーであること」だけをチェックする</li>
+                <li><strong>状態変更は避ける</strong> ― modifierでは<code>require</code>や<code>revert</code>によるバリデーションに留める</li>
+                <li><strong>スタック過多に注意</strong> ― modifierを何個も重ねると「Stack too deep」エラーになることがある</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>速報です！ OpenZeppelin v5.0（2023年10月リリース）では、<code>Ownable</code>のコンストラクタが<code>Ownable(initialOwner)</code>と明示的にアドレスを渡す形に変わりました。v4.xでは<code>msg.sender</code>が暗黙的にオーナーになっていたので、v4からのマイグレーション時は注意が必要です。この記事のコード例はすべてv5.0準拠です。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 3. 実践パターン -->
+            <!-- ========================= -->
+
+            <h2 id="toc-3">実践パターン ― Factory, Pull Payment, Proxy</h2>
+
+            <h3>Factoryパターン ― コントラクトがコントラクトを生む</h3>
+
+            <p>PiggyBankを1つだけデプロイするなら問題ない。だが「ユーザーごとに専用の貯金箱を作りたい」場合はどうする？ ここでFactoryパターンが活きる。</p>
+
+<pre><code>contract PiggyBankFactory {
+    PiggyBankV2[] public banks;
+
+    event BankCreated(address indexed owner, address bankAddress);
+
+    function createBank() external {
+        PiggyBankV2 bank = new PiggyBankV2();
+        bank.transferOwnership(msg.sender);
+        banks.push(bank);
+        emit BankCreated(msg.sender, address(bank));
+    }
+
+    function getBankCount() external view returns (uint256) {
+        return banks.length;
+    }
+}</code></pre>
+
+            <p><code>createBank()</code>を呼ぶたびに新しいPiggyBankV2が生成され、呼び出し元がオーナーになる。<code>event</code>でログを残しておけば、フロントエンドから作成履歴を追跡できる。</p>
+
+            <h3>Push vs Pull Payment</h3>
+
+            <p>スマートコントラクトでのETH送金には2つのアプローチがある。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Push型</th>
+                        <th>Pull型</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>仕組み</td>
+                        <td>コントラクトが受取人にETHを<strong>送る</strong></td>
+                        <td>受取人が自分でETHを<strong>引き出す</strong></td>
+                    </tr>
+                    <tr>
+                        <td>コード例</td>
+                        <td><code>payable(to).transfer(amt)</code></td>
+                        <td><code>withdrawableAmount[msg.sender]</code></td>
+                    </tr>
+                    <tr>
+                        <td>リスク</td>
+                        <td>受取側のfallbackで処理が止まる可能性</td>
+                        <td>低い</td>
+                    </tr>
+                    <tr>
+                        <td>使いどころ</td>
+                        <td>1対1の単純送金</td>
+                        <td>複数人への分配、オークション</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>原則：複数の送金先がある場合はPull型を使う。</strong>Push型で複数人に送金すると、1人の受取失敗で全体が巻き戻される「DoS（サービス拒否）」リスクがある。</p>
+
+            <h3>Proxyパターン ― アップグレード可能なコントラクト</h3>
+
+            <p>スマートコントラクトは一度デプロイすると変更できない――これは大原則だ。しかし現実にはバグ修正や機能追加が必要になる。<strong>Proxyパターン</strong>はこの問題を解決する。</p>
+
+            <p>仕組みは単純だ。ユーザーが呼び出すのは<strong>Proxyコントラクト</strong>（データを保持）で、実際のロジックは別の<strong>Implementationコントラクト</strong>に委譲する。ロジックを更新したいときは、Implementationコントラクトを差し替えるだけでいい。</p>
+
+            <p>技術的には<code>delegatecall</code>という特殊な呼び出しを使う。<code>delegatecall</code>は「相手のコードを、自分のストレージで実行する」命令だ。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Transparent Proxy</th>
+                        <th>UUPS Proxy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>アップグレード権限</td>
+                        <td>Proxy管理者がProxy側で管理</td>
+                        <td>Implementation側にアップグレード関数を配置</td>
+                    </tr>
+                    <tr>
+                        <td>ガスコスト</td>
+                        <td>やや高い（毎回管理者チェック）</td>
+                        <td>低い</td>
+                    </tr>
+                    <tr>
+                        <td>セキュリティ</td>
+                        <td>管理者と利用者の関数衝突を防ぐ</td>
+                        <td>Implementation側にupgrade関数がないと永久ロック</td>
+                    </tr>
+                    <tr>
+                        <td>推奨用途</td>
+                        <td>大規模プロジェクト</td>
+                        <td>ガスコストを最小化したい場合</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>Proxyパターンで最も注意すべきは<strong>ストレージレイアウトの一貫性</strong>だ。ProxyとImplementationは同じストレージを共有するため、変数の宣言順を変えたり、既存の変数の型を変更すると、データが破壊される。アップグレード時には新しい変数を末尾に追加するだけにすること。OpenZeppelinの<code>@openzeppelin/hardhat-upgrades</code>プラグインにはストレージレイアウトの互換性チェック機能がある。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 4. ERC標準 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-4">ERC標準 ― トークンとNFTの「共通言語」</h2>
+
+            <h3>ERCとは何か</h3>
+
+            <p><strong>ERC</strong>（Ethereum Request for Comments）は、Ethereumコミュニティが策定する標準仕様だ。「コントラクトはこのインターフェースを実装してください」という合意。これにより、異なる開発者が作ったトークンでもウォレットや取引所が統一的に扱える。</p>
+
+            <h3>主要なERC標準</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>標準</th>
+                        <th>種類</th>
+                        <th>用途</th>
+                        <th>特徴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ERC-20</td>
+                        <td>Fungible Token (FT)</td>
+                        <td>通貨、ポイント</td>
+                        <td>全トークンが同一。1 USDT = 1 USDT</td>
+                    </tr>
+                    <tr>
+                        <td>ERC-721</td>
+                        <td>Non-Fungible Token (NFT)</td>
+                        <td>デジタルアート、ゲームアイテム</td>
+                        <td>各トークンが固有。tokenIdで区別</td>
+                    </tr>
+                    <tr>
+                        <td>ERC-1155</td>
+                        <td>Multi Token</td>
+                        <td>ゲーム（武器+通貨を1つのコントラクトで）</td>
+                        <td>FTとNFTを1つのコントラクトで混在</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>ERC-20の最小実装</h3>
+
+            <p>ERC-20トークンの核心は、わずか6つの関数と2つのイベントだ。</p>
+
+<pre><code>// ERC-20が要求するインターフェース
+interface IERC20 {
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}</code></pre>
+
+            <p>このインターフェースを満たしていれば、MetaMaskで表示でき、Uniswapで取引でき、どの取引所にも上場できる。<strong>標準に従うことで互換性が生まれる</strong>――これがERCの本質だ。</p>
+
+            <p>実装では、OpenZeppelinの<code>ERC20.sol</code>を継承するのが最も安全だ。</p>
+
+<pre><code>import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract MyToken is ERC20 {
+    constructor() ERC20("MyToken", "MTK") {
+        _mint(msg.sender, 1000000 * 10 ** decimals());
+    }
+}</code></pre>
+
+            <p>たった5行で、標準準拠のERC-20トークンが完成する。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>ERC標準の最前線として注目すべきは<strong>ERC-4337（Account Abstraction）</strong>です。従来のEOA（外部所有アカウント）に代わり、コントラクトウォレットを標準化する提案。ガス代の代理支払い、ソーシャルリカバリ、バッチトランザクションなどが可能になります。2024年以降、主要ウォレットが対応を進めており、「秘密鍵を失くしたら終わり」という課題が解消に向かっています。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>「ERC-20を自前で実装してみたい」という気持ちはわかるが、<strong>本番では絶対にOpenZeppelinを使え</strong>。ERC20.solは世界中の監査を通過しており、独自実装には見えないバグが潜みやすい。学習目的で自分で書くのはいいが、メインネットに出すならOpenZeppelin一択だ。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 5. 脆弱性を知る -->
+            <!-- ========================= -->
+
+            <h2 id="toc-5">脆弱性を知る ― 攻撃者の視点で考える</h2>
+
+            <p>安全なコントラクトを書くには、<strong>攻撃者が何を狙うかを知る必要がある</strong>。ここでは代表的な4つの脆弱性を解説する。</p>
+
+            <h3>1. Reentrancy（再入攻撃）</h3>
+
+            <p>2016年のThe DAO事件で約360万ETH（当時約50億円）が流出した原因。<a href="blockchain-basics-part2.html">前回の記事</a>でも触れたが、ここではメカニズムを詳しく見ていこう。</p>
+
+            <p><strong>脆弱なコード：</strong></p>
+
+<pre><code>// 危険！ ETH送金後に残高を更新している
+function withdraw() public {
+    uint256 bal = balances[msg.sender];
+    require(bal &gt; 0, "No balance");
+
+    // Step 1: ETHを送る（ここで攻撃者のreceive()が呼ばれる）
+    (bool success, ) = msg.sender.call{value: bal}("");
+    require(success, "Transfer failed");
+
+    // Step 2: 残高をゼロに（攻撃者はStep 1で再びwithdrawを呼ぶ）
+    balances[msg.sender] = 0;
+}</code></pre>
+
+            <p>攻撃者は自分のコントラクトの<code>receive()</code>関数内で再び<code>withdraw()</code>を呼ぶ。残高がまだゼロになっていないので、何度でもETHを引き出せてしまう。</p>
+
+            <figure class="article-figure">
+                <img src="../assets/images/articles/smart-contract-reentrancy.svg"
+                     alt="Reentrancy攻撃フロー: 攻撃者コントラクトが脆弱コントラクトのwithdraw関数を繰り返し呼び出し、残高更新前にETHを何度も引き出す" loading="lazy">
+                <figcaption>Reentrancy攻撃フロー：ETH送金と残高更新の順序の隙を突く</figcaption>
+            </figure>
+
+            <p><strong>修正版（Checks-Effects-Interactions）：</strong></p>
+
+<pre><code>// 安全！ 残高更新を先に行う
+function withdraw() public {
+    uint256 bal = balances[msg.sender];
+    require(bal &gt; 0, "No balance");          // Checks
+
+    balances[msg.sender] = 0;                 // Effects（先に更新！）
+
+    (bool success, ) = msg.sender.call{value: bal}("");  // Interactions
+    require(success, "Transfer failed");
+}</code></pre>
+
+            <p><mark class="marker"><strong>Checks-Effects-Interactions</strong></mark>パターン：まず条件をチェックし（Checks）、次に自分の状態を更新し（Effects）、最後に外部とやり取りする（Interactions）。この順序を守れば、Reentrancyは原理的に防げる。</p>
+
+            <h3>2. Integer Overflow / Underflow</h3>
+
+            <p>Solidity 0.8.0より前は、<code>uint256</code>の最大値（2^256 - 1）に1を足すと0に戻った。逆に0から1を引くと最大値になった。</p>
+
+<pre><code>// Solidity 0.7以前で危険だった例
+uint8 balance = 255;
+balance += 1;  // 0になる！（オーバーフロー）
+
+uint8 amount = 0;
+amount -= 1;   // 255になる！（アンダーフロー）</code></pre>
+
+            <p><strong>Solidity 0.8.0以降</strong>では、算術オーバーフロー/アンダーフローが自動的に検出され、トランザクションがrevertされる。しかし<code>unchecked</code>ブロックを使うと旧動作に戻るため、意図的に使う場合は注意が必要だ。</p>
+
+            <h3>3. Front-running</h3>
+
+            <p>ブロックチェーン上のトランザクションは、ブロックに取り込まれるまで<strong>メモリプール（Mempool）で公開されている</strong>。攻撃者はこれを監視し、利益のあるトランザクションを見つけたら、より高いガス代を設定して自分のトランザクションを先に実行させる。</p>
+
+            <p>たとえば、DEX（分散型取引所）で大口の買い注文がMempoolに見えたら、攻撃者は先に買って価格を吊り上げ、大口注文の後で売って利益を得る。これを<strong>サンドイッチ攻撃</strong>と呼ぶ。</p>
+
+            <p>対策としては、コミット・リビールスキーム（注文内容を暗号化して先にコミットし、後から公開）や、Flashbots Protectのようなプライベートトランザクションプールの利用がある。</p>
+
+            <h3>4. Access Control の不備</h3>
+
+            <p>「この関数は管理者だけが呼べるべき」なのにアクセス制御を忘れるケース。単純だが頻出する。</p>
+
+<pre><code>// 危険！ 誰でもオーナーを変更できてしまう
+function setOwner(address newOwner) public {
+    owner = newOwner;
+}
+
+// 安全！ onlyOwner modifierで制限
+function setOwner(address newOwner) public onlyOwner {
+    owner = newOwner;
+}</code></pre>
+
+            <h3>4大脆弱性のまとめ</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>脆弱性</th>
+                        <th>メカニズム</th>
+                        <th>被害例</th>
+                        <th>対策</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Reentrancy</td>
+                        <td>外部呼び出し中に再入</td>
+                        <td>The DAO（約50億円）</td>
+                        <td>Checks-Effects-Interactions, ReentrancyGuard</td>
+                    </tr>
+                    <tr>
+                        <td>Integer Overflow</td>
+                        <td>算術の桁あふれ</td>
+                        <td>BECトークン（無限発行）</td>
+                        <td>Solidity 0.8+（自動検出）</td>
+                    </tr>
+                    <tr>
+                        <td>Front-running</td>
+                        <td>Mempool監視で先回り</td>
+                        <td>DEXでのサンドイッチ攻撃</td>
+                        <td>コミット・リビール、Flashbots</td>
+                    </tr>
+                    <tr>
+                        <td>Access Control</td>
+                        <td>権限チェック漏れ</td>
+                        <td>Parity Wallet（約170億円凍結）</td>
+                        <td>Ownable / AccessControl</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p><strong>Checks-Effects-Interactionsは鉄則中の鉄則だ。</strong>外部呼び出し（ETH送金、他コントラクトの関数呼び出し）は必ず関数の最後に置く。これだけでReentrancyの大半は防げる。加えて、OpenZeppelinの<code>ReentrancyGuard</code>（<code>nonReentrant</code> modifier）を併用するとより安全だ。「ベルトとサスペンダー」――二重の防御を常に心がけろ。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 6. テストで守る -->
+            <!-- ========================= -->
+
+            <h2 id="toc-6">テストで守る ― HardhatとFoundry</h2>
+
+            <p>設計パターンを守り、脆弱性を知っていても、実装ミスは起きる。テストは「コードが正しく動くことの証明」であり、スマートコントラクト開発では特に重要だ。デプロイ後に修正できないのだから。</p>
+
+            <h3>Hardhat（JavaScript / TypeScript）</h3>
+
+            <p>Hardhatは最も広く使われている開発フレームワークだ。テストはJavaScript/TypeScriptで書き、Chaiアサーションライブラリを使う。</p>
+
+<pre><code>// test/PiggyBankV2.test.js
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+
+describe("PiggyBankV2", function () {
+    let bank, owner, other;
+
+    beforeEach(async function () {
+        [owner, other] = await ethers.getSigners();
+        const Factory = await ethers.getContractFactory("PiggyBankV2");
+        bank = await Factory.deploy();
+    });
+
+    it("should allow deposits", async function () {
+        await bank.deposit({ value: ethers.parseEther("1.0") });
+        expect(await bank.getBalance()).to.equal(ethers.parseEther("1.0"));
+    });
+
+    it("should reject withdrawal by non-owner", async function () {
+        await bank.deposit({ value: ethers.parseEther("1.0") });
+        await expect(bank.connect(other).withdraw())
+            .to.be.revertedWithCustomError(bank, "OwnableUnauthorizedAccount");
+    });
+
+    it("should allow owner to withdraw", async function () {
+        await bank.deposit({ value: ethers.parseEther("1.0") });
+        await expect(bank.withdraw()).to.changeEtherBalance(
+            owner, ethers.parseEther("1.0")
+        );
+    });
+});</code></pre>
+
+            <h3>Foundry（Solidity）</h3>
+
+            <p>Foundryはテスト自体をSolidityで書く。コントラクトと同じ言語なので、型の整合性が自然に保たれる。さらに<strong>ファズテスト</strong>（ランダム入力による自動テスト）が組み込まれている。</p>
+
+<pre><code>// test/PiggyBankV2.t.sol
+pragma solidity ^0.8.20;
+
+import "forge-std/Test.sol";
+import "../src/PiggyBankV2.sol";
+
+contract PiggyBankV2Test is Test {
+    PiggyBankV2 bank;
+    address owner = address(this);
+    address other = address(0xBEEF);
+
+    function setUp() public {
+        bank = new PiggyBankV2();
+    }
+
+    function test_Deposit() public {
+        bank.deposit{value: 1 ether}();
+        assertEq(bank.getBalance(), 1 ether);
+    }
+
+    function test_RevertWhen_NonOwnerWithdraws() public {
+        bank.deposit{value: 1 ether}();
+        vm.prank(other);
+        vm.expectRevert();
+        bank.withdraw();
+    }
+
+    // ファズテスト: ランダムな金額でdepositをテスト
+    function testFuzz_Deposit(uint96 amount) public {
+        vm.assume(amount &gt; 0);
+        vm.deal(address(this), amount);
+        bank.deposit{value: amount}();
+        assertEq(bank.getBalance(), amount);
+    }
+}</code></pre>
+
+            <h3>HardhatとFoundryの比較</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Hardhat</th>
+                        <th>Foundry</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>テスト言語</td>
+                        <td>JavaScript / TypeScript</td>
+                        <td>Solidity</td>
+                    </tr>
+                    <tr>
+                        <td>実行速度</td>
+                        <td>普通</td>
+                        <td>高速（Rust製）</td>
+                    </tr>
+                    <tr>
+                        <td>ファズテスト</td>
+                        <td>プラグインで対応</td>
+                        <td>標準搭載</td>
+                    </tr>
+                    <tr>
+                        <td>デバッグ</td>
+                        <td>console.logが使える</td>
+                        <td>トレース（-vvvv）が強力</td>
+                    </tr>
+                    <tr>
+                        <td>エコシステム</td>
+                        <td>豊富なプラグイン</td>
+                        <td>急速に拡大中</td>
+                    </tr>
+                    <tr>
+                        <td>学習コスト</td>
+                        <td>JS/TSの知識があれば低い</td>
+                        <td>Solidityだけで完結</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>カバレッジの確認</h3>
+
+            <p>テストカバレッジは「コードのどの部分がテストされたか」を可視化する。Hardhatでは<code>npx hardhat coverage</code>、Foundryでは<code>forge coverage</code>で確認できる。</p>
+
+            <p>カバレッジ100%が必ずしも安全を保証するわけではないが、未テストの関数やブランチを発見するのに有効だ。</p>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>Foundryの勢いは目を見張るものがあります。Paradigm（大手暗号VC）が開発を主導しており、2024年以降の新規プロジェクトではFoundryの採用率がHardhatに迫っています。特にファズテストの使いやすさは圧倒的で、「テスト入力を手動で考える」時代から「ランダム入力で自動的にエッジケースを発見する」時代への移行が進んでいます。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>テストを書くときは<strong>「攻撃者の視点」</strong>で考えろ。「正常に動くこと」を確認するだけでは足りない。「onlyOwnerの関数を別のアドレスで呼んだらrevertするか？」「deposit額が0のときは？」「withdrawを2回連続で呼んだら？」――こういう「壊そうとするテスト」を書くことで、脆弱性を事前に発見できる。上のFoundry例にある<code>test_RevertWhen_</code>プレフィックスは、「失敗するべきケース」を明示するFoundryの慣習だ。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 7. 監査の実際 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-7">監査の実際 ― ツールと人の目</h2>
+
+            <p>テストをしっかり書いた。設計パターンも守った。それでもデプロイ前に<strong>監査（Audit）</strong>を行うべきだ。テストは「想定したケース」しかカバーしない。監査は「想定外」を見つける工程だ。</p>
+
+            <h3>自動分析ツール</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ツール</th>
+                        <th>種類</th>
+                        <th>特徴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Slither</td>
+                        <td>静的解析</td>
+                        <td>Trail of Bits製。高速で誤検知が少ない。CIに組み込みやすい</td>
+                    </tr>
+                    <tr>
+                        <td>Mythril</td>
+                        <td>シンボリック実行</td>
+                        <td>ConsenSys製。深い解析が可能だが時間がかかる</td>
+                    </tr>
+                    <tr>
+                        <td>Aderyn</td>
+                        <td>静的解析</td>
+                        <td>Cyfrin製。Rust製で高速。Foundryとの親和性が高い</td>
+                    </tr>
+                </tbody>
+            </table>
+
+<pre><code># Slitherの実行例
+pip install slither-analyzer
+slither . --exclude naming-convention
+
+# Foundry + Aderyn
+cargo install aderyn
+aderyn .</code></pre>
+
+            <p>これらのツールは数秒〜数分で既知の脆弱性パターンをスキャンする。日常的な開発フローに組み込んでおくべきだ。</p>
+
+            <h3>手動監査</h3>
+
+            <p>自動ツールで見つけられない脆弱性もある。ビジネスロジックの欠陥、経済的攻撃ベクトル、ガバナンスの穴――こうしたものは人間の目で確認する必要がある。</p>
+
+            <p>専門の監査会社には以下のようなところがある。</p>
+
+            <ul>
+                <li><strong>Trail of Bits</strong> ― Slitherの開発元。業界最高峰</li>
+                <li><strong>OpenZeppelin</strong> ― ライブラリ開発元でもある監査の老舗</li>
+                <li><strong>Cyfrin</strong> ― Patrick Collins率いる。教育と監査の両立</li>
+                <li><strong>Consensys Diligence</strong> ― Mythrilの開発元</li>
+            </ul>
+
+            <p>費用は規模にもよるが、小規模なコントラクトで<strong>数百万円〜</strong>、大規模DeFiプロトコルでは<strong>数千万円〜</strong>が相場だ。安くはないが、脆弱性による損失（数十億円規模になることも）と比較すれば投資の価値がある。</p>
+
+            <h3>バグバウンティ</h3>
+
+            <p><strong>Immunefi</strong>は、Web3に特化したバグバウンティプラットフォームだ。ホワイトハッカーが脆弱性を発見・報告し、報奨金を受け取る。プロジェクト側から見ると、監査後も継続的にセキュリティを強化できる仕組みだ。</p>
+
+            <h3>デプロイ前チェックリスト</h3>
+
+            <ol>
+                <li>全関数にアクセス制御が適切に設定されているか</li>
+                <li>Checks-Effects-Interactionsパターンを遵守しているか</li>
+                <li>外部呼び出しの戻り値をチェックしているか</li>
+                <li>テストカバレッジは十分か（分岐も含めて）</li>
+                <li>自動分析ツール（Slither等）の警告をすべて確認したか</li>
+                <li>ストレージレイアウトの互換性は保たれているか（Proxy使用時）</li>
+                <li>イベントログは十分に発行されているか</li>
+                <li>ガスリミットを超える可能性のあるループはないか</li>
+            </ol>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>Immunefiのバグバウンティ報奨金は桁違いです。2024年には単一の脆弱性報告に<strong>最大1000万ドル</strong>（約15億円）の報奨金が設定されたケースも。累計支払い額は1億ドルを超えています。「ハッカーを敵にするのではなく、味方にする」というWeb3セキュリティの考え方を象徴する仕組みですね。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 8. まとめ -->
+            <!-- ========================= -->
+
+            <h2 id="toc-8">まとめ ― 設計パターンは「先人の知恵」</h2>
+
+            <p>この記事で学んだ内容を整理しよう。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>柱</th>
+                        <th>学んだこと</th>
+                        <th>キーワード</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>設計パターン</td>
+                        <td>Ownable, Factory, Pull Payment, Proxy</td>
+                        <td>OpenZeppelin, delegatecall, UUPS</td>
+                    </tr>
+                    <tr>
+                        <td>ERC標準</td>
+                        <td>ERC-20, ERC-721, ERC-1155</td>
+                        <td>互換性, インターフェース</td>
+                    </tr>
+                    <tr>
+                        <td>脆弱性</td>
+                        <td>Reentrancy, Overflow, Front-running, Access Control</td>
+                        <td>Checks-Effects-Interactions</td>
+                    </tr>
+                    <tr>
+                        <td>テスト</td>
+                        <td>Hardhat (JS) / Foundry (Solidity)</td>
+                        <td>ファズテスト, カバレッジ</td>
+                    </tr>
+                    <tr>
+                        <td>監査</td>
+                        <td>Slither, Mythril, Aderyn, 手動監査, バグバウンティ</td>
+                        <td>Immunefi, チェックリスト</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>学習ロードマップ</h3>
+
+            <ol>
+                <li><strong>Step 1</strong>：<a href="blockchain-basics-part2.html">PiggyBankコントラクト</a>をRemix IDEでデプロイ・操作する</li>
+                <li><strong>Step 2</strong>：OpenZeppelinのOwnableとERC-20を継承してトークンを作る</li>
+                <li><strong>Step 3</strong>：HardhatまたはFoundryでテスト環境を構築し、テストを書く</li>
+                <li><strong>Step 4</strong>：Slitherでセキュリティスキャンし、警告を修正する</li>
+                <li><strong>Step 5</strong>：テストネット（Sepolia）にデプロイして実際に動作確認する</li>
+            </ol>
+
+            <p>設計パターンは「先人の知恵」だ。スマートコントラクトの世界では、一つのバグが数十億円の損失を生む。だからこそ、車輪の再発明をせず、実績のあるパターンとライブラリを使い、テストと監査で多層的に守る。</p>
+
+            <p>この記事の内容を身につければ、「ブロックチェーンの仕組みを知っている人」から<strong>「安全なコントラクトを設計できる人」</strong>へとステップアップできる。次のステップとして、DeFi（分散型金融）のプロトコル設計、Layer 2によるスケーリング、ゼロ知識証明によるプライバシー強化などに進んでいくことになるだろう。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>設計パターンの本質は「同じミスを繰り返さないこと」だ。The DAOの約50億円、Parity Walletの約170億円――過去の事故はすべて、今ここにあるパターンの教材になっている。先人が血を流して得た教訓をコードに落とし込んだものが設計パターンだ。それを知り、使い、次の世代に渡す。それがエンジニアの仕事だ。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="bolt">
+                <img src="../assets/images/writers/BOLT.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Bolt</span>
+                    <p>ブロックチェーン業界は変化が激しいですが、この記事で扱った基礎――Ownable、Checks-Effects-Interactions、ERC標準、テスト、監査――はSolidityが存在する限り不変です。新しいフレームワークが出ても、新しいL2チェーンが登場しても、基礎を押さえていれば応用が利きます。まずはこの基礎を固めましょう！</p>
+                </div>
+            </div>
+
+            <div class="next-article-link" style="margin: 3rem 0; padding: 1.5rem; border: 1px solid var(--accent-primary, #7c3aed); border-radius: 8px; background: var(--bg-secondary, rgba(124,58,237,0.05));">
+                <p style="margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--text-secondary, #888);">前提知識はこちら</p>
+                <a href="blockchain-basics-part2.html" style="font-size: 1.1rem; font-weight: bold; color: var(--accent-primary, #7c3aed); text-decoration: none;">&larr; ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する</a>
+            </div>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="smart-contract-patterns">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                var text = document.title + '\n' + location.href;
+                var overlay = document.createElement('div');
+                overlay.className = 'share-modal-overlay';
+                overlay.innerHTML = '<div class="share-modal">' +
+                    '<button class="share-modal-close" type="button">&times;</button>' +
+                    '<div class="share-modal-title">この記事を共有</div>' +
+                    '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                    '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                    '</div>';
+                overlay.querySelector('.share-modal-textarea').value = text;
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+                navigator.clipboard.writeText(text).catch(function() {});
+                overlay.querySelector('.share-modal-close').addEventListener('click', close);
+                overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+                var copyBtn = overlay.querySelector('.share-copy-btn');
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(text).then(function() {
+                        copyBtn.classList.add('is-copied');
+                        copyBtn.textContent = 'コピーされました';
+                        setTimeout(function() {
+                            copyBtn.classList.remove('is-copied');
+                            copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                        }, 2000);
+                    });
+                });
+                function close() {
+                    overlay.classList.remove('is-visible');
+                    setTimeout(function() { overlay.remove(); }, 250);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+</body>
+</html>

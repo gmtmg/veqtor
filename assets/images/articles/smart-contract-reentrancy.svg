@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" width="720" height="420">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#0a0e18"/>
+    </linearGradient>
+    <linearGradient id="victimGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="attackerGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="420" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="360" y="35" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#fff" opacity="0.9">Reentrancy Attack Flow</text>
+
+  <!-- Victim Contract (left) -->
+  <g transform="translate(180,200)">
+    <rect x="-120" y="-130" width="240" height="260" rx="8" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+    <rect x="-120" y="-130" width="240" height="30" rx="8" fill="#3b82f6" opacity="0.15"/>
+    <text x="0" y="-109" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#60a5fa">Vulnerable Contract</text>
+
+    <!-- Balance mapping -->
+    <text x="-100" y="-80" font-family="monospace" font-size="9" fill="#94a3b8">mapping(address =&gt; uint)</text>
+    <text x="-100" y="-67" font-family="monospace" font-size="10" fill="#60a5fa">balances;</text>
+
+    <!-- withdraw function -->
+    <rect x="-110" y="-52" width="220" height="170" rx="4" fill="#1e293b" opacity="0.5"/>
+    <text x="-100" y="-36" font-family="monospace" font-size="9" fill="#c084fc">function</text>
+    <text x="-40" y="-36" font-family="monospace" font-size="9" fill="#60a5fa"> withdraw()</text>
+
+    <!-- Step 1: send ETH -->
+    <g>
+      <rect x="-98" y="-24" width="206" height="22" rx="3" fill="#ef4444" opacity="0.08"/>
+      <circle cx="-85" y="-13" r="7" fill="none" stroke="#f59e0b" stroke-width="1.2"/>
+      <text x="-85" y="-10" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#f59e0b">1</text>
+      <text x="-72" y="-9" font-family="monospace" font-size="8" fill="#fbbf24">msg.sender.call{value: bal}("")</text>
+    </g>
+
+    <!-- Step 2: update balance -->
+    <g>
+      <rect x="-98" y="6" width="206" height="22" rx="3" fill="#10b981" opacity="0.08"/>
+      <circle cx="-85" cy="17" r="7" fill="none" stroke="#10b981" stroke-width="1.2"/>
+      <text x="-85" y="20" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#10b981">2</text>
+      <text x="-72" y="20" font-family="monospace" font-size="8" fill="#6ee7b7">balances[msg.sender] = 0</text>
+    </g>
+
+    <!-- Problem annotation -->
+    <text x="-95" y="50" font-family="sans-serif" font-size="8" fill="#ef4444" opacity="0.8">&#x26A0; ETH sent BEFORE balance reset!</text>
+    <text x="-95" y="63" font-family="sans-serif" font-size="8" fill="#ef4444" opacity="0.6">Attacker can re-enter before step 2</text>
+
+    <!-- Balance display -->
+    <rect x="-100" y="78" width="80" height="28" rx="4" fill="none" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+    <text x="-60" y="90" text-anchor="middle" font-family="monospace" font-size="7" fill="#94a3b8">balance</text>
+    <text x="-60" y="102" text-anchor="middle" font-family="monospace" font-size="10" fill="#60a5fa">10 ETH</text>
+  </g>
+
+  <!-- Attacker Contract (right) -->
+  <g transform="translate(560,200)">
+    <rect x="-110" y="-130" width="220" height="260" rx="8" fill="none" stroke="#ef4444" stroke-width="2" opacity="0.7"/>
+    <rect x="-110" y="-130" width="220" height="30" rx="8" fill="#ef4444" opacity="0.15"/>
+    <text x="0" y="-109" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f87171">Attacker Contract</text>
+
+    <!-- attack function -->
+    <rect x="-100" y="-88" width="200" height="50" rx="4" fill="#1e293b" opacity="0.5"/>
+    <text x="-90" y="-72" font-family="monospace" font-size="9" fill="#c084fc">function</text>
+    <text x="-27" y="-72" font-family="monospace" font-size="9" fill="#f87171"> attack()</text>
+    <text x="-90" y="-56" font-family="monospace" font-size="8" fill="#94a3b8">  victim.withdraw()</text>
+
+    <!-- receive/fallback function -->
+    <rect x="-100" y="-28" width="200" height="70" rx="4" fill="#1e293b" opacity="0.5"/>
+    <text x="-90" y="-12" font-family="monospace" font-size="9" fill="#c084fc">receive()</text>
+    <text x="-10" y="-12" font-family="monospace" font-size="9" fill="#94a3b8"> external payable</text>
+    <text x="-90" y="6" font-family="monospace" font-size="8" fill="#94a3b8">  if (victim.balance &gt; 0)</text>
+    <text x="-90" y="22" font-family="monospace" font-size="8" fill="#f87171">    victim.withdraw()</text>
+    <text x="-82" y="34" font-family="monospace" font-size="7" fill="#ef4444" opacity="0.7">  // re-enter!</text>
+
+    <!-- Stolen ETH -->
+    <rect x="-80" y="56" width="160" height="48" rx="4" fill="#ef4444" opacity="0.08" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="0" y="74" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#f87171">Stolen</text>
+    <text x="0" y="92" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#ef4444">10 ETH</text>
+  </g>
+
+  <!-- Flow Arrows -->
+  <!-- Arrow 1: attack() calls withdraw() -->
+  <g>
+    <line x1="450" y1="120" x2="310" y2="155" stroke="#f59e0b" stroke-width="1.8" opacity="0.7"/>
+    <polygon points="310,155 318,149 316,157" fill="#f59e0b" opacity="0.7"/>
+    <rect x="345" y="118" width="95" height="18" rx="3" fill="#0d1117" stroke="#f59e0b" stroke-width="0.8" opacity="0.8"/>
+    <text x="392" y="131" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fbbf24">call withdraw()</text>
+  </g>
+
+  <!-- Arrow 2: send ETH to attacker -->
+  <g>
+    <line x1="300" y1="190" x2="450" y2="190" stroke="#ef4444" stroke-width="1.8" opacity="0.7"/>
+    <polygon points="450,190 442,186 442,194" fill="#ef4444" opacity="0.7"/>
+    <rect x="340" y="178" width="65" height="18" rx="3" fill="#0d1117" stroke="#ef4444" stroke-width="0.8" opacity="0.8"/>
+    <text x="372" y="191" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#f87171">send ETH</text>
+  </g>
+
+  <!-- Arrow 3: receive() re-enters withdraw() -->
+  <g>
+    <path d="M450,215 Q380,260 310,215" fill="none" stroke="#f59e0b" stroke-width="1.8" opacity="0.6" stroke-dasharray="6,3"/>
+    <polygon points="310,215 318,210 317,219" fill="#f59e0b" opacity="0.6"/>
+    <rect x="340" y="240" width="80" height="18" rx="3" fill="#0d1117" stroke="#f59e0b" stroke-width="0.8" opacity="0.7"/>
+    <text x="380" y="253" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#fbbf24">re-enter! &#x21BB;</text>
+  </g>
+
+  <!-- Loop indicator -->
+  <text x="380" y="285" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ef4444" opacity="0.7">Repeats until contract is drained</text>
+
+  <!-- Legend -->
+  <g transform="translate(30,380)">
+    <rect x="0" y="-5" width="660" height="30" rx="4" fill="#1e293b" opacity="0.3"/>
+    <text x="15" y="12" font-family="sans-serif" font-size="9" fill="#94a3b8">Fix:</text>
+    <text x="42" y="12" font-family="monospace" font-size="9" fill="#10b981">balances[msg.sender] = 0;</text>
+    <text x="225" y="12" font-family="sans-serif" font-size="9" fill="#94a3b8">BEFORE</text>
+    <text x="275" y="12" font-family="monospace" font-size="9" fill="#10b981">msg.sender.call{value: bal}("")</text>
+    <text x="505" y="12" font-family="sans-serif" font-size="9" fill="#94a3b8">= Checks-Effects-Interactions</text>
+  </g>
+</svg>

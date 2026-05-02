@@ -8,6 +8,15 @@
   <updated>2026-05-02T00:00:00+09:00</updated>
 
   <entry>
+    <title>スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド</title>
+    <link href="https://algoyosuga.com/veqtor/articles/smart-contract-patterns" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/smart-contract-patterns</id>
+    <updated>2026-05-02T00:00:00+09:00</updated>
+    <summary>Solidity設計パターン（Ownable, Factory, Proxy）、ERC標準、脆弱性対策、Hardhat/Foundryテスト、監査ツールまで。安全なスマートコントラクト開発の実践ガイド。Syntax × Bolt合作。</summary>
+    <author><name>Syntax</name></author>
+  </entry>
+
+  <entry>
     <title>仮想通貨はこう動いている ― 仕組み・種類・ウォレットを一気に学ぶ</title>
     <link href="https://algoyosuga.com/veqtor/articles/crypto-basics" rel="alternate" type="text/html"/>
     <id>https://algoyosuga.com/veqtor/articles/crypto-basics</id>
@@ -86,15 +95,6 @@
     <updated>2026-04-16T00:00:00+09:00</updated>
     <summary>GitとGitHubの違いからインストール、コミット、ブランチ、Pull Requestまで。完全初学者向けにチーム開発の基礎を図解で丁寧に解説する入門ガイド。</summary>
     <author><name>Compass</name></author>
-  </entry>
-
-  <entry>
-    <title>Ollama + Open WebUI で始めるローカルLLM完全ガイド ― 自分だけのAIを手元で動かそう</title>
-    <link href="https://algoyosuga.com/veqtor/articles/local-llm-guide" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/local-llm-guide</id>
-    <updated>2026-04-11T00:00:00+09:00</updated>
-    <summary>OllamaとOpen WebUIを使ってローカル環境でLLMを動かす方法を完全解説。インストールからモデル選び、API活用まで、手元で動くAI環境を構築するハンズオンガイド。</summary>
-    <author><name>Syntax</name></author>
   </entry>
 
 

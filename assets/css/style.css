@@ -1714,6 +1714,24 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
     transition: background-color 0.2s ease;
 }
 
+.writer-card-header::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background: currentColor;
+    opacity: 0.3;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18l6-6-6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.writer-card-header:hover::after {
+    opacity: 0.7;
+    transform: translateX(2px);
+}
+
 .writer-card-header:hover {
     background: var(--bg-hover);
 }
@@ -1782,8 +1800,10 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
     border-radius: var(--card-radius);
     padding: 2.5rem 2rem 2rem;
     text-align: center;
-    max-width: 320px;
+    max-width: 480px;
     width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
     position: relative;
     transform: scale(0.9) translateY(16px);
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1846,6 +1866,62 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
 .writer-modal-close:hover {
     background: var(--bg-hover);
     color: var(--text-heading);
+}
+
+/* --- Modal Articles Section --- */
+.writer-modal-articles {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.writer-modal-articles-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+}
+
+.writer-modal-articles ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.writer-modal-articles li {
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+}
+
+.writer-modal-articles a {
+    font-size: 0.85rem;
+    color: var(--accent-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.writer-modal-articles a:hover {
+    border-bottom-color: var(--accent-primary);
+}
+
+.writer-modal-recommended-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--bg-primary);
+    background: var(--writer-accent, var(--accent-primary));
+    padding: 0.1em 0.45em;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    line-height: 1.4;
 }
 
 .writer-card-content {
@@ -1919,6 +1995,11 @@ html[data-theme="light"] [data-writer="syntax"]  { --writer-accent: #059669; }
 
 .writer-card-articles a:hover {
     border-bottom-color: var(--accent-primary);
+}
+
+/* Hide 4th+ articles on card — modal shows all */
+.writer-card-articles li:nth-child(n+4) {
+    display: none;
 }
 
 /* --- Code Playground --- */

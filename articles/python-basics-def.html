@@ -480,7 +480,7 @@ print(f"税込価格: {final}円")</textarea>
                 <div class="playground-editor">
                     <textarea class="playground-code" spellcheck="false" rows="7"># greet関数を完成させよう
 def greet(name):
-    print(f"こんにちは、{name}さん！元気ですか？")
+    # ここに print() を書こう
 
 # テスト
 greet("太郎")
@@ -516,9 +516,8 @@ greet("花子")</code></pre>
                     <textarea class="playground-code" spellcheck="false" rows="10"># calc_total関数を完成させよう
 def calc_total(prices):
     total = 0
-    for price in prices:
-        total = total + price
-    return total
+    # for文で prices の各要素を total に足そう
+    # 最後に return で total を返そう
 
 # テスト
 prices = [100, 200, 300]
@@ -558,9 +557,9 @@ print(f"合計: {result}円")</code></pre>
                 <div class="playground-editor">
                     <textarea class="playground-code" spellcheck="false" rows="10"># calc_bmi関数を完成させよう
 def calc_bmi(height_cm, weight_kg):
-    height_m = height_cm / 100
-    bmi = weight_kg / (height_m ** 2)
-    return round(bmi, 2)
+    # 1. height_cm を 100 で割って height_m を作ろう
+    # 2. weight_kg / (height_m ** 2) で BMI を計算しよう
+    # 3. round(bmi, 2) で小数点2桁にして return しよう
 
 # テスト
 bmi = calc_bmi(170, 65)

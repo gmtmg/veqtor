@@ -8,6 +8,7 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
+| 23 | 2026-05-04 | python-basics-def.html | Python基礎講座 ― def・関数をブラウザで体験しよう | Development | Compass | published |
 | 22 | 2026-05-02 | smart-contract-patterns.html | スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド | Development | Syntax / Bolt | published |
 | 21 | 2026-05-02 | crypto-basics.html | 仮想通貨はこう動いている ― 仕組み・種類・ウォレットを一気に学ぶ | Development | Compass / Bolt | published |
 | 20 | 2026-05-02 | blockchain-basics-part2.html | ブロックチェーン入門【後編】― 鍵・トランザクション・スマートコントラクトを実践で理解する | Development | Syntax / Compass | published |
@@ -64,7 +65,7 @@
 | ID | タイトル | 記事数 | 記事（学習順） |
 |----|---------|--------|--------------|
 | blockchain | ブロックチェーン入門コース | 4 | blockchain-basics → blockchain-basics-part2 → crypto-basics → smart-contract-patterns |
-| python | Python入門コース | 2 | python-basics-if → python-basics-for |
+| python | Python入門コース | 3 | python-basics-if → python-basics-for → python-basics-def |
 | security | セキュリティ入門コース | 3 | passkey-guide → zero-trust-guide → post-quantum-crypto |
 | ai-agents | AIエージェント実践コース | 5 | claude-code-agents-part1 → claude-code-agents-part2 → claude-code-skills → prompt-engineering-guide → harness-engineering |
 | ai-frontier | AI最前線コース | 5 | rag-basics → mcp-guide → local-llm-guide → ai-model-wars-2026 → vibe-coding |
@@ -99,3 +100,4 @@
 - 2026-05-02: 記事#21「仮想通貨はこう動いている ― 仕組み・種類・ウォレットを一気に学ぶ」を公開(Compass / Bolt合作)、ブロックチェーン前編・後編に仮想通貨記事へのリンク追加
 - 2026-05-02: 記事#22「スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド」を公開(Syntax / Bolt合作)、仮想通貨記事・ブロックチェーン後編にリンク追加
 - 2026-05-03: 学習ロードマップページ(roadmap.html)を新設 — 5つの学習パッケージ（ブロックチェーン/Python/セキュリティ/AIエージェント/AI最前線）、全ページnavにリンク追加
+- 2026-05-04: 記事#23「Python基礎講座 ― def・関数をブラウザで体験しよう」を公開(Compass)、Pythonパッケージ3記事に更新

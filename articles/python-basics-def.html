@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基礎講座 ― def・関数をブラウザで体験しよう | Veqtor</title>
+    <meta name="description" content="ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座（第3回）。def文、引数、戻り値、デフォルト引数の基本をハンズオンで身につけます。">
+    <meta property="og:title" content="Python基礎講座 ― def・関数をブラウザで体験しよう">
+    <meta property="og:description" content="ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座。def文と関数の基本をハンズオンで。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="../assets/images/thumbnails/python-basics-def-thumb.svg">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Python基礎講座 ― def・関数をブラウザで体験しよう",
+      "description": "ブラウザ上でPythonを動かしながら学ぶインタラクティブ入門講座（第3回）。def文、引数、戻り値、デフォルト引数の基本をハンズオンで身につけます。",
+      "datePublished": "2026-05-04",
+      "author": { "@type": "Person", "name": "Compass" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/python-basics-def-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/python-basics-def"
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../roadmap.html" class="nav-link">ロードマップ</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-04">2026年5月4日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="python-basics-def">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+            </div>
+            <h1>Python基礎講座 ― def・関数をブラウザで体験しよう</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 10分で学べること</span>
+                <span class="article-benefit-text">def文・引数・戻り値・デフォルト引数の基本をハンズオンで習得</span>
+            </div>
+
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">1. AIが書くコードに「def」がたくさん出てくる</a></li>
+                    <li><a href="#toc-2">2. 関数って何？ ― 名前をつけた処理のまとまり</a></li>
+                    <li><a href="#toc-3">3. 最初のdef ― 関数を作って呼び出す</a></li>
+                    <li><a href="#toc-4">4. 引数（パラメータ） ― データを渡す</a></li>
+                    <li><a href="#toc-5">5. 戻り値（return） ― 結果を返す</a></li>
+                    <li><a href="#toc-6">6. デフォルト引数 ― 省略できるパラメータ</a></li>
+                    <li><a href="#toc-7">7. 関数を組み合わせる</a></li>
+                    <li><a href="#toc-8">8. 演習問題</a></li>
+                    <li><a href="#toc-9">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>Python基礎講座の第3回です。前回まででprint・変数・if文・for文・リストを学びました。今回のテーマは<strong>関数（def）</strong>。AIが書くコードに必ず出てくる「def なんとか():」の正体を一緒に解き明かしましょう。</p>
+                </div>
+            </div>
+
+            <p>この記事では以下の内容を扱います。</p>
+
+            <ul>
+                <li><code>def</code> で<strong>関数</strong>を作る方法</li>
+                <li><strong>引数</strong>でデータを渡す方法</li>
+                <li><code>return</code> で結果を返す方法</li>
+                <li><strong>デフォルト引数</strong>で柔軟な関数を作る方法</li>
+                <li>関数を<strong>組み合わせて</strong>使う方法</li>
+            </ul>
+
+            <p>前回までと同じく、すべてのコード例はその場で実行できます。どんどん書き換えて試してみてください。</p>
+
+            <!-- ===================== -->
+            <!-- 1. 導入 -->
+            <!-- ===================== -->
+
+            <h2 id="toc-1">1. AIが書くコードに「def」がたくさん出てくる</h2>
+
+            <p>Claude や ChatGPT にプログラムを書いてもらうと、こんなコードがよく返ってきます。</p>
+
+            <pre><code>def calculate_total(items):
+    total = 0
+    for item in items:
+        total = total + item
+    return total
+
+result = calculate_total([100, 200, 300])
+print(result)</code></pre>
+
+            <p><code>def</code>、<code>calculate_total</code>、<code>items</code>、<code>return</code>……。なんとなく動いているけど、<mark class="marker"><strong>これらが何を意味しているのか</strong></mark>を今日で完全に理解しましょう。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>安心してください。<code>def</code> の仕組みはとてもシンプルです。この記事を読み終わる頃には、AIが書く関数を「なるほど、こういう意味か」と読めるようになりますよ。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 2. 関数って何？ -->
+            <!-- ===================== -->
+
+            <h2 id="toc-2">2. 関数って何？ ― 名前をつけた処理のまとまり</h2>
+
+            <p><mark class="marker"><strong>関数</strong></mark>とは、「処理のまとまりに名前をつけたもの」です。</p>
+
+            <p>料理で例えると分かりやすいです。</p>
+
+            <ul>
+                <li>「カレーを作る」= 材料を切る → 炒める → 煮込む → ルーを入れる</li>
+                <li>「味噌汁を作る」= お湯を沸かす → 具材を入れる → 味噌を溶く</li>
+            </ul>
+
+            <p>「カレーを作る」と言えば、細かい手順を毎回説明しなくても伝わりますよね。プログラミングの関数も同じです。複数の処理をひとまとめにして名前をつけることで、<strong>その名前だけで呼び出せる</strong>ようになります。</p>
+
+            <p>実は、みなさんはすでに関数を使っています。</p>
+
+            <ul>
+                <li><code>print()</code> → 画面に表示する関数</li>
+                <li><code>len()</code> → 長さを数える関数</li>
+                <li><code>range()</code> → 数列を作る関数</li>
+            </ul>
+
+            <p>これらは Python に最初から用意されている<strong>組み込み関数</strong>です。今日学ぶのは、<mark class="marker"><strong>自分で関数を作る方法</strong></mark>です。</p>
+
+            <!-- ===================== -->
+            <!-- 3. 最初のdef -->
+            <!-- ===================== -->
+
+            <h2 id="toc-3">3. 最初のdef ― 関数を作って呼び出す</h2>
+
+            <p>関数を作るには <code>def</code> キーワードを使います。<code>def</code> は "define"（定義する）の略です。</p>
+
+            <pre><code>def say_hello():
+    print("こんにちは！")
+
+say_hello()</code></pre>
+
+            <p>この3行で「<code>say_hello</code> という名前の関数を作り、呼び出す」ことができます。</p>
+
+            <ul>
+                <li><strong>1行目</strong>: <code>def say_hello():</code> → 「say_hello という関数を定義するよ」</li>
+                <li><strong>2行目</strong>: <code>print("こんにちは！")</code> → 関数の中身（インデントで示す）</li>
+                <li><strong>4行目</strong>: <code>say_hello()</code> → 関数を<strong>呼び出す</strong>（実行する）</li>
+            </ul>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="7">def say_hello():
+    print("こんにちは！")
+    print("Pythonの関数を学んでいます")
+
+# 関数を呼び出す
+say_hello()
+# 何度でも呼び出せる！
+say_hello()</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>大事なポイントは2つ。<strong>(1)</strong> <code>def</code> で定義しただけでは実行されない。<code>say_hello()</code> と呼び出して初めて動く。<strong>(2)</strong> 一度定義すれば何度でも呼び出せる。これが関数の最大のメリットです。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 4. 引数（パラメータ） -->
+            <!-- ===================== -->
+
+            <h2 id="toc-4">4. 引数（パラメータ） ― データを渡す</h2>
+
+            <p>関数をもっと便利にするには、<mark class="marker"><strong>引数（ひきすう）</strong></mark>を使います。引数とは、関数に渡すデータのことです。</p>
+
+            <pre><code>def greet(name):
+    print(f"こんにちは、{name}さん！")</code></pre>
+
+            <p><code>(name)</code> の部分が引数です。関数を呼び出すときに好きな値を渡せます。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="8">def greet(name):
+    print(f"こんにちは、{name}さん！")
+
+greet("太郎")
+greet("花子")
+greet("Python")
+
+# 自分の名前を入れてみよう！</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <p>引数は<strong>複数</strong>渡すこともできます。カンマで区切るだけです。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="7">def introduce(name, age):
+    print(f"名前: {name}")
+    print(f"年齢: {age}歳")
+    print("---")
+
+introduce("太郎", 25)
+introduce("花子", 30)</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>引数の名前は自由に決められますが、<strong>中身が分かる名前</strong>をつけましょう。<code>name</code>、<code>age</code>、<code>price</code> のように、何のデータかひと目で分かる名前が理想です。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 5. 戻り値（return） -->
+            <!-- ===================== -->
+
+            <h2 id="toc-5">5. 戻り値（return） ― 結果を返す</h2>
+
+            <p>ここまでの関数は <code>print()</code> で画面に表示するだけでした。でも実際のプログラムでは、<mark class="marker"><strong>関数の計算結果を受け取って次の処理に使いたい</strong></mark>ことがよくあります。</p>
+
+            <p>そこで登場するのが <code>return</code>（リターン）です。</p>
+
+            <pre><code>def add(a, b):
+    return a + b
+
+result = add(3, 5)
+print(result)  # 8</code></pre>
+
+            <p><code>return</code> は「この値を呼び出し元に返す」という意味です。返された値は変数に保存して使えます。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="11">def add(a, b):
+    return a + b
+
+# 戻り値を変数に保存
+result = add(3, 5)
+print(f"3 + 5 = {result}")
+
+# 戻り値をそのまま使うこともできる
+print(f"10 + 20 = {add(10, 20)}")
+
+# 戻り値を別の計算に使う
+total = add(100, 200) + add(300, 400)
+print(f"合計: {total}")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <p><code>print()</code> と <code>return</code> の違いは初心者がつまずきやすいポイントです。</p>
+
+            <ul>
+                <li><code>print()</code> → 画面に<strong>表示するだけ</strong>。値は消える。</li>
+                <li><code>return</code> → 値を呼び出し元に<strong>返す</strong>。変数に保存したり、次の計算に使える。</li>
+            </ul>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="13"># print版: 表示するだけ
+def add_print(a, b):
+    print(a + b)
+
+# return版: 値を返す
+def add_return(a, b):
+    return a + b
+
+# print版は結果を保存できない
+x = add_print(3, 5)
+print(f"print版の戻り値: {x}")
+
+# return版は結果を保存できる
+y = add_return(3, 5)
+print(f"return版の戻り値: {y}")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p><code>print</code> 版の戻り値が <code>None</code> になっているのが分かりましたか？ <code>return</code> がない関数は自動的に <code>None</code>（何もない）を返します。AIが書くコードで <code>return</code> が多いのは、結果を次の処理に使うためです。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 6. デフォルト引数 -->
+            <!-- ===================== -->
+
+            <h2 id="toc-6">6. デフォルト引数 ― 省略できるパラメータ</h2>
+
+            <p>引数に<mark class="marker"><strong>デフォルト値</strong></mark>を設定すると、呼び出すときにその引数を省略できます。</p>
+
+            <pre><code>def greet(name, greeting="こんにちは"):
+    print(f"{greeting}、{name}さん！")</code></pre>
+
+            <p><code>greeting="こんにちは"</code> がデフォルト引数です。省略すると「こんにちは」が使われます。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="8">def greet(name, greeting="こんにちは"):
+    print(f"{greeting}、{name}さん！")
+
+# greetingを省略 → デフォルト値が使われる
+greet("太郎")
+
+# greetingを指定 → 指定した値が使われる
+greet("花子", "おはよう")
+greet("Python", "Hello")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>AIが書くコードでデフォルト引数はとても多いです。たとえば <code>def fetch_data(url, timeout=30)</code> のように、「普通はこの値で十分だけど、必要なら変えられる」という柔軟な設計ができます。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 7. 関数を組み合わせる -->
+            <!-- ===================== -->
+
+            <h2 id="toc-7">7. 関数を組み合わせる</h2>
+
+            <p>関数の本当の力は、<mark class="marker"><strong>組み合わせて使う</strong></mark>ことで発揮されます。関数の中から別の関数を呼び出すことができます。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="16"># 税込価格を計算する関数
+def add_tax(price, tax_rate=0.1):
+    return price * (1 + tax_rate)
+
+# 割引を適用する関数
+def apply_discount(price, discount):
+    return price * (1 - discount)
+
+# 組み合わせて使う
+original = 1000
+print(f"元の価格: {original}円")
+
+discounted = apply_discount(original, 0.2)
+print(f"20%割引後: {discounted}円")
+
+final = add_tax(discounted)
+print(f"税込価格: {final}円")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <p>このように、小さな関数をレゴブロックのように組み合わせることで、複雑な処理も分かりやすく書けます。AIが書くコードに <code>def</code> がたくさん並んでいるのは、処理を小さな関数に分けて整理しているからです。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「1つの関数は1つの仕事」が良い関数を書くコツです。<code>add_tax</code> は税計算だけ、<code>apply_discount</code> は割引だけ。それぞれの役割が明確だと、コードが読みやすくなります。</p>
+                </div>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 8. 演習問題 -->
+            <!-- ===================== -->
+
+            <h2 id="toc-8">8. 演習問題</h2>
+
+            <p>ここまでの内容を使って、3つの演習問題に挑戦しましょう。</p>
+
+            <!-- 演習1: あいさつ関数 -->
+            <div class="code-playground" data-mode="exercise" data-expected="こんにちは、太郎さん！元気ですか？\nこんにちは、花子さん！元気ですか？">
+                <div class="playground-header">
+                    <span class="playground-label">演習問題</span>
+                    <span class="playground-badge">問題 1</span>
+                </div>
+                <div class="playground-task">
+                    <p>引数 <code>name</code> を受け取り、<code>こんにちは、○○さん！元気ですか？</code> と表示する関数 <code>greet</code> を完成させてください。</p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="7"># greet関数を完成させよう
+def greet(name):
+    print(f"こんにちは、{name}さん！元気ですか？")
+
+# テスト
+greet("太郎")
+greet("花子")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>def greet(name):
+    print(f"こんにちは、{name}さん！元気ですか？")
+
+greet("太郎")
+greet("花子")</code></pre>
+            </details>
+
+            <!-- 演習2: 合計金額関数 -->
+            <div class="code-playground" data-mode="exercise" data-expected="合計: 600円">
+                <div class="playground-header">
+                    <span class="playground-label">演習問題</span>
+                    <span class="playground-badge">問題 2</span>
+                </div>
+                <div class="playground-task">
+                    <p>価格のリストを受け取り、合計金額を <code>return</code> で返す関数 <code>calc_total</code> を完成させてください。期待される出力: <code>合計: 600円</code></p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="10"># calc_total関数を完成させよう
+def calc_total(prices):
+    total = 0
+    for price in prices:
+        total = total + price
+    return total
+
+# テスト
+prices = [100, 200, 300]
+result = calc_total(prices)
+print(f"合計: {result}円")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>def calc_total(prices):
+    total = 0
+    for price in prices:
+        total = total + price
+    return total
+
+prices = [100, 200, 300]
+result = calc_total(prices)
+print(f"合計: {result}円")</code></pre>
+            </details>
+
+            <!-- 演習3: BMI計算関数 -->
+            <div class="code-playground" data-mode="exercise" data-expected="身長170cm・体重65kgのBMI: 22.49">
+                <div class="playground-header">
+                    <span class="playground-label">最終チャレンジ</span>
+                    <span class="playground-badge">問題 3</span>
+                </div>
+                <div class="playground-task">
+                    <p>身長(cm)と体重(kg)を受け取り、BMIを計算して返す関数 <code>calc_bmi</code> を完成させてください。BMI = 体重 &divide; (身長m)<sup>2</sup> です。期待される出力: <code>身長170cm・体重65kgのBMI: 22.49</code></p>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="10"># calc_bmi関数を完成させよう
+def calc_bmi(height_cm, weight_kg):
+    height_m = height_cm / 100
+    bmi = weight_kg / (height_m ** 2)
+    return round(bmi, 2)
+
+# テスト
+bmi = calc_bmi(170, 65)
+print(f"身長170cm・体重65kgのBMI: {bmi}")</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行して確認</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+                <div class="playground-result"></div>
+            </div>
+
+            <details class="playground-answer">
+                <summary>答えを見る</summary>
+                <pre><code>def calc_bmi(height_cm, weight_kg):
+    height_m = height_cm / 100
+    bmi = weight_kg / (height_m ** 2)
+    return round(bmi, 2)
+
+bmi = calc_bmi(170, 65)
+print(f"身長170cm・体重65kgのBMI: {bmi}")</code></pre>
+            </details>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2 id="toc-9">まとめ</h2>
+
+            <p>この記事では、Pythonの関数（def）の基礎を学びました。</p>
+
+            <ul>
+                <li><code>def 関数名():</code> で<strong>関数を定義</strong>する</li>
+                <li><code>def 関数名(引数):</code> で<strong>データを受け取る</strong></li>
+                <li><code>return</code> で<strong>結果を返す</strong></li>
+                <li><strong>デフォルト引数</strong>で省略可能なパラメータを作れる</li>
+                <li>関数を<strong>組み合わせて</strong>複雑な処理を整理できる</li>
+            </ul>
+
+            <p>これで、AIが書くコードに出てくる <code>def</code> の意味がしっかり分かるようになったはずです。<code>print</code>・<code>変数</code>・<code>if</code>・<code>for</code>・<code>def</code> ——ここまで学んだ知識があれば、AIが生成するPythonコードの大部分を読み解けます。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>お疲れさまでした！ 関数はプログラミングの最重要概念のひとつです。最初は「処理に名前をつけて、何度でも使い回せる」という感覚だけ掴めればOK。このエディタで色々な関数を作って遊んでみてくださいね。</p>
+                </div>
+            </div>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="python-basics-def">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // === Code Playground — Pyodide Integration ===
+    (function() {
+        var pyodideReady = null;
+        var pyodideInstance = null;
+
+        function loadPyodide() {
+            if (pyodideReady) return pyodideReady;
+            pyodideReady = new Promise(function(resolve, reject) {
+                var script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/pyodide/v0.27.0/full/pyodide.js';
+                script.onload = function() {
+                    window.loadPyodide().then(function(py) {
+                        pyodideInstance = py;
+                        resolve(py);
+                    }).catch(reject);
+                };
+                script.onerror = function() { reject(new Error('Pyodide failed to load')); };
+                document.head.appendChild(script);
+            });
+            return pyodideReady;
+        }
+
+        function escapeHtml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function runSingleTest(py, code) {
+            py.runPython('import io, sys; sys.stdout = io.StringIO()');
+            var error = null;
+            try {
+                py.runPython(code);
+            } catch (e) {
+                error = e.message;
+            }
+            var stdout = '';
+            if (!error) {
+                stdout = py.runPython('sys.stdout.getvalue()');
+            }
+            py.runPython('sys.stdout = sys.__stdout__');
+            return { error: error, stdout: stdout };
+        }
+
+        function initPlaygrounds() {
+            var playgrounds = document.querySelectorAll('.code-playground');
+            playgrounds.forEach(function(pg) {
+                var textarea = pg.querySelector('.playground-code');
+                var runBtn = pg.querySelector('.playground-run');
+                var resetBtn = pg.querySelector('.playground-reset');
+                var output = pg.querySelector('.playground-output');
+                var result = pg.querySelector('.playground-result');
+                var mode = pg.getAttribute('data-mode');
+                var expected = pg.getAttribute('data-expected');
+                if (expected) expected = expected.replace(/\\n/g, '\n');
+                var testsAttr = pg.getAttribute('data-tests');
+                var tests = testsAttr ? JSON.parse(testsAttr) : null;
+
+                // Save initial code
+                textarea.setAttribute('data-initial', textarea.value);
+
+                // Tab key support
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        e.preventDefault();
+                        var start = this.selectionStart;
+                        var end = this.selectionEnd;
+                        this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                        this.selectionStart = this.selectionEnd = start + 4;
+                    }
+                });
+
+                // Run button
+                runBtn.addEventListener('click', function() {
+                    var code = textarea.value;
+                    var originalText = runBtn.textContent;
+                    runBtn.disabled = true;
+                    runBtn.textContent = 'Loading...';
+
+                    loadPyodide().then(function(py) {
+                        runBtn.textContent = originalText;
+                        runBtn.disabled = false;
+
+                        // Run user code as-is for output display
+                        var mainRun = runSingleTest(py, code);
+
+                        if (mainRun.error) {
+                            output.textContent = mainRun.error;
+                            output.classList.add('has-content', 'has-error');
+                        } else {
+                            var trimmed = mainRun.stdout.replace(/\n$/, '');
+                            output.textContent = trimmed || '(出力なし)';
+                            output.classList.add('has-content');
+                            output.classList.remove('has-error');
+                        }
+
+                        // Exercise mode: check answer
+                        if (mode === 'exercise' && result) {
+                            pg.classList.remove('is-correct');
+                            result.className = 'playground-result';
+                            result.innerHTML = '';
+                            pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+
+                            if (tests) {
+                                // Multi-test mode
+                                var passCount = 0;
+                                var lines = [];
+
+                                for (var t = 0; t < tests.length; t++) {
+                                    var test = tests[t];
+                                    var varName = test.assign.split('=')[0].trim();
+                                    var pattern = new RegExp('^' + varName + '\\s*=\\s*.*$', 'm');
+                                    var testCode = code.replace(pattern, test.assign);
+                                    var r = runSingleTest(py, testCode);
+
+                                    if (!r.error && r.stdout.replace(/\n$/, '') === test.expected) {
+                                        passCount++;
+                                        lines.push('<span class="test-pass">\u2713 ' + escapeHtml(test.label) + ' \u2192 ' + escapeHtml(test.expected) + '</span>');
+                                    } else if (r.error) {
+                                        lines.push('<span class="test-fail">\u2717 ' + escapeHtml(test.label) + ' \u2192 Error</span>');
+                                    } else {
+                                        var actual = escapeHtml(r.stdout.replace(/\n$/, '') || '(出力なし)');
+                                        lines.push('<span class="test-fail">\u2717 ' + escapeHtml(test.label) + ' \u2192 ' + actual + ' (期待: ' + escapeHtml(test.expected) + ')</span>');
+                                    }
+                                }
+
+                                if (passCount === tests.length) {
+                                    result.innerHTML = '<strong>\u2713 全問正解！ (' + passCount + '/' + tests.length + ')</strong>\n' + lines.join('\n');
+                                    result.classList.add('correct');
+                                    pg.classList.add('is-correct');
+                                    spawnParticles(pg);
+                                } else if (passCount > 0) {
+                                    result.innerHTML = '<strong>' + passCount + '/' + tests.length + ' 正解</strong>\n' + lines.join('\n');
+                                    result.classList.add('partial');
+                                } else {
+                                    result.innerHTML = '<strong>\u2717 0/' + tests.length + ' 正解</strong>\n' + lines.join('\n');
+                                    result.classList.add('wrong');
+                                }
+                            } else if (expected) {
+                                // Single-test mode
+                                if (mainRun.error) {
+                                    result.textContent = 'Error \u2014 コードを修正してもう一度実行してください。';
+                                    result.classList.add('wrong');
+                                } else {
+                                    var actual = mainRun.stdout.replace(/\n$/, '');
+                                    if (actual === expected) {
+                                        result.textContent = '\u2713 正解！';
+                                        result.classList.add('correct');
+                                        pg.classList.add('is-correct');
+                                        spawnParticles(pg);
+                                    } else {
+                                        result.textContent = '\u2717 不正解 \u2014 期待される出力: ' + expected;
+                                        result.classList.add('wrong');
+                                    }
+                                }
+                            }
+                        }
+                    }).catch(function(err) {
+                        runBtn.textContent = originalText;
+                        runBtn.disabled = false;
+                        output.textContent = 'Pyodide load error: ' + err.message;
+                        output.classList.add('has-content', 'has-error');
+                    });
+                });
+
+                // Reset button
+                resetBtn.addEventListener('click', function() {
+                    textarea.value = textarea.getAttribute('data-initial');
+                    output.textContent = '';
+                    output.classList.remove('has-content', 'has-error');
+                    pg.classList.remove('is-correct');
+                    if (result) {
+                        result.className = 'playground-result';
+                        result.innerHTML = '';
+                    }
+                    pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+                });
+            });
+        }
+
+        function spawnParticles(pg) {
+            var emojis = ['\u2728', '\u2B50', '\u2728', '\u2B50', '\u2728', '\u2B50'];
+            for (var i = 0; i < emojis.length; i++) {
+                var span = document.createElement('span');
+                span.className = 'playground-particle';
+                span.textContent = emojis[i];
+                span.style.left = (15 + Math.random() * 70) + '%';
+                span.style.top = (20 + Math.random() * 50) + '%';
+                span.style.animationDelay = (Math.random() * 0.3) + 's';
+                pg.appendChild(span);
+            }
+            // Cleanup after animation
+            setTimeout(function() {
+                pg.querySelectorAll('.playground-particle').forEach(function(p) { p.remove(); });
+            }, 1600);
+        }
+
+        // Init
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPlaygrounds);
+        } else {
+            initPlaygrounds();
+        }
+    })();
+
+    // Theme toggle
+    (function() {
+        var toggle = document.querySelector('.theme-toggle');
+        if (!toggle) return;
+        toggle.addEventListener('click', function() {
+            var html = document.documentElement;
+            var current = html.getAttribute('data-theme') || 'dark';
+            var next = current === 'dark' ? 'light' : 'dark';
+            html.classList.add('theme-transitioning');
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                var html = document.documentElement;
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            }
+        });
+    })();
+
+    // Hamburger menu
+    (function() {
+        var hamburger = document.querySelector('.hamburger');
+        var navLinks = document.querySelector('.nav-links');
+        if (!hamburger || !navLinks) return;
+        hamburger.addEventListener('click', function() {
+            var isOpen = navLinks.classList.toggle('is-open');
+            hamburger.classList.toggle('is-active', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('is-open');
+                hamburger.classList.remove('is-active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+
+    // Auto-hide header on scroll
+    (function() {
+        var header = document.querySelector('.site-header');
+        if (!header) return;
+        var lastY = window.scrollY;
+        var ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    var y = window.scrollY;
+                    if (y > 80 && y > lastY) {
+                        header.classList.add('is-hidden');
+                        var navLinks = document.querySelector('.nav-links');
+                        var hamburger = document.querySelector('.hamburger');
+                        if (navLinks) navLinks.classList.remove('is-open');
+                        if (hamburger) {
+                            hamburger.classList.remove('is-active');
+                            hamburger.setAttribute('aria-expanded', 'false');
+                        }
+                    } else {
+                        header.classList.remove('is-hidden');
+                    }
+                    lastY = y;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    })();
+
+    // Share button
+    (function() {
+        var shareBtn = document.querySelector('.share-btn');
+        if (!shareBtn) return;
+        shareBtn.addEventListener('click', function() {
+            var text = document.title + '\n' + location.href;
+            var overlay = document.createElement('div');
+            overlay.className = 'share-modal-overlay';
+            overlay.innerHTML = '<div class="share-modal">' +
+                '<button class="share-modal-close" type="button">&times;</button>' +
+                '<div class="share-modal-title">この記事を共有</div>' +
+                '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                '</div>';
+            overlay.querySelector('.share-modal-textarea').value = text;
+            document.body.appendChild(overlay);
+            requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+            navigator.clipboard.writeText(text).catch(function() {});
+            overlay.querySelector('.share-modal-close').addEventListener('click', close);
+            overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+            var copyBtn = overlay.querySelector('.share-copy-btn');
+            copyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(text).then(function() {
+                    copyBtn.classList.add('is-copied');
+                    copyBtn.textContent = 'コピーされました';
+                    setTimeout(function() {
+                        copyBtn.classList.remove('is-copied');
+                        copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                    }, 2000);
+                });
+            });
+            function close() {
+                overlay.classList.remove('is-visible');
+                setTimeout(function() { overlay.remove(); }, 250);
+            }
+        });
+    })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -36,9 +36,9 @@
     <g transform="translate(10,18)" opacity="0.7">
       <text x="0" y="5" text-anchor="middle" font-family="monospace" font-size="14" fill="#00d4ff">&gt;&gt;&gt;</text>
     </g>
-    <text x="10" y="52" text-anchor="middle" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.6">2 LESSONS</text>
+    <text x="10" y="52" text-anchor="middle" font-family="monospace" font-size="8" fill="#00d4ff" opacity="0.6">3 LESSONS</text>
   </g>
   <!-- Bottom title -->
   <text x="320" y="310" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" opacity="0.85">PYTHON COURSE</text>
-  <text x="320" y="330" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#00d4ff" opacity="0.5">Variables, Conditionals &amp; Loops</text>
+  <text x="320" y="330" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#00d4ff" opacity="0.5">Variables, Conditionals, Loops &amp; Functions</text>
 </svg>

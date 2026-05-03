@@ -3158,6 +3158,225 @@ html[data-theme="light"] .fav-remove:hover {
     }
 }
 
+/* --- Roadmap Page --- */
+.roadmap-section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem var(--padding-side) 6rem;
+}
+
+.roadmap-intro {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+}
+
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.roadmap-package {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.roadmap-package:hover {
+    box-shadow: 0 4px 20px var(--card-shadow-glow);
+}
+
+.roadmap-package.is-complete {
+    border-color: var(--color-success);
+}
+
+.package-header {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.package-header:hover {
+    background: var(--bg-hover);
+}
+
+.package-thumbnail {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.package-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.package-header:hover .package-thumbnail img {
+    transform: scale(1.08);
+}
+
+.package-info {
+    padding: 1rem 1.25rem;
+}
+
+.package-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 0.35rem;
+}
+
+.package-description {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+}
+
+.package-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.package-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.package-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.package-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.package-toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.25rem 0.75rem;
+}
+
+.package-toggle-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--text-muted);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s ease;
+}
+
+.roadmap-package.is-open .package-toggle-icon svg {
+    transform: rotate(180deg);
+}
+
+.package-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.roadmap-package.is-open .package-body {
+    max-height: 600px;
+}
+
+.package-articles {
+    list-style: none;
+    padding: 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.package-articles li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.package-articles li:last-child {
+    border-bottom: none;
+}
+
+.package-article-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    background: var(--bg-hover);
+    color: var(--text-muted);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.package-articles li.is-read .package-article-number {
+    background: var(--color-success);
+    color: #fff;
+}
+
+.package-article-title {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.package-article-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.package-article-title a:hover {
+    color: var(--accent-primary);
+}
+
+.package-article-status {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.package-articles li.is-read .package-article-status {
+    color: var(--color-success);
+}
+
+@media (max-width: 1023px) {
+    .roadmap-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .roadmap-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- Marker (Highlight) --- */
 .marker {
     background: linear-gradient(transparent 60%, rgba(0, 180, 255, 0.5) 60%);

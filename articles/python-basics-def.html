@@ -252,7 +252,20 @@ greet("Python")
                 <div class="playground-output"></div>
             </div>
 
-            <p>引数は<strong>複数</strong>渡すこともできます。カンマで区切るだけです。</p>
+            <h3>引数の対応関係を色で見てみよう</h3>
+
+            <p>引数は<strong>複数</strong>渡すこともできます。呼び出し側の値が関数のどこに入るか、色で追ってみましょう。</p>
+
+            <div class="code-annotated">
+                <span class="ca-keyword">def</span> <span class="ca-func">introduce(</span><span class="ca-arg-a">name</span><span class="ca-func">,</span> <span class="ca-arg-b">age</span><span class="ca-func">):</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="ca-func">print(f"名前: {</span><span class="ca-arg-a">name</span><span class="ca-func">}")</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="ca-func">print(f"年齢: {</span><span class="ca-arg-b">age</span><span class="ca-func">}歳")</span>
+            </div>
+            <div class="code-annotated">
+                <span class="ca-func">introduce(</span><span class="ca-arg-a">"太郎"</span><span class="ca-func">,</span> <span class="ca-arg-b">25</span><span class="ca-func">)</span>
+            </div>
+            <div class="code-arrow arrow-a"><span class="arrow-label"><span class="ca-arg-a">"太郎"</span> が <span class="ca-arg-a">name</span> に入る（1番目 → 1番目）</span></div>
+            <div class="code-arrow arrow-b"><span class="arrow-label"><span class="ca-arg-b">25</span> が <span class="ca-arg-b">age</span> に入る（2番目 → 2番目）</span></div>
 
             <div class="code-playground">
                 <div class="playground-header">
@@ -274,11 +287,87 @@ introduce("花子", 30)</textarea>
                 <div class="playground-output"></div>
             </div>
 
+            <h3>変数名が違っても大丈夫</h3>
+
+            <p>初心者がよく混乱するポイントがあります。<mark class="marker"><strong>呼び出し側の変数名と、関数側の引数名は一致していなくてもいい</strong></mark>のです。</p>
+
+            <div class="code-annotated">
+                <span class="ca-arg-a">user</span> <span class="ca-func">= "花子"</span><br>
+                <span class="ca-arg-b">years</span> <span class="ca-func">= 30</span><br>
+                <br>
+                <span class="ca-func">introduce(</span><span class="ca-arg-a">user</span><span class="ca-func">,</span> <span class="ca-arg-b">years</span><span class="ca-func">)</span>
+            </div>
+            <div class="code-arrow arrow-a"><span class="arrow-label">変数 <span class="ca-arg-a">user</span> の中身 <span class="ca-arg-a">"花子"</span> が → 関数の <span class="ca-arg-a">name</span> に入る</span></div>
+            <div class="code-arrow arrow-b"><span class="arrow-label">変数 <span class="ca-arg-b">years</span> の中身 <span class="ca-arg-b">30</span> が → 関数の <span class="ca-arg-b">age</span> に入る</span></div>
+
+            <p>名前ではなく<strong>順番</strong>で対応します。<code>user</code> と <code>name</code> は別の名前ですが、どちらも1番目なので中身の <code>"花子"</code> がそのまま <code>name</code> に入ります。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="10">def introduce(name, age):
+    print(f"名前: {name}")
+    print(f"年齢: {age}歳")
+
+# 変数名が関数の引数名と違っても問題なし！
+user = "花子"
+years = 30
+introduce(user, years)
+
+# 直接値を渡すのもOK
+introduce("太郎", 25)</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
+            <h3>なぜ引数を使うのか？</h3>
+
+            <p>引数のメリットを具体例で見てみましょう。もし引数がなかったら、相手ごとに別々の関数を作らなければなりません。</p>
+
+            <div class="code-playground">
+                <div class="playground-header">
+                    <span class="playground-label">コードを試してみよう</span>
+                </div>
+                <div class="playground-editor">
+                    <textarea class="playground-code" spellcheck="false" rows="16"># --- 引数なし: 相手ごとに関数が必要 ---
+def greet_taro():
+    print("こんにちは、太郎さん！")
+
+def greet_hanako():
+    print("こんにちは、花子さん！")
+
+greet_taro()
+greet_hanako()
+# 100人いたら100個の関数...？
+
+print("---")
+
+# --- 引数あり: 1つの関数で全員対応 ---
+def greet(name):
+    print(f"こんにちは、{name}さん！")
+
+greet("太郎")
+greet("花子")
+# 100人いても関数は1つでOK！</textarea>
+                </div>
+                <div class="playground-controls">
+                    <button class="playground-run" type="button">&#9654; 実行</button>
+                    <button class="playground-reset" type="button">&#8635; リセット</button>
+                </div>
+                <div class="playground-output"></div>
+            </div>
+
             <div class="writer-comment" data-writer="compass">
                 <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
                 <div class="writer-comment-body">
                     <span class="writer-comment-name">Compass</span>
-                    <p>引数の名前は自由に決められますが、<strong>中身が分かる名前</strong>をつけましょう。<code>name</code>、<code>age</code>、<code>price</code> のように、何のデータかひと目で分かる名前が理想です。</p>
+                    <p>引数があれば、「同じ処理だけどデータだけ変えたい」ときに関数を1つ作るだけで済みます。引数の名前は自由に決められますが、<code>name</code>、<code>age</code>、<code>price</code> のように中身が分かる名前をつけましょう。</p>
                 </div>
             </div>
 
@@ -290,15 +379,20 @@ introduce("花子", 30)</textarea>
 
             <p>ここまでの関数は <code>print()</code> で画面に表示するだけでした。でも実際のプログラムでは、<mark class="marker"><strong>関数の計算結果を受け取って次の処理に使いたい</strong></mark>ことがよくあります。</p>
 
-            <p>そこで登場するのが <code>return</code>（リターン）です。</p>
+            <p>そこで登場するのが <code>return</code>（リターン）です。色で値の流れを追ってみましょう。</p>
 
-            <pre><code>def add(a, b):
-    return a + b
+            <div class="code-annotated">
+                <span class="ca-keyword">def</span> <span class="ca-func">add(</span><span class="ca-arg-a">a</span><span class="ca-func">,</span> <span class="ca-arg-b">b</span><span class="ca-func">):</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="ca-keyword">return</span> <span class="ca-return">a + b</span> <span class="ca-comment"># 計算結果を返す</span>
+            </div>
+            <div class="code-annotated">
+                <span class="ca-return">result</span> <span class="ca-func">=</span> <span class="ca-func">add(</span><span class="ca-arg-a">3</span><span class="ca-func">,</span> <span class="ca-arg-b">5</span><span class="ca-func">)</span>
+            </div>
+            <div class="code-arrow arrow-a"><span class="arrow-label"><span class="ca-arg-a">3</span> が <span class="ca-arg-a">a</span> に入る</span></div>
+            <div class="code-arrow arrow-b"><span class="arrow-label"><span class="ca-arg-b">5</span> が <span class="ca-arg-b">b</span> に入る</span></div>
+            <div class="code-arrow arrow-return"><span class="arrow-label"><span class="ca-return">a + b</span> の結果 <span class="ca-return">8</span> が <code>return</code> で返され → <span class="ca-return">result</span> に入る</span></div>
 
-result = add(3, 5)
-print(result)  # 8</code></pre>
-
-            <p><code>return</code> は「この値を呼び出し元に返す」という意味です。返された値は変数に保存して使えます。</p>
+            <p><code>return</code> は「この値を呼び出し元に返す」という意味です。返された値は変数に保存して使えます。ここでも<strong>変数名は自由</strong>です。<code>result</code> でも <code>answer</code> でも <code>x</code> でも、好きな名前で受け取れます。</p>
 
             <div class="code-playground">
                 <div class="playground-header">

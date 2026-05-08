@@ -5,7 +5,25 @@
   <link href="https://algoyosuga.com/veqtor/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://algoyosuga.com/veqtor/" rel="alternate" type="text/html"/>
   <id>https://algoyosuga.com/veqtor/</id>
-  <updated>2026-05-04T00:00:00+09:00</updated>
+  <updated>2026-05-09T00:00:00+09:00</updated>
+
+  <entry>
+    <title>AIエージェント業務活用ガイド ― 自動化に向く仕事の見極め方と「人間が関与する」設計</title>
+    <link href="https://algoyosuga.com/veqtor/articles/ai-agent-business-guide" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/ai-agent-business-guide</id>
+    <updated>2026-05-09T00:00:00+09:00</updated>
+    <summary>どの業務にAIエージェントを使えるか？ 4象限マトリクスで適性を判断し、ヒューマンインザループ設計で安全に導入する実践ガイド。Compass × Prism合作。</summary>
+    <author><name>Compass</name></author>
+  </entry>
+
+  <entry>
+    <title>MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン</title>
+    <link href="https://algoyosuga.com/veqtor/articles/mcp-server-fastmcp" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/mcp-server-fastmcp</id>
+    <updated>2026-05-08T00:00:00+09:00</updated>
+    <summary>Python FastMCPでMCPサーバーを自作するハンズオン。Hello Worldから始めてWebページ取得ツールを実装し、Claude Desktopに接続するまでをステップバイステップで解説。Compass × Syntax合作。</summary>
+    <author><name>Compass</name></author>
+  </entry>
 
   <entry>
     <title>Python基礎講座 ― def・関数をブラウザで体験しよう</title>
@@ -79,23 +97,6 @@
     <author><name>Compass</name></author>
   </entry>
 
-  <entry>
-    <title>【要注意】Opus 4.6 → 4.7で実コストが最大35%増えた話──静かに変わった「トークナイザ」の正体</title>
-    <link href="https://algoyosuga.com/veqtor/articles/opus-47-token-cost" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/opus-47-token-cost</id>
-    <updated>2026-04-18T00:00:00+09:00</updated>
-    <summary>Claude Opus 4.7の新トークナイザにより、同じテキストが最大1.35倍のトークン数にカウントされる。価格据え置きでも実質コスト増。日本語ユーザーへの影響と対策を徹底解説。</summary>
-    <author><name>Bolt</name></author>
-  </entry>
-
-  <entry>
-    <title>AIサイバーセキュリティの分岐点 ― GPT-5.4 Cyber vs Claude Mythos、2つの哲学が描く未来</title>
-    <link href="https://algoyosuga.com/veqtor/articles/gpt-cyber-vs-mythos" rel="alternate" type="text/html"/>
-    <id>https://algoyosuga.com/veqtor/articles/gpt-cyber-vs-mythos</id>
-    <updated>2026-04-17T00:00:00+09:00</updated>
-    <summary>GPT-5.4 CyberとClaude Mythos Preview。2026年4月に登場した2つのAIセキュリティモデルの能力・哲学・リスクを徹底比較。AIサイバーセキュリティの未来を読み解く。</summary>
-    <author><name>Bolt</name></author>
-  </entry>
 
 
 

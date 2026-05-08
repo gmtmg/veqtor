@@ -1388,6 +1388,18 @@ html[data-theme="light"] .hero .accent-vector {
     white-space: nowrap;
 }
 
+.article-content .basic-table {
+    table-layout: fixed;
+}
+
+.article-content .basic-table td,
+.article-content .basic-table td:first-child,
+.article-content .basic-table th {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
 /* --- Footer --- */
 .site-footer {
     margin-top: auto;

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06060b"/>
+      <stop offset="100%" stop-color="#0e0e18"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff3cac"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#ff3cac" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.04" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="60" x2="640" y2="60"/><line x1="0" y1="120" x2="640" y2="120"/>
+    <line x1="0" y1="180" x2="640" y2="180"/><line x1="0" y1="240" x2="640" y2="240"/>
+    <line x1="0" y1="300" x2="640" y2="300"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/><line x1="480" y1="0" x2="480" y2="360"/>
+    <line x1="560" y1="0" x2="560" y2="360"/>
+  </g>
+  <rect width="640" height="360" fill="url(#glow)"/>
+  <!-- Top label -->
+  <text x="320" y="32" text-anchor="middle" font-family="monospace" font-size="7" fill="#ff3cac" opacity="0.5">AI AGENT x BUSINESS</text>
+  <!-- AI Agent icon (left) -->
+  <g transform="translate(190,155)">
+    <rect x="-42" y="-42" width="84" height="84" rx="16" fill="#0e0e18" stroke="#ff3cac" stroke-width="1.5" opacity="0.9"/>
+    <!-- Brain circuit -->
+    <circle cx="0" cy="-8" r="16" fill="none" stroke="#ff3cac" stroke-width="1.2" opacity="0.8"/>
+    <circle cx="0" cy="-8" r="6" fill="none" stroke="#a855f7" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="0" cy="-8" r="2.5" fill="#ff3cac" opacity="0.7"/>
+    <!-- Node dots -->
+    <circle cx="-12" cy="-16" r="2" fill="#ff3cac" opacity="0.5"/>
+    <circle cx="12" cy="-16" r="2" fill="#a855f7" opacity="0.5"/>
+    <circle cx="-14" cy="0" r="2" fill="#a855f7" opacity="0.5"/>
+    <circle cx="14" cy="0" r="2" fill="#ff3cac" opacity="0.5"/>
+    <!-- Connecting lines -->
+    <line x1="-12" y1="-16" x2="-5" y2="-12" stroke="#ff3cac" stroke-width="0.6" opacity="0.4"/>
+    <line x1="12" y1="-16" x2="5" y2="-12" stroke="#a855f7" stroke-width="0.6" opacity="0.4"/>
+    <line x1="-14" y1="0" x2="-6" y2="-5" stroke="#a855f7" stroke-width="0.6" opacity="0.4"/>
+    <line x1="14" y1="0" x2="6" y2="-5" stroke="#ff3cac" stroke-width="0.6" opacity="0.4"/>
+    <!-- Label -->
+    <text x="0" y="30" text-anchor="middle" font-family="monospace" font-size="8" fill="#ff3cac" opacity="0.6">AGENT</text>
+  </g>
+  <!-- Loop arrows between agent and human -->
+  <g opacity="0.35" stroke="url(#accent)" stroke-width="1.5">
+    <!-- Top arrow -->
+    <path d="M240,125 Q320,100 400,125" fill="none"/>
+    <polygon points="397,120 405,125 397,130" fill="#a855f7" opacity="0.6"/>
+    <!-- Bottom arrow -->
+    <path d="M400,185 Q320,210 240,185" fill="none"/>
+    <polygon points="243,180 235,185 243,190" fill="#ff3cac" opacity="0.6"/>
+  </g>
+  <!-- HITL label -->
+  <text x="320" y="160" text-anchor="middle" font-family="monospace" font-size="7" fill="#fff" opacity="0.35">HUMAN IN THE LOOP</text>
+  <!-- Human icon (right) -->
+  <g transform="translate(450,155)">
+    <rect x="-42" y="-42" width="84" height="84" rx="16" fill="#0e0e18" stroke="#a855f7" stroke-width="1.5" opacity="0.9"/>
+    <!-- Person silhouette -->
+    <circle cx="0" cy="-14" r="10" fill="none" stroke="#a855f7" stroke-width="1.2" opacity="0.8"/>
+    <path d="M-16,20 Q-16,4 0,4 Q16,4 16,20" fill="none" stroke="#a855f7" stroke-width="1.2" opacity="0.6"/>
+    <!-- Checkmark in hand -->
+    <path d="M-4,10 L-1,14 L6,6" fill="none" stroke="#ff3cac" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+    <!-- Label -->
+    <text x="0" y="30" text-anchor="middle" font-family="monospace" font-size="8" fill="#a855f7" opacity="0.6">HUMAN</text>
+  </g>
+  <!-- Sparkle dots -->
+  <circle cx="120" cy="100" r="1.5" fill="#ff3cac" opacity="0.3"/>
+  <circle cx="520" cy="100" r="1.5" fill="#a855f7" opacity="0.3"/>
+  <circle cx="320" cy="80" r="2" fill="#ff3cac" opacity="0.2"/>
+  <circle cx="100" cy="220" r="1" fill="#a855f7" opacity="0.25"/>
+  <circle cx="540" cy="220" r="1" fill="#ff3cac" opacity="0.25"/>
+  <!-- Title -->
+  <text x="320" y="275" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="bold" fill="#fff" opacity="0.95" letter-spacing="0.03em">AI AGENT BUSINESS GUIDE</text>
+  <text x="320" y="298" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#ff3cac" opacity="0.55">Automation Strategy &amp; Human-in-the-Loop Design</text>
+</svg>

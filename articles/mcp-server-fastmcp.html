@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン | Veqtor</title>
+    <meta name="description" content="Python FastMCPでMCPサーバーを自作するハンズオン。Hello Worldから始めてWebページ取得ツールを実装し、Claude Desktopに接続するまでをステップバイステップで解説。">
+    <meta property="og:title" content="MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン">
+    <meta property="og:description" content="Python FastMCPでMCPサーバーを自作するハンズオン。Hello Worldから始めてWebページ取得ツールを実装し、Claude Desktopに接続するまで。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://algoyosuga.com/veqtor/assets/images/thumbnails/mcp-server-fastmcp-thumb.svg">
+    <meta property="og:url" content="https://algoyosuga.com/veqtor/articles/mcp-server-fastmcp.html">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン",
+      "description": "Python FastMCPでMCPサーバーを自作するハンズオン。Hello Worldから始めてWebページ取得ツールを実装し、Claude Desktopに接続するまでをステップバイステップで解説。",
+      "datePublished": "2026-05-08",
+      "author": [
+        { "@type": "Person", "name": "Compass" },
+        { "@type": "Person", "name": "Syntax" }
+      ],
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/mcp-server-fastmcp-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/mcp-server-fastmcp"
+    }
+    </script>
+    <link rel="canonical" href="https://algoyosuga.com/veqtor/articles/mcp-server-fastmcp.html">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../roadmap.html" class="nav-link">ロードマップ</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-08">2026年5月8日</time>
+                <span class="article-category">Development</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+                <a href="../writers.html#syntax" class="article-writer" data-writer="syntax">
+                    <img src="../assets/images/writers/SYNTAX.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Syntax</span>
+                </a>
+                <button class="article-fav-btn" type="button" data-slug="mcp-server-fastmcp">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+                <button class="article-share-btn" type="button" aria-label="共有" onclick="var b=document.querySelector('.share-btn');if(b)b.click();"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
+            </div>
+            <h1>MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 15分で学べること</span>
+                <span class="article-benefit-text">FastMCPでMCPサーバーを自作し、Claude Desktopに接続する方法</span>
+            </div>
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">MCPガイドの振り返り ― 今日は「自分で作る」</a></li>
+                    <li><a href="#toc-2">FastMCPとは ― Python SDK + 高速フレームワーク</a></li>
+                    <li><a href="#toc-3">環境構築 ― 必要なものを揃えよう</a></li>
+                    <li><a href="#toc-4">最初のサーバー ― Hello World ツール</a></li>
+                    <li><a href="#toc-5">Webページ取得ツールを作る</a></li>
+                    <li><a href="#toc-6">Claude Desktopに接続する</a></li>
+                    <li><a href="#toc-7">実際に使ってみる ― 「このURLを要約して」</a></li>
+                    <li><a href="#toc-8">さらに発展させる</a></li>
+                    <li><a href="#toc-9">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>以前の<a href="mcp-guide.html">MCP完全解説</a>では、MCPの全体像を学びましたね。今回はいよいよ「自分でMCPサーバーを作る」ハンズオンです。Syntaxと一緒に、PythonでURL要約ツールを作ってClaude Desktopに接続するところまで案内します。</p>
+                </div>
+            </div>
+
+
+            <!-- Section 1 -->
+            <h2 id="toc-1">1. MCPガイドの振り返り ― 今日は「自分で作る」</h2>
+
+            <p><a href="mcp-guide.html">MCP完全解説</a>では、MCPが<mark class="marker"><strong>AIとツールをつなぐ標準プロトコル</strong></mark>であること、そしてHost / Client / Server の3層アーキテクチャで動くことを解説しました。</p>
+
+            <p>あの記事ではMCPの全体像に焦点を当てましたが、「実際に自分で作ってみたい」という声も多いはず。今回はまさにその実践編です。</p>
+
+            <p>今回のゴールはシンプルです。</p>
+            <ul>
+                <li>Pythonで<strong>MCPサーバー</strong>を1つ作る</li>
+                <li>「URLを渡すとWebページのテキストを取得する」<strong>ツール</strong>を実装する</li>
+                <li>Claude Desktopから呼び出して「このURLを要約して」と頼む</li>
+            </ul>
+
+            <h3>「URLの内容なら、直接Claudeに貼ればよくない？」</h3>
+
+            <p>そう思った方、鋭いです。確かに、1つのURLを1回だけ要約したいなら、ブラウザでページを開いてテキストをコピーし、Claudeに貼り付ければ済みます。</p>
+
+            <p>ではなぜ、わざわざMCPサーバーを作るのか？ 理由は3つあります。</p>
+
+            <ul>
+                <li><strong>会話の流れを止めない</strong> ― 「このURLを要約して」の一言で完結する。3つのURLを比較分析したいとき、いちいちブラウザとClaudeを往復しなくていい</li>
+                <li><strong>URL要約は「練習題材」にすぎない</strong> ― 本当に大事なのは<mark class="marker"><strong>Claudeに好きな能力を足せる</strong></mark>という事実。社内データベースの検索、Slackへの投稿、IoTデバイスの操作、独自APIとの連携 ― 公開MCPサーバーにない機能を、自分で作れるようになる</li>
+                <li><strong>仕組みを理解するための最短経路</strong> ― URL取得→テキスト返却は入力と出力が明快で、MCPの動作原理を体感するのに最適。ここで学ぶ <code>@mcp.tool()</code> のパターンは、どんなツールにもそのまま応用できる</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>つまり、この記事のゴールは「URL要約ツールを完成させること」ではなく、「MCPサーバーの作り方を身につけること」です。URL要約はそのための題材だと思ってください。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>MCPサーバーの公式SDKは TypeScript と Python の2つがある。今回は Python の <strong>FastMCP</strong> フレームワークを使う。デコレータ1つでツールを定義できるので、最短距離でサーバーが立つぞ。</p>
+                </div>
+            </div>
+
+
+            <!-- Section 2 -->
+            <h2 id="toc-2">2. FastMCPとは ― Python SDK + 高速フレームワーク</h2>
+
+            <p><mark class="marker"><strong>FastMCP</strong></mark>は、PythonでMCPサーバーを構築するための高レベルフレームワークです。MCP公式のPython SDKに統合されており、<code>mcp</code> パッケージをインストールするだけで使えます。</p>
+
+            <p>FastMCPの特徴は次の通りです。</p>
+
+            <ul>
+                <li><strong>デコレータベースのAPI</strong> ― <code>@mcp.tool()</code> を付けるだけで関数がMCPツールになる</li>
+                <li><strong>型ヒントからスキーマを自動生成</strong> ― 引数の型アノテーションがそのままJSON Schemaに変換される</li>
+                <li><strong>組み込みのテストサーバー</strong> ― <code>mcp dev</code> コマンドで即座にブラウザからテスト可能</li>
+                <li><strong>Claude Desktopへの簡単接続</strong> ― <code>mcp install</code> で設定ファイルを自動生成</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>なぜ Python を選んだかというと、データ処理やWebスクレイピングのライブラリが豊富で、MCPツールとの相性がとても良いからです。<a href="python-basics-if.html">Python基礎講座</a>を読んでいれば、十分ついてこれますよ。</p>
+                </div>
+            </div>
+
+
+            <!-- Section 3 -->
+            <h2 id="toc-3">3. 環境構築 ― 必要なものを揃えよう</h2>
+
+            <p>必要なものは3つだけです。</p>
+
+            <ul>
+                <li><strong>Python 3.10以上</strong>（<code>python --version</code> で確認）</li>
+                <li><strong>pip</strong>（Pythonに同梱）</li>
+                <li><strong>Claude Desktop</strong>（最終的な接続先）</li>
+            </ul>
+
+            <p>まずはパッケージをインストールしましょう。</p>
+
+<pre><code># MCP SDK（FastMCP同梱）+ CLIツール
+pip install "mcp[cli]"
+
+# Webページ取得に使うライブラリ
+pip install httpx beautifulsoup4</code></pre>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p><code>mcp[cli]</code> を入れると <code>mcp dev</code> や <code>mcp install</code> といったCLIコマンドが使えるようになる。<code>httpx</code> は非同期対応のHTTPクライアント、<code>beautifulsoup4</code> はHTMLパーサーだ。</p>
+                </div>
+            </div>
+
+            <p>インストール確認をします。</p>
+
+<pre><code># バージョン確認
+python -c "import mcp; print(mcp.__version__)"
+
+# CLIが使えるか確認
+mcp --help</code></pre>
+
+            <p>エラーなく表示されれば準備完了です。</p>
+
+
+            <!-- Section 4 -->
+            <h2 id="toc-4">4. 最初のサーバー ― Hello World ツール</h2>
+
+            <p>まずは最小限のMCPサーバーを作って、仕組みを体感しましょう。<code>server.py</code> というファイルを作成します。</p>
+
+<pre><code># server.py
+from mcp.server.fastmcp import FastMCP
+
+# サーバーインスタンスを作成
+mcp = FastMCP("my-first-server")
+
+@mcp.tool()
+def greet(name: str) -&gt; str:
+    """指定された名前で挨拶を返します。"""
+    return f"こんにちは、{name}さん！MCPの世界へようこそ！"
+
+if __name__ == "__main__":
+    mcp.run()</code></pre>
+
+            <p>たったこれだけです。ポイントを確認しましょう。</p>
+
+            <ul>
+                <li><code>FastMCP("my-first-server")</code> ― サーバー名を指定してインスタンスを作成</li>
+                <li><code>@mcp.tool()</code> ― このデコレータを付けた関数がMCPツールとして公開される</li>
+                <li>関数の<strong>docstring</strong>（<code>"""..."""</code>）がツールの説明文になる ― AIはこれを読んでツールを選択する</li>
+                <li><strong>型ヒント</strong>（<code>name: str</code>）がそのまま入力スキーマになる</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>Pythonの<a href="python-basics-def.html">def文</a>と型ヒントの知識がそのまま活きますね。docstringはAIがツールを理解する「説明書」になるので、丁寧に書くのがコツです。</p>
+                </div>
+            </div>
+
+            <h3>開発サーバーで動作確認</h3>
+
+            <p><code>mcp dev</code> コマンドで開発用のインスペクターを起動できます。</p>
+
+<pre><code>mcp dev server.py</code></pre>
+
+            <p>ブラウザが自動で開き、<mark class="marker"><strong>MCP Inspector</strong></mark> という画面が表示されます。ここで「Tools」タブを開くと <code>greet</code> ツールが見えるはずです。<code>name</code> に自分の名前を入力して実行してみましょう。</p>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>MCP Inspector はサーバーの動作をブラウザ上でデバッグできるツールだ。ツールの一覧、入力スキーマの確認、実行結果の表示が全部ここでできる。開発中は常にこれを使うと効率がいい。</p>
+                </div>
+            </div>
+
+
+            <!-- Section 5 -->
+            <h2 id="toc-5">5. Webページ取得ツールを作る</h2>
+
+            <p>Hello Worldが動いたら、本題に入ります。URLを受け取って、そのWebページのテキスト内容を返すツールを作りましょう。</p>
+
+            <p><code>server.py</code> を以下のように拡張します。</p>
+
+<pre><code># server.py
+from mcp.server.fastmcp import FastMCP
+import httpx
+from bs4 import BeautifulSoup
+
+mcp = FastMCP("url-summary-server")
+
+@mcp.tool()
+def greet(name: str) -&gt; str:
+    """指定された名前で挨拶を返します。"""
+    return f"こんにちは、{name}さん！MCPの世界へようこそ！"
+
+@mcp.tool()
+async def fetch_webpage(url: str) -&gt; str:
+    """指定されたURLのWebページからテキスト内容を取得します。
+
+    Claudeが要約・分析するための生テキストを返します。
+    HTMLタグは除去され、本文テキストのみが返されます。
+
+    Args:
+        url: 取得したいWebページのURL（https://example.com 形式）
+    """
+    headers = {
+        "User-Agent": "MCP-URL-Summary-Bot/1.0"
+    }
+    async with httpx.AsyncClient(follow_redirects=True, timeout=30) as client:
+        response = await client.get(url, headers=headers)
+        response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # 不要な要素を除去
+    for tag in soup(["script", "style", "nav", "footer", "header"]):
+        tag.decompose()
+
+    text = soup.get_text(separator="\n", strip=True)
+
+    # 長すぎる場合は先頭を切り出す
+    if len(text) &gt; 10000:
+        text = text[:10000] + "\n\n...(以下省略)"
+
+    return text
+
+if __name__ == "__main__":
+    mcp.run()</code></pre>
+
+            <p>新しいツール <code>fetch_webpage</code> のポイントを見ていきましょう。</p>
+
+            <ul>
+                <li><code>async def</code> ― FastMCPは非同期関数をサポート。httpxの非同期クライアントとの相性が良い</li>
+                <li><code>httpx.AsyncClient</code> ― リダイレクト対応・タイムアウト付きでWebページを取得</li>
+                <li><code>BeautifulSoup</code> ― HTMLをパースして <code>script</code> や <code>style</code> などの不要タグを除去</li>
+                <li><code>get_text(separator="\n", strip=True)</code> ― タグを取り除いた純粋なテキストを抽出</li>
+                <li><strong>10,000文字で切り出し</strong> ― MCPのレスポンスが大きすぎるとトークンを圧迫するため</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>docstringの <code>Args:</code> セクションも重要だ。FastMCPはこれを解析してツールの入力説明に使う。AIが「このツールにはURLを渡せばいいんだな」と判断する根拠になる。</p>
+                </div>
+            </div>
+
+            <h3>動作確認</h3>
+
+            <p>もう一度 <code>mcp dev</code> で起動して、Inspectorから <code>fetch_webpage</code> ツールを試してみましょう。</p>
+
+<pre><code>mcp dev server.py</code></pre>
+
+            <p>Inspectorの「Tools」タブに <code>greet</code> と <code>fetch_webpage</code> の2つが表示されます。<code>fetch_webpage</code> を選び、<code>url</code> に適当なWebサイトのURLを入力して実行してください。HTMLタグが除去されたテキストが返ってくれば成功です。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>Inspector上でテストできるのがFastMCPの良いところ。Claude Desktopに接続する前に、ツール単体で動くことを確認しておくのが安心です。</p>
+                </div>
+            </div>
+
+
+            <!-- Section 6 -->
+            <h2 id="toc-6">6. Claude Desktopに接続する</h2>
+
+            <p>サーバーが完成したら、Claude Desktopから使えるように設定しましょう。</p>
+
+            <h3>方法1: mcp install を使う（推奨）</h3>
+
+            <p>FastMCPにはワンコマンドで設定を完了する便利なコマンドがあります。</p>
+
+<pre><code>mcp install server.py</code></pre>
+
+            <p>これだけで、Claude Desktopの設定ファイル（<code>claude_desktop_config.json</code>）に自動でエントリが追加されます。</p>
+
+            <h3>方法2: 手動で設定する</h3>
+
+            <p>手動で設定する場合は、以下のファイルを編集します。</p>
+
+            <p><strong>macOS:</strong></p>
+<pre><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></pre>
+
+            <p><strong>Windows:</strong></p>
+<pre><code>%APPDATA%\Claude\claude_desktop_config.json</code></pre>
+
+            <p>ファイルに以下を追記します。</p>
+
+<pre><code>{
+  "mcpServers": {
+    "url-summary-server": {
+      "command": "python",
+      "args": ["/absolute/path/to/server.py"]
+    }
+  }
+}</code></pre>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p><code>args</code> のパスは<strong>絶対パス</strong>にすること。相対パスだとClaude Desktopがサーバーを見つけられない。macOSなら <code>/Users/yourname/projects/server.py</code> のような形だ。</p>
+                </div>
+            </div>
+
+            <h3>接続確認</h3>
+
+            <p>設定後、Claude Desktopを<strong>再起動</strong>します。チャット入力欄の右下にハンマーアイコン（ツールアイコン）が表示され、クリックすると <code>greet</code> と <code>fetch_webpage</code> がリストに出ていれば接続成功です。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>もしツールが表示されない場合は、Claude Desktopのログ（Settings &gt; Developer &gt; Logs）を確認してみてください。Pythonのパスが違っていたり、パッケージが足りない場合はここにエラーが出ます。</p>
+                </div>
+            </div>
+
+
+            <!-- Section 7 -->
+            <h2 id="toc-7">7. 実際に使ってみる ― 「このURLを要約して」</h2>
+
+            <p>いよいよ実際に使ってみましょう。Claude Desktopで次のように入力します。</p>
+
+<pre><code>このURLの内容を要約してください:
+https://example.com/some-article</code></pre>
+
+            <p>すると、以下の流れで処理が進みます。</p>
+
+            <ol>
+                <li><strong>Claude</strong>がメッセージを解析し、「URL要約が必要だ」と判断</li>
+                <li>利用可能なMCPツールの中から <code>fetch_webpage</code> を選択</li>
+                <li>「ツールを使用してよいですか？」という<strong>確認ダイアログ</strong>が表示される</li>
+                <li>承認すると、MCPサーバーがWebページを取得してテキストを返す</li>
+                <li>Claudeがそのテキストを読み、<strong>要約を生成</strong>する</li>
+            </ol>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>MCPのポイントは、AIが<strong>自分でツールを選ぶ</strong>ところだ。「fetch_webpageを使え」と指示しなくても、Claudeがdocstringを読んで「URLの内容を取得するにはこのツールを使えばいい」と判断する。これがMCPの力だ。</p>
+                </div>
+            </div>
+
+            <p>他にもこんな使い方ができます。</p>
+
+            <ul>
+                <li>「このURLの記事を日本語に翻訳して」</li>
+                <li>「このURLの技術記事から主要なポイントを箇条書きで整理して」</li>
+                <li>「このURLとこのURLの内容を比較して」</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>自分が作ったサーバーがClaudeの能力を拡張している、と考えるとワクワクしますよね。MCPの面白さは、AIの「手」を自分で作れるところにあります。</p>
+                </div>
+            </div>
+
+
+            <!-- Section 8 -->
+            <h2 id="toc-8">8. さらに発展させる</h2>
+
+            <p>基本のツールが動いたら、さらに機能を追加してみましょう。FastMCPには<strong>ツール</strong>以外にも、<strong>Resources</strong>や<strong>Prompts</strong>といった機能があります。</p>
+
+            <h3>Resourceを追加する</h3>
+
+            <p>Resourceは、AIが参照できる「データソース」を公開する仕組みです。例えば、よく使うURLのリストをResourceとして提供できます。</p>
+
+<pre><code>@mcp.resource("bookmarks://list")
+def get_bookmarks() -&gt; str:
+    """よく参照するURLのブックマーク一覧を返します。"""
+    bookmarks = [
+        "https://docs.python.org/ja/3/",
+        "https://modelcontextprotocol.io/",
+        "https://httpx.org/",
+    ]
+    return "\n".join(bookmarks)</code></pre>
+
+            <h3>複数ツールを追加する</h3>
+
+            <p>同じサーバーに複数のツールを追加できます。例えば、Webページのメタデータだけを返す軽量版を追加するなら。</p>
+
+<pre><code>@mcp.tool()
+async def fetch_page_title(url: str) -&gt; str:
+    """指定されたURLのページタイトルを取得します。
+
+    ページ全体を取得せず、タイトルタグのみを返す軽量版です。
+
+    Args:
+        url: 取得したいWebページのURL
+    """
+    async with httpx.AsyncClient(follow_redirects=True, timeout=15) as client:
+        response = await client.get(url)
+        response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+    title = soup.title.string if soup.title else "タイトルなし"
+    return title</code></pre>
+
+            <h3>Streamable HTTP への展開</h3>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>今回は <strong>stdio</strong> トランスポート（標準入出力）で動かしたが、FastMCPは <strong>Streamable HTTP</strong> トランスポートもサポートしている。これを使えばサーバーをHTTPエンドポイントとして公開でき、リモートからの接続やチームでの共有が可能になる。</p>
+                </div>
+            </div>
+
+<pre><code># Streamable HTTP で起動する場合
+mcp = FastMCP("url-summary-server", transport="streamable-http")
+
+# または起動時に指定
+# mcp run server.py --transport streamable-http</code></pre>
+
+            <p>Streamable HTTPを使えば、社内ネットワークでMCPサーバーを共有したり、クラウド上にデプロイしてチーム全員が使えるようにすることも可能です。</p>
+
+
+            <!-- Section 9 -->
+            <h2 id="toc-9">9. まとめ</h2>
+
+            <p>この記事では、PythonのFastMCPフレームワークを使ってMCPサーバーを自作する方法をハンズオンで学びました。</p>
+
+            <ul>
+                <li><strong>FastMCP</strong>は <code>@mcp.tool()</code> デコレータだけでMCPツールを定義できる</li>
+                <li><strong>Hello World</strong>（greetツール）→ <strong>実用ツール</strong>（fetch_webpage）とステップアップ</li>
+                <li><strong>mcp dev</strong> で開発中にInspectorからテストでき、<strong>mcp install</strong> でClaude Desktopに接続</li>
+                <li><strong>Resource</strong>や<strong>複数ツール</strong>の追加、<strong>Streamable HTTP</strong>への展開も可能</li>
+            </ul>
+
+            <p><a href="mcp-guide.html">MCP完全解説</a>で学んだ知識が、今回の実装を通じて「動くもの」になりました。MCPはまだ発展途上のプロトコルですが、だからこそ今のうちに自分でサーバーを書いておくと、エコシステムの成長に合わせてスキルを活かせます。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>「MCPって何？」から始まって「自分のサーバーをClaudeに繋ぐ」ところまで来ました。次は自分のアイデアでツールを作ってみてください。データベース検索、ファイル操作、API連携 ― 可能性は無限大です。</p>
+                </div>
+            </div>
+
+            <div class="writer-comment" data-writer="syntax">
+                <img src="../assets/images/writers/SYNTAX.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Syntax</span>
+                    <p>公式ドキュメント（<a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer">modelcontextprotocol.io</a>）と Python SDK のリポジトリ（<a href="https://github.com/modelcontextprotocol/python-sdk" target="_blank" rel="noopener noreferrer">GitHub</a>）もチェックしておこう。仕様が頻繁にアップデートされているから、最新情報は公式が一番確実だ。</p>
+                </div>
+            </div>
+
+            <p>さらに学ぶために:</p>
+            <ul>
+                <li><a href="mcp-guide.html">MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌</a>（MCPの基礎を復習）</li>
+                <li><a href="python-basics-def.html">Python基礎講座 ― def・関数をブラウザで体験しよう</a>（Pythonの関数・型ヒントを復習）</li>
+                <li><a href="https://modelcontextprotocol.io/quickstart/server" target="_blank" rel="noopener noreferrer">MCP公式 Quickstart: Server</a>（公式のサーバー構築ガイド）</li>
+            </ul>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="mcp-server-fastmcp">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Read tracker
+        (function() {
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            var slug = 'mcp-server-fastmcp';
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+
+        // Favorite buttons
+        (function() {
+            var key = 'veqtor-favorite-articles';
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+
+            document.querySelectorAll('[data-slug]').forEach(function(btn) {
+                if (!btn.classList.contains('article-fav-btn') && !btn.classList.contains('fav-btn')) return;
+                var slug = btn.getAttribute('data-slug');
+                if (favs.indexOf(slug) !== -1) btn.classList.add('is-fav');
+
+                btn.addEventListener('click', function() {
+                    var idx = favs.indexOf(slug);
+                    if (idx === -1) {
+                        favs.push(slug);
+                        btn.classList.add('is-fav');
+                    } else {
+                        favs.splice(idx, 1);
+                        btn.classList.remove('is-fav');
+                    }
+                    localStorage.setItem(key, JSON.stringify(favs));
+                    // Sync all buttons with same slug
+                    document.querySelectorAll('[data-slug="' + slug + '"]').forEach(function(b) {
+                        b.classList.toggle('is-fav', favs.indexOf(slug) !== -1);
+                    });
+                });
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                if (navigator.share) {
+                    navigator.share({ title: document.title, url: location.href });
+                } else {
+                    navigator.clipboard.writeText(location.href).then(function() {
+                        shareBtn.textContent = 'コピーしました!';
+                        setTimeout(function() { shareBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> シェアする'; }, 2000);
+                    });
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

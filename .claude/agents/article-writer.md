@@ -53,7 +53,8 @@
     <meta property="og:title" content="【記事タイトル】">
     <meta property="og:description" content="【OG description】">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="../assets/images/thumbnails/【サムネイル】">
+    <meta property="og:image" content="https://algoyosuga.com/veqtor/assets/images/thumbnails/【サムネイル】">
+    <meta property="og:url" content="https://algoyosuga.com/veqtor/articles/【スラッグ】.html">
     <script>
         (function() {
             var saved = localStorage.getItem('theme');
@@ -61,6 +62,7 @@
             document.documentElement.setAttribute('data-theme', theme);
         })();
     </script>
+    <link rel="canonical" href="https://algoyosuga.com/veqtor/articles/【スラッグ】.html">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
@@ -90,6 +92,12 @@
                     <img src="../assets/images/writers/【ライターPNG】" alt="" class="article-writer-avatar">
                     <span class="article-writer-name">【ライター名】</span>
                 </a>
+
+                <button class="article-fav-btn" type="button" data-slug="【スラッグ】">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+                <button class="article-share-btn" type="button" aria-label="共有" onclick="var b=document.querySelector('.share-btn');if(b)b.click();"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
             </div>
             <h1>【記事タイトル】</h1>
 
@@ -361,6 +369,45 @@ else:
 4. **答えは必ず用意**: 全演習に `<details class="playground-answer">` を付ける
 5. **1記事あたり2〜4問**: 多すぎると疲れるのでサンドボックスと交互に配置
 
+## Behind the Scenes（制作の裏側）コンテンツ
+
+### 概要
+
+Veqtorには記事制作の裏側を紹介する「Behind the Scenes」ページ（`behind-the-scenes.html`）がある。語り手は「管理人」（=人間の運営者）であり、AIライターではない。
+
+### 管理人とAIライターの関係の描き方 ― 最重要ルール
+
+**「指示を出す支配者」ではなく「一緒に作っている協業者」として書く。**
+
+AIライターを「道具」や「操り人形」のように扱う表現は禁止。管理人がAIライターと協力して記事を作っているという関係性を常に意識する。
+
+#### OK例
+- 「Prismにこういう切り口で書いてもらったら、自分が想定していなかった視点が出てきた」
+- 「最初のドラフトではこの構成だったが、読んでみて順番を入れ替えた」
+- 「この記事はBoltの勢いがよくてほぼ修正なしだった」
+- 「CompassとPrismの掛け合いが自然に噛み合った回」
+
+#### NG例
+- 「AIにこう命令したらこう出力された」（道具扱い）
+- 「プロンプトでこう制御している」（操作者目線が強すぎる）
+- 「所詮AIなのでここは人間が直した」（上から目線）
+- 「このライターはこういう設定で動かしている」（キャラの裏設定暴露）
+
+### 掲載する情報の例
+
+- 記事テーマの選定理由・背景
+- 構成のアウトラインがどう変遷したか
+- ライター選定の理由（なぜこのライターの組み合わせなのか）
+- 管理人の率直な感想・評価（「この記事のここが気に入っている」）
+- 制作中に発見したこと・学び
+- 使用したツールやワークフローの概要（詳細なプロンプト全文は載せない）
+
+### トーン
+
+- 一人称は「僕」または「自分」（サイト運営者の自然な口調）
+- AIライターへの敬意を保ちつつ、カジュアルで率直な語り口
+- 読者に対しては「同じくAIを活用している仲間」として語りかける
+
 ## 執筆ルール
 
 1. **構成**: 導入 → 背景 → 本論 → 実践/具体例 → まとめ
@@ -372,7 +419,7 @@ else:
 7. **画像**: 必要な箇所にプレースホルダーコメントを入れる
 8. **ライター挨拶**: TOCの直後に `.writer-intro` を必ず配置する
 9. **ライターコメント**: 記事途中に `.writer-comment` を2〜4箇所挿入する
-10. **著者表記**: `.article-meta` にライター情報（アバター+名前リンク）を含める
+10. **著者表記**: `.article-meta` にライター情報（アバター+名前リンク）、お気に入りボタン（`.article-fav-btn`）、共有ボタン（`.article-share-btn`）を含める
 11. **ナビゲーション**: nav-linksに「ライター」リンクを含める
 
 ## 作業手順

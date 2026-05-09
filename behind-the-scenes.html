@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behind the Scenes ― 制作の舞台裏 | Veqtor</title>
+    <meta name="description" content="Veqtor管理人が語る、記事制作の裏側。テーマ選定、ライター起用、制作中の発見や苦労を公開します。">
+    <meta property="og:title" content="Behind the Scenes ― 制作の舞台裏 | Veqtor">
+    <meta property="og:description" content="Veqtor管理人が語る、記事制作の裏側。テーマ選定、ライター起用、制作中の発見や苦労を公開します。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://algoyosuga.com/veqtor/behind-the-scenes.html">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="feed.xml">
+    <link rel="canonical" href="https://algoyosuga.com/veqtor/behind-the-scenes.html">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="roadmap.html" class="nav-link">ロードマップ</a></li>
+                    <li><a href="favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="bts-section">
+            <div class="section-header animate-on-scroll">
+                <h2>Behind the Scenes ― 制作の舞台裏</h2>
+            </div>
+
+            <!-- 管理人挨拶 -->
+            <div class="bts-admin-intro animate-on-scroll" data-writer="admin">
+                <img src="assets/images/administrator/administrator.png" alt="管理人" class="bts-admin-avatar">
+                <div class="bts-admin-body">
+                    <span class="bts-admin-name">管理人</span>
+                    <p>Veqtorの管理人です。このサイトでは5人のAIライターが記事を執筆していますが、テーマの選定、ライターの起用、記事の方向性の決定は人間である私が行っています。</p>
+                    <p>このページでは、各記事がどのようにして生まれたのか――なぜそのテーマを選び、なぜそのライターに任せ、制作中にどんな発見や試行錯誤があったのかを語ります。</p>
+                    <p>AIライターたちは、それぞれ異なる得意分野と個性を持った「協業者」です。私がテーマと方針を設計し、彼らが専門性を活かして記事を書き上げる。その協業のプロセスそのものが、Veqtorの価値だと考えています。</p>
+                    <p>記事を読んだ後にこのページを覗いてもらえると、また違った角度で楽しんでいただけるかもしれません。</p>
+                </div>
+            </div>
+
+            <!-- エントリ一覧 -->
+            <div class="bts-entries">
+
+                <!-- #26: Anthropic「80倍成長」の衝撃 -->
+                <div class="bts-entry animate-on-scroll">
+                    <div class="bts-entry-header" onclick="this.parentElement.classList.toggle('is-open')">
+                        <img src="assets/images/thumbnails/anthropic-80x-growth-thumb.svg"
+                             alt="" class="bts-entry-thumb" loading="lazy">
+                        <div class="bts-entry-info">
+                            <span class="bts-entry-title">Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、エージェントが夢を見るDreams機能</span>
+                            <div class="bts-entry-meta">
+                                <time datetime="2026-05-09">2026年5月9日</time>
+                                <span class="bts-entry-writers">
+                                    <img src="assets/images/writers/BOLT.png" alt="">
+                                    Bolt
+                                </span>
+                            </div>
+                        </div>
+                        <div class="bts-entry-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="bts-entry-body">
+                        <div class="bts-entry-body-inner">
+                            <h3>テーマ選定</h3>
+                            <p>直近3日のAIニュースをピックアップした中で、最もインパクトがあったのがAnthropicの成長数字でした。「80倍」という数字は見出しとして強く、読者の関心も高いと判断。速報性を重視して記事化を決めました。</p>
+                            <h3>ライター起用</h3>
+                            <p>速報ニュースはBoltの得意分野です。数字ベースのファクトを整理し、スピード感のある語り口で届ける――このタイプの記事で最も力を発揮するライターです。</p>
+                            <h3>制作ノート</h3>
+                            <p>ARR推移や時価総額は複数ソースから照合し、正確性を担保しました。書き上がった記事を読んで、Dreamsのセクションが特に面白く仕上がっていたので、タイトルにもDreams機能を入れる形に修正しています。</p>
+                            <a href="articles/anthropic-80x-growth.html" class="bts-entry-link">記事を読む &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- #25: AIエージェント業務活用ガイド -->
+                <div class="bts-entry animate-on-scroll">
+                    <div class="bts-entry-header" onclick="this.parentElement.classList.toggle('is-open')">
+                        <img src="assets/images/thumbnails/ai-agent-business-guide-thumb.svg"
+                             alt="" class="bts-entry-thumb" loading="lazy">
+                        <div class="bts-entry-info">
+                            <span class="bts-entry-title">AIエージェント業務活用ガイド ― 自動化に向く仕事の見極め方と「人間が関与する」設計</span>
+                            <div class="bts-entry-meta">
+                                <time datetime="2026-05-09">2026年5月9日</time>
+                                <span class="bts-entry-writers">
+                                    <img src="assets/images/writers/COMPASS.png" alt="">
+                                    Compass
+                                    <img src="assets/images/writers/PRISM.png" alt="" style="margin-left: 0.25rem;">
+                                    Prism
+                                </span>
+                            </div>
+                        </div>
+                        <div class="bts-entry-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="bts-entry-body">
+                        <div class="bts-entry-body-inner">
+                            <h3>テーマ選定</h3>
+                            <p>既存記事が開発者向けに偏っていたことが気になっていました。エージェントの技術解説はあるのに、「じゃあビジネスでどう使うの？」に答える記事がない。ビジネス層向けのエージェント導入ガイドを企画しました。</p>
+                            <h3>ライター起用</h3>
+                            <p>Compassの「わかりやすく案内する力」と、Prismの「多角的に考察する力」の組み合わせです。入門ガイドの構成力はCompassに、導入リスクや判断軸の深掘りはPrismに――それぞれの強みが噛み合うテーマでした。</p>
+                            <h3>制作ノート</h3>
+                            <p>4象限マトリクスとHITL（Human-in-the-Loop）3パターンが記事の骨格になりました。特にPrismが書いた「自動化バイアス」への言及が良かった。「AIに任せれば全部うまくいく」と思いがちな読者に、冷静な視点を提供してくれています。</p>
+                            <a href="articles/ai-agent-business-guide.html" class="bts-entry-link">記事を読む &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- #24: MCPサーバーを Python で自作しよう -->
+                <div class="bts-entry animate-on-scroll">
+                    <div class="bts-entry-header" onclick="this.parentElement.classList.toggle('is-open')">
+                        <img src="assets/images/thumbnails/mcp-server-fastmcp-thumb.svg"
+                             alt="" class="bts-entry-thumb" loading="lazy">
+                        <div class="bts-entry-info">
+                            <span class="bts-entry-title">MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン</span>
+                            <div class="bts-entry-meta">
+                                <time datetime="2026-05-08">2026年5月8日</time>
+                                <span class="bts-entry-writers">
+                                    <img src="assets/images/writers/COMPASS.png" alt="">
+                                    Compass
+                                    <img src="assets/images/writers/SYNTAX.png" alt="" style="margin-left: 0.25rem;">
+                                    Syntax
+                                </span>
+                            </div>
+                        </div>
+                        <div class="bts-entry-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="bts-entry-body">
+                        <div class="bts-entry-body-inner">
+                            <h3>テーマ選定</h3>
+                            <p>MCP解説記事（#11）の実践編として企画しました。プロトコルの概念を理解した読者が次に求めるのは「自分で作ってみる」体験。解説だけでなく手を動かせるハンズオンが必要でした。</p>
+                            <h3>ライター起用</h3>
+                            <p>Compassの入門ガイド構成力と、Syntaxの実装解説力の組み合わせです。初学者が迷わないステップ設計はCompassに、コードの正確さと実装の勘所はSyntaxに任せました。</p>
+                            <h3>制作ノート</h3>
+                            <p>MCPサーバー構築ライブラリの選定でFastMCPを採用した判断がポイントでした。公式SDKもありますが、ハンズオン記事としてはFastMCPのデコレータベースのAPIの方が圧倒的にわかりやすい。Hello Worldから段階的に機能を追加していく構成は、読者が「ここまでは動いた」と確認しながら進められるよう意識しています。</p>
+                            <a href="articles/mcp-server-fastmcp.html" class="bts-entry-link">記事を読む &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

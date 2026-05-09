@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06060b"/>
+      <stop offset="100%" stop-color="#0e0e18"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="50%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.04" stroke="#fff" stroke-width="0.5">
+    <line x1="0" y1="60" x2="640" y2="60"/><line x1="0" y1="120" x2="640" y2="120"/>
+    <line x1="0" y1="180" x2="640" y2="180"/><line x1="0" y1="240" x2="640" y2="240"/>
+    <line x1="0" y1="300" x2="640" y2="300"/>
+    <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/>
+    <line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/>
+    <line x1="400" y1="0" x2="400" y2="360"/><line x1="480" y1="0" x2="480" y2="360"/>
+    <line x1="560" y1="0" x2="560" y2="360"/>
+  </g>
+  <!-- Central glow -->
+  <ellipse cx="320" cy="150" rx="200" ry="110" fill="url(#glow)"/>
+  <!-- Python logo motif (left) -->
+  <g transform="translate(130,145)" opacity="0.7">
+    <rect x="-36" y="-36" width="72" height="72" rx="14" fill="#141425" stroke="#3b82f6" stroke-width="1.5"/>
+    <!-- Python snake body -->
+    <path d="M-8,-18 Q-8,-22 -4,-22 L8,-22 Q16,-22 16,-14 L16,-4 Q16,4 8,4 L-4,4" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M8,18 Q8,22 4,22 L-8,22 Q-16,22 -16,14 L-16,4 Q-16,-4 -8,-4 L4,-4" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="-4" cy="-16" r="2.5" fill="#3b82f6"/>
+    <circle cx="4" cy="16" r="2.5" fill="#f59e0b"/>
+    <text x="0" y="52" text-anchor="middle" font-family="monospace" font-size="9" fill="#888" opacity="0.7">Python</text>
+  </g>
+  <!-- Arrow from Python to server -->
+  <g opacity="0.4" stroke="url(#accent)" stroke-width="1.5">
+    <line x1="175" y1="145" x2="235" y2="145"/>
+    <polygon points="233,140 243,145 233,150" fill="#a78bfa" opacity="0.5"/>
+  </g>
+  <!-- Central MCP Server box -->
+  <g transform="translate(320,145)">
+    <rect x="-75" y="-50" width="150" height="100" rx="8" fill="#141425" stroke="url(#accent)" stroke-width="1.8" opacity="0.9"/>
+    <!-- Header bar -->
+    <rect x="-75" y="-50" width="150" height="20" rx="8" fill="#a78bfa" opacity="0.15"/>
+    <rect x="-75" y="-30" width="150" height="1" fill="#a78bfa" opacity="0.2"/>
+    <!-- Code lines inside -->
+    <text x="-58" y="-35" font-family="monospace" font-size="7" fill="#a78bfa" opacity="0.7">FastMCP Server</text>
+    <text x="-58" y="-14" font-family="monospace" font-size="8" fill="#3b82f6" opacity="0.8">@mcp.tool()</text>
+    <text x="-58" y="2" font-family="monospace" font-size="8" fill="#888" opacity="0.6">def summarize_url</text>
+    <text x="-58" y="18" font-family="monospace" font-size="8" fill="#f59e0b" opacity="0.6">  fetch &amp; parse</text>
+    <text x="-58" y="34" font-family="monospace" font-size="8" fill="#10b981" opacity="0.6">  return text</text>
+    <!-- Glow ring -->
+    <rect x="-80" y="-55" width="160" height="110" rx="12" fill="none" stroke="url(#accent)" stroke-width="0.6" opacity="0.2"/>
+  </g>
+  <!-- Arrow from server to Claude -->
+  <g opacity="0.4" stroke="url(#accent)" stroke-width="1.5">
+    <line x1="405" y1="145" x2="465" y2="145"/>
+    <polygon points="463,140 473,145 463,150" fill="#a78bfa" opacity="0.5"/>
+  </g>
+  <!-- Claude Desktop (right) -->
+  <g transform="translate(520,145)" opacity="0.7">
+    <rect x="-36" y="-36" width="72" height="72" rx="14" fill="#141425" stroke="#f59e0b" stroke-width="1.5"/>
+    <!-- Claude sparkle icon -->
+    <g transform="translate(0,-4)">
+      <path d="M0,-14 L3,-4 L14,0 L3,4 L0,14 L-3,4 L-14,0 L-3,-4 Z" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="3" fill="#f59e0b" opacity="0.6"/>
+    </g>
+    <text x="0" y="52" text-anchor="middle" font-family="monospace" font-size="9" fill="#888" opacity="0.7">Claude</text>
+  </g>
+  <!-- Sparkle dots -->
+  <circle cx="200" cy="100" r="1.5" fill="#3b82f6" opacity="0.4"/>
+  <circle cx="440" cy="100" r="1.5" fill="#f59e0b" opacity="0.4"/>
+  <circle cx="320" cy="80" r="2" fill="#a78bfa" opacity="0.3"/>
+  <circle cx="160" cy="210" r="1.5" fill="#00d4ff" opacity="0.3"/>
+  <circle cx="480" cy="210" r="1.5" fill="#f59e0b" opacity="0.3"/>
+  <!-- Title -->
+  <text x="320" y="280" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="bold" fill="#fff" opacity="0.95" letter-spacing="0.05em">MCP SERVER HANDS-ON</text>
+  <text x="320" y="302" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#a78bfa" opacity="0.6">Build a URL Summarizer with FastMCP + Python</text>
+  <!-- Top label -->
+  <text x="320" y="32" text-anchor="middle" font-family="monospace" font-size="7" fill="#a78bfa" opacity="0.4">PYTHON × MCP × HANDS-ON</text>
+</svg>

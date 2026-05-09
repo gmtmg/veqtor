@@ -8,7 +8,7 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
-| 26 | 2026-05-09 | anthropic-80x-growth.html | Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、時価総額1兆ドルへの道 | AI | Bolt | published |
+| 26 | 2026-05-09 | anthropic-80x-growth.html | Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、エージェントが夢を見るDreams機能 | AI | Bolt | published |
 | 25 | 2026-05-09 | ai-agent-business-guide.html | AIエージェント業務活用ガイド ― 自動化に向く仕事の見極め方と「人間が関与する」設計 | AI | Compass / Prism | published |
 | 24 | 2026-05-08 | mcp-server-fastmcp.html | MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン | Development | Compass / Syntax | published |
 | 23 | 2026-05-04 | python-basics-def.html | Python基礎講座 ― def・関数をブラウザで体験しよう | Development | Compass | published |
@@ -103,7 +103,7 @@
 - 2026-05-02: 記事#21「仮想通貨はこう動いている ― 仕組み・種類・ウォレットを一気に学ぶ」を公開(Compass / Bolt合作)、ブロックチェーン前編・後編に仮想通貨記事へのリンク追加
 - 2026-05-02: 記事#22「スマートコントラクト設計パターン ― 安全で拡張可能なコントラクトを書くための実践ガイド」を公開(Syntax / Bolt合作)、仮想通貨記事・ブロックチェーン後編にリンク追加
 - 2026-05-03: 学習ロードマップページ(roadmap.html)を新設 — 5つの学習パッケージ（ブロックチェーン/Python/セキュリティ/AIエージェント/AI最前線）、全ページnavにリンク追加
-- 2026-05-09: 記事#26「Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、時価総額1兆ドルへの道」を公開(Bolt)
+- 2026-05-09: 記事#26「Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、エージェントが夢を見るDreams機能」を公開(Bolt)
 - 2026-05-09: 記事#25「AIエージェント業務活用ガイド ― 自動化に向く仕事の見極め方と「人間が関与する」設計」を公開(Compass / Prism合作)、AI最前線コース7記事に更新
 - 2026-05-08: 記事#24「MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン」を公開(Compass / Syntax合作)、AI最前線コース6記事に更新
 - 2026-05-04: 記事#23「Python基礎講座 ― def・関数をブラウザで体験しよう」を公開(Compass)、Pythonパッケージ3記事に更新

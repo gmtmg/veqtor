@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Hooks 完全ガイド ― 自動フォーマット、危険コマンド防止、通知まで自由自在 | Veqtor</title>
+    <meta name="description" content="Claude Code Hooksの仕組みと設定方法を完全解説。PreToolUse/PostToolUse/Stopの3大イベントから実践スクリプトまで、初心者にもわかるステップバイステップガイド。">
+    <meta property="og:title" content="Claude Code Hooks 完全ガイド ― 自動フォーマット、危険コマンド防止、通知まで自由自在">
+    <meta property="og:description" content="Claude Code Hooksの仕組みと設定方法を完全解説。PreToolUse/PostToolUse/Stopの3大イベントから実践スクリプトまで、初心者にもわかるステップバイステップガイド。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://algoyosuga.com/veqtor/assets/images/thumbnails/claude-code-hooks-thumb.svg">
+    <meta property="og:url" content="https://algoyosuga.com/veqtor/articles/claude-code-hooks.html">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Claude Code Hooks 完全ガイド ― 自動フォーマット、危険コマンド防止、通知まで自由自在",
+      "description": "Claude Code Hooksの仕組みと設定方法を完全解説。PreToolUse/PostToolUse/Stopの3大イベントから実践スクリプトまで、初心者にもわかるステップバイステップガイド。",
+      "datePublished": "2026-05-10",
+      "author": { "@type": "Person", "name": "Compass" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/claude-code-hooks-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/claude-code-hooks"
+    }
+    </script>
+    <link rel="canonical" href="https://algoyosuga.com/veqtor/articles/claude-code-hooks.html">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../roadmap.html" class="nav-link">ロードマップ</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-10">2026年5月10日</time>
+                <span class="article-category">AI</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="claude-code-hooks">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+                <button class="article-share-btn" type="button" aria-label="共有" onclick="var b=document.querySelector('.share-btn');if(b)b.click();"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
+            </div>
+            <h1>Claude Code Hooks 完全ガイド ― 自動フォーマット、危険コマンド防止、通知まで自由自在</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 12分で学べること</span>
+                <span class="article-benefit-text">Hooksの仕組みと5つの実践レシピ</span>
+            </div>
+
+
+            <nav class="article-toc">
+                <div class="article-toc-title">目次</div>
+                <ol>
+                    <li><a href="#toc-1">Hooksとは何か ― CLAUDE.mdとの決定的な違い</a></li>
+                    <li><a href="#toc-2">設定ファイルと基本構造</a></li>
+                    <li><a href="#toc-3">3大イベントを理解する ― PreToolUse / PostToolUse / Stop</a></li>
+                    <li><a href="#toc-4">実践：5つのHooksレシピ</a></li>
+                    <li><a href="#toc-5">環境変数とstdin/stdout通信プロトコル</a></li>
+                    <li><a href="#toc-6">応用テクニック ― async・matcher・デバッグ</a></li>
+                    <li><a href="#toc-7">まとめ</a></li>
+                </ol>
+            </nav>
+
+            <!-- writer-intro: Compass -->
+            <div class="writer-intro" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-intro-avatar">
+                <div class="writer-intro-body">
+                    <span class="writer-intro-name">Compass</span>
+                    <p>こんにちは、Compassです。今回のテーマは「Hooks」。Claude Codeに「ルールをプログラムする」仕組みです。CLAUDE.mdの指示は「お願い」でしたが、Hooksは「強制」できます。危険な操作を確実に止めたり、保存のたびに自動フォーマットしたり。一緒にステップバイステップで学んでいきましょう。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 1. Hooksとは何か -->
+            <!-- ========================= -->
+
+            <h2 id="toc-1">Hooksとは何か ― CLAUDE.mdとの決定的な違い</h2>
+
+            <p>Hooksとは、Claude Codeの特定のタイミングで<strong>自動的に実行されるシェルスクリプト</strong>のことです。</p>
+
+            <p>たとえるなら、こういうイメージです。</p>
+
+            <ul>
+                <li><strong>CLAUDE.md</strong> = 「ここに書いてあるルールを守ってね」という<strong>お願い</strong></li>
+                <li><strong>Hooks</strong> = 「このルールに違反したら自動的にブロックする」という<strong>法律</strong></li>
+            </ul>
+
+            <p>CLAUDE.mdは便利ですが、あくまでLLMへの指示です。Claudeが「うっかり」無視してしまう可能性がゼロではありません。一方、Hooksはシェルスクリプトとして実行されるので、<mark class="marker"><strong>100%確実に動作します</strong></mark>。</p>
+
+            <p>具体例で見てみましょう。</p>
+
+            <pre><code># CLAUDE.mdに書いた場合
+「rm -rf は絶対に使わないでください」
+→ Claudeが「わかりました」と言いつつ、
+  文脈によっては実行してしまうリスクがある
+
+# Hooksで設定した場合
+PreToolUseフックで rm -rf を検出 → exit 2
+→ コマンド実行前に100%ブロックされる</code></pre>
+
+            <p>つまり、Hooksは<strong>「信頼するけど検証する」</strong>を実現する仕組みです。CLAUDE.mdで方針を伝え、Hooksで確実にガードする。この組み合わせが最も安全です。</p>
+
+            <!-- ========================= -->
+            <!-- 2. 設定ファイルと基本構造 -->
+            <!-- ========================= -->
+
+            <h2 id="toc-2">設定ファイルと基本構造</h2>
+
+            <p>Hooksの設定は、JSON形式の設定ファイルに記述します。設定ファイルは3つの場所に置けます。</p>
+
+            <h3>設定ファイルの配置場所</h3>
+
+            <pre><code># 1. ユーザー全体（すべてのプロジェクトに適用）
+~/.claude/settings.json
+
+# 2. プロジェクト用（Gitでチームと共有可能）
+.claude/settings.json
+
+# 3. プロジェクト用・ローカル（.gitignoreされる）
+.claude/settings.local.json</code></pre>
+
+            <p>迷ったら<strong>.claude/settings.json</strong>がおすすめです。プロジェクトごとに設定でき、チームメンバーとも共有できます。</p>
+
+            <h3>基本のJSON構造</h3>
+
+            <p>Hooksの設定は、以下のような構造になっています。</p>
+
+            <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/your-script.sh",
+            "timeout": 10000
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <p>構造を分解してみましょう。</p>
+
+            <ul>
+                <li><strong><code>hooks</code></strong>: Hooks設定のルートキー</li>
+                <li><strong><code>PreToolUse</code></strong>: イベント名（後で詳しく解説します）</li>
+                <li><strong><code>matcher</code></strong>: どのツールに対して発火するか（例: <code>Bash</code>、<code>Edit</code>、<code>Write</code>）</li>
+                <li><strong><code>hooks</code></strong>（内側）: 実行するフックの配列</li>
+                <li><strong><code>type</code></strong>: 常に <code>"command"</code></li>
+                <li><strong><code>command</code></strong>: 実行するシェルコマンドまたはスクリプトのパス</li>
+                <li><strong><code>timeout</code></strong>: タイムアウト（ミリ秒）。省略時はデフォルト値が使われます</li>
+            </ul>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>JSONの構造、思ったよりシンプルですよね。「イベント名」「マッチするツール」「実行するコマンド」の3つを指定するだけ。この基本パターンを覚えれば、あとはコピペで応用できます。安心して進みましょう。</p>
+                </div>
+            </div>
+
+            <!-- ========================= -->
+            <!-- 3. 3大イベント -->
+            <!-- ========================= -->
+
+            <h2 id="toc-3">3大イベントを理解する ― PreToolUse / PostToolUse / Stop</h2>
+
+            <p>Hooksが発火するタイミングは、大きく3つあります。それぞれの特徴を見ていきましょう。</p>
+
+            <h3>PreToolUse ― ツール実行「前」</h3>
+
+            <p><strong>PreToolUse</strong>は、Claudeがツールを実行する<strong>直前</strong>に発火します。最大の特徴は<strong>ブロック機能</strong>です。</p>
+
+            <ul>
+                <li>スクリプトが<strong>exit 2</strong>を返すと、そのツール実行が<strong>中止</strong>されます</li>
+                <li>matcherにはツール名を指定します（<code>Bash</code>、<code>Edit</code>、<code>Write</code> など）</li>
+                <li>stdinにはツール名と入力パラメータがJSON形式で渡されます</li>
+            </ul>
+
+            <p>主な用途は、危険なコマンドのブロック、特定ファイルの保護、操作ログの記録です。</p>
+
+            <h3>PostToolUse ― ツール実行「後」</h3>
+
+            <p><strong>PostToolUse</strong>は、ツールが<strong>正常に完了した直後</strong>に発火します。</p>
+
+            <ul>
+                <li>ツールの実行を<strong>ブロックすることはできません</strong>（すでに完了しているため）</li>
+                <li>matcherにはツール名を指定します</li>
+                <li>stdinにはツール名と実行結果がJSON形式で渡されます</li>
+            </ul>
+
+            <p>主な用途は、自動フォーマット、自動テスト実行、ログ記録です。</p>
+
+            <h3>Stop ― 応答完了時</h3>
+
+            <p><strong>Stop</strong>は、Claudeが応答を<strong>すべて終えたタイミング</strong>で発火します。</p>
+
+            <ul>
+                <li>スクリプトが<strong>exit 2</strong>を返すと、Claudeが<strong>会話を続行</strong>します</li>
+                <li>matcherは不要です（ツール単位ではないため）</li>
+                <li>完了通知や品質チェックに最適です</li>
+            </ul>
+
+            <h3>比較表</h3>
+
+            <table class="basic-table">
+                <thead>
+                    <tr>
+                        <th>イベント</th>
+                        <th>発火タイミング</th>
+                        <th>ブロック</th>
+                        <th>matcher</th>
+                        <th>主な用途</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PreToolUse</td>
+                        <td>ツール実行前</td>
+                        <td>exit 2 で中止</td>
+                        <td>ツール名</td>
+                        <td>コマンド防止、ファイル保護</td>
+                    </tr>
+                    <tr>
+                        <td>PostToolUse</td>
+                        <td>ツール実行後</td>
+                        <td>不可</td>
+                        <td>ツール名</td>
+                        <td>自動フォーマット、ログ</td>
+                    </tr>
+                    <tr>
+                        <td>Stop</td>
+                        <td>応答完了時</td>
+                        <td>exit 2 で続行</td>
+                        <td>不要</td>
+                        <td>通知、品質チェック</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>この3つを組み合わせることで、Claude Codeの振る舞いをきめ細かく制御できます。</p>
+
+            <!-- ========================= -->
+            <!-- 4. 実践：5つのレシピ -->
+            <!-- ========================= -->
+
+            <h2 id="toc-4">実践：5つのHooksレシピ</h2>
+
+            <p>ここからは実際に動くHooksを5つ紹介します。すべてそのまま使えるコードです。</p>
+
+            <!-- レシピ1 -->
+            <h3>レシピ1: 危険コマンドをブロックする</h3>
+
+            <p><code>rm -rf</code> や <code>git push --force</code> をmainブランチに実行しようとしたとき、確実にブロックします。</p>
+
+            <p><strong>settings.json の設定:</strong></p>
+
+            <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/block-dangerous.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <p><strong>.claude/hooks/block-dangerous.sh:</strong></p>
+
+            <pre><code>#!/bin/bash
+# stdinからJSON入力を読み取る
+INPUT=$(cat)
+
+# tool_inputからcommandフィールドを抽出
+COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
+
+# commandが空なら何もしない
+if [ -z "$COMMAND" ]; then
+  exit 0
+fi
+
+# rm -rf をチェック
+if echo "$COMMAND" | grep -qE 'rm\s+-rf\s+/'; then
+  echo '{"decision":"block","reason":"rm -rf / は禁止されています"}'
+  exit 2
+fi
+
+# mainへのforce pushをチェック
+if echo "$COMMAND" | grep -qE 'git\s+push\s+.*--force.*\s+main'; then
+  echo '{"decision":"block","reason":"mainへのforce pushは禁止されています"}'
+  exit 2
+fi
+
+# 問題なければ通過
+exit 0</code></pre>
+
+            <p>このスクリプトは、stdinから受け取ったJSONの中の <code>command</code> フィールドを検査します。危険なパターンに一致すると <code>exit 2</code> を返してブロックし、理由をstdoutにJSON形式で出力します。</p>
+
+            <!-- レシピ2 -->
+            <h3>レシピ2: 編集後に自動フォーマット</h3>
+
+            <p>ファイルが編集されるたびに、Prettierで自動フォーマットします。</p>
+
+            <p><strong>settings.json の設定:</strong></p>
+
+            <pre><code>{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/auto-format.sh",
+            "timeout": 15000
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <p><strong>.claude/hooks/auto-format.sh:</strong></p>
+
+            <pre><code>#!/bin/bash
+# stdinからJSON入力を読み取る
+INPUT=$(cat)
+
+# 編集されたファイルパスを取得
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
+
+# ファイルパスが空なら何もしない
+if [ -z "$FILE_PATH" ]; then
+  exit 0
+fi
+
+# 対象の拡張子かチェック
+case "$FILE_PATH" in
+  *.js|*.ts|*.jsx|*.tsx|*.json|*.css|*.html)
+    # Prettierが使える場合のみ実行
+    if command -v npx &amp;&gt; /dev/null; then
+      npx prettier --write "$FILE_PATH" 2&gt;/dev/null
+    fi
+    ;;
+esac
+
+exit 0</code></pre>
+
+            <p>PostToolUseなので、ファイルの書き込みが完了した後にフォーマッターが走ります。Claudeの出力を上書きする形で整形されるため、常にきれいなコードが保たれます。</p>
+
+            <!-- レシピ3 -->
+            <h3>レシピ3: 完了時にデスクトップ通知</h3>
+
+            <p>Claudeがタスクを終えたら、macOSの通知で教えてくれます。長い作業を任せて別の仕事をしているときに便利です。</p>
+
+            <p><strong>settings.json の設定:</strong></p>
+
+            <pre><code>{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/notify-done.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <p><strong>.claude/hooks/notify-done.sh:</strong></p>
+
+            <pre><code>#!/bin/bash
+# stdinからJSON入力を読み取る
+INPUT=$(cat)
+
+# 最後のメッセージを取得（通知に表示する）
+STOP_REASON=$(echo "$INPUT" | jq -r '.stop_reason // "完了"')
+
+# macOSの通知を送信
+osascript -e "display notification \"Claude Codeが作業を完了しました\" with title \"Claude Code\" subtitle \"理由: ${STOP_REASON}\" sound name \"Glass\""
+
+exit 0</code></pre>
+
+            <p>Stopイベントなので、matcherは不要です。Claudeが応答を返し終わるたびに通知が届きます。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>この通知フック、筆者のお気に入りです。長いリファクタリングを任せてコーヒーを淹れに行っても、「ポン」と音が鳴って完了を教えてくれます。Linuxの方は <code>notify-send</code> に置き換えてくださいね。</p>
+                </div>
+            </div>
+
+            <!-- レシピ4 -->
+            <h3>レシピ4: 特定ファイルの編集を禁止する</h3>
+
+            <p><code>.env</code> ファイルや認証情報をClaude Codeが触れないようにします。</p>
+
+            <p><strong>settings.json の設定:</strong></p>
+
+            <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/protect-files.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <p><strong>.claude/hooks/protect-files.sh:</strong></p>
+
+            <pre><code>#!/bin/bash
+# stdinからJSON入力を読み取る
+INPUT=$(cat)
+
+# 編集対象のファイルパスを取得
+FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
+
+if [ -z "$FILE_PATH" ]; then
+  exit 0
+fi
+
+# 保護対象のパターンをチェック
+BASENAME=$(basename "$FILE_PATH")
+case "$BASENAME" in
+  .env|.env.*|credentials.json|*.pem|*.key)
+    echo "{\"decision\":\"block\",\"reason\":\"${BASENAME} は保護対象ファイルです。手動で編集してください。\"}"
+    exit 2
+    ;;
+esac
+
+# ディレクトリベースの保護
+case "$FILE_PATH" in
+  */secrets/*|*/.ssh/*)
+    echo '{"decision":"block","reason":"このディレクトリは保護されています"}'
+    exit 2
+    ;;
+esac
+
+exit 0</code></pre>
+
+            <p><code>.env</code>、<code>credentials.json</code>、秘密鍵ファイルなど、機密性の高いファイルへのアクセスを遮断します。ファイル名だけでなくディレクトリパスでも判定できます。</p>
+
+            <!-- レシピ5 -->
+            <h3>レシピ5: Bashコマンドの監査ログ</h3>
+
+            <p>Claudeが実行するすべてのBashコマンドをログファイルに記録します。</p>
+
+            <p><strong>settings.json の設定:</strong></p>
+
+            <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/audit-log.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <p><strong>.claude/hooks/audit-log.sh:</strong></p>
+
+            <pre><code>#!/bin/bash
+# stdinからJSON入力を読み取る
+INPUT=$(cat)
+
+# コマンドを抽出
+COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
+
+if [ -z "$COMMAND" ]; then
+  exit 0
+fi
+
+# ログディレクトリを作成
+LOG_DIR="${CLAUDE_PROJECT_DIR:-.}/.claude/logs"
+mkdir -p "$LOG_DIR"
+
+# タイムスタンプ付きでログに記録
+LOG_FILE="$LOG_DIR/audit-$(date +%Y-%m-%d).log"
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] $COMMAND" &gt;&gt; "$LOG_FILE"
+
+# ブロックはしないので exit 0
+exit 0</code></pre>
+
+            <p>PreToolUseを使っていますが、<code>exit 0</code> で通過させるため、ブロックはしません。純粋なログ記録です。日付ごとにファイルが分かれるので、あとから「Claudeが何をしたか」を振り返れます。</p>
+
+            <p>なお、複数のレシピを組み合わせる場合は、同じイベント名のhooks配列に追加してください。</p>
+
+            <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "bash .claude/hooks/block-dangerous.sh" },
+          { "type": "command", "command": "bash .claude/hooks/audit-log.sh" }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "bash .claude/hooks/protect-files.sh" }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <!-- ========================= -->
+            <!-- 5. 環境変数とプロトコル -->
+            <!-- ========================= -->
+
+            <h2 id="toc-5">環境変数とstdin/stdout通信プロトコル</h2>
+
+            <p>フックスクリプトは、Claude Codeから情報を受け取り、結果を返す「通信プロトコル」を持っています。ここを理解すると、自由自在にスクリプトが書けるようになります。</p>
+
+            <h3>利用可能な環境変数</h3>
+
+            <p>フックスクリプトの中では、以下の環境変数が使えます。</p>
+
+            <table class="basic-table">
+                <thead>
+                    <tr>
+                        <th>環境変数</th>
+                        <th>内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>CLAUDE_PROJECT_DIR</code></td>
+                        <td>プロジェクトのルートディレクトリ</td>
+                    </tr>
+                    <tr>
+                        <td><code>CLAUDE_SESSION_ID</code></td>
+                        <td>現在のセッションID</td>
+                    </tr>
+                    <tr>
+                        <td><code>CLAUDE_CONVERSATION_ID</code></td>
+                        <td>現在の会話ID</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>特に <code>CLAUDE_PROJECT_DIR</code> はよく使います。ログの保存先やスクリプトのパス解決に便利です。</p>
+
+            <h3>stdinに渡されるJSON（PreToolUse）</h3>
+
+            <p>PreToolUseフックには、以下のようなJSONがstdinに渡されます。</p>
+
+            <pre><code>{
+  "hook_type": "PreToolUse",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "git push --force origin main",
+    "timeout": 120000
+  }
+}</code></pre>
+
+            <p>ツールによって <code>tool_input</code> の中身が変わります。</p>
+
+            <ul>
+                <li><strong>Bash</strong>: <code>command</code>（実行するコマンド文字列）</li>
+                <li><strong>Edit</strong>: <code>file_path</code>、<code>old_string</code>、<code>new_string</code></li>
+                <li><strong>Write</strong>: <code>file_path</code>、<code>content</code></li>
+            </ul>
+
+            <h3>終了コードの意味</h3>
+
+            <table class="basic-table">
+                <thead>
+                    <tr>
+                        <th>終了コード</th>
+                        <th>PreToolUseでの意味</th>
+                        <th>Stopでの意味</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>0</code></td>
+                        <td>ツール実行を許可</td>
+                        <td>通常終了</td>
+                    </tr>
+                    <tr>
+                        <td><code>2</code></td>
+                        <td>ツール実行をブロック</td>
+                        <td>会話を続行させる</td>
+                    </tr>
+                    <tr>
+                        <td>その他</td>
+                        <td>警告を表示して続行</td>
+                        <td>警告を表示して終了</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>stdoutの出力形式</h3>
+
+            <p>フックスクリプトのstdoutに出力したJSONは、Claudeにフィードバックされます。</p>
+
+            <pre><code># ブロック時の出力例
+{
+  "decision": "block",
+  "reason": "この操作は禁止されています"
+}
+
+# 通過時にメッセージを渡す例
+{
+  "hookSpecificOutput": "フォーマット完了: 3ファイルを整形しました"
+}</code></pre>
+
+            <p><code>reason</code> はClaudeに伝わるので、なぜブロックされたかをClaudeが理解して、別のアプローチを試みてくれます。</p>
+
+            <!-- ========================= -->
+            <!-- 6. 応用テクニック -->
+            <!-- ========================= -->
+
+            <h2 id="toc-6">応用テクニック ― async・matcher・デバッグ</h2>
+
+            <h3>非同期フック（async）</h3>
+
+            <p>通知やログ記録など、結果を待つ必要がないフックは非同期で実行できます。</p>
+
+            <pre><code>{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/send-slack.sh",
+            "timeout": 10000,
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+
+            <p><code>"async": true</code> を指定すると、Claude Codeはスクリプトの完了を待たずに次の処理に進みます。Slack通知や外部APIへの送信など、時間のかかる処理に適しています。</p>
+
+            <h3>matcherの正規表現パターン</h3>
+
+            <p>matcherには正規表現が使えます。</p>
+
+            <pre><code># 複数ツールにマッチ（パイプ区切り）
+"matcher": "Edit|Write"
+
+# すべてのツールにマッチ（省略も可）
+"matcher": ".*"
+
+# MCPサーバーのツールにマッチ
+"matcher": "mcp__myserver__search"</code></pre>
+
+            <p>MCPツールの場合、命名規則は <code>mcp__サーバー名__ツール名</code> です。たとえば、<code>myserver</code> というMCPサーバーの <code>search</code> ツールなら <code>mcp__myserver__search</code> になります。</p>
+
+            <h3>デバッグ方法</h3>
+
+            <p>フックがうまく動かないときは、以下の方法で調べましょう。</p>
+
+            <ol>
+                <li><strong><code>/hooks</code> コマンド</strong>: Claude Codeの中で <code>/hooks</code> と打つと、現在登録されているフックの一覧と状態を確認できます</li>
+                <li><strong>stderrへのログ出力</strong>: スクリプト内で <code>echo "debug: $VARIABLE" &gt;&amp;2</code> とすれば、stderrにデバッグ情報を出力できます。stderrはClaudeのフィードバックに影響しません</li>
+                <li><strong>ログファイルへの書き出し</strong>: 複雑なデバッグには、一時ファイルに入力JSONを保存すると便利です</li>
+            </ol>
+
+            <pre><code>#!/bin/bash
+# デバッグ用: 入力JSONをファイルに保存
+INPUT=$(cat)
+echo "$INPUT" &gt; /tmp/hook-debug-input.json
+echo "入力を /tmp/hook-debug-input.json に保存しました" &gt;&amp;2
+
+# 通常の処理を続行
+echo "$INPUT" | jq -r '.tool_input.command // empty'
+exit 0</code></pre>
+
+            <p>デバッグが済んだら、ログ出力の行は削除しておきましょう。</p>
+
+            <!-- ========================= -->
+            <!-- 7. まとめ -->
+            <!-- ========================= -->
+
+            <h2 id="toc-7">まとめ</h2>
+
+            <p>この記事のポイントを整理します。</p>
+
+            <ol>
+                <li><strong>Hooks = 確実なガードレール</strong>。CLAUDE.mdの「お願い」と違い、シェルスクリプトで<strong>100%実行</strong>されます</li>
+                <li><strong>3つのイベント</strong>: <code>PreToolUse</code>（実行前・ブロック可）、<code>PostToolUse</code>（実行後・整形向き）、<code>Stop</code>（完了時・通知向き）</li>
+                <li><strong>設定はJSON</strong>。<code>.claude/settings.json</code> に書くだけで有効化されます</li>
+                <li><strong>通信はstdin/stdout</strong>。JSONを受け取り、終了コードとJSONで結果を返します</li>
+                <li><strong>exit 2 がカギ</strong>。PreToolUseでは「ブロック」、Stopでは「会話続行」を意味します</li>
+                <li><strong>組み合わせが強力</strong>。危険コマンド防止 + 自動フォーマット + 通知 を同時に設定できます</li>
+            </ol>
+
+            <p>CLAUDE.mdで方針を伝え、Hooksで確実にガードする。この二段構えで、Claude Codeをより安全に、より便利に使いこなしてください。</p>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>ここまで読んでくださってありがとうございます。Hooksは最初の1つを動かすまでが少しハードルに感じるかもしれませんが、レシピ1のブロックスクリプトをコピーして試すところから始めてみてください。「おっ、本当に止まった！」という実感が得られたら、あとは自然と応用が広がっていきますよ。</p>
+                </div>
+            </div>
+
+            <h3>関連記事</h3>
+
+            <ul>
+                <li><a href="claude-code-agents-part1.html">Claude Codeエージェント機能 完全入門ガイド【前編】</a></li>
+                <li><a href="claude-code-skills.html">Claude Code Skills入門ガイド ― スラッシュコマンドで作業を自動化</a></li>
+                <li><a href="harness-engineering.html">ハーネスエンジニアリングとは何か ― AIエージェント時代の「環境設計」という新パラダイム</a></li>
+                <li><a href="mcp-guide.html">MCP完全解説 ― AIエージェントの「万能プラグイン規格」を理解する</a></li>
+            </ul>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="claude-code-hooks">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                var text = document.title + '\n' + location.href;
+                var overlay = document.createElement('div');
+                overlay.className = 'share-modal-overlay';
+                overlay.innerHTML = '<div class="share-modal">' +
+                    '<button class="share-modal-close" type="button">&times;</button>' +
+                    '<div class="share-modal-title">この記事を共有</div>' +
+                    '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                    '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                    '</div>';
+                overlay.querySelector('.share-modal-textarea').value = text;
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+                navigator.clipboard.writeText(text).catch(function() {});
+                overlay.querySelector('.share-modal-close').addEventListener('click', close);
+                overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+                var copyBtn = overlay.querySelector('.share-copy-btn');
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(text).then(function() {
+                        copyBtn.classList.add('is-copied');
+                        copyBtn.textContent = 'コピーされました';
+                        setTimeout(function() {
+                            copyBtn.classList.remove('is-copied');
+                            copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                        }, 2000);
+                    });
+                });
+                function close() {
+                    overlay.classList.remove('is-visible');
+                    setTimeout(function() { overlay.remove(); }, 250);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+    <script src="../assets/js/cc-sidebar.js"></script>
+</body>
+</html>

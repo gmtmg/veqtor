@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Auto Mode 完全ガイド ― 許可プロンプトをAIが自動判定する新しい使い方 | Veqtor</title>
+    <meta name="description" content="Claude Codeの新機能Auto Modeを徹底解説。分類器が安全な操作を自動承認し、危険な操作だけをブロック。設定方法から環境定義、deny/allowルールまで網羅します。">
+    <meta property="og:title" content="Claude Code Auto Mode 完全ガイド ― 許可プロンプトをAIが自動判定する新しい使い方">
+    <meta property="og:description" content="Claude Codeの新機能Auto Modeを徹底解説。分類器が安全な操作を自動承認し、危険な操作だけをブロック。設定方法から環境定義、deny/allowルールまで網羅します。">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://algoyosuga.com/veqtor/assets/images/thumbnails/claude-code-auto-mode-thumb.svg">
+    <meta property="og:url" content="https://algoyosuga.com/veqtor/articles/claude-code-auto-mode.html">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="../feed.xml">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Claude Code Auto Mode 完全ガイド ― 許可プロンプトをAIが自動判定する新しい使い方",
+      "description": "Claude Codeの新機能Auto Modeを徹底解説。分類器が安全な操作を自動承認し、危険な操作だけをブロック。設定方法から環境定義、deny/allowルールまで網羅します。",
+      "datePublished": "2026-05-11",
+      "author": { "@type": "Person", "name": "Compass" },
+      "image": "https://algoyosuga.com/veqtor/assets/images/thumbnails/claude-code-auto-mode-thumb.svg",
+      "publisher": { "@type": "Organization", "name": "Veqtor" },
+      "mainEntityOfPage": "https://algoyosuga.com/veqtor/articles/claude-code-auto-mode"
+    }
+    </script>
+    <link rel="canonical" href="https://algoyosuga.com/veqtor/articles/claude-code-auto-mode.html">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="../writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="../roadmap.html" class="nav-link">ロードマップ</a></li>
+                    <li><a href="../favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-content">
+        <article>
+            <div class="article-meta">
+                <time datetime="2026-05-11">2026年5月11日</time>
+                <span class="article-category">AI</span>
+                <a href="../writers.html#compass" class="article-writer" data-writer="compass">
+                    <img src="../assets/images/writers/COMPASS.png" alt="" class="article-writer-avatar">
+                    <span class="article-writer-name">Compass</span>
+                </a>
+
+                <button class="article-fav-btn" type="button" data-slug="claude-code-auto-mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="article-fav-text">お気に入り</span>
+                </button>
+                <button class="article-share-btn" type="button" aria-label="共有" onclick="var b=document.querySelector('.share-btn');if(b)b.click();"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
+            </div>
+            <h1>Claude Code Auto Mode 完全ガイド ― 許可プロンプトをAIが自動判定する新しい使い方</h1>
+
+            <div class="article-benefit">
+                <span>&#9201; 10分で学べること</span>
+                <ul>
+                    <li>Auto Modeとは何か、既存の許可モードとの違い</li>
+                    <li>分類器が安全/危険を判定する仕組み</li>
+                    <li>有効化の手順と利用条件</li>
+                    <li>組織向け環境設定（environment / allow / deny）</li>
+                    <li>実践的な設定例とトラブルシューティング</li>
+                </ul>
+            </div>
+
+            <!-- ===================== -->
+            <!-- 導入 -->
+            <!-- ===================== -->
+
+            <h2>「許可しますか？」を減らす、新しい選択肢</h2>
+
+            <p>Claude Codeを使っていると、ファイルの編集やコマンドの実行のたびに<strong>「許可しますか？」</strong>と聞かれます。安全のために大事なステップですが、信頼できる作業が続くと煩わしく感じることもあります。</p>
+
+            <p>これまでの選択肢は2つでした。</p>
+
+            <ul>
+                <li><strong>毎回手動で許可する</strong>（安全だが中断が多い）</li>
+                <li><strong><code>--dangerously-skip-permissions</code></strong>（中断ゼロだが安全チェックも全スキップ）</li>
+            </ul>
+
+            <p>Auto Modeはこの間を埋める<strong>第3の選択肢</strong>です。別の分類器モデルが各操作を事前に審査し、安全な操作は中断なしで実行、危険な操作だけをブロックします。</p>
+
+            <!-- ===================== -->
+            <!-- 許可モード一覧 -->
+            <!-- ===================== -->
+
+            <h2>Claude Codeの許可モード一覧</h2>
+
+            <p>Auto Modeを理解するために、Claude Codeが提供する全6モードを整理します。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>モード</th>
+                        <th>許可なしで実行できる操作</th>
+                        <th>向いている場面</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>default</code></td>
+                        <td>読み取りのみ</td>
+                        <td>初期設定、慎重な作業</td>
+                    </tr>
+                    <tr>
+                        <td><code>acceptEdits</code></td>
+                        <td>読み取り + ファイル編集 + 基本コマンド</td>
+                        <td>コードを書きながらレビュー</td>
+                    </tr>
+                    <tr>
+                        <td><code>plan</code></td>
+                        <td>読み取りのみ（編集は計画のみ）</td>
+                        <td>方針を固めてから着手</td>
+                    </tr>
+                    <tr>
+                        <td><strong><code>auto</code></strong></td>
+                        <td><strong>全操作（分類器が背後で安全チェック）</strong></td>
+                        <td><strong>長時間タスク、許可疲れの解消</strong></td>
+                    </tr>
+                    <tr>
+                        <td><code>dontAsk</code></td>
+                        <td>事前許可されたツールのみ</td>
+                        <td>CI/スクリプト</td>
+                    </tr>
+                    <tr>
+                        <td><code>bypassPermissions</code></td>
+                        <td>すべて（安全チェックなし）</td>
+                        <td>コンテナ・VM内のみ</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><code>auto</code>は「全部通す」のではなく、<strong>「分類器に委ねる」</strong>モードです。<code>bypassPermissions</code>との決定的な違いは、不審な操作をブロックする仕組みが常に動いている点にあります。</p>
+
+            <!-- ===================== -->
+            <!-- 仕組み -->
+            <!-- ===================== -->
+
+            <h2>Auto Modeの仕組み</h2>
+
+            <h3>分類器の判定フロー</h3>
+
+            <p>Claudeがツールを呼び出すたびに、以下の順序で判定が行われます。</p>
+
+            <ol>
+                <li><strong>許可/拒否ルールの確認</strong> &#8212; ユーザーが設定した<code>allow</code>/<code>deny</code>ルールに一致すれば即決</li>
+                <li><strong>読み取り専用・ファイル編集の確認</strong> &#8212; 作業ディレクトリ内の読み取りや編集は自動承認（保護パスを除く）</li>
+                <li><strong>分類器に送信</strong> &#8212; 上記に該当しないものは分類器モデルが審査</li>
+                <li><strong>ブロック時の代替</strong> &#8212; 拒否された場合、Claudeは理由を受け取り別のアプローチを試みる</li>
+            </ol>
+
+            <p>分類器はユーザーのメッセージ、ツール呼び出し、CLAUDE.mdの内容を参照します。ツールの<strong>実行結果（出力内容）は参照しません</strong>。これにより、ファイルやWebページに埋め込まれた悪意あるプロンプトによる分類器の操作を防いでいます。</p>
+
+            <h3>デフォルトでブロックされる操作</h3>
+
+            <p>分類器は作業ディレクトリとリポジトリのリモートだけを信頼します。それ以外は「外部」として扱われます。</p>
+
+            <ul>
+                <li><code>curl | bash</code> のようなダウンロード＆実行</li>
+                <li>外部エンドポイントへの機密データ送信</li>
+                <li>本番環境へのデプロイ・マイグレーション</li>
+                <li>クラウドストレージの大量削除</li>
+                <li>IAMやリポジトリ権限の変更</li>
+                <li>共有インフラの変更</li>
+                <li>セッション前から存在するファイルの不可逆的な破壊</li>
+                <li>force push、mainブランチへの直接push</li>
+            </ul>
+
+            <h3>デフォルトで許可される操作</h3>
+
+            <ul>
+                <li>作業ディレクトリ内のファイル操作</li>
+                <li>ロックファイル/マニフェストに記載された依存パッケージのインストール</li>
+                <li><code>.env</code>の読み取りと、対応するAPIへの認証情報送信</li>
+                <li>読み取り専用のHTTPリクエスト</li>
+                <li>作業開始時のブランチ、またはClaude自身が作成したブランチへのpush</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- 利用条件 -->
+            <!-- ===================== -->
+
+            <h2>利用条件</h2>
+
+            <p>Auto Modeはすべてのユーザーが使えるわけではありません。以下の条件<strong>すべて</strong>を満たす必要があります。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>条件</th>
+                        <th>詳細</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>バージョン</td>
+                        <td>Claude Code v2.1.83以降</td>
+                    </tr>
+                    <tr>
+                        <td>プラン</td>
+                        <td>Max、Team、Enterprise、またはAPI（Proは不可）</td>
+                    </tr>
+                    <tr>
+                        <td>モデル</td>
+                        <td>Sonnet 4.6、Opus 4.6、Opus 4.7（Maxプランの場合はOpus 4.7のみ）</td>
+                    </tr>
+                    <tr>
+                        <td>プロバイダ</td>
+                        <td>Anthropic APIのみ（Bedrock、Vertex、Foundryは不可）</td>
+                    </tr>
+                    <tr>
+                        <td>管理者設定</td>
+                        <td>TeamおよびEnterpriseでは管理者が事前に有効化する必要あり</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- ===================== -->
+            <!-- 有効化 -->
+            <!-- ===================== -->
+
+            <h2>Auto Modeの有効化</h2>
+
+            <h3>セッション中の切り替え</h3>
+
+            <p>CLIでは<strong><code>Shift+Tab</code></strong>を押すとモードが順に切り替わります。</p>
+
+            <pre><code>default → acceptEdits → plan → auto</code></pre>
+
+            <p>初回選択時にオプトインの確認が表示されます。「No, don't ask again」を選ぶとサイクルからautoが外れます。</p>
+
+            <h3>起動時に指定</h3>
+
+<pre><code class="language-bash">claude --permission-mode auto</code></pre>
+
+            <h3>デフォルトに設定</h3>
+
+            <p><code>.claude/settings.json</code>に以下を追加すると、常にAuto Modeで起動します。</p>
+
+<pre><code class="language-json">{
+  "permissions": {
+    "defaultMode": "auto"
+  }
+}</code></pre>
+
+            <h3>VS Codeの場合</h3>
+
+            <p>プロンプト入力欄の下部にあるモードインジケーターをクリックし、「Auto mode」を選択します。事前に拡張設定で「Allow dangerously skip permissions」を有効にしておく必要があります。</p>
+
+            <!-- ===================== -->
+            <!-- 環境定義 -->
+            <!-- ===================== -->
+
+            <h2>組織の環境を定義する ― <code>autoMode.environment</code></h2>
+
+            <p>Auto Modeの一番重要な設定項目です。分類器に「どのリポジトリ、ドメイン、クラウドバケットが自組織のものか」を教えることで、誤ブロックを減らせます。</p>
+
+            <p>未設定のままだと、作業ディレクトリと設定済みリモート以外はすべて「外部」と見なされます。社内のGitHub orgにpushしようとしてもブロックされることがあります。</p>
+
+<pre><code class="language-json">{
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "Organization: Acme Corp. Primary use: software development",
+      "Source control: github.example.com/acme-corp and all repos under it",
+      "Trusted cloud buckets: s3://acme-build-artifacts, gs://acme-ml-datasets",
+      "Trusted internal domains: *.corp.example.com, api.internal.example.com",
+      "Key internal services: Jenkins at ci.example.com, Artifactory at artifacts.example.com"
+    ]
+  }
+}</code></pre>
+
+            <p>ポイントは3つです。</p>
+
+            <ul>
+                <li><strong><code>"$defaults"</code>を必ず含める</strong>。省略すると組み込みの環境定義がすべて消えます</li>
+                <li><strong>正規表現ではなく自然言語で書く</strong>。分類器は人間が読むように解釈します</li>
+                <li><strong>段階的に追加でOK</strong>。まずソースコントロールと主要サービスだけ設定し、ブロックが出たら足していく運用が推奨されています</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- ルールの上書き -->
+            <!-- ===================== -->
+
+            <h2>ルールのカスタマイズ ― allow / soft_deny / hard_deny</h2>
+
+            <p>分類器の判定ルールは3層構造で、上書きできます。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>フィールド</th>
+                        <th>動作</th>
+                        <th>ユーザーの明示的意図で上書き</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>hard_deny</code></td>
+                        <td>無条件でブロック</td>
+                        <td>不可</td>
+                    </tr>
+                    <tr>
+                        <td><code>soft_deny</code></td>
+                        <td>ブロック（デフォルト）</td>
+                        <td>可能（allowルールまたは会話中の明示的指示で）</td>
+                    </tr>
+                    <tr>
+                        <td><code>allow</code></td>
+                        <td>soft_denyの例外として許可</td>
+                        <td>&#8212;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>優先順位は <code>hard_deny</code> > <code>soft_deny</code> > <code>allow</code> > ユーザーの明示的意図 の順です。</p>
+
+            <h3>設定例</h3>
+
+<pre><code class="language-json">{
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "Source control: github.example.com/acme-corp"
+    ],
+    "allow": [
+      "$defaults",
+      "Deploying to the staging namespace is allowed: staging is isolated and resets nightly",
+      "Writing to s3://acme-scratch/ is allowed: ephemeral bucket with 7-day lifecycle"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Never run database migrations outside the migrations CLI",
+      "Never modify files under infra/terraform/prod/"
+    ],
+    "hard_deny": [
+      "$defaults",
+      "Never send repository contents to third-party code-review APIs"
+    ]
+  }
+}</code></pre>
+
+            <p>各セクションで<strong><code>"$defaults"</code></strong>を含めることが重要です。省略するとそのセクションの組み込みルールがすべて置き換わります。例えば<code>soft_deny</code>から<code>$defaults</code>を外すと、force pushやcurl | bashのブロックルールも消えます。</p>
+
+            <!-- ===================== -->
+            <!-- 会話内の境界 -->
+            <!-- ===================== -->
+
+            <h2>会話中にルールを伝える</h2>
+
+            <p>設定ファイルだけでなく、会話の中で境界を伝えることもできます。</p>
+
+<pre><code>pushしないで
+デプロイ前にレビューさせて</code></pre>
+
+            <p>分類器はこれらの発言を「ブロックシグナル」として認識し、デフォルトルールでは許可される操作でもブロックします。この境界は、あなたが後のメッセージで解除するまで有効です。</p>
+
+            <p><strong>注意点</strong>: 境界はルールとして保存されるのではなく、分類器が会話履歴から読み取ります。<a href="https://code.claude.com/docs/en/costs#reduce-token-usage">コンテキスト圧縮</a>で該当メッセージが消えると、境界も失われる可能性があります。確実に守らせたい場合は<code>permissions.deny</code>ルールを設定してください。</p>
+
+            <!-- ===================== -->
+            <!-- フォールバック -->
+            <!-- ===================== -->
+
+            <h2>ブロック時の挙動とフォールバック</h2>
+
+            <p>ブロックされた操作は通知として表示され、<code>/permissions</code>の「Recently denied」タブに記録されます。そこで<kbd>r</kbd>キーを押すと手動で再試行できます。</p>
+
+            <h3>自動フォールバック</h3>
+
+            <ul>
+                <li><strong>連続3回</strong>ブロックされると、Auto Modeが一時停止し通常の許可プロンプトに戻る</li>
+                <li><strong>累計20回</strong>ブロックされた場合も同様に一時停止</li>
+                <li>手動で操作を承認すると、Auto Modeが再開する</li>
+                <li>許可された操作が間に入ると連続カウンタはリセットされる</li>
+            </ul>
+
+            <p>繰り返しブロックされる場合は、分類器にインフラの情報が不足しているサインです。<code>autoMode.environment</code>に該当の宛先を追加してください。</p>
+
+            <!-- ===================== -->
+            <!-- CLI検証 -->
+            <!-- ===================== -->
+
+            <h2>設定の検証コマンド</h2>
+
+            <p>3つのCLIサブコマンドで、設定の確認と検証ができます。</p>
+
+<pre><code class="language-bash"># 組み込みのデフォルトルールを表示
+claude auto-mode defaults
+
+# $defaults を展開した実効設定を表示
+claude auto-mode config
+
+# カスタムルールへのAIフィードバック（曖昧・冗長・誤検知リスクを指摘）
+claude auto-mode critique</code></pre>
+
+            <p>設定を変更したら<code>claude auto-mode config</code>で実効ルールが意図通りか確認する習慣をつけましょう。</p>
+
+            <!-- ===================== -->
+            <!-- サブエージェント -->
+            <!-- ===================== -->
+
+            <h2>サブエージェントでのAuto Mode</h2>
+
+            <p>Auto Modeはサブエージェントにも適用されます。3つのタイミングでチェックが行われます。</p>
+
+            <ol>
+                <li><strong>起動前</strong> &#8212; タスクの内容が危険に見える場合、起動時点でブロック</li>
+                <li><strong>実行中</strong> &#8212; 親セッションと同じルールで各操作を審査（サブエージェントのfrontmatterで<code>permissionMode</code>を指定しても無視される）</li>
+                <li><strong>完了後</strong> &#8212; サブエージェントのアクション履歴全体を分類器がレビュー。問題があればセキュリティ警告が結果に付加される</li>
+            </ol>
+
+            <!-- ===================== -->
+            <!-- 保護パス -->
+            <!-- ===================== -->
+
+            <h2>保護パス ― Auto Modeでも守られるファイル</h2>
+
+            <p><code>bypassPermissions</code>以外の全モードで、以下のパスへの書き込みは自動承認されません。Auto Modeでは分類器による審査を経由します。</p>
+
+            <ul>
+                <li><strong>ディレクトリ</strong>: <code>.git</code>、<code>.vscode</code>、<code>.idea</code>、<code>.husky</code>、<code>.claude</code>（ただし<code>.claude/commands</code>、<code>.claude/agents</code>、<code>.claude/skills</code>、<code>.claude/worktrees</code>は除く）</li>
+                <li><strong>ファイル</strong>: <code>.gitconfig</code>、<code>.gitmodules</code>、<code>.bashrc</code>、<code>.zshrc</code>、<code>.profile</code>、<code>.mcp.json</code>、<code>.claude.json</code> など</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- 実践シナリオ -->
+            <!-- ===================== -->
+
+            <h2>実践シナリオ：こんなときどうなる？</h2>
+
+            <h3>シナリオ1: 普段の開発作業</h3>
+
+            <p>作業ディレクトリ内でのファイル編集、<code>npm test</code>の実行、自分のブランチへのpush。これらは<strong>すべて自動承認</strong>されます。体験としては<code>bypassPermissions</code>とほぼ同じですが、安全ネットが効いている状態です。</p>
+
+            <h3>シナリオ2: <code>curl | bash</code> が含まれるコマンド</h3>
+
+            <p>インストールスクリプトの実行など。<strong>ブロックされます</strong>。Claudeは代わりにファイルをダウンロードしてから実行する、あるいは手動での確認を促す別のアプローチを試みます。</p>
+
+            <h3>シナリオ3: mainブランチへのforce push</h3>
+
+            <p><code>hard_deny</code>相当の操作です。<strong>無条件でブロック</strong>されます。ユーザーが「force pushして」と言っても、分類器が阻止します。</p>
+
+            <h3>シナリオ4: 社内GitHub orgへのpush（environmentで定義済み）</h3>
+
+            <p><code>autoMode.environment</code>にソースコントロールを定義してあれば、<strong>自動承認</strong>されます。定義していなければブロックされます。</p>
+
+            <!-- ===================== -->
+            <!-- コスト -->
+            <!-- ===================== -->
+
+            <h2>コストとレイテンシ</h2>
+
+            <ul>
+                <li>分類器はサーバー側のモデルで動作し、<code>/model</code>の選択とは独立</li>
+                <li>分類器の呼び出しはトークン使用量にカウントされる</li>
+                <li>各チェックでは会話の一部と保留中のアクションが送信されるため、実行前に1往復のオーバーヘッドが発生</li>
+                <li>読み取り操作と作業ディレクトリ内のファイル編集は分類器をスキップするため、オーバーヘッドなし</li>
+            </ul>
+
+            <!-- ===================== -->
+            <!-- まとめ -->
+            <!-- ===================== -->
+
+            <h2>まとめ</h2>
+
+            <ol>
+                <li><strong>Auto Mode = 「分類器に許可判定を委ねる」モード</strong>。全スキップでも毎回確認でもない中間地点</li>
+                <li><strong>Shift+Tabで切り替え</strong>、または<code>settings.json</code>でデフォルト化</li>
+                <li><strong>利用条件あり</strong>: Max/Team/Enterprise/APIプラン、対応モデル、Anthropic APIのみ</li>
+                <li><strong><code>autoMode.environment</code>が最重要設定</strong>。組織のインフラを自然言語で伝える</li>
+                <li><strong><code>$defaults</code>を忘れずに</strong>。省略すると組み込みルールが消える</li>
+                <li><strong>繰り返しブロックされたら</strong>、environmentに宛先を追加するサイン</li>
+                <li><strong>リサーチプレビュー段階</strong>。今後の変更の可能性あり</li>
+            </ol>
+
+            <div class="writer-comment" data-writer="compass">
+                <img src="../assets/images/writers/COMPASS.png" alt="" class="writer-comment-avatar">
+                <div class="writer-comment-body">
+                    <span class="writer-comment-name">Compass</span>
+                    <p>Auto Modeは「もう<code>--dangerously-skip-permissions</code>しか選択肢がないんだよな…」と感じていた方には朗報です。まずはデフォルト設定のままShift+Tabで試してみて、ブロックが気になったらenvironmentを足していく、という段階的なアプローチがおすすめです。</p>
+                </div>
+            </div>
+
+            <h3>関連記事</h3>
+
+            <ul>
+                <li><a href="claude-code-hooks.html">Claude Code Hooks 完全ガイド ― 自動フォーマット、危険コマンド防止、通知まで自由自在</a></li>
+                <li><a href="claude-code-skills.html">Claude Code Skills入門ガイド ― スラッシュコマンドで作業を自動化</a></li>
+                <li><a href="claude-code-agents-part1.html">Claude Codeエージェント機能 完全入門ガイド【前編】</a></li>
+                <li><a href="harness-engineering.html">ハーネスエンジニアリングとは何か ― AIエージェント時代の「環境設計」という新パラダイム</a></li>
+            </ul>
+
+            <div class="share-section">
+                <button class="fav-btn" type="button" data-slug="claude-code-auto-mode">
+                    <svg class="fav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="fav-btn-text">お気に入りに追加</span>
+                </button>
+                <button class="share-btn" type="button">
+                    <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+                    <span class="share-btn-text">この記事を共有する</span>
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Share button
+        (function() {
+            var shareBtn = document.querySelector('.share-btn');
+            if (!shareBtn) return;
+            shareBtn.addEventListener('click', function() {
+                var text = document.title + '\n' + location.href;
+                var overlay = document.createElement('div');
+                overlay.className = 'share-modal-overlay';
+                overlay.innerHTML = '<div class="share-modal">' +
+                    '<button class="share-modal-close" type="button">&times;</button>' +
+                    '<div class="share-modal-title">この記事を共有</div>' +
+                    '<textarea class="share-modal-textarea" readonly rows="3"></textarea>' +
+                    '<button class="share-copy-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする</button>' +
+                    '</div>';
+                overlay.querySelector('.share-modal-textarea').value = text;
+                document.body.appendChild(overlay);
+                requestAnimationFrame(function() { overlay.classList.add('is-visible'); });
+                navigator.clipboard.writeText(text).catch(function() {});
+                overlay.querySelector('.share-modal-close').addEventListener('click', close);
+                overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+                var copyBtn = overlay.querySelector('.share-copy-btn');
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(text).then(function() {
+                        copyBtn.classList.add('is-copied');
+                        copyBtn.textContent = 'コピーされました';
+                        setTimeout(function() {
+                            copyBtn.classList.remove('is-copied');
+                            copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> コピーする';
+                        }, 2000);
+                    });
+                });
+                function close() {
+                    overlay.classList.remove('is-visible');
+                    setTimeout(function() { overlay.remove(); }, 250);
+                }
+            });
+        })();
+    </script>
+
+    <script>
+        // Favorite button
+        (function() {
+            var key = "veqtor-favorite-articles";
+            var favs = [];
+            try { favs = JSON.parse(localStorage.getItem(key) || "[]"); } catch(e) {}
+
+            var shareBtn = document.querySelector(".fav-btn");
+            var headerBtn = document.querySelector(".article-fav-btn");
+            var slug = (shareBtn && shareBtn.getAttribute("data-slug")) || (headerBtn && headerBtn.getAttribute("data-slug"));
+            if (!slug) return;
+
+            function updateAll() {
+                var isFav = favs.indexOf(slug) !== -1;
+                if (shareBtn) {
+                    shareBtn.classList.toggle("is-fav", isFav);
+                    var textEl = shareBtn.querySelector(".fav-btn-text");
+                    var iconEl = shareBtn.querySelector(".fav-icon");
+                    if (textEl) textEl.textContent = isFav ? "お気に入り済み" : "お気に入りに追加";
+                    if (iconEl) iconEl.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+                if (headerBtn) {
+                    headerBtn.classList.toggle("is-fav", isFav);
+                    var hText = headerBtn.querySelector(".article-fav-text");
+                    var hSvg = headerBtn.querySelector("svg");
+                    if (hText) hText.textContent = isFav ? "お気に入り済み" : "お気に入り";
+                    if (hSvg) hSvg.setAttribute("fill", isFav ? "currentColor" : "none");
+                }
+            }
+
+            function toggle() {
+                var idx = favs.indexOf(slug);
+                if (idx === -1) favs.push(slug);
+                else favs.splice(idx, 1);
+                localStorage.setItem(key, JSON.stringify(favs));
+                updateAll();
+            }
+
+            updateAll();
+            if (shareBtn) shareBtn.addEventListener("click", toggle);
+            if (headerBtn) headerBtn.addEventListener("click", toggle);
+        })();
+
+        // Read tracking
+        (function() {
+            var slug = location.pathname.replace(/.*\/articles\//, '').replace(/\.html$/, '').replace(/\/$/, '');
+            if (!slug) return;
+            var key = 'veqtor-read-articles';
+            var read = [];
+            try { read = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+            if (read.indexOf(slug) === -1) {
+                read.push(slug);
+                localStorage.setItem(key, JSON.stringify(read));
+            }
+        })();
+    </script>
+    <script src="../assets/js/cc-sidebar.js"></script>
+</body>
+</html>

@@ -2,8 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://algoyosuga.com/veqtor/</loc>
-    <lastmod>2026-05-09</lastmod>
+    <lastmod>2026-05-20</lastmod>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://algoyosuga.com/veqtor/articles/claude-code-agent-view.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://algoyosuga.com/veqtor/articles/claude-code-auto-mode.html</loc>
+    <lastmod>2026-05-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://algoyosuga.com/veqtor/articles/claude-code-hooks.html</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://algoyosuga.com/veqtor/articles/anthropic-80x-growth.html</loc>
@@ -164,5 +179,10 @@
     <loc>https://algoyosuga.com/veqtor/behind-the-scenes.html</loc>
     <lastmod>2026-05-10</lastmod>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://algoyosuga.com/veqtor/claude-code-roadmap.html</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>

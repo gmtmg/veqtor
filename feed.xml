@@ -5,7 +5,34 @@
   <link href="https://algoyosuga.com/veqtor/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://algoyosuga.com/veqtor/" rel="alternate" type="text/html"/>
   <id>https://algoyosuga.com/veqtor/</id>
-  <updated>2026-05-09T00:00:00+09:00</updated>
+  <updated>2026-05-20T00:00:00+09:00</updated>
+
+  <entry>
+    <title>Claude Code Agent View &amp; /goal 完全ガイド ― 複数エージェントを1画面で管理する新時代</title>
+    <link href="https://algoyosuga.com/veqtor/articles/claude-code-agent-view.html" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/claude-code-agent-view.html</id>
+    <updated>2026-05-20T00:00:00+09:00</updated>
+    <summary>Agent Viewで複数セッションを一元管理し、/goalで完了条件を設定してAIを自律稼働。バックグラウンド実行からworktree分離まで、最新機能を徹底解説。</summary>
+    <author><name>Compass</name></author>
+  </entry>
+
+  <entry>
+    <title>Claude Code Auto Mode 完全ガイド ― 許可プロンプトをAIが自動判定する新しい使い方</title>
+    <link href="https://algoyosuga.com/veqtor/articles/claude-code-auto-mode.html" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/claude-code-auto-mode.html</id>
+    <updated>2026-05-11T00:00:00+09:00</updated>
+    <summary>Claude Codeの新機能Auto Modeを徹底解説。分類器が安全な操作を自動承認し、危険な操作だけをブロック。設定方法から環境定義、deny/allowルールまで網羅します。</summary>
+    <author><name>Compass</name></author>
+  </entry>
+
+  <entry>
+    <title>Claude Code Hooks 完全ガイド ― 自動フォーマット、危険コマンド防止、通知まで自由自在</title>
+    <link href="https://algoyosuga.com/veqtor/articles/claude-code-hooks.html" rel="alternate" type="text/html"/>
+    <id>https://algoyosuga.com/veqtor/articles/claude-code-hooks.html</id>
+    <updated>2026-05-10T00:00:00+09:00</updated>
+    <summary>Claude Code Hooksの仕組みと設定方法を完全解説。PreToolUse/PostToolUse/Stopの3大イベントから実践スクリプトまで、初心者にもわかるステップバイステップガイド。</summary>
+    <author><name>Compass</name></author>
+  </entry>
 
   <entry>
     <title>Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、エージェントが夢を見るDreams機能</title>

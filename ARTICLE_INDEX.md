@@ -8,6 +8,9 @@
 
 | # | 公開日 | ファイル名 | タイトル | カテゴリ | ライター | ステータス |
 |---|--------|-----------|---------|---------|---------|-----------|
+| 29 | 2026-05-20 | claude-code-agent-view.html | Claude Code Agent View & /goal 完全ガイド ― 複数エージェントを1画面で管理する新時代 | AI | Compass | published |
+| 28 | 2026-05-11 | claude-code-auto-mode.html | Claude Code Auto Mode 完全ガイド ― 許可プロンプトをAIが自動判定する新しい使い方 | AI | Compass | published |
+| 27 | 2026-05-10 | claude-code-hooks.html | Claude Code Hooks 完全ガイド ― 自動フォーマット、危険コマンド防止、通知まで自由自在 | AI | Compass | published |
 | 26 | 2026-05-09 | anthropic-80x-growth.html | Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、エージェントが夢を見るDreams機能 | AI | Bolt | published |
 | 25 | 2026-05-09 | ai-agent-business-guide.html | AIエージェント業務活用ガイド ― 自動化に向く仕事の見極め方と「人間が関与する」設計 | AI | Compass / Prism | published |
 | 24 | 2026-05-08 | mcp-server-fastmcp.html | MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン | Development | Compass / Syntax | published |
@@ -106,4 +109,6 @@
 - 2026-05-09: 記事#26「Anthropic「80倍成長」の衝撃 ― ARR300億ドル、SpaceX提携、エージェントが夢を見るDreams機能」を公開(Bolt)
 - 2026-05-09: 記事#25「AIエージェント業務活用ガイド ― 自動化に向く仕事の見極め方と「人間が関与する」設計」を公開(Compass / Prism合作)、AI最前線コース7記事に更新
 - 2026-05-08: 記事#24「MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン」を公開(Compass / Syntax合作)、AI最前線コース6記事に更新
+- 2026-05-20: 記事#29「Claude Code Agent View & /goal 完全ガイド ― 複数エージェントを1画面で管理する新時代」を公開(Compass)
+- 2026-05-11: 記事#28「Claude Code Auto Mode 完全ガイド ― 許可プロンプトをAIが自動判定する新しい使い方」を公開(Compass)
 - 2026-05-04: 記事#23「Python基礎講座 ― def・関数をブラウザで体験しよう」を公開(Compass)、Pythonパッケージ3記事に更新

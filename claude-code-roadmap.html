@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 学習ロードマップ | Veqtor</title>
+    <meta name="description" content="インストールからエージェント・Skills・Hooks・MCPまで。Claude Codeの使い方と最新機能を体系的にマスターできる学習ロードマップ。">
+    <meta property="og:title" content="Claude Code 学習ロードマップ | Veqtor">
+    <meta property="og:description" content="インストールからエージェント・Skills・Hooks・MCPまで。Claude Codeの使い方と最新機能を体系的にマスターできる学習ロードマップ。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://algoyosuga.com/veqtor/claude-code-roadmap.html">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/atom+xml" title="Veqtor" href="feed.xml">
+    <link rel="canonical" href="https://algoyosuga.com/veqtor/claude-code-roadmap.html">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav-container">
+            <a href="index.html" class="site-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</a>
+            <div class="nav-right">
+                <button class="hamburger" type="button" aria-label="メニュー" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">ホーム</a></li>
+                    <li><a href="writers.html" class="nav-link">ライター</a></li>
+                    <li><a href="roadmap.html" class="nav-link">ロードマップ</a></li>
+                    <li><a href="favorites.html" class="nav-link">お気に入り</a></li>
+                </ul>
+                <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+                    <span class="icon-sun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span><span class="icon-moon"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="roadmap-section">
+            <div class="section-header animate-on-scroll">
+                <h2>Claude Code 学習ロードマップ</h2>
+            </div>
+
+            <p class="roadmap-intro animate-on-scroll">Claude Codeは、ターミナルで動くAIコーディングエージェントです。このページでは、基礎から応用まで全9記事を4つのコースに分けて体系的に学べます。読了した記事は自動で記録されます。</p>
+
+            <div class="roadmap-grid">
+
+                <!-- 基礎コース -->
+                <div class="roadmap-package animate-on-scroll" data-package="cc-basics" style="--package-accent: #00d4ff;">
+                    <div class="package-header">
+                        <div class="package-thumbnail">
+                            <img src="assets/images/thumbnails/claude-code-roadmap-thumb.svg" alt="基礎コース" loading="lazy">
+                        </div>
+                        <div class="package-info">
+                            <h3 class="package-title">基礎コース</h3>
+                            <p class="package-description">Claude Codeのエージェント機能を基礎からしっかり理解する</p>
+                            <div class="package-meta">
+                                <span class="package-count"><span class="read-count">0</span> / 3 完了</span>
+                                <div class="package-progress-bar">
+                                    <div class="package-progress-fill" style="background: linear-gradient(90deg, #00d4ff, #67e8f9);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="package-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-articles">
+                            <li data-slug="claude-code-agents">
+                                <span class="package-article-number">1</span>
+                                <span class="package-article-title"><a href="articles/claude-code-agents.html">Claude Codeのエージェント機能を使いこなす ― 入門から実践まで</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                            <li data-slug="claude-code-agents-part1">
+                                <span class="package-article-number">2</span>
+                                <span class="package-article-title"><a href="articles/claude-code-agents-part1.html">Claude Codeエージェント機能 完全入門ガイド【前編】</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                            <li data-slug="claude-code-agents-part2">
+                                <span class="package-article-number">3</span>
+                                <span class="package-article-title"><a href="articles/claude-code-agents-part2.html">Claude Codeエージェント機能 完全入門ガイド【後編】</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 実践コース -->
+                <div class="roadmap-package animate-on-scroll" data-package="cc-practice" style="--package-accent: #7c3aed;">
+                    <div class="package-header">
+                        <div class="package-thumbnail">
+                            <img src="assets/images/thumbnails/claude-code-skills-thumb.svg" alt="実践コース" loading="lazy">
+                        </div>
+                        <div class="package-info">
+                            <h3 class="package-title">実践コース</h3>
+                            <p class="package-description">Skills・Hooks・Auto Mode・Agent ViewでClaude Codeの自動化・拡張を実践する</p>
+                            <div class="package-meta">
+                                <span class="package-count"><span class="read-count">0</span> / 4 完了</span>
+                                <div class="package-progress-bar">
+                                    <div class="package-progress-fill" style="background: linear-gradient(90deg, #7c3aed, #a78bfa);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="package-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-articles">
+                            <li data-slug="claude-code-skills">
+                                <span class="package-article-number">1</span>
+                                <span class="package-article-title"><a href="articles/claude-code-skills.html">Claude Code Skills入門ガイド ― スラッシュコマンドで作業を自動化</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                            <li data-slug="claude-code-hooks">
+                                <span class="package-article-number">2</span>
+                                <span class="package-article-title"><a href="articles/claude-code-hooks.html">Claude Code Hooks完全ガイド ― イベント駆動でワークフローを自動化</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                            <li data-slug="claude-code-auto-mode">
+                                <span class="package-article-number">3</span>
+                                <span class="package-article-title"><a href="articles/claude-code-auto-mode.html">Claude Code Auto Mode完全ガイド ― 許可プロンプトをAIが自動判定</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                            <li data-slug="claude-code-agent-view">
+                                <span class="package-article-number">4</span>
+                                <span class="package-article-title"><a href="articles/claude-code-agent-view.html">Agent View & /goal完全ガイド ― 複数エージェントを1画面で管理</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- MCP連携コース -->
+                <div class="roadmap-package animate-on-scroll" data-package="cc-mcp" style="--package-accent: #ff3cac;">
+                    <div class="package-header">
+                        <div class="package-thumbnail">
+                            <img src="assets/images/thumbnails/mcp-guide-thumb.svg" alt="MCP連携コース" loading="lazy">
+                        </div>
+                        <div class="package-info">
+                            <h3 class="package-title">MCP連携コース</h3>
+                            <p class="package-description">MCPプロトコルを理解し、自作サーバーでClaude Codeを拡張する</p>
+                            <div class="package-meta">
+                                <span class="package-count"><span class="read-count">0</span> / 2 完了</span>
+                                <div class="package-progress-bar">
+                                    <div class="package-progress-fill" style="background: linear-gradient(90deg, #ff3cac, #ff6bc5);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="package-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-articles">
+                            <li data-slug="mcp-guide">
+                                <span class="package-article-number">1</span>
+                                <span class="package-article-title"><a href="articles/mcp-guide.html">MCP完全解説 ― AIの"USB-C"と呼ばれる革命的プロトコルの全貌</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                            <li data-slug="mcp-server-fastmcp">
+                                <span class="package-article-number">2</span>
+                                <span class="package-article-title"><a href="articles/mcp-server-fastmcp.html">MCPサーバーを Python で自作しよう ― FastMCPで「URL要約ツール」を作るハンズオン</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- プロンプト設計コース -->
+                <div class="roadmap-package animate-on-scroll" data-package="cc-prompt" style="--package-accent: #f59e0b;">
+                    <div class="package-header">
+                        <div class="package-thumbnail">
+                            <img src="assets/images/thumbnails/prompt-engineering-guide-thumb.svg" alt="プロンプト設計コース" loading="lazy">
+                        </div>
+                        <div class="package-info">
+                            <h3 class="package-title">プロンプト設計コース</h3>
+                            <p class="package-description">プロンプトとハーネスの設計技法でAIエージェントの出力を最大化する</p>
+                            <div class="package-meta">
+                                <span class="package-count"><span class="read-count">0</span> / 2 完了</span>
+                                <div class="package-progress-bar">
+                                    <div class="package-progress-fill" style="background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="package-toggle-icon">
+                            <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-articles">
+                            <li data-slug="prompt-engineering-guide">
+                                <span class="package-article-number">1</span>
+                                <span class="package-article-title"><a href="articles/prompt-engineering-guide.html">プロンプトエンジニアリング入門 ― AIへの「伝え方」で出力が激変する</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                            <li data-slug="harness-engineering">
+                                <span class="package-article-number">2</span>
+                                <span class="package-article-title"><a href="articles/harness-engineering.html">ハーネスエンジニアリングとは何か ― AIエージェント時代の「環境設計」という新パラダイム</a></span>
+                                <span class="package-article-status">未読</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo"><span class="logo-v">V</span>e<span class="logo-q">q</span>tor</span>
+                <p class="footer-tagline">テクノロジーの交差点</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Veqtor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Theme toggle
+        (function() {
+            var toggle = document.querySelector('.theme-toggle');
+            if (!toggle) return;
+            toggle.addEventListener('click', function() {
+                var html = document.documentElement;
+                var current = html.getAttribute('data-theme') || 'dark';
+                var next = current === 'dark' ? 'light' : 'dark';
+                html.classList.add('theme-transitioning');
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+            });
+            window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    var html = document.documentElement;
+                    html.classList.add('theme-transitioning');
+                    html.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    setTimeout(function() { html.classList.remove('theme-transitioning'); }, 300);
+                }
+            });
+        })();
+
+        // Hamburger menu
+        (function() {
+            var hamburger = document.querySelector('.hamburger');
+            var navLinks = document.querySelector('.nav-links');
+            if (!hamburger || !navLinks) return;
+            hamburger.addEventListener('click', function() {
+                var isOpen = navLinks.classList.toggle('is-open');
+                hamburger.classList.toggle('is-active', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen);
+            });
+            document.addEventListener('click', function(e) {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('is-open');
+                    hamburger.classList.remove('is-active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+
+        // Auto-hide header on scroll
+        (function() {
+            var header = document.querySelector('.site-header');
+            if (!header) return;
+            var lastY = window.scrollY;
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var y = window.scrollY;
+                        if (y > 80 && y > lastY) {
+                            header.classList.add('is-hidden');
+                            var navLinks = document.querySelector('.nav-links');
+                            var hamburger = document.querySelector('.hamburger');
+                            if (navLinks) navLinks.classList.remove('is-open');
+                            if (hamburger) {
+                                hamburger.classList.remove('is-active');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        } else {
+                            header.classList.remove('is-hidden');
+                        }
+                        lastY = y;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+
+        // Roadmap progress & accordion
+        (function() {
+            var readKey = 'veqtor-read-articles';
+            var readArticles = [];
+            try { readArticles = JSON.parse(localStorage.getItem(readKey) || '[]'); } catch(e) {}
+
+            var packages = document.querySelectorAll('.roadmap-package');
+
+            packages.forEach(function(pkg) {
+                var items = pkg.querySelectorAll('.package-articles li[data-slug]');
+                var total = items.length;
+                var readCount = 0;
+
+                items.forEach(function(item) {
+                    var slug = item.getAttribute('data-slug');
+                    if (readArticles.indexOf(slug) !== -1) {
+                        item.classList.add('is-read');
+                        item.querySelector('.package-article-status').textContent = '読了';
+                        readCount++;
+                    }
+                });
+
+                // Update count & progress bar
+                pkg.querySelector('.read-count').textContent = readCount;
+                var pct = total > 0 ? (readCount / total * 100) : 0;
+                pkg.querySelector('.package-progress-fill').style.width = pct + '%';
+
+                if (readCount === total && total > 0) {
+                    pkg.classList.add('is-complete');
+                }
+
+                // Accordion toggle
+                var header = pkg.querySelector('.package-header');
+                header.addEventListener('click', function() {
+                    pkg.classList.toggle('is-open');
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

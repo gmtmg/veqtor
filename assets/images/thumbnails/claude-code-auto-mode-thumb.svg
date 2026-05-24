@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06060b"/>
+      <stop offset="100%" stop-color="#12121a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#ff3cac"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Grid -->
+  <g opacity="0.06">
+    <line x1="0" y1="75" x2="800" y2="75" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="150" x2="800" y2="150" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="225" x2="800" y2="225" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="375" x2="800" y2="375" stroke="#fff" stroke-width="0.5"/>
+    <line x1="133" y1="0" x2="133" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="266" y1="0" x2="266" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="400" y1="0" x2="400" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="533" y1="0" x2="533" y2="450" stroke="#fff" stroke-width="0.5"/>
+    <line x1="666" y1="0" x2="666" y2="450" stroke="#fff" stroke-width="0.5"/>
+  </g>
+  <!-- Orbs -->
+  <circle cx="600" cy="130" r="160" fill="url(#glow1)" opacity="0.5"/>
+  <circle cx="180" cy="320" r="120" fill="#00d4ff" opacity="0.05"/>
+  <!-- Shield icon (classifier) -->
+  <g transform="translate(340, 60)">
+    <path d="M60 0 L120 25 L120 65 C120 110 60 140 60 140 C60 140 0 110 0 65 L0 25 Z" fill="none" stroke="url(#shield)" stroke-width="2" opacity="0.8"/>
+    <path d="M60 10 L110 32 L110 65 C110 102 60 128 60 128 C60 128 10 102 10 65 L10 32 Z" fill="#7c3aed" opacity="0.08"/>
+    <!-- Checkmark inside shield -->
+    <path d="M38 70 L52 84 L82 54" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <!-- Flow: Action → Classifier → Allow/Block -->
+  <g transform="translate(100, 210)">
+    <!-- Action box -->
+    <rect width="150" height="55" rx="8" fill="#0e0e18" stroke="#00d4ff" stroke-width="1.5"/>
+    <text x="75" y="25" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#00d4ff">Tool Action</text>
+    <text x="75" y="43" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">npm test, git push...</text>
+    <!-- Arrow -->
+    <line x1="155" y1="28" x2="198" y2="28" stroke="#00d4ff" stroke-width="1" opacity="0.5"/>
+    <polygon points="196,23 206,28 196,33" fill="#00d4ff" opacity="0.5"/>
+  </g>
+  <g transform="translate(310, 210)">
+    <!-- Classifier box -->
+    <rect width="170" height="55" rx="8" fill="#0e0e18" stroke="url(#accent)" stroke-width="1.5"/>
+    <text x="85" y="25" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#ffffff">Classifier</text>
+    <text x="85" y="43" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#6b6b80">safe? risky? blocked?</text>
+  </g>
+  <!-- Allow arrow (green) -->
+  <g transform="translate(485, 200)">
+    <line x1="0" y1="38" x2="50" y2="18" stroke="#10b981" stroke-width="1" opacity="0.6"/>
+    <polygon points="47,12 57,16 49,23" fill="#10b981" opacity="0.6"/>
+    <rect x="55" y="4" width="110" height="36" rx="6" fill="#0e0e18" stroke="#10b981" stroke-width="1.5"/>
+    <text x="110" y="27" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#10b981">ALLOW</text>
+  </g>
+  <!-- Block arrow (red) -->
+  <g transform="translate(485, 240)">
+    <line x1="0" y1="0" x2="50" y2="18" stroke="#ef4444" stroke-width="1" opacity="0.6"/>
+    <polygon points="47,13 57,20 49,24" fill="#ef4444" opacity="0.6"/>
+    <rect x="55" y="4" width="110" height="36" rx="6" fill="#0e0e18" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="110" y="27" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13" fill="#ef4444">BLOCK</text>
+  </g>
+  <!-- Title -->
+  <text x="400" y="360" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="800" fill="#ffffff">Claude Code Auto Mode</text>
+  <text x="400" y="390" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#6b6b80">AI-powered permission classification</text>
+</svg>

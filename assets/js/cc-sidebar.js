@@ -6,7 +6,6 @@
       name: '基礎コース',
       accent: '#00d4ff',
       articles: [
-        { slug: 'claude-code-agents', title: 'エージェント入門' },
         { slug: 'claude-code-agents-part1', title: '完全入門【前編】' },
         { slug: 'claude-code-agents-part2', title: '完全入門【後編】' }
       ]

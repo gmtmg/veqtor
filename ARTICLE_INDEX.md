@@ -36,7 +36,7 @@
 | 4 | 2026-04-05 | ai-model-wars-2026.html | 【2026年4月】最強AIはどれだ？ GPT-5・Claude・Gemini・Llama・Grok 主要LLM徹底比較まとめ | AI | Bolt | published |
 | 3 | 2026-04-05 | vibe-coding.html | バイブコーディングの正体 — 「コードを書かない開発」は革命か幻想か | AI | Prism | published |
 | 2 | 2026-04-03 | claude-code-skills.html | Claude Code Skills入門ガイド — スラッシュコマンドで作業を自動化 | AI | Compass | published |
-| 1 | 2026-04-02 | claude-code-agents.html | Claude Codeエージェント機能 完全入門ガイド | AI | — | archived |
+| 1 | 2026-04-02 | claude-code-agents.html | Claude Codeエージェント機能 完全入門ガイド | AI | — | deleted |
 | 1a | 2026-04-02 | claude-code-agents-part1.html | Claude Codeエージェント機能 完全入門ガイド【前編】 | AI | Compass | published |
 | 1b | 2026-04-02 | claude-code-agents-part2.html | Claude Codeエージェント機能 完全入門ガイド【後編】 | AI | Syntax | published |
 
